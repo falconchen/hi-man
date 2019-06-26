@@ -1,0 +1,5 @@
+#vendor/
+/.idea/
+log/*
+cache/*
+vendor/falconchen2/
