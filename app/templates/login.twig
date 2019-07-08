@@ -20,8 +20,7 @@
         <input class="form-control" type="password" name="password" id="password">
         {% if errors.first('password') %}{{ errors.first('password')}}{% endif %}
     </div>
-    <input type="hidden" name="csrf_name" value="{{ csrf.name }}">
-    <input type="hidden" name="csrf_value" value="{{ csrf.value }}">
+    {{ csrf_inputs() }}
     <div class="">
         <input type="submit" value="Login">
     </div>
