@@ -1,5 +1,5 @@
 <?php
-date_default_timezone_set("Asia/Jakarta");
+date_default_timezone_set("PRC");
 require_once 'vendor/autoload.php';
 use Phpmig\Adapter;
 use Illuminate\Database\Capsule\Manager as Capsule;
