@@ -29,7 +29,14 @@ class Group extends Migration
             array(
                 'group_name'    => 'User',
                 'description'   => 'User',
-            ));
+            ),
+            array(
+                'group_name'    => 'Banned',
+                'description'   => 'Banned',
+            )
+                
+        );
+            
         Groups::insert($array);
     }
 
