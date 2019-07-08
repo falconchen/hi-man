@@ -10,7 +10,7 @@ class RequiredRule implements RuleContract
     {
         $value = preg_replace('/^[\pZ\pC]+|[\pZ\pC]+$/u', '', $value);
 
-        return !empty($value);
+        return boolval(strlen($value)); //fix 0 value;
     }
 
     public function error()
