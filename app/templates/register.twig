@@ -6,7 +6,11 @@
 
 
 <form action="register" method="post" autocomplete="off">
-        {% if flash %}{{ flash }}{% endif %}
+        {% if flash %}
+            <div class="error-info bg-danger">
+            {{ flash }}
+            </div>
+        {% endif %}
             
             <div class="form-group {% if errors.first('email') %}has-error{% endif %}">
                 <label for="email">Email</label>
@@ -30,9 +34,10 @@
                 <input class="form-control" type="password" name="password_confirm" id="password_confirm">
                 {% if errors.first('password_confirm') %}{{ errors.first('password_confirm') }}{% endif %}
             </div>
-            <div>
-                {{ csrf_inputs() }}
-                <input type="submit" value="Register">
+
+            <div class="form-group">
+                {{ csrf_inputs() }}                
+                <input class="btn btn-primary" type="submit" value="Register">
             </div>
         
     </form>

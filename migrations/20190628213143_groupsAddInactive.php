@@ -3,15 +3,15 @@
 use App\Model\Group as Groups;
 use Phpmig\Migration\Migration;
 
-class GroupsAdd extends Migration
+class GroupsAddInactive extends Migration
 {
     private $data;
 
     public function init()
     {
         $this->data = array(
-            'group_name' => 'UnAuthorize',
-            'description' => 'UnAuthorize user',
+            'group_name' => 'Inactive',
+            'description' => 'Inactive user',
         );
         return parent::init();
     }
@@ -34,6 +34,6 @@ class GroupsAdd extends Migration
     public function down()
     {
         //Groups::delete();
-        Groups::where('group_name', $this->datagroup_name)->delete();
+        Groups::where('group_name', $this->data['group_name'])->delete();
     }
 }

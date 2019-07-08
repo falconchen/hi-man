@@ -10,3 +10,9 @@ footer {
     color: #666;
     font-size: 0.85em;
 }
+
+form .error-info {
+  padding:15px;
+  /* font-weight: 600; */
+  font-size:1.2em;
+}
