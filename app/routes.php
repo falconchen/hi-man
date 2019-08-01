@@ -8,6 +8,14 @@ $app->get('/dashboard', 'App\Action\HomeAction:dashboard')->setName('dashboard')
 $app->post('/login','App\Action\HomeAction:loginPost')->setName('login.post');
 //$app->post('/login','App\Action\HomeAction:testJson')->setName('login.post');
 $app->post('/register','App\Action\HomeAction:registerPost')->setName('register.post');
+
+$app->get('/verify/{user}/{code}', 'App\Action\HomeAction:verifyEmail')->setName('verify.email');
+$app->group('/note/',function(){
+	$this->get('','App\Action\NoteAction:index');
+	$this->get('new','App\Action\NoteAction:new');
+
+});
+
 $route = App\Model\Route::all();
 //var_dump($route);exit;
 foreach ($route as $rt) {

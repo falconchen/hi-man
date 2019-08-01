@@ -1,7 +1,7 @@
 <?php
 return [
     'app' => [
-            'url' => 'http://slim.dev',
+            'url' =>  'http://hi.local.cellmean.com',
             'hash' => [
                 'algo' => PASSWORD_BCRYPT,
                 'cost' => 10
@@ -45,5 +45,20 @@ return [
             'collation' => 'utf8_unicode_ci',
             'prefix'    => '',
         ],
+        
+        'mailer'=>[
+
+            'Host'=>'smtp.mxhichina.com',
+            'SMTPAuth'=>true,
+            'Username'=>'me@cellmean.com',
+            'Password'=>'7340985@gdufs',
+            'SMTPSecure'=>'tls',
+            'CharSet'=>'UTF-8',
+            'Port'=>'465',
+            'From'=>'me@cellmean.com',
+            'FromName'=>'Me',
+            'isHTML'=>true,
+        ]
+
     ],
 ];

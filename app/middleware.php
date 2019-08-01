@@ -1,28 +1,29 @@
 <?php
 $app->add($app->getContainer()->get('csrf'));
-//$app->add(new App\Helper\Csrf4view($app));
-$app->add(function($request, $response, $next){
-	switch ($request->getUri()->getPath()) {
-		case '/':
-			break;
-		case '/login':
-			//$response->write(' Please Insert Username and password ');
 
-			break;
+
+$app->add(function($request, $response, $next){
+	$path = $request->getUri()->getPath();
+	switch ($path) {
+		case '/':
+		case '/login':
 		case '/register':
-			
-			break;
-		case '/logout':
-			//$response->write(' logout ');
+		case '/logout':			
 			break;
 		case '/dashboard':
 			if(! App\Helper\Acl::isLogged()){
-		        return $response->withRedirect('login');
+		        return $response->withRedirect('/login');
 		    }
 			break;
+
 		default:
+
+			if(strpos($path,'/verify/') === 0){ //验证邮件时不需要ACL
+			    break;
+            }
+			
 			if(! App\Helper\Acl::isLogged()){
-		        return $response->withRedirect('login');
+		        return $response->withRedirect('/login');
 			}
 			
 			$routes = App\Helper\Acl::getRoute($request->getUri()->getPath());
