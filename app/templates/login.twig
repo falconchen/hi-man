@@ -10,9 +10,11 @@
 <form action="login" method="post" autocomplete="off">
     
     {% if flash %}
-            <div class="error-info bg-danger">
-            {{ flash }}
+        <div class="panel panel-warning w3-note">
+            <div class="panel-body">
+                {{ flash }}
             </div>
+        </div>                                   
     {% endif %}
 
     <div class="form-group {% if errors.first('identifier') %}has-error{% endif %}">

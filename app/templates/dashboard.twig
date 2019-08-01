@@ -1,3 +1,20 @@
-{% if flash %}{{ flash}}{% endif %}
+{% extends 'layout.twig' %}
 
-dashboard
+{% set title = 'dashboard '  %}
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+
+
+<h1>{{ title }}</h1>
+{% if pannel %}
+<div class="panel panel-{{ pannel.status }}">            
+    <div class="panel-heading">{{ pannel.title }}</div>            
+    <div class="panel-body">{{ pannel.body }}</div>
+</div>
+{% endif %}
+
+
+{% endblock %}
+
+
