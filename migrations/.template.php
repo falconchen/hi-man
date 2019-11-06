@@ -1,5 +1,5 @@
 <?= "<?php";?>
-
+<?php $classTable=preg_replace_callback('#([A-Z])#',function($match){ return '_'.strtolower($match[1]);},lcfirst($className));?>
 
 use Phpmig\Migration\Migration;
 use Illuminate\Database\Capsule\Manager as Capsule;
@@ -11,7 +11,7 @@ class <?= $className ?> extends Migration
      */
     public function up()
     {
-        Capsule::schema()->create('<?= strtolower($className) ?>', function($table)
+        Capsule::schema()->create('<?= $classTable ?>', function($table)
         {
             $table->timestamps();
         });
@@ -23,6 +23,6 @@ class <?= $className ?> extends Migration
      */
     public function down()
     {
-        Capsule::schema()->drop('<?= strtolower($className) ?>');
+        Capsule::schema()->drop('<?= $classTable ?>');
     }
 }

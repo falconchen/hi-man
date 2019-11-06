@@ -53,7 +53,7 @@ This is a simple skeleton project fork from akrabat/slim3-skeleton that includes
 * php cli.php generate [MigrationName]
 
 * //Execution of migration
-* php cli.php migration
+* php cli.php migrate
 
 * // I one Back
 * php cli.php rollback

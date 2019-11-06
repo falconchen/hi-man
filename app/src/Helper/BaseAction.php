@@ -4,20 +4,22 @@ namespace App\Helper;
 class BaseAction
 {
     protected $c;
+    protected $route;
 
     //Constructor
     public function __construct(\Slim\Container $c)
     {
-        $this->c = $c;
-
+        $this->c = $c;        
+        $this->route = $this->c->get('router'); //alias
     }
 
     public function __get($arg)
     {
-        if (!property_exists($this, $arg)) {
-            //return $this->c->get($arg);
-            return $this->c->$arg;
+        
+        if ($this->c->has($arg)) {            
+            return $this->c->get($arg);
         }
+        
     }
 
     public function __call($funcname, $args = [])

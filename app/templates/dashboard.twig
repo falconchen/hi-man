@@ -1,6 +1,6 @@
 {% extends 'layout.twig' %}
 
-{% set title = 'dashboard '  %}
+{% set title = 'Dashboard '  %}
 {% block title %}{{ title }}{% endblock %}
 
 {% block content %}
@@ -14,6 +14,7 @@
 </div>
 {% endif %}
 
+{% include 'bind-oscer-form.twig' %}
 
 {% endblock %}
 
