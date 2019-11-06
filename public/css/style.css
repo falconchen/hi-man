@@ -5,10 +5,11 @@ body {
 
 footer {
     margin-top: 20px;
-    border-top: 1px solid #ccc;
+    /* border-top: 1px solid #ccc; */
     padding: 5px 0;
     color: #666;
     font-size: 0.85em;
+    text-align: left;
 }
 
 
@@ -357,3 +358,9 @@ a.btnsmall:active,a.btnsmall:hover {color:#4CAF50;background-color:#ffffff}
 hr[id^="ez-insert-after-placeholder"] {margin-top: 0;}
 .phonebr {display:none;}
 @media screen and (max-width: 475px) {.phonebr {display:initial;}}
+
+
+.hi-form {
+  width:33%; 
+  
+}

@@ -7,15 +7,9 @@
 <h1>{{ title }}</h1>
 
 
-<form action="login" method="post" autocomplete="off">
+<form class="w3-container w3-padding-large w3-card-4 hi-form w3-mobile" action="login" method="post" autocomplete="off">
     
-    {% if flash %}
-        <div class="panel panel-warning w3-note">
-            <div class="panel-body">
-                {{ flash }}
-            </div>
-        </div>                                   
-    {% endif %}
+    
 
     <div class="form-group {% if errors.first('identifier') %}has-error{% endif %}">
         <label for="identifier">Username/Email</label>

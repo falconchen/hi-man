@@ -41,7 +41,7 @@ class Admin
 		$this->view->render($response, 'form.twig');
 	}
 
-	public function userDelete()
+	public function userDelete(Request $request, Response $response, $args)
 	{
 		$this->view->render($response, 'admin.twig');
 	}
@@ -55,7 +55,7 @@ class Admin
 	{
 		$this->view->render($response, 'admin.twig');
 	}
-	public function groupsDelete()
+	public function groupsDelete(Request $request, Response $response, $args)
 	{
 		$this->view->render($response, 'admin.twig');
 	}
@@ -74,7 +74,7 @@ class Admin
 		$this->view->render($response, 'admin.twig');
 	}
 
-	public function permissionsDelete()
+	public function permissionsDelete(Request $request, Response $response, $args)
 	{
 		$this->view->render($response, 'admin.twig');
 	}
