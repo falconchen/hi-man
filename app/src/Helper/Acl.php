@@ -4,6 +4,8 @@ use \App\Model\User;
 use \App\Model\UserPermission;
 use \App\Model\Route;
 use App\Helper\Url;
+//use Illuminate\Database\Query\Builder as DB;
+use Illuminate\Database\Capsule\Manager as DB;
 /**
 * 
 */
@@ -46,7 +48,7 @@ class Acl
 
 	public function getRoute($routes)
 	{
-		$route = str_replace('/', '', $routes);
+		$route = preg_replace('#^/hi\-admin/#iUs', '', $routes);
 		return Route::where('route',$route)->first();
 	}
 	
@@ -67,6 +69,24 @@ class Acl
 
 		}
 	}
+
+    /**
+     *
+     * @param $group_id
+     */
+	public static function getPermissionRoutes($group_id)
+    {
+
+        $result = DB::table('routes')
+            ->join('users_permission',function($join){
+                $join->on('routes.page','=','users_permission.page')
+                ->on('routes.action','=','users_permission.action');
+            }, null,null,'inner')
+            ->where('users_permission.group_id','=',$group_id)
+            ->get();
+
+        return $result;
+    }
 
 	public function getResource()
 	{

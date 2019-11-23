@@ -12,6 +12,9 @@
         }
     ],
     "autoload": {
+      "files": [
+        "app/src/Helper/functions.php"
+      ],
         "psr-4": {
             "App\\": "app/src"
         }
@@ -29,7 +32,9 @@
         "alexgarrett/violin": "^2.2",
         "carlosocarvalho/simple-input": "^1.0",
         "symfony/process": "^3.0",
-        "phpmailer/phpmailer": "^5.2"
+        "phpmailer/phpmailer": "^5.2",
+        "guzzlehttp/guzzle": "~6.0",
+        "paquettg/php-html-parser": "^2.1"
     },
 
     "scripts": {

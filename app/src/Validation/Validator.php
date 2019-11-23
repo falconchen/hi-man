@@ -18,6 +18,9 @@ class Validator extends Violin
             'username' => [
                 'uniqueUsername' => 'username already in use',
             ],
+            'userMail' => [
+                'emailOrTel' => 'Not an valid email address or telNum',
+            ],
         ]);
     }
 
@@ -33,6 +36,13 @@ class Validator extends Violin
         return !(bool) $this->user->where('username', $value)->count();
     }
 
+    public function validate_emailOrTel($value, $input, $args)
+    {
+
+        return filter_var($value, FILTER_VALIDATE_EMAIL) !== false || (is_numeric($value) && strlen($value)>=7);
+
+    }
+
     /**
      * Method to help skip a rule if a value is empty, since we
      * don't need to validate an empty value. If the rule to
@@ -45,6 +55,7 @@ class Validator extends Violin
      *
      * @return null
      */
+
     protected function canSkipRule($ruleToCall, $value)
     {
         return (

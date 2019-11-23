@@ -21,10 +21,10 @@ class JsonRenderer
    * @throws \InvalidArgumentException
    * @throws \RuntimeException
    */
-  public function render(ResponseInterface $response, $statusCode = 200, array $data = [])
+  public static function render(ResponseInterface $response, $statusCode = 200, array $data = [])
   {
     $newResponse = $response->withHeader('Content-Type', 'application/json');
-    $newResponse = $newResponse->withStatus($statusCode);
+    $newResponse = $newResponse->withStatus(intval($statusCode));
     $newResponse->getBody()->write(json_encode($data));
 
     return $newResponse;

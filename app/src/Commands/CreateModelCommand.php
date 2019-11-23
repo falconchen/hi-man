@@ -32,7 +32,8 @@ class CreateModelCommand extends Command
         $file = file_get_contents("resources/model_template.txt");
 
         $file = str_replace("!name", ucfirst($name), $file);
-        $file = str_replace("?name", strtolower($name), $file);
+        $tableName=preg_replace_callback('#([A-Z])#',function($match){ return '_'.strtolower($match[1]);},lcfirst($name));
+        $file = str_replace("?name", $tableName, $file);
 
         if (is_dir($directory) && !is_writable($directory)) {
             $output->writeln('The "%s" directory is not writable');
