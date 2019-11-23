@@ -9,6 +9,7 @@ class BaseAction
     //Constructor
     public function __construct(\Slim\Container $c)
     {
+
         $this->c = $c;        
         $this->route = $this->c->get('router'); //alias
     }

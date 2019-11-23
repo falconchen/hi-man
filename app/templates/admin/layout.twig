@@ -1,0 +1,347 @@
+{% set c = container %}
+{% set currentPath = container.request.getUri.getPath|replace({'/hi-admin/': ''}) %}
+<!DOCTYPE html>
+<html>
+<title>{% block title %}Dashbard{% endblock %} - Hi Admin</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="{{ base_url() }}/css/w3.css">
+{#<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">#}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+    html, body, h1, h2, h3, h4, h5 {
+        font-family:  sans-serif;
+    }
+
+    html,
+    body{
+        height :100%;
+         
+    }
+    #hi-footer-wrapper{
+        position: absolute;
+        bottom: 16px;    
+        right: 0;      
+        width:100%;    
+        {# display:none;   #}
+    }
+    #hi-footer-wrapper footer{
+
+    }
+
+    
+    footer a{
+        text-decoration:none ;
+    }
+  
+    .screen-reader-text{
+        display:none;
+    }
+
+    .hi-dropdown-content {
+        position: relative;
+    }
+
+    #hi-admin-menu .hi-sub-item {
+        padding-left: 48px;
+        color:#333;
+    }
+    #hi-admin-menu .hi-sub-item.hi-current .fa{
+        margin-left: -24px;
+
+    }
+
+    #hi-metabox-wrapper >div{
+        background-color:#fff;
+    }
+
+    .hi-accordion {    
+     cursor: pointer;
+     transition: 0.4s;
+    }
+
+
+    .hi-detail-panel {            
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height .5s ease-out;
+    }
+    .active .hi-detail-panel {        
+        max-height: 500px;
+        transition: max-height .5s ease-in;
+    }
+    #timestampdiv {
+        padding-left:0;
+        padding-right:0;
+    }
+    label {
+        cursor:pointer;
+    }
+</style>
+<body class="w3-light-grey">
+
+<!-- Top container -->
+<div class="w3-bar w3-top w3-black w3-large" style="z-index:4">
+    <button class="w3-bar-item w3-button w3-hide-large w3-hover-none w3-hover-text-light-grey" onclick="w3_open();"><i
+                class="fa fa-bars"></i> &nbsp;Menu
+    </button>
+    <a class="w3-button w3-bar-item w3-left" href="{{ base_url() }}/dashboard"><i class="fa fa-home"> Hi 管理后台</i></a>
+    <a class="w3-button w3-bar-item w3-right" href="{{ base_url() }}">返回首页</a>
+    <a class="w3-button w3-bar-item w3-right" href="{{ base_url() }}/logout">注销</a>
+</div>
+
+<!-- Sidebar/menu -->
+<nav class="w3-sidebar w3-collapse w3-white w3-animate-left" style="z-index:3;width:300px;" id="mySidebar"><br>
+    <div class="w3-container w3-row">
+        <div class="w3-col s4">
+            <img src="https://www.w3schools.com/w3images/avatar{{ c.session.user.id%6 + 1 }}.png"
+                 class="w3-circle w3-margin-right" style="width:46px">
+        </div>
+        <div class="w3-col s8 w3-bar">
+            <span>欢迎回来, <strong>{{ c.session.user.username }}</strong></span><br>
+            {#<a href="#" class="w3-bar-item w3-button"><i class="fa fa-envelope"></i></a>#}
+            <a href="#" class="w3-bar-item w3-button w3-tiny" style="margin-left:-16px;"><i class="fa fa-user"></i> 个人信息</a>
+            {#<a href="#" class="w3-bar-item w3-button w3-tiny w3-text-green"><i class="fa fa-cog "></i> 连接OSC</a>#}
+            <button onclick="document.getElementById('bind-osc-form-wrapper').style.display='block'"
+                    class="w3-bar-item w3-button w3-tiny {{ oscer ?'w3-text-green':'w3-text-red' }}">
+
+                <i class="fa fa-cog "></i> {{ oscer ?'已连接osc':'未连接osc' }}
+            </button>
+        </div>
+
+        {% include 'oscer/bind-osc-form.twig' with {'wrapper_id': 'bind-osc-form-wrapper'} %}
+
+    </div>
+
+    <hr>
+    <div class="w3-container">
+        <h5>Dashboard</h5>
+    </div>
+
+    <div id="hi-admin-menu" class="w3-bar-block">
+        <a href="javascript:;" class="w3-bar-item w3-button w3-padding-16 w3-hide-large w3-dark-grey w3-hover-black"
+           onclick="w3_close()" title="close menu"><i class="fa fa-remove fa-fw"></i>&nbsp; Close Menu</a>
+
+
+        {% block menu %}
+
+            {% for item in menu.getUserItems %}
+                {% if item.items is not defined %}
+                    <a href="/hi-admin/{{ item.url }}"
+                       class="w3-bar-item w3-button w3-padding {% if item.url == currentPath %}w3-blue{% endif %}">
+                        {% if item.icon is not defined %}
+                            <i class="fa fa-cog fa-fw"></i>
+                        {% else %}
+                            <i class="{{ item.icon }}"></i>
+                        {% endif %}
+                        &nbsp; {{ item.label }}
+                    </a>
+                {% else %}
+
+                    <div class="w3-dropdown-hover">
+                        <a class="w3-bar-item w3-button hi-sub-header" href="javascript:void(0)">
+                            {% if item.icon is not defined %}
+                                <i class="fa fa-cog fa-fw"></i>
+                            {% else %}
+                                <i class="{{ item.icon }}"></i>
+                            {% endif %}
+                            &nbsp; {{ item.label }}
+                        </a>
+                        <div class="w3-dropdown-content w3-card-2  hi-dropdown-content">
+                            {% for sub in item.items %}
+                                <a class="w3-bar-item w3-button hi-sub-item {% if sub.url == currentPath %}w3-text-blue  hi-current{% endif %}"
+                                   href="{{ sub.url }}">
+                                    {% if sub.url == currentPath %}
+                                   <i class="fa fa-fw fa-map-marker"></i>
+                                    {% endif %}
+                                    {{ sub.label }}
+                                </a>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                {% endif %}
+
+            {% endfor %}
+
+        {% endblock %}
+    </div>
+</nav>
+
+
+<!-- Overlay effect when opening sidebar on small screens -->
+<div class="w3-overlay w3-hide-large w3-animate-opacity" onclick="w3_close()" style="cursor:pointer"
+     title="close side menu" id="myOverlay"></div>
+
+<!-- !PAGE CONTENT! -->
+<div class="w3-main " style="margin-left:300px;margin-top:43px;height: auto;
+    min-height: 100%;    
+    position: relative;">
+    {% block main %}
+    &nbsp;
+    {% endblock %}    
+    <!-- Footer -->
+    
+    <div id="hi-footer-wrapper" role="contentinfo">
+        <footer class="w3-container w3-padding-16">
+            <strong><p class="w3-text-grey"><a class="w3-small w3-hover-opacity w3-padding-small w3-border-aqua" href="{{ c.router.pathFor('homepage') }}" target="_blank"><i class="fa fa-heart"></i> Powered by Hi-CMS &copy; 2019</a></p></strong>
+        </footer>
+	<div class="w3-clear"></div>
+    </div>
+</div>
+    <!-- End page content -->
+</div>
+
+
+<script type="text/javascript" src="/js/jquery-1.11.3.min.js"></script>
+<script type="text/javascript" src="/js/vendors/sha1.min.js"></script>
+<script src='/js/node_modules/tinymce/tinymce.min.js'></script>
+
+
+<script>
+    // Get the Sidebar
+    var mySidebar = document.getElementById("mySidebar");
+
+    // Get the DIV with overlay effect
+    var overlayBg = document.getElementById("myOverlay");
+
+    // Toggle between showing and hiding the sidebar, and add overlay effect
+    function w3_open() {
+        if (mySidebar.style.display === 'block') {
+            mySidebar.style.display = 'none';
+            overlayBg.style.display = "none";
+        } else {
+            mySidebar.style.display = 'block';
+            overlayBg.style.display = "block";
+        }
+    }
+
+    // Close the sidebar with the close button
+    function w3_close() {
+        mySidebar.style.display = "none";
+        overlayBg.style.display = "none";
+    }
+
+    $(document).ready(function () {
+
+        //menu
+        if ($('.hi-sub-item').hasClass('hi-current')) {
+            $('.hi-sub-item').parent().removeClass('w3-dropdown-content');
+            $('.hi-dropdown-content').parent().removeClass('w3-dropdown-hover').find('.hi-sub-header').addClass('w3-blue');
+        }
+
+        //bind oscer
+
+        $('.hi-oscer-info .hi-close-btn,.hi-oscer-info .hi-cancel-btn').click(
+            function(){
+                $('.bind-osc-form-wrapper').hide();
+            }
+        );
+
+        $('form.hi-bind-osc-form').submit(function () {
+
+            var $form = $(this);
+            var $password = $form.find('input[name="userPassword"]');
+            var inputed_password = $password.val();
+
+            $password.val(sha1($password.val()));
+
+            var $submit_btn = $('.hi-bind-osc-form .hi-submit-btn');
+            $submit_btn.addClass('w3-disabled');
+
+            $.ajax({
+                url: $form.attr('action'),
+                type: $form.attr('method'),
+                dataType: 'json',
+                data: $form.serialize()
+            }).done(function(response){
+
+                if(response.success){
+                    $('.hi-oscer-info img').attr('src',response.data.avatar);
+                    $('.hi-oscer-info .hi-oscer-homepage')
+                        .attr('href',response.data.homepage).text(response.data.userName)
+                        .attr('title',response.data.userName)
+                        .removeClass('w3-hide');
+                    $('.hi-oscer-info .hi-oscer-signature').text(response.data.signature)
+                        .removeClass('w3-hide');
+                    $('.hi-bind-osc-form,.hi-oscer-footer > button').addClass('w3-hide');
+
+                    $('.hi-oscer-footer .hi-cancel-btn').text(response.msg)
+                        .removeClass('w3-red')
+                        .addClass('w3-green').removeClass('w3-hide');
+                    $('.hi-oscer-footer .hi-oscer-msg').text('你现在可以同步文章或动弹到osc了');
+
+
+                }else{
+                    $('.hi-oscer-footer .hi-oscer-msg').text(response.msg)
+                }
+
+            }).always(function (data) {
+                $submit_btn.removeClass('w3-disabled');
+                $password.val(inputed_password);
+            });
+
+            return false;
+        });
+
+
+        //展开项
+ 
+        $('.hi-accordion').click(
+            function(){
+                
+                if($(this).parent().hasClass('hi-osc-sync-type') 
+                && $(this).parent().hasClass('active') ){
+                    return; //禁止转载展开后重新点击收起
+                }else if($(this).parent().hasClass('hi-post-visibility') 
+                && $(this).parent().hasClass('active') ){
+                    return; //禁止密码保护展开后重新点击收起
+                }else if($(this).parent().hasClass('hi-post-future') 
+                && $(this).parent().hasClass('active') ){
+                    return; //定时发布
+                }
+                $(this).parent().toggleClass('active');
+                $(this).toggleClass('active');                
+                var index = $(".hi-accordion").index(this);
+                var $detailPanel = $('.hi-detail-panel').eq(index);                                
+                
+            }
+        );
+        //osc sync 原创/转载
+        $('.hi-osc-sync-type input[value=1]').click(
+            function(){
+                $(this).parent().removeClass('active');
+            }
+        );
+
+        //公开度
+        $('.hi-post-visibility input[id!="visibility-radio-password"]').click(
+            function(){
+                $(this).parent().removeClass('active');
+            }
+        );
+
+
+        //定时发布
+        $('.hi-post-future input[value!=yes]').click(
+            function(){
+                $(this).parent().removeClass('active');
+            }
+        );
+
+        $('input[name=post_future]').change(
+            function(){
+                var status = 'post_future-radio-' + $(this).val();
+                var text = $('label[for='+ status +']').text();
+                $('.hi-publish-btn').val(text).text(text);
+                
+            }
+        )
+
+    });
+
+    {% include 'admin/tinymce0.twig.js' %}
+</script>
+
+</body>
+</html>

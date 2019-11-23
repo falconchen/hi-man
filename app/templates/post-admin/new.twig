@@ -1,0 +1,209 @@
+{% extends 'admin/layout.twig' %}
+
+{% block main %}
+<form class="w3-row-padding" method="post" action="{{ c.router.pathFor('post-admin.save') }}">
+
+    <div class="w3-col s9 w3-mobile" id="hi-editor-wrapper">
+
+
+
+            <div class="w3-section">
+            <input class="w3-input w3-border" type="text" placeholder="请输入标题" />
+            </div>
+
+            <div class="w3-section">
+            <textarea id="hi-editor" name="hi-editor" ></textarea>
+            </div>
+
+
+    </div><!-- #hi-editor-wrapper-->
+
+    <div class="w3-col s3 w3-mobile w3-tiny" id="hi-metabox-wrapper">
+
+        <div class="w3-card-2 w3-section hi-osc-sync-metabox">
+            <div class="w3-container w3-green">
+                <h6>OSC同步</h6>
+            </div>
+
+            <div class="w3-container ">
+                <div class="w3-section">
+                    <label class="w3-label w3-text-grey">文章分类</label>
+                    <select name="sync[osc][catalog]" class="w3-input"> 
+                    {% autoescape false %}                                       
+                    {{ oscOptions.catalogDropdown }}
+                    {% endautoescape %}
+                    </select>
+                </div>
+                <div class="w3-section">
+                    <label class="w3-label w3-text-grey">系统分类</label>
+                    <select name="sync[osc][classification]" class="w3-input">                    
+                    {% autoescape false %}                    
+                    {{ oscOptions.classification }}
+                    {% endautoescape %}
+                    </select>
+                </div>
+
+                <div class="w3-section">
+                    
+                        <div class="w3-main hi-osc-sync-type">
+                        
+                            <input type="radio" name="sync[osc][type]" id="sync-osc-type-0" value="1" class="w3-check" checked="checked" tabindex="0">
+                            <label for="sync-osc-type-0">原创</label>
+
+                            <input type="radio" name="sync[osc][type]" id="sync-osc-type-1" value="0" class="w3-check hi-accordion" tabindex="0">
+                            <label for="sync-osc-type-1" class="w3-label">转载</label>
+                            <br/>
+                            <div class="hi-detail-panel" style="padding:0">
+                                <input class="w3-input w3-border w3-section w3-small"  type="text" placeholder="请输入原文链接">
+                            </div>
+                        </div>
+                        
+
+                        <div class="w3-main">
+
+                        <input  type="checkbox" name="sync[osc][as_top]" id="sync-osc-as_top" value="1" class="w3-check" tabindex="0">
+                        <label for="sync-osc-as_top">置顶</label>
+                        <br/>
+                                                                        
+                        <input type="checkbox" name="sync[osc][privacy]" id="sync-osc-privacy" value="1" class="w3-check" tabindex="0">
+                        <label for="sync-osc-privacy">仅自己可见</label>
+                        <br/>
+                        
+                        <input type="checkbox" name="sync[osc][deny_comment]" id="sync-osc-deny_comment" value="1" class="w3-check" tabindex="0">
+                        <label for="sync-osc-deny_comment">禁止评论</label>
+                        <br/>
+                                                                        
+                        <input type="checkbox" name="sync[osc][downloadImg]" id="sync-osc-downloadImg" value="1" class="w3-check" tabindex="0">
+                        <label for="sync-osc-downloadImg">下载外站图片到本地</label>
+                        </div>
+                    
+                </div>
+
+            </div>
+
+            <div class="w3-container w3-pale-green w3-padding-large">                                    
+                    <div class="w3-text-grey">
+                        <input type="checkbox" name="sync[osc][saveOptions]" value="1" class="w3-check" tabindex="0">
+                        <label for="sync[osc][saveOptions]">保存为默认同步选项</label>
+                    </div>                              
+            </div>
+        </div> <!-- .hi-osc-sync-metabox-->
+
+    <div class="w3-card-2 w3-section hi-save-metabox">
+        <div class="w3-container w3-black">
+            <h6>发表</h6>
+        </div>
+        <div class="w3-container">
+
+            <div class="w3-section  w3-small w3-row">
+                <div class="w3-col s6">
+                <button class="w3-btn w3-card-4 w3-white w3-padding-small w3-hover-blue" type="submit">保存草稿</button>
+                </div>
+                <div class="w3-col s6">
+                <a class="w3-btn w3-white w3-padding-small w3-right w3-disabled" type="submit">预览(TODO)</a>
+                </div>
+            </div>
+
+            <div class="w3-section  w3-small">
+                <label>状态：</label>
+                
+                <span id="hi-post-status-select " class="" >
+                    <input type="hidden" name="hidden_post_status" id="hidden_post_status" value="draft">                    
+                    <select name="post_status" id="post_status" data-old-val="draft">
+                    <option value="pending">等待复审</option>
+                    <option selected="selected" value="draft">草稿</option>
+                    </select>                    
+                </span>
+            </div>
+
+            <div class="w3-section  w3-small hi-post-visibility">
+                <label>公开度：</label>
+
+                <span id="hi-post-visibility-select " class="hi-post-visibility" >
+
+                                                      
+                <input type="radio" name="visibility" id="visibility-radio-public" value="public" checked="checked"> 
+                <label for="visibility-radio-public" class="selectit">公开</label>    
+
+                {# <span id="sticky-span"><input id="sticky" name="sticky" type="checkbox" value="sticky"> <label for="sticky" class="selectit">将文章置于首页顶端</label><br></span>
+                <input type="radio" name="visibility" id="visibility-radio-password" value="password"> <label for="visibility-radio-password" class="selectit">密码保护</label><br>
+                <span id="password-span" style="display: none;"><label for="post_password">密码：</label> <input type="text" name="post_password" id="post_password" value="" maxlength="255"><br></span> #}
+                <input type="radio" name="visibility" id="visibility-radio-private" value="private"> <label for="visibility-radio-private" class="selectit">私密</label>
+
+                <input type="radio" name="visibility" id="visibility-radio-password" value="password" class="hi-accordion"> <label for="visibility-radio-password" class="selectit">密码保护</label>
+                
+                <div id="hi-password-panel" class="hi-detail-panel" style="padding:0">                
+                    <input class="w3-input w3-border w3-section w3-small" name="post_password" type="text" placeholder="请输入密码">                            
+                </div>
+                </span>
+                
+            </div>
+
+            <div class="w3-section w3-small hi-post-future">
+                <span id="timestamp">发布时间：</span>
+                
+                <input type="radio" name="post_future" id="post_future-radio-no" value="no" checked="checked"> <label for="post_future-radio-no" class="selectit">立即发布</label>
+
+                <input type="radio" name="post_future" id="post_future-radio-yes" value="yes" class="hi-accordion"> <label for="post_future-radio-yes" class="selectit">定时发布</label>
+
+
+                <div id="timestampdiv" class="w3-section hi-detail-panel " >
+
+                    <label>
+                        <input type="text" id="aa" name="aa" value="2019" size="4" maxlength="4" autocomplete="off">
+                        <span class=""> 年 </span>
+                    </label>
+
+                    <label>
+                        <select id="mm" name="mm">
+                            <option value="01" data-text="一月">一</option>
+                            <option value="02" data-text="二月">二</option>
+                            <option value="03" data-text="三月">三</option>
+                            <option value="04" data-text="四月">四</option>
+                            <option value="05" data-text="五月">五</option>
+                            <option value="06" data-text="六月">六</option>
+                            <option value="07" data-text="七月">七</option>
+                            <option value="08" data-text="八月">八</option>
+                            <option value="09" data-text="九月">九</option>
+                            <option value="10" data-text="十月">十</option>
+                            <option value="11" data-text="十一月" selected="selected">十一</option>
+                            <option value="12" data-text="十二月">十二</option>
+                        </select>
+                        <span class=""> 月 </span>
+                    </label>
+                    <label>
+                        <input type="text" id="jj" name="jj" value="21" size="2" maxlength="2" autocomplete="off">
+                        <span class=""> 日 </span>
+                    </label>
+                    <div class="w3-margin-top">
+                    <label>
+                        <input type="text" id="hh" name="hh" value="17" size="2" maxlength="2" autocomplete="off"><span class=""> 时 </span>
+                    </label>
+                    <label><input type="text" id="mn" name="mn" value="40" size="2" maxlength="2" autocomplete="off">
+                        <span class=""> 分 </span>
+                    </label>
+                    </div>
+                </div>
+            </div>
+                    
+                        
+        </div>
+
+        <div class="w3-container w3-grey w3-padding-large w3-row">                
+                <div class="w3-opacity w3-col s7">
+                    &nbsp;
+                </div>
+                <div class="w3-col s5">
+                    <i class="fa fa-spinner fa-spin animated  w3-large w3-padding-small w3-hide"></i>
+                    <button class="w3-text-black w3-btn  w3-padding-small w3-white w3-card-4 w3-hover-blue w3-right hi-publish-btn" type="submit">立即发布</button>  
+                </div>          
+                
+        </div>
+
+    </div><!-- .hi-save-metabox-->
+
+
+    </div><!-- h#i-metabox-wrapper-->
+
+</form>
+{% endblock %}

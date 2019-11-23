@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Action;
 
 use App\Helper\Hash;
@@ -16,7 +17,7 @@ final class HomeAction extends \App\Helper\BaseAction
     public function dispatch(Request $request, Response $response, $args)
     {
         //$this->logger->info("Home page action dispatched"); 
-        
+
         $this->view->render($response, 'home.twig', [
             'user' => User::all(),
         ]);
@@ -24,10 +25,10 @@ final class HomeAction extends \App\Helper\BaseAction
     }
 
     public function dashboard(Request $request, Response $response, $args)
-    {            
+    {
         $user_id = $this->session->get($this->auth['session']);
         $user = User::where('id', $user_id)->first();
-        return $this->view->render($response, 'dashboard.twig', ['flash'=>$this->flash->getMessage('info'),'user'=>$user]);
+        return $this->view->render($response, 'admin/dashboard.twig', ['flash' => $this->flash->getMessage('info'), 'user' => $user]);
         //绑定
         // curl 'https://www.oschina.net/action/user/hash_login?from=' -H 'User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.14; rv:69.0) Gecko/20100101 Firefox/69.0' -H 'Accept: */*' -H 'Accept-Language: zh-CN,zh;q=0.8,zh-TW;q=0.7,zh-HK;q=0.5,en-US;q=0.3,en;q=0.2' --compressed -H 'Content-Type: application/x-www-form-urlencoded; charset=UTF-8' -H 'X-Requested-With: XMLHttpRequest' -H 'DNT: 1' -H 'Connection: keep-alive' -H 'Referer: https://www.oschina.net/home/login?goto_page=https%3A%2F%2Fmy.oschina.net%2FTimeCarving%3Ftab%3Dactivity%26scope%3Dreply' -H 'Cookie: aliyungf_tc=AQAAAGmbp28auwAAdm/teIpbLDCs/qE1; Hm_lvt_a411c4d1664dd70048ee98afe7b28f0b=1572770300; Hm_lpvt_a411c4d1664dd70048ee98afe7b28f0b=1572770408; _user_behavior_=2a96fe87-c201-4de1-85a5-572dd8885d55; _reg_key_=XX5mbtBtp3SK7pF1gKd7' -H 'Pragma: no-cache' -H 'Cache-Control: no-cache' --data 'email=13714681456&pwd=65a772ebd247c49e7f7b1dba2f202ed344b59973&verifyCode=&save_login=1'
     }
@@ -40,8 +41,8 @@ final class HomeAction extends \App\Helper\BaseAction
     }
 
     public function login(Request $request, Response $response, $args)
-    {                
-        $this->view->render($response, 'login.twig',['flash' => $this->flash->getMessage('info')]);
+    {
+        $this->view->render($response, 'login.twig', ['flash' => $this->flash->getMessage('info')]);
         return $response;
     }
 
@@ -55,25 +56,32 @@ final class HomeAction extends \App\Helper\BaseAction
             'password' => [$password, 'required'],
         ]);
         if ($request->getAttribute('csrf_status') === false) {
-            $flash = array('CSRF faiure');
+            $flash = array('[error] CSRF faiure');
             $this->view->render($response, 'login.twig', ['errors' => $v->errors(), 'flash' => $flash, 'request' => $request]);
         } else {
             if ($v->passes()) {
                 $user = User::where('username', $identifier)->orWhere('email', $identifier)->first();
-                if ($user && $this->hash->passwordCheck($password, $user->password)) {
+                if ($user && $this->hash->passwordCheck($password, $user->password) && $user->status >0) {
                     $this->session->set($this->auth['session'], $user->id);
                     $this->session->set($this->auth['session'], $user->id);
                     $this->session->set($this->auth['group'], $user->group_id);
                     $this->session->set('user', $user);
                     //$this->addPannelMessage("Welcome back ,".$user->username,"success","Hi ");
-                    
-                    $this->flash->addMessage('info', "Welcome back ,".$user->username);
-                    return $response->withRedirect($this->router->pathFor('dashboard'));
+
+                    $this->flash->addMessage('info', "[success] Welcome back ," . $user->username);
+
+
+                    if( $user->group_id <= 2 ){
+                        return $response->withRedirect($this->router->pathFor('admin'));//admin和mod转向管理页
+                    } else{
+                        return $response->withRedirect($this->router->pathFor('oscer'));//普通用户转向osc
+                    }
+
                 } else {
-                    $flash = ['Sorry, you couldn\'t be logged in. Username/Email Or Password Wrong?'];
-                    
+                    $flash = ['[error] Sorry, you couldn\'t be logged in. <br/>Wrong Username/Email/Password Or account Inactive ? '];
                     $this->view->render($response, 'login.twig', ['errors' => $v->errors(), 'flash' => $flash, 'request' => $request]);
                 }
+
 
             } else {
                 $this->view->render($response, 'login.twig',
@@ -88,8 +96,8 @@ final class HomeAction extends \App\Helper\BaseAction
 
     public function register(Request $request, Response $response, $args)
     {
-        
-        $this->view->render($response, 'register.twig',['flash'=>$this->flash->getMessage('info')]);
+
+        $this->view->render($response, 'register.twig', ['flash' => $this->flash->getMessage('info')]);
         return $response;
     }
 
@@ -123,7 +131,7 @@ final class HomeAction extends \App\Helper\BaseAction
 
             $mailSubject = "Verify Your Email Address";
             $mailContent = sprintf("
-                    <h1>Dear %s , Thanks for signing up for Hi !</h1>
+                    <h1>Dear %s , Thanks for signing up Hi !</h1>
                      We're happy you're here. Let's get your email address verified: <a href='%s'>Click to Verify Email</a> .",
                 $user->username,
                 $this->get('app')['url'] . $this->router->pathFor('verify.email', ['user' => $user->username, 'code' => $user->active_code])
@@ -138,19 +146,19 @@ final class HomeAction extends \App\Helper\BaseAction
             if (!$this->mailer->send()) {
                 $this->logger->info("failed to send mail to " . $user->email);
             } else {
-                $this->logger->info("send mail to " . $user->email);                
+                $this->logger->info("send mail to " . $user->email);
                 //$response = $response->withRedirect($this->router->pathFor('thanks'));
             }
-            $flash = "You have been registered, check your email to verify!";
+            $flash = "[info] An Email has been sent to your mailbox, please check the email to verify!";
             $this->flash->addMessage('info', $flash);
             return $response->withRedirect($this->router->pathFor('login'));
         } else {
             $flash = "registration failed.";
         }
-        
+
 
         $this->view->render($response, 'register.twig', ['errors' => $v->errors(), 'flash' => $flash, 'request' => $request->getParsedBody()]);
-        
+
         return $response;
     }
 
@@ -161,31 +169,30 @@ final class HomeAction extends \App\Helper\BaseAction
     {
         $userName = $args['user'];
         $activeCode = $args['code'];
-        
-        
+
 
         $user = User::where('username', $userName)->where('active_code', $activeCode)->first();
-        
+
         if (!is_null($user) && $user->exists()) {
-            
+
             if ($user->status == 0) {
                 $user_group = Group::where('group_name', 'User')->first();
                 $user->update(['status' => 1, 'group_id' => $user_group->id]);
                 $this->logger->info('active user id:' . $user->id);
-                $this->flash->addMessage('info', 'Verified email address successful!') ;
+                $this->flash->addMessage('info', '[success] Verified email address successful,you can login now :)');
                 return $response->withRedirect($this->router->pathFor('login'));
-                
+
             } else {
                 $flash = 'This email address was verified before';
                 exit($flash);
             }
 
-        }else{
-            $this->logger->info(sprintf('invalid user verify with %1$s :%2$s',$userName,$activeCode));
-            $this->flash->addMessage('info', 'Bad Request. Try register again.');
+        } else {
+            $this->logger->info(sprintf('invalid user verify with %1$s :%2$s', $userName, $activeCode));
+            $this->flash->addMessage('info', '[error] Bad Request. Try register again.');
             return $response->withRedirect($this->router->pathFor('register'));
         }
-        
+
         return $response;
 
     }

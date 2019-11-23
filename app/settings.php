@@ -58,6 +58,17 @@ return [
             'From'=>'me@cellmean.com',
             'FromName'=>'Me',
             'isHTML'=>true,
+        ],
+
+
+        'guzzle'=>[
+            'allow_redirects' => true,
+            'read_timeout' => 10,
+            'cookies' => true,
+            //'proxy' => 'http://127.0.0.1:8123',
+            'headers' => [
+                'User-Agent' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.103 Safari/537.36 DongDangClub',//
+            ],
         ]
 
     ],
