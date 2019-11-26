@@ -77,15 +77,15 @@ class ProjectTwigExtension extends AbstractExtension implements GlobalsInterface
 
             switch($error_type){
                 case 'success':
-                    return 'w3-pale-green w3-border-green w3-leftbar';
+                    return 'w3-white w3-border-green w3-leftbar';
                 case 'error':
-                    return 'w3-pale-red w3-border-red w3-leftbar';
+                    return 'w3-white w3-border-red w3-leftbar';
                 case 'warning':
-                    return 'w3-pale-yellow w3-border-yellow w3-leftbar';
+                    return 'w3-white w3-border-yellow w3-leftbar';
                 case 'debug':
                     return 'w3-border-indigo w3-leftbar';
                 case 'info':
-                    return 'w3-pale-blue w3-leftbar w3-border-blue';
+                    return 'w3-white w3-leftbar w3-border-blue';
             }
         }
 

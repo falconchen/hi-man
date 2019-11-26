@@ -17,6 +17,7 @@ class Menu
     public function __construct($router, $user=null)
     {
 
+        
         $this->user = $user;
 
 //        [

@@ -150,7 +150,8 @@ class Guard
             $value = isset($body[$this->prefix . '_value']) ? $body[$this->prefix . '_value'] : false;
             if (!$name || !$value || !$this->validateToken($name, $value)) {
                 // Need to regenerate a new token, as the validateToken removed the current one.
-                $request = $this->generateNewToken($request);
+
+                //$request = $this->generateNewToken($request); // ajax处理会变得非常麻烦，停止
 
                 $failureCallable = $this->getFailureCallable();
                 return $failureCallable($request, $response, $next);
@@ -219,7 +220,7 @@ class Guard
         } else {
             $result = ($token !== false && $token === $value);
         }
-        $this->removeFromStorage($name);
+        //$this->removeFromStorage($name); // ajax处理会变得非常麻烦，停止
 
         return $result;
     }
