@@ -117,6 +117,7 @@ class Menu
                 }
 
             }
+            
             if(isset($item['items'])) {
                 $subItems = $item['items'];
                 foreach( $subItems as $k => $sub_item) {

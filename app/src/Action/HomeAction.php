@@ -34,13 +34,19 @@ final class HomeAction extends \App\Helper\BaseAction
                 'user' => User::all(),
             ]);
         return $response;
+
     }
 
     public function dashboard(Request $request, Response $response, $args)
     {
         $user_id = $this->session->get($this->auth['session']);
         $user = User::where('id', $user_id)->first();
-        return $this->view->render($response, 'admin/dashboard.twig', ['flash' => $this->flash->getMessage('flash'), 'user' => $user]);
+        if($user){
+            return $response->withRedirect($this->router->pathFor('oscer'));
+        }
+
+        //return $this->view->render($response, 'admin/dashboard.twig', ['flash' => $this->flash->getMessage('flash'), 'user' => $user]);
+
         //绑定
         // curl 'https://www.oschina.net/action/user/hash_login?from=' -H 'User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.14; rv:69.0) Gecko/20100101 Firefox/69.0' -H 'Accept: */*' -H 'Accept-Language: zh-CN,zh;q=0.8,zh-TW;q=0.7,zh-HK;q=0.5,en-US;q=0.3,en;q=0.2' --compressed -H 'Content-Type: application/x-www-form-urlencoded; charset=UTF-8' -H 'X-Requested-With: XMLHttpRequest' -H 'DNT: 1' -H 'Connection: keep-alive' -H 'Referer: https://www.oschina.net/home/login?goto_page=https%3A%2F%2Fmy.oschina.net%2FTimeCarving%3Ftab%3Dactivity%26scope%3Dreply' -H 'Cookie: aliyungf_tc=AQAAAGmbp28auwAAdm/teIpbLDCs/qE1; Hm_lvt_a411c4d1664dd70048ee98afe7b28f0b=1572770300; Hm_lpvt_a411c4d1664dd70048ee98afe7b28f0b=1572770408; _user_behavior_=2a96fe87-c201-4de1-85a5-572dd8885d55; _reg_key_=XX5mbtBtp3SK7pF1gKd7' -H 'Pragma: no-cache' -H 'Cache-Control: no-cache' --data 'email=13714681456&pwd=65a772ebd247c49e7f7b1dba2f202ed344b59973&verifyCode=&save_login=1'
     }
