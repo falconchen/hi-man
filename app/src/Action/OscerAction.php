@@ -87,8 +87,8 @@ final class OscerAction extends \App\Helper\LoggedAction
                 $homepageNode = $dom->find('a.avatar');
                 $userIdNode = $dom->find('.current-user-avatar');
                 $oscer = [];
-
-                if( count($imgNode) && count($homepageNode) &&count($userIdNode))  {
+                
+                if( count($imgNode) && count($homepageNode) && count($userIdNode))  {
                     $oscer['userName'] = $imgNode[0]->getAttribute('title');
                     $oscer['avatar'] = $imgNode[0]->getAttribute('src');
                     $oscer['userId'] = $userIdNode[0]->getAttribute('data-user-id');
@@ -110,6 +110,7 @@ final class OscerAction extends \App\Helper\LoggedAction
                     $userMeta->meta_value = maybe_serialize(
                         ['userMail'=>$userMail,'userPassword'=>$userPassword]
                     );
+                    
                     $userMeta->save();
 
 
@@ -122,6 +123,7 @@ final class OscerAction extends \App\Helper\LoggedAction
                     $userMeta->meta_value = maybe_serialize(
                         $cookieJar
                     );
+                    
                     $userMeta->save();
 
                     //保存osc用户信息
@@ -146,6 +148,7 @@ final class OscerAction extends \App\Helper\LoggedAction
 
             }else{
                 $this->logger->debug( $body ); // "{"msg":"登录失败，请确认是否输入正确的用户名和密码","failCount":1}"
+                JsonRenderer::render($response,200,['success'=>false, 'msg'=>'登录失败，请确认是否输入正确的用户名和密码','data'=>[]]);
             }
 
         } catch (ClientException $e) { //40x

@@ -5,7 +5,7 @@ tinymce.init({
     menubar: false,
     height : 600,
     //plugins: 'code',
-    plugins: "image imagetools code link fullscreen autosave",
+    plugins: "image imagetools code link fullscreen autosave wordcount",
 
     toolbar: ' undo redo | styleselect | bold italic | link image  | code ',
     language_url: '/js/node_modules/tinymce/langs/zh_CN.js',
@@ -14,7 +14,10 @@ tinymce.init({
     autosave_interval: "20s",
     autosave_prefix: "hi-autosave-{path}{query}-{id}-",
     autosave_restore_when_empty: true,
-    autosave_retention: "30m"
+    autosave_retention: "30m",
+    content_style: [
+        'body{font-size:14px;font-family:Lato,"Helvetica Neue",Helvetica,Arial,sans-serif; line-height:1.6;}'
+    ]
 
 
 });

@@ -12,7 +12,10 @@ return [
         'group'     => 'group_id',
         'remember'  => 'user_r'
     ],
+    
     'settings' => [
+
+        'UTC'=>8, //UTC时间偏移量(小时），+/- 整数
         'debug'         => true,
         'whoops.editor' => 'sublime',
         // View settings

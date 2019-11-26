@@ -22,8 +22,12 @@ $app->get('/oscer','App\Action\OscerAction:index')->setName('oscer');
 $app->post('/oscer/bind-oscer','App\Action\OscerAction:bindOscerPost')->setName('bind-oscer.post');
 
 $app->get('/post-admin','App\Action\PostAdminAction:index')->setName('post-admin');
-$app->get('/post-admin/new','App\Action\PostAdminAction:new')->setName('post-admin.new');
+
+
+$app->get('/post-admin/new','App\Action\PostAdminAction:postNew')->setName('post-admin.new');
+$app->get('/post-admin/edit/{name}','App\Action\PostAdminAction:postEdit')->setName('post-admin.edit');
 $app->post('/post-admin/save','App\Action\PostAdminAction:save')->setName('post-admin.save');
+$app->get('/post-admin/sync-osc','App\Action\PostAdminAction:syncOsc')->setName('post-admin.syncOsc');
 
 
 $route = App\Model\Route::all();
@@ -31,6 +35,7 @@ $app->get('/hi-admin/','App\Action\Admin:index');
 
 foreach ($route as $rt) {
 
-    //$app->get('/'.'groupedit','App\Action\Admin:groupEdit')->setName('groupedit');
+	//$app->get('/'.'groupedit','App\Action\Admin:groupEdit')->setName('groupedit');
+	
 	$app->get('/hi-admin/'.$rt->route,$rt->address)->setName($rt->route);
 }

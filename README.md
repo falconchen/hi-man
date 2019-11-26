@@ -38,6 +38,8 @@
 - [File and image management plugins for TinyMCE](
 https://www.tyssendesign.com.au/articles/cms/file-and-image-management-plugins-for-tinymce/#tinybrowser
 )
+
+- [eloquent-tips-tricks](https://laravel-news.com/eloquent-tips-tricks)
 ## codes && tips
 
 ```迭代twig

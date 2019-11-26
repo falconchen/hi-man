@@ -2,26 +2,28 @@
 
 {% block main %}
 <form class="w3-row-padding" method="post" action="{{ c.router.pathFor('post-admin.save') }}">
-
+    {{ csrf_inputs() }}
     <div class="w3-col s9 w3-mobile" id="hi-editor-wrapper">
 
 
 
             <div class="w3-section">
-            <input class="w3-input w3-border" type="text" placeholder="请输入标题" />
+            <input class="w3-input w3-border" type="text" name="post_title" value="{{ post.post_title }}" placeholder="请输入标题" />
             </div>
 
             <div class="w3-section">
-            <textarea id="hi-editor" name="hi-editor" ></textarea>
+            <textarea id="hi-editor" name="post_content" >{{ post.post_content }}</textarea>
             </div>
 
 
     </div><!-- #hi-editor-wrapper-->
 
+    
+    
     <div class="w3-col s3 w3-mobile w3-tiny" id="hi-metabox-wrapper">
-
-        <div class="w3-card-2 w3-section hi-osc-sync-metabox">
-            <div class="w3-container w3-green">
+        {% if oscer %}
+        <div class="w3-card-2 w3-section hi-metabox hi-osc-sync-metabox">
+            <div class="w3-container w3-white w3-border-bottom w3-border-gray">
                 <h6>OSC同步</h6>
             </div>
 
@@ -54,7 +56,7 @@
                             <label for="sync-osc-type-1" class="w3-label">转载</label>
                             <br/>
                             <div class="hi-detail-panel" style="padding:0">
-                                <input class="w3-input w3-border w3-section w3-small"  type="text" placeholder="请输入原文链接">
+                                <input name="sync[osc][origin_url]" class="w3-input w3-border w3-section w3-small"  type="text" placeholder="请输入原文链接">
                             </div>
                         </div>
                         
@@ -81,16 +83,17 @@
 
             </div>
 
-            <div class="w3-container w3-pale-green w3-padding-large">                                    
+            <div class="w3-container w3-gray w3-padding-large">                                    
                     <div class="w3-text-grey">
-                        <input type="checkbox" name="sync[osc][saveOptions]" value="1" class="w3-check" tabindex="0">
-                        <label for="sync[osc][saveOptions]">保存为默认同步选项</label>
+                        <input type="checkbox" name="sync[osc][save_as_default]" value="1" class="w3-check" tabindex="0">
+                        <label for="sync[osc][save_as_default]">保存为默认同步选项</label>
                     </div>                              
             </div>
         </div> <!-- .hi-osc-sync-metabox-->
+        {% endif %}
 
-    <div class="w3-card-2 w3-section hi-save-metabox">
-        <div class="w3-container w3-black">
+    <div class="w3-card-2 w3-section hi-metabox hi-save-metabox">
+        <div class="w3-container w3-white w3-border-bottom w3-border-gray">
             <h6>发表</h6>
         </div>
         <div class="w3-container">

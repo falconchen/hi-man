@@ -1,2 +1,12 @@
 {% extends 'admin/layout.twig' %}
+{% block main %}
+{% if not oscer %}
+<div class="w3-panel w3-red">
+        <p> 
+        请先绑定osc帐户
+        </p>        
+</div>
+{% endif %}
 
+{% include 'oscer/bind-osc-form.twig' with {'wrapper_id': 'bind-osc-form-solo','wrapper_class':'w3-container' } %}
+{% endblock %}

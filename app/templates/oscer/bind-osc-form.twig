@@ -2,6 +2,7 @@
     <div class="w3-modal-content w3-card-4 w3-animate-zoom" style="max-width:600px">
 
         <div class="w3-center w3-padding-large hi-oscer-info"><br>
+            <i class="fa fa-spinner fa-spin animated  w3-large w3-padding-small w3-display-topleft w3-hide"></i> 
             <span class="w3-button w3-xlarge w3-hover-red w3-display-topright hi-close-btn" title="Close Modal">&times;</span>
             {% if oscer is not defined %}
             <img src="https://www.w3schools.com/w3images/avatar{{ container.session.user.id%6 + 1 }}.png" alt="Avatar" style="width:30%" class="w3-circle w3-margin-top">
@@ -25,7 +26,9 @@
                 <input class="w3-input w3-border w3-margin-bottom" type="text" placeholder="手机/邮箱" name="userMail" required>
                 <label><b>密码</b></label>
                 <input class="w3-input w3-border" type="password" placeholder="请输入密码" name="userPassword" required>
-                <button class="w3-button w3-block w3-green w3-section w3-padding hi-submit-btn" type="submit">连接</button>
+                <button class="w3-button w3-block w3-green w3-section w3-padding hi-submit-btn w3-center" type="submit">
+                连接
+                </button>
                 {#<input class="w3-check w3-margin-top" type="checkbox" checked="checked"> Remember me#}
             </div>
             {{ csrf_inputs() }}
@@ -34,11 +37,11 @@
 
         <div class="w3-container w3-border-top w3-padding-16 w3-light-grey hi-oscer-footer">
             {% if oscer is not defined %}
-            <button type="button" class="w3-button w3-red hi-cancel-btn">取消</button>
-            <span class="w3-right w3-padding w3-hide-small hi-oscer-msg">请输入你在 oschina.net 的登录信息，仅用于发布文章或动弹到osc </span>
+            <button type="button" class="w3-button w3-red hi-cancel-btn">取消</button>            
+            <span class="w3-right w3-padding  w3-small  hi-oscer-msg">请输入你在 oschina 的登录信息，仅用于发布文章或动弹到osc</span>
             {% else %}
                 <button type="button" class="w3-button w3-green hi-cancel-btn">连接成功</button>
-                <span class="w3-right w3-padding w3-hide-small hi-oscer-msg">现在可以同步文章或动弹到osc了 </span>
+                <span class="w3-right w3-padding  w3-small hi-oscer-msg">现在可以同步文章或动弹到osc了 </span>
             {% endif %}
         </div>
 

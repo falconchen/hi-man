@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="{{ base_url() }}/css/w3.css">
 {#<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">#}
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+{# <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> #}
 <style>
     html, body, h1, h2, h3, h4, h5 {
         font-family:  sans-serif;
@@ -18,11 +18,21 @@
         height :100%;
          
     }
+    {# 覆盖 w3css样式 #}
+    .w3-grey, .w3-hover-grey:hover, .w3-gray, .w3-hover-gray:hover {
+        color: #000!important;
+        background-color: #f5f5f5!important;
+    }
+    .w3-border-grey, .w3-hover-border-grey:hover, .w3-border-gray, .w3-hover-border-gray:hover{
+        background-color: #f5f5f5!important;
+    }
+    {# 覆盖 w3css样式结束 #}
     #hi-footer-wrapper{
         position: absolute;
         bottom: 16px;    
         right: 0;      
         width:100%;    
+        z-index:1;
         {# display:none;   #}
     }
     #hi-footer-wrapper footer{
@@ -66,6 +76,7 @@
         overflow: hidden;
         transition: max-height .5s ease-out;
     }
+
     .active .hi-detail-panel {        
         max-height: 500px;
         transition: max-height .5s ease-in;
@@ -77,13 +88,20 @@
     label {
         cursor:pointer;
     }
+
+    .hi-flash-container{
+        padding-top:1px;
+    }
+    #bind-osc-form-solo {
+        padding-top: 48px;
+    }
+
 </style>
 <body class="w3-light-grey">
 
 <!-- Top container -->
 <div class="w3-bar w3-top w3-black w3-large" style="z-index:4">
-    <button class="w3-bar-item w3-button w3-hide-large w3-hover-none w3-hover-text-light-grey" onclick="w3_open();"><i
-                class="fa fa-bars"></i> &nbsp;Menu
+    <button class="w3-bar-item w3-button w3-hide-large w3-hover-none w3-hover-text-light-grey" onclick="w3_open();"><i class="fa fa-bars"></i> &nbsp;Menu
     </button>
     <a class="w3-button w3-bar-item w3-left" href="{{ base_url() }}/dashboard"><i class="fa fa-home"> Hi 管理后台</i></a>
     <a class="w3-button w3-bar-item w3-right" href="{{ base_url() }}">返回首页</a>
@@ -100,12 +118,12 @@
         <div class="w3-col s8 w3-bar">
             <span>欢迎回来, <strong>{{ c.session.user.username }}</strong></span><br>
             {#<a href="#" class="w3-bar-item w3-button"><i class="fa fa-envelope"></i></a>#}
-            <a href="#" class="w3-bar-item w3-button w3-tiny" style="margin-left:-16px;"><i class="fa fa-user"></i> 个人信息</a>
+            <a href="#" class="w3-bar-item w3-button w3-tiny hi-user-info" style="margin-left:-16px;"><i class="fa fa-user"></i> <span>个人信息</span></a>
             {#<a href="#" class="w3-bar-item w3-button w3-tiny w3-text-green"><i class="fa fa-cog "></i> 连接OSC</a>#}
             <button onclick="document.getElementById('bind-osc-form-wrapper').style.display='block'"
-                    class="w3-bar-item w3-button w3-tiny {{ oscer ?'w3-text-green':'w3-text-red' }}">
+                    class="w3-bar-item w3-button w3-tiny {{ oscer ?'w3-text-green':'w3-text-red' }} hi-osc-status">
 
-                <i class="fa fa-cog "></i> {{ oscer ?'已连接osc':'未连接osc' }}
+                <i class="fa fa-cog "></i> <span>{{ oscer ?'已连接osc':'未连接osc' }}</span>
             </button>
         </div>
 
@@ -165,7 +183,14 @@
             {% endfor %}
 
         {% endblock %}
-    </div>
+         
+        <div id="hi-footer-wrapper" role="contentinfo">
+            <footer class="w3-container w3-padding-16">
+                <strong><p class="w3-text-grey"><a class="w3-small w3-hover-opacity w3-padding-small w3-border-aqua" href="{{ c.router.pathFor('homepage') }}" target="_blank"><i class="fa fa-heart"></i> Powered by Hi-CMS &copy; 2019</a></p></strong>
+            </footer>        
+        </div><!-- #hi-footer-wrapper-->
+        
+    </div><!-- #hi-admin-menu -->
 </nav>
 
 
@@ -174,20 +199,41 @@
      title="close side menu" id="myOverlay"></div>
 
 <!-- !PAGE CONTENT! -->
-<div class="w3-main " style="margin-left:300px;margin-top:43px;height: auto;
+<div class="w3-main hi-main-content" style="margin-left:300px;margin-top:43px;height: auto;
     min-height: 100%;    
     position: relative;">
+
+    {% if flash %}
+        <div class="hi-flash-container">
+        {% for msg in flash %}
+            <div class="w3-margin w3-panel {{ msg|flash_fmt('class') }} w3-display-container">
+              <span onclick="this.parentElement.style.display='none'"
+                    class="w3-button w3-display-topright w3-text-red"
+                    style="top: 8px;right: 8px;">x</span>
+                <div class="w3-panel ">
+                    {{ msg|flash_fmt('msg') }}
+                </div>
+            </div>
+        {% else %}
+            {#非数组#}
+            <div class="w3-margin w3-panel {{ flash|flash_fmt('class') }} w3-display-container">
+                <span onclick="this.parentElement.style.display='none'"
+                      class="w3-button w3-display-topright w3-text-red"
+                      style="top: 8px;right: 8px;">x</span>
+                <div class="w3-panel">
+                    {{ flash|flash_fmt('msg')  }}
+                </div>
+
+            </div>
+        {% endfor %}
+
+    </div>
+    {% endif %}
+
     {% block main %}
     &nbsp;
     {% endblock %}    
-    <!-- Footer -->
-    
-    <div id="hi-footer-wrapper" role="contentinfo">
-        <footer class="w3-container w3-padding-16">
-            <strong><p class="w3-text-grey"><a class="w3-small w3-hover-opacity w3-padding-small w3-border-aqua" href="{{ c.router.pathFor('homepage') }}" target="_blank"><i class="fa fa-heart"></i> Powered by Hi-CMS &copy; 2019</a></p></strong>
-        </footer>
-	<div class="w3-clear"></div>
-    </div>
+       
 </div>
     <!-- End page content -->
 </div>
@@ -249,6 +295,8 @@
             var $submit_btn = $('.hi-bind-osc-form .hi-submit-btn');
             $submit_btn.addClass('w3-disabled');
 
+            $('#bind-osc-form-wrapper .fa-spinner').removeClass('w3-hide');
+
             $.ajax({
                 url: $form.attr('action'),
                 type: $form.attr('method'),
@@ -269,8 +317,14 @@
                     $('.hi-oscer-footer .hi-cancel-btn').text(response.msg)
                         .removeClass('w3-red')
                         .addClass('w3-green').removeClass('w3-hide');
-                    $('.hi-oscer-footer .hi-oscer-msg').text('你现在可以同步文章或动弹到osc了');
+                    $('.hi-oscer-footer .hi-oscer-msg').text('你现在可以同步文章或动弹到osc了,重新刷新页面');
+                    
 
+                    $('.hi-osc-status').removeClass('w3-text-red').addClass('w3-text-green');
+                    $('.hi-osc-status > span').text('已连接osc');
+                    setTimeout(
+                        function(){window.location.reload(true);},2000
+                    );
 
                 }else{
                     $('.hi-oscer-footer .hi-oscer-msg').text(response.msg)
@@ -279,6 +333,7 @@
             }).always(function (data) {
                 $submit_btn.removeClass('w3-disabled');
                 $password.val(inputed_password);
+                $('#bind-osc-form-wrapper .fa-spinner').addClass('w3-hide');
             });
 
             return false;
