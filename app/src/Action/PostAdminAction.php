@@ -58,6 +58,12 @@ final class PostAdminAction extends \App\Helper\LoggedAction
         self::init( $request, $response , $args) ;
         
         $posts = Post::where('post_author',$this->userId)->orderBy('post_date','DESC')->get();
+
+        if( $posts->count() >0 ) {
+            foreach($posts as &$post){
+                $post->post_modified = $this->dateTolocal( 'Y-m-d H:i:s',$post->post_modified );
+            }
+        }
         $this->data['posts'] = $posts;
         $this->view->render($response, 'post-admin/index.twig',$this->data);
 
