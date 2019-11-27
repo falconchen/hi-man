@@ -29,6 +29,13 @@ $app->get('/post-admin/edit/{name}','App\Action\PostAdminAction:postEdit')->setN
 $app->post('/post-admin/save','App\Action\PostAdminAction:save')->setName('post-admin.save');
 $app->get('/post-admin/sync-osc','App\Action\PostAdminAction:syncOsc')->setName('post-admin.syncOsc');
 
+$app->group(
+    '/p',function(){
+        $this->get('/sync-osc','App\Action\PostAction:syncOsc')->setName('post.syncOsc');
+        $this->get('/{name}','App\Action\PostAction:index')->setName('post');
+
+    }
+);
 
 $route = App\Model\Route::all();
 $app->get('/hi-admin/','App\Action\Admin:index');

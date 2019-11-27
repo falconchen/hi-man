@@ -12,48 +12,49 @@ class Menu
 
     private $items;
     private $user;
+    private $route;
 
 
-    public function __construct($router, $user=null)
+    public function __construct($route, $user=null)
     {
-
+        $this->route = $route;
         
         $this->user = $user;
 
 //        [
 //            'label'   => '控制面板',
 //            'icon'=>'default',
-//            'url'     => 'admin',
+//            'route'     => 'admin',
 //        ],
 
         $this->items = [
             [
                 'label' => 'Overview',
-                'url' => 'admin',
+                'route' => 'admin',
             ],
 
             [
                 'label' => '权限管理',
-                'url' => 'permission',
+                'route' => 'permission',
             ],
 
             [
                 'label' => '用户管理', //含有子分类
-                'url' => 'user',
+                'route' => 'user',
                 'icon'=>'fa fa-users fa-fw',
                 'items' => [
                     [
                         'label' => '用户列表',
-                        'url' => 'user',
+                        'route' => 'user',
                     ],
                     [
                         'label' => '添加用户',
-                        'url' => 'useradd',
+                        'route' => 'useradd',
                     ],
 
                     [
                         'label' => '编辑用户',
-                        'url' => 'useredit',
+                        'route' => 'useredit',
                     ],
 
                 ]//items
@@ -62,26 +63,35 @@ class Menu
 
             [
                 'label' => '用户组管理',
-                'url' => 'group',
+                'route' => 'group',
             ],
 
             [
                 'label' => '文章管理', //含有子分类
-                'url' => $router->pathFor('post-admin'),
+                'route' => 'post-admin',
                 'icon'=>'fa fa-users fa-fw',
-                'visible'=>true, //不检查权限，直接显示
+                'skip'=>true, //不检查权限，直接显示
 
                 'items' => [
                     [
                         'label' => '文章列表',
-                        'url' => $router->pathFor('post-admin'),
-                        'visible'=>true,
+                        'route' => 'post-admin',
+                        'skip'=>true,
                     ],
                     [
                         'label' => '新建文章',
-                        'url' => $router->pathFor('post-admin.new'),
-                        'visible'=>true,
+                        'route' => 'post-admin.new',
+                        'skip'=>true,
                     ],
+
+                    [
+                        'label' => '编辑文章',
+                        'route' => 'post-admin.edit',
+                        'skip'=>true,
+                        'hide'=>true, //不显示在菜单里
+                    ],
+                    
+
                 ]//items
             ]
 
@@ -93,7 +103,8 @@ class Menu
     public function getUserItems()
     {
 
-        //
+        $currentRoute = $this->route->getName();
+
         $permissionToRoutes = Acl::getPermissionRoutes( $this->user->group_id );
 
         $permissionRoutes = [];
@@ -109,24 +120,42 @@ class Menu
         $userItems = $this->items;
         foreach( $userItems as $key => $item){
 
-            if( !in_array($item['url'],$permissionRoutes)){
+            if($currentRoute == $item['route']) {
+                $userItems[$key]['current'] = true;
+            }
 
-                if(!isset($item['visible']) || $item['visible'] == false){
+            if( !in_array($item['route'],$permissionRoutes)){
+                
+
+                if(!isset($item['skip']) || $item['skip'] == false){
                     unset($userItems[$key]);
                     continue;
                 }
 
             }
-            
+
             if(isset($item['items'])) {
+
                 $subItems = $item['items'];
+
                 foreach( $subItems as $k => $sub_item) {
-                    if (!in_array($sub_item['url'], $permissionRoutes)) {
-                        if(!isset($sub_item['visible']) || $sub_item['visible'] == false) {
+
+                    if( $currentRoute == $sub_item['route'] ) {                        
+                        $userItems[$key]['current'] = true;
+                        $userItems[$key]['items'][$k]['current'] = true;
+                    }
+
+                    if( $sub_item['hide'] ) {                        
+                        unset($userItems[$key]['items'][$k]);
+                    }
+
+                    if (!in_array($sub_item['route'], $permissionRoutes)) {
+                        if(!isset($sub_item['skip']) || $sub_item['skip'] == false) {
                             unset($userItems[$key]['items'][$k]);
-                            continue;
+                            //continue;
                         }
                     }
+
                 }
 
             }
