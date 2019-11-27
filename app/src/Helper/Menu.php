@@ -69,7 +69,7 @@ class Menu
             [
                 'label' => '文章管理', //含有子分类
                 'route' => 'post-admin',
-                'icon'=>'fa fa-users fa-fw',
+                'icon'=>'fa fa-file-text-o fa-fw',
                 'skip'=>true, //不检查权限，直接显示
 
                 'items' => [
