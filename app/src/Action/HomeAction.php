@@ -122,6 +122,12 @@ final class HomeAction extends \App\Helper\BaseAction
     public function registerPost(Request $request, Response $response, $args)
     {
 
+        if(isset($this->settings['email.verify']) && $this->settings['email.verify'] == true){
+            $needEmailVerify = true;
+        }else{
+            $needEmailVerify = false;
+        }
+
         $email = Input::post('email');
         $username = Input::post('username');
         $password = Input::post('password');
@@ -138,12 +144,13 @@ final class HomeAction extends \App\Helper\BaseAction
         if ($v->passes()) {
             $inactive_group = Group::where('group_name', 'inactive')->first();
 
+
             $user = new User();
             $user->email = $email;
             $user->username = $username;
             $user->password = $this->hash->password($password);
-            $user->group_id = $inactive_group->id;
-            $user->status = 0;
+            $user->group_id = $needEmailVerify ? $inactive_group->id : 3;
+            $user->status = $needEmailVerify ? 0 : 1;
             $user->active_code = uniqid();
             $user->save();
 
@@ -160,14 +167,19 @@ final class HomeAction extends \App\Helper\BaseAction
             $this->mailer->Subject = $mailSubject;
             $this->mailer->Body = $mailContent;
             $this->mailer->AddAddress($sendAddress);
+            if($needEmailVerify) {
 
-            if (!$this->mailer->send()) {
-                $this->logger->info("failed to send mail to " . $user->email);
-            } else {
-                $this->logger->info("send mail to " . $user->email);
-                //$response = $response->withRedirect($this->router->pathFor('thanks'));
+
+                if (!$this->mailer->send()) {
+                    $this->logger->info("failed to send mail to " . $user->email);
+                } else {
+                    $this->logger->info("send mail to " . $user->email);
+                    //$response = $response->withRedirect($this->router->pathFor('thanks'));
+                }
+                $flash = "[info] An Email has been sent to your mailbox, please check the email to verify!";
+            }else{
+                $flash = "[info] You can login now !";
             }
-            $flash = "[info] An Email has been sent to your mailbox, please check the email to verify!";
             $this->flash->addMessage('flash', $flash);
             return $response->withRedirect($this->router->pathFor('login'));
         } else {
