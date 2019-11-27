@@ -43,7 +43,7 @@ final class PostAction extends \App\Helper\BaseAction
 
             $currentTime = date('Y-m-d H:i');
             $posts = Post::where('post_status','future')->where('post_date','<=', $currentTime)->get();
-            $posts = Post::where('post_date','<=', $currentTime)->get();
+            //$posts = Post::where('post_date','<=', $currentTime)->get();
             if($posts->count() == 0) {
                 exit('None To Sync Post');
             }
@@ -63,8 +63,27 @@ final class PostAction extends \App\Helper\BaseAction
                             $postDbData->post_title
                 );
                 $info .= "\n=======\n" .var_export($result,true);
-                echo $info;
+
                 $this->logger->info($info);
+
+                $mailBody = $result->message . sprintf( 'https://my.oschina.net/u/%s/blog/%s',
+                        $result->result->space,$result->result->id);
+
+
+                $user = User::find($postDbData->post_author);
+
+                $sendAddress = $user->email;
+                $this->mailer->Subject = '发布文章到osc';
+                $this->mailer->Body = $mailBody;
+                $this->mailer->AddAddress($sendAddress);
+
+                if (!$this->mailer->send()) {
+                    $this->logger->info("failed to send mail to " . $user->email);
+                } else {
+                    $this->logger->info("send mail to " . $user->email);
+                    //$response = $response->withRedirect($this->router->pathFor('thanks'));
+                }
+
                 sleep(1);
 
             }
