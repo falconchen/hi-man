@@ -11,7 +11,7 @@ $app->add(function($request, $response, $next){
 		case '/register':
 		case '/logout':
 		case '/verify':
-
+        case '/p/':
 		break;
 
         // case '/oscer':
