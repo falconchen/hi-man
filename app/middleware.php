@@ -10,7 +10,6 @@ $app->add(function($request, $response, $next){
 		case '/login':
 		case '/register':
 		case '/logout':
-		case '/verify':
         case '/p/':
         case '/p/sync-osc':
 		break;
@@ -41,10 +40,24 @@ $app->add(function($request, $response, $next){
 			break;
 
 		default :
-			if(! App\Helper\Acl::isLogged()){
+		    $allow = false;
+		    $allowStartWith = [
+		        '/p/','/verify/',
+            ];
+
+            foreach($allowStartWith as $word){
+                if( strpos($path,$word) === 0 ){
+                    $allow = true;
+                    break;
+                }
+            }
+
+            if( $allow ) {
+              break;
+            } elseif(! App\Helper\Acl::isLogged()){
 				return $response->withRedirect('/login');
 			}
-            break;
+
 	}
 	$response = $next($request, $response);
 	return $response;
