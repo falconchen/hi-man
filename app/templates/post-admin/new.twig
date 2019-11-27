@@ -109,7 +109,7 @@
             <h6>发表</h6>
         </div>
         <div class="w3-container">
-
+            <div class="w3-hide hi-to-hide">
             <div class="w3-section  w3-small w3-row">
                 <div class="w3-col s6">
                 <button class="w3-btn w3-card-4 w3-white w3-padding-small w3-hover-blue" type="submit">保存草稿</button>
@@ -153,6 +153,8 @@
                 </span>
                 
             </div>
+            </div>
+
 
             <div class="w3-section w3-small hi-post-future {{ post.post_status == 'future' ? 'active': '' }}">
                 <span id="timestamp">发布时间：</span>
@@ -210,7 +212,7 @@
                 </div>
                 <div class="w3-col s5">
                     <i class="fa fa-spinner fa-spin animated  w3-large w3-padding-small w3-hide"></i>
-                    <button class="w3-text-black w3-btn  w3-padding-small w3-white w3-card-4 w3-hover-blue w3-right hi-publish-btn" type="submit">立即发布</button>  
+                    <button class="w3-text-black w3-btn  w3-padding-small w3-white w3-card-4 w3-hover-blue w3-right hi-publish-btn" type="submit">发布</button>
                 </div>          
                 
         </div>

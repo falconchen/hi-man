@@ -42,7 +42,7 @@ final class HomeAction extends \App\Helper\BaseAction
         $user_id = $this->session->get($this->auth['session']);
         $user = User::where('id', $user_id)->first();
         if($user){
-            return $response->withRedirect($this->router->pathFor('oscer'));
+            return $response->withRedirect($this->router->pathFor('post-admin'));
         }
 
         //return $this->view->render($response, 'admin/dashboard.twig', ['flash' => $this->flash->getMessage('flash'), 'user' => $user]);
@@ -92,7 +92,7 @@ final class HomeAction extends \App\Helper\BaseAction
                     if( $user->group_id <= 2 ){
                         return $response->withRedirect($this->router->pathFor('admin'));//admin和mod转向管理页
                     } else{
-                        return $response->withRedirect($this->router->pathFor('oscer'));//普通用户转向osc
+                        return $response->withRedirect($this->router->pathFor('post-admin'));//普通用户转向
                     }
 
                 } else {
