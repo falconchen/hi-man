@@ -4,7 +4,7 @@ $app->add($app->getContainer()->get('csrf'));
 
 $app->add(function($request, $response, $next){
 	$path = $request->getUri()->getPath();
-	
+
 	switch ($path) {
 		case '/':
 		case '/login':
@@ -12,13 +12,14 @@ $app->add(function($request, $response, $next){
 		case '/logout':
 		case '/verify':
         case '/p/':
+        case '/p/sync-osc':
 		break;
 
         // case '/oscer':
 		// case '/dashboard':
 		// case '/hi-admin/':
-		// case '/post-admin/':			
-			
+		// case '/post-admin/':
+
 
 		case '/hi-admin':
 
@@ -34,15 +35,15 @@ $app->add(function($request, $response, $next){
 					$acl = new App\Helper\Acl();
 					if(! $acl->cekPermission($routes->page,$routes->action)){
 						return $this->view->render($response, 'error.twig',['flash' => '[error] You dont have permission to access '.$path ] );
-					} 
+					}
 				}
-			}		
+			}
 			break;
 
 		default :
-			if(! App\Helper\Acl::isLogged()){					
+			if(! App\Helper\Acl::isLogged()){
 				return $response->withRedirect('/login');
-			}			
+			}
             break;
 	}
 	$response = $next($request, $response);
