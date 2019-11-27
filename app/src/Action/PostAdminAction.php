@@ -335,6 +335,7 @@ final class PostAdminAction extends \App\Helper\LoggedAction
             $utc = $this->dateToUtc('Y-m-d H:i',$post->post_date_local);
             if( strtotime($utc)  > $currentTimestamp ){
                 $post->post_status = 'future';
+                $post->post_date = $utc;
                 $syncResult = PostMeta::where(['post_id'=>$post->post_id,'meta_key'=>'osc_sync_result']);
                 if($syncResult->count()) {
                     $syncResult->delete();
