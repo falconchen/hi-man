@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="{{ base_url() }}/css/w3.css">
 {#<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">#}
-{# <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> #}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <style>
     html, body, h1, h2, h3, h4, h5 {
         font-family:  sans-serif;
@@ -101,7 +101,7 @@
 
 <!-- Top container -->
 <div class="w3-bar w3-top w3-black w3-large" style="z-index:4">
-    <button class="w3-bar-item w3-button w3-hide-large w3-hover-none w3-hover-text-light-grey" onclick="w3_open();"><i class="fa fa-bars"></i> &nbsp;Menu
+    <button class="w3-bar-item w3-button w3-hide-large w3-hover-none w3-hover-text-light-grey" onclick="w3_open();">☰
     </button>
     <a class="w3-button w3-bar-item w3-left" href="{{ base_url() }}/dashboard"><i class="fa fa-home"> Hi 管理后台</i></a>
     <a class="w3-button w3-bar-item w3-right" href="{{ base_url() }}">返回首页</a>
@@ -142,11 +142,12 @@
 
 
         {% block menu %}
-
+            
             {% for item in menu.getUserItems %}
+
                 {% if item.items is not defined %}
-                    <a href="/hi-admin/{{ item.url }}"
-                       class="w3-bar-item w3-button w3-padding {% if item.url == currentPath %}w3-blue{% endif %}">
+                    <a href="/hi-admin/{{ c.router.pathFor(item.route) }}"
+                       class="w3-bar-item w3-button w3-padding {% if item.current %}w3-blue{% endif %}">
                         {% if item.icon is not defined %}
                             <i class="fa fa-cog fa-fw"></i>
                         {% else %}
@@ -156,8 +157,8 @@
                     </a>
                 {% else %}
 
-                    <div class="w3-dropdown-hover">
-                        <a class="w3-bar-item w3-button hi-sub-header" href="javascript:void(0)">
+                    <div class="{% if not item.current %}w3-dropdown-hover{% endif %}">
+                        <a class="w3-bar-item w3-button hi-sub-header {% if item.current %}w3-blue{% endif %}" href="javascript:void(0)">
                             {% if item.icon is not defined %}
                                 <i class="fa fa-cog fa-fw"></i>
                             {% else %}
@@ -165,15 +166,14 @@
                             {% endif %}
                             &nbsp; {{ item.label }}
                         </a>
-                        <div class="w3-dropdown-content w3-card-2  hi-dropdown-content">
+                        <div class="w3-small {% if not item.current %}w3-dropdown-content{% endif %} w3-card-2  hi-dropdown-content">
                             {% for sub in item.items %}
-                                <a class="w3-bar-item w3-button hi-sub-item {% if sub.url == currentPath %}w3-text-blue  hi-current{% endif %}"
-                                   href="{{ sub.url }}">
-                                    {% if sub.url == currentPath %}
-                                   <i class="fa fa-fw fa-map-marker"></i>
-                                    {% endif %}
+                                
+                                <a class="w3-bar-item w3-button hi-sub-item {% if sub.current %}w3-text-blue  hi-current{% endif %}"                                 
+                                href="{{ c.router.pathFor(sub.route) }}">                                    
                                     {{ sub.label }}
                                 </a>
+                                
                             {% endfor %}
                         </div>
                     </div>

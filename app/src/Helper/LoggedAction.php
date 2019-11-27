@@ -21,6 +21,10 @@ class LoggedAction extends BaseAction
         parent::__construct($c);
         $this->userId = $this->session->get($this->auth['session']);                
         $this->user = User::where('id', $this->userId)->first();
-        $this->menu = new Menu($this->router,$this->user);
+       // $this->menu = new Menu($this->router,$this->user);
+
     }
+
+    //protected function init(Request $request, Response $response, $args)
+
 }
