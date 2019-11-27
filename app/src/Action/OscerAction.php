@@ -26,6 +26,8 @@ final class OscerAction extends \App\Helper\LoggedAction
     public function index(Request $request, Response $response, $args)
     {
 
+        return $response->withRedirect($this->router->pathFor('post-admin'));//普通用户转向
+
         $userId = $this->userId;
         $data = ['menu'=>$this->menu];
         $oscer = UserMeta::where('user_id', $userId)->where('meta_key','osc_userinfo')->first();
