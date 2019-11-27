@@ -40,6 +40,7 @@ final class PostAdminAction extends \App\Helper\LoggedAction
         $oscer = UserMeta::where('user_id', $userId)->where('meta_key','osc_userinfo')->first();
         if( $oscer ){
             $this->data['oscer'] = unserialize($oscer->meta_value);
+            $this->data['avatar'] = $this->data['oscer']['avatar'];
         }
         $this->data['flash'] = $this->flash->getMessage('flash');     
         

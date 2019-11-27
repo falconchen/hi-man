@@ -5,7 +5,7 @@
             <i class="fa fa-spinner fa-spin animated  w3-large w3-padding-small w3-display-topleft w3-hide"></i> 
             <span class="w3-button w3-xlarge w3-hover-red w3-display-topright hi-close-btn" title="Close Modal">&times;</span>
             {% if oscer is not defined %}
-            <img src="https://www.w3schools.com/w3images/avatar{{ container.session.user.id%6 + 1 }}.png" alt="Avatar" style="width:30%" class="w3-circle w3-margin-top">
+            <img src="{{ avatar|default('https://www.w3schools.com/w3images/avatar1.png') }}" alt="Avatar" style="width:30%" class="w3-circle w3-margin-top">
             <a class="w3-block w3-hide  hi-oscer-homepage" href="javascript:;" target="_blank" title="title-homepage"></a>
             <div class="w3-container w3-margin-top w3-hide w3-small w3-text-grey hi-oscer-signature"></div>
             {% else %}
