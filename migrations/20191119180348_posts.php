@@ -23,9 +23,10 @@ class Posts extends Migration
 
             $table->increments('post_id');
             $table->integer('post_author');
-            $table->timestamp('post_date')->default(
-                Capsule::raw('CURRENT_TIMESTAMP')
-            );
+//            $table->timestamp('post_date')->default(
+//                Capsule::raw('CURRENT_TIMESTAMP')
+//            );
+            $table->timestamp('post_date')->default('0000-00-00 00:00:00');
             $table->timestamp('post_date_local')->default('0000-00-00 00:00:00');
             $table->longtext('post_content');
             $table->text('post_title');
@@ -37,9 +38,7 @@ class Posts extends Migration
             $table->integer('comment_count')->default(0);
             $table->integer('post_parent')->default(0);
 
-            $table->timestamp('post_modified')->default(
-                Capsule::raw('CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP')
-            );           
+            $table->timestamp('post_modified')->default('0000-00-00 00:00:00');
             $table->string('post_type')->default('post');
             $table->string('post_mime_type')->nullable();;
         });
