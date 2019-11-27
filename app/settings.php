@@ -14,6 +14,7 @@ return [
     ],
     
     'settings' => [
+        'email.verify'=>false,//关闭用户邮箱验证
 
         'UTC'=>8, //UTC时间偏移量(小时），+/- 整数
         'debug'         => true,
@@ -59,7 +60,7 @@ return [
             'CharSet'=>'UTF-8',
             'Port'=>'465',
             'From'=>'me@cellmean.com',
-            'FromName'=>'Me',
+            'FromName'=>'Hi-cms',
             'isHTML'=>true,
         ],
 

@@ -13,7 +13,7 @@ tinymce.init({
     
     autosave_interval: "20s",
     autosave_prefix: "hi-autosave-{path}{query}-{id}-",
-    autosave_restore_when_empty: true,
+    //autosave_restore_when_empty: true,
     autosave_retention: "30m",
     content_style: [
         'body{font-size:14px;font-family:Lato,"Helvetica Neue",Helvetica,Arial,sans-serif; line-height:1.6;}'
