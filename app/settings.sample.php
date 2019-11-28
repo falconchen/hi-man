@@ -13,6 +13,9 @@ return [
         'remember'  => 'user_r'
     ],
     'settings' => [
+        'email.verify'=>false,//关闭用户邮箱验证
+        'locked_dir'=> __DIR__ . '/../cache/locked', // 判断队列锁定的文件
+
         'debug'         => true,
         'whoops.editor' => 'sublime',
         // View settings
@@ -45,5 +48,32 @@ return [
             'collation' => 'utf8_unicode_ci',
             'prefix'    => '',
         ],
+
+        'mailer'=>[
+
+            'Host'=>'smtp.host',
+            'SMTPAuth'=>true,
+            'Username'=>'mail.username',
+            'Password'=>'mail.password',
+            'SMTPSecure'=>'tls',
+            'CharSet'=>'UTF-8',
+            'Port'=>'465',
+            'From'=>'your@mailbox',
+            'FromName'=>'Hi-cms',
+            'isHTML'=>true,
+        ],
+
+
+        'guzzle'=>[
+            'allow_redirects' => true,
+            'read_timeout' => 10,
+            'cookies' => true,
+            //'proxy' => 'http://127.0.0.1:8123',
+            'headers' => [
+                'User-Agent' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.103 Safari/537.36 DongDangClub',//
+            ],
+        ],
+
+
     ],
 ];
