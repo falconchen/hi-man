@@ -54,7 +54,7 @@ final class PostAction extends \App\Helper\BaseAction
                     $this->logger->error('fail to create lock dir in '. $this->settings['locked_dir']);
                 }
             }
-            touch($lockedFilePath); //更新锁定文件修改时间
+            
 
 
             $currentTime = date('Y-m-d H:i');
@@ -64,6 +64,8 @@ final class PostAction extends \App\Helper\BaseAction
                 unlink($lockedFilePath);
                 exit('None To Sync Post');
             }
+
+            touch($lockedFilePath); //更新锁定文件修改时间
 
             foreach($posts as $postDbData) {
 
@@ -104,6 +106,7 @@ final class PostAction extends \App\Helper\BaseAction
                 //sleep(1);
 
             }
+            is_file($lockedFilePath) && unlink($lockedFilePath);
 
 
 
@@ -112,7 +115,7 @@ final class PostAction extends \App\Helper\BaseAction
             $this->logger->error($e->getMessage() . "\n". $e->getTraceAsString());
 
         }finally{
-            unlink($lockedFilePath);
+            is_file($lockedFilePath) && unlink($lockedFilePath);
         }
 
     }
