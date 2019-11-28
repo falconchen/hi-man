@@ -61,7 +61,7 @@ final class PostAction extends \App\Helper\BaseAction
             $posts = Post::where('post_status','future')->where('post_date','<=', $currentTime)->get();
             //$posts = Post::where('post_date','<=', $currentTime)->get();
             if($posts->count() == 0) {
-                unlink($lockedFilePath);
+                is_file($lockedFilePath) && unlink($lockedFilePath);
                 exit('None To Sync Post');
             }
 
