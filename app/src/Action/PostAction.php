@@ -41,10 +41,27 @@ final class PostAction extends \App\Helper\BaseAction
 
         try{
 
+            //锁机制 (待优化)
+            $queueName = 'syncOsc';
+            $lockedFilePath = $this->settings['locked_dir'] .'/'.$queueName .'.lock';
+
+            if( is_file($lockedFilePath) && time() - filemtime($lockedFilePath) < 60 ) {
+                exit('Sync Locked, Last launch at ' .date('Y-m-d H:i:s', 3600 * $this->settings['UTC']+ filemtime($lockedFilePath)));
+            }
+
+            if(!is_dir($this->settings['locked_dir'] )){
+                if( !mkdir($this->settings['locked_dir'] ,0755) ){
+                    $this->logger->error('fail to create lock dir in '. $this->settings['locked_dir']);
+                }
+            }
+            touch($lockedFilePath); //更新锁定文件修改时间
+
+
             $currentTime = date('Y-m-d H:i');
             $posts = Post::where('post_status','future')->where('post_date','<=', $currentTime)->get();
             //$posts = Post::where('post_date','<=', $currentTime)->get();
             if($posts->count() == 0) {
+                unlink($lockedFilePath);
                 exit('None To Sync Post');
             }
 
@@ -84,15 +101,20 @@ final class PostAction extends \App\Helper\BaseAction
                     //$response = $response->withRedirect($this->router->pathFor('thanks'));
                 }
 
-                sleep(1);
+                //sleep(1);
 
             }
 
 
 
         }catch(Exception $e){
+
             $this->logger->error($e->getMessage() . "\n". $e->getTraceAsString());
+
+        }finally{
+            unlink($lockedFilePath);
         }
+
     }
 
 
