@@ -42,22 +42,6 @@ final class PostAction extends \App\Helper\BaseAction
 
 
         try{
-
-            //锁机制 (待优化)
-            // $queueName = 'syncOsc';
-            // $lockedFilePath = $this->settings['locked_dir'] .'/'.$queueName .'.lock';
-
-            // if( is_file($lockedFilePath) && time() - filemtime($lockedFilePath) < 60 ) {
-            //     exit('Sync Locked, Last launch at ' .date('Y-m-d H:i:s', 3600 * $this->settings['UTC']+ filemtime($lockedFilePath)));
-            // }
-
-            // if(!is_dir($this->settings['locked_dir'] )){
-            //     if( !mkdir($this->settings['locked_dir'] ,0755) ){
-            //         $this->logger->error('fail to create lock dir in '. $this->settings['locked_dir']);
-            //     }
-            // }
-            
-
             $currentTime = date('Y-m-d H:i');            
             $posts = Post::where('post_status','future')->where('post_date','<=', $currentTime)->get();         
             if( $posts->count() > 0 ){     
@@ -73,16 +57,16 @@ final class PostAction extends \App\Helper\BaseAction
             
             if($posts->count() == 0) {  //再次检查                           
                 exit('None To Sync Post');
-            }
-                        
-            //touch($lockedFilePath); //更新锁定文件修改时间
-            
+            }                                                
             foreach($posts as $postDbData) {
                 
                 if(!$hasOscBind) {
                     continue;
                 }
+                $lock = $this->fileLock('sync_post_'.$postDbData->post_id,false);
+                $lock->acquire();
                 $result = $this->doSyncOsc( $postDbData->post_id );
+                $lock->release();
                 
                 $this->logger->info('sync post result',['post_id'=>$postDbData->post_id, 'post_title'=>$postDbData->post_title, 'result'=>$result]);
 
@@ -218,25 +202,29 @@ final class PostAction extends \App\Helper\BaseAction
             throw new Exception('catalog not exists');
         }
         $postArr['user_code'] = $userCode;
-
+        
+        
         $oldStatus = $postDbData->post_status;
-        $postDbData = Post::where('post_id',$postId)->first(); //fetch again
+        $postDbData = Post::where('post_id',$postId)->first(); // reload
         if($postDbData->post_status != $oldStatus) {
             throw new Exception('post not need to sync,having different status');
         }
-        $postDbData->post_status = 'syncing';
-        $postDbData->save();
+        // $postDbData->post_status = 'syncing';
+        // $postDbData->save();
         
-        try {
-            $oscResponse = $client->request('POST', $blogSaveUrl,[
-                'form_params' => $postArr,
-            ]);
-        }catch(Exception $e){
+        // try {
+        //     $oscResponse = $client->request('POST', $blogSaveUrl,[
+        //         'form_params' => $postArr,
+        //     ]);
+        // }catch(Exception $e){
             
-            $postDbData->post_status = 'future';
-            $postDbData->save();
-            throw $e;
-        }
+        //     $postDbData->post_status = 'future';
+        //     $postDbData->save();
+        //     throw $e;
+        // }
+        $oscResponse = $client->request('POST', $blogSaveUrl,[
+            'form_params' => $postArr,
+        ]);
         
         
         $body = (string)$oscResponse->getBody();

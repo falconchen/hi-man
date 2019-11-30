@@ -74,7 +74,9 @@ return [
 
         'guzzle'=>[
             'allow_redirects' => true,
-            'read_timeout' => 10,
+            'connect_timeout'=>10,
+            'read_timeout' => 20,
+            'timeout'=>40,
             'cookies' => true,
             //'proxy' => 'http://127.0.0.1:8123',
             'headers' => [

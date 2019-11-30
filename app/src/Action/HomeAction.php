@@ -18,6 +18,10 @@ use GuzzleHttp\Psr7;
 use GuzzleHttp\Client; // http://docs.guzzlephp.org/en/stable/index.html
 use GuzzleHttp\Exception\ClientException;
 
+
+
+
+
 final class HomeAction extends \App\Helper\BaseAction
 {
 
@@ -44,6 +48,18 @@ final class HomeAction extends \App\Helper\BaseAction
         // }finally{
         //     $this->logger->debug("hello finally",['aaa'=>'bbb']);
         // }
+        
+        //echo "hello world";exit;
+        
+        // echo 'start' . date('H:i:s');        
+        // $lock = $this->fileLock('Hello');        
+        // $lock->acquire();  
+        // echo 'acquire' .date('H:i:s');      
+        // sleep(18);
+        // $lock->release();
+        // echo 'release' . date('H:i:s');
+        // exit;
+
 
         $this->view->render($response, 'home.twig', [
                 'posts' => Post::all(),
@@ -54,6 +70,7 @@ final class HomeAction extends \App\Helper\BaseAction
 
     private function testing(){
         //throw new Exception("hello exception");
+        echo "hello";
         //$this->logger->debug("hello world");
         //echo "asd"
         //$this->scNofify("hello 你是 认","world");

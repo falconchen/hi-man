@@ -27,6 +27,7 @@ class ComposerStaticInitc3765e25676b2cbb624df054aef313e2
         'T' => 
         array (
             'Twig\\' => 5,
+            'TH\\Lock\\' => 8,
         ),
         'S' => 
         array (
@@ -99,6 +100,10 @@ class ComposerStaticInitc3765e25676b2cbb624df054aef313e2
         'Twig\\' => 
         array (
             0 => __DIR__ . '/..' . '/twig/twig/src',
+        ),
+        'TH\\Lock\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/texthtml/php-lock/src',
         ),
         'Symfony\\Polyfill\\Php73\\' => 
         array (

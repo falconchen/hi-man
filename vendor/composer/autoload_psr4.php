@@ -8,6 +8,7 @@ $baseDir = dirname($vendorDir);
 return array(
     'Violin\\' => array($vendorDir . '/alexgarrett/violin/src'),
     'Twig\\' => array($vendorDir . '/twig/twig/src'),
+    'TH\\Lock\\' => array($vendorDir . '/texthtml/php-lock/src'),
     'Symfony\\Polyfill\\Php73\\' => array($vendorDir . '/symfony/polyfill-php73'),
     'Symfony\\Polyfill\\Mbstring\\' => array($vendorDir . '/symfony/polyfill-mbstring'),
     'Symfony\\Polyfill\\Ctype\\' => array($vendorDir . '/symfony/polyfill-ctype'),

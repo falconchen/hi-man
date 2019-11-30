@@ -1,5 +1,6 @@
 <?php
 namespace App\Helper;
+use TH\Lock\FileLock;
 
 class BaseAction
 {
@@ -104,5 +105,15 @@ class BaseAction
     }
 
 
+    //创建文件锁
+    protected function fileLock( $lockName ,$removeOnRelease=true) {
+        return  new FileLock($this->c->settings['locked_dir'] . '/'.$lockName .'.lock',
+                            FileLock::EXCLUSIVE,
+                            FileLock::NON_BLOCKING,
+                            $removeOnRelease,$this->logger
+        );
+        
+    }
+    
 
 }

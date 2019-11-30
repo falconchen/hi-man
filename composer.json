@@ -34,7 +34,8 @@
         "symfony/process": "^3.0",
         "phpmailer/phpmailer": "^5.2",
         "guzzlehttp/guzzle": "~6.0",
-        "paquettg/php-html-parser": "^2.1"
+        "paquettg/php-html-parser": "^2.1",
+        "texthtml/php-lock": "^2.2"
     },
 
     "scripts": {

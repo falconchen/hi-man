@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "810edf472fced6bfdd2a3872e02a1a16",
+    "content-hash": "3ba4fb9731abf12a54103b1de58cc731",
     "packages": [
         {
             "name": "alexgarrett/violin",
@@ -127,6 +127,7 @@
             ],
             "description": "Promoting the interoperability of container objects (DIC, SL, etc.)",
             "homepage": "https://github.com/container-interop/container-interop",
+            "abandoned": "psr/container",
             "time": "2017-02-14T19:40:03+00:00"
         },
         {
@@ -2229,6 +2230,46 @@
                 "standards"
             ],
             "time": "2019-06-13T11:15:36+00:00"
+        },
+        {
+            "name": "texthtml/php-lock",
+            "version": "v2.2.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/texthtml/php-lock.git",
+                "reference": "037ff0b0c80ba16742c70261aff4760229d3af31"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://github-api-proxy.cnpkg.org/repos/texthtml/php-lock/zipball/037ff0b0c80ba16742c70261aff4760229d3af31",
+                "reference": "037ff0b0c80ba16742c70261aff4760229d3af31",
+                "shasum": ""
+            },
+            "require": {
+                "psr/log": "~1.0"
+            },
+            "require-dev": {
+                "php-vfs/php-vfs": "~1.2",
+                "phpspec/phpspec": "^2.4"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "TH\\Lock\\": "src"
+                }
+            },
+            "notification-url": "https://repo.packagist.org/downloads/",
+            "license": [
+                "aGPLv3"
+            ],
+            "authors": [
+                {
+                    "name": "Mathieu Rochette",
+                    "email": "mathieu@rochette.cc"
+                }
+            ],
+            "description": "ressource lock",
+            "time": "2017-07-09T17:02:50+00:00"
         },
         {
             "name": "twig/twig",
