@@ -37,13 +37,13 @@ final class HomeAction extends \App\Helper\BaseAction
         // $item->save();
         
         //echo $this->utcTimestamp();
-        try{
-            $this->testing();
-        }catch(Exception $e){
-            $this->logger->debug($e->getMessage());
-        }finally{
-            $this->logger->debug("hello finally",['aaa'=>'bbb']);
-        }
+        // try{
+        //     $this->testing();
+        // }catch(Exception $e){
+        //     $this->logger->debug($e->getMessage());
+        // }finally{
+        //     $this->logger->debug("hello finally",['aaa'=>'bbb']);
+        // }
 
         $this->view->render($response, 'home.twig', [
                 'posts' => Post::all(),
