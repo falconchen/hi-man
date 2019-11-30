@@ -96,7 +96,7 @@ final class PostAction extends \App\Helper\BaseAction
                 }      
                 
                 if( @isset($this->settings['admin']['sckey']) ){
-                    $body =  
+                    //$body =  
                     $this->scNofify($notifyTitle, $notifyBody);
                 }
 
