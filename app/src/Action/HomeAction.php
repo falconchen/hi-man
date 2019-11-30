@@ -6,11 +6,17 @@ use App\Helper\Hash;
 use App\Helper\Session;
 use App\Model\Group;
 use App\Model\User;
+use App\Model\Post;
 use App\Model\PostMeta;
 use App\Validation\Validator;
 use Carlosocarvalho\SimpleInput\Input\Input;
+use Exception;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
+
+use GuzzleHttp\Psr7;
+use GuzzleHttp\Client; // http://docs.guzzlephp.org/en/stable/index.html
+use GuzzleHttp\Exception\ClientException;
 
 final class HomeAction extends \App\Helper\BaseAction
 {
@@ -29,13 +35,33 @@ final class HomeAction extends \App\Helper\BaseAction
         // $item = PostMeta::firstOrNew(['meta_key'=>'osc_sync_options','post_id'=>18]);
         // $item['meta_value'] = "test";
         // $item->save();
+        
+        //echo $this->utcTimestamp();
+        try{
+            $this->testing();
+        }catch(Exception $e){
+            $this->logger->debug($e->getMessage());
+        }finally{
+            $this->logger->debug("hello finally",['aaa'=>'bbb']);
+        }
 
         $this->view->render($response, 'home.twig', [
-                'user' => User::all(),
+                'posts' => Post::all(),
             ]);
         return $response;
 
     }
+
+    private function testing(){
+        //throw new Exception("hello exception");
+        //$this->logger->debug("hello world");
+        //echo "asd"
+        //$this->scNofify("hello 你是 认","world");
+        //$this->logger->abc('aaa');
+        echo $this->dateToLocal('Y-m-d H:i:s','2019-11-30 15:39');
+    }
+
+    
 
     public function dashboard(Request $request, Response $response, $args)
     {
@@ -167,9 +193,8 @@ final class HomeAction extends \App\Helper\BaseAction
             $this->mailer->Subject = $mailSubject;
             $this->mailer->Body = $mailContent;
             $this->mailer->AddAddress($sendAddress);
+            
             if($needEmailVerify) {
-
-
                 if (!$this->mailer->send()) {
                     $this->logger->info("failed to send mail to " . $user->email);
                 } else {

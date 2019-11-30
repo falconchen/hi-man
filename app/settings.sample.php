@@ -15,6 +15,14 @@ return [
     'settings' => [
         'email.verify'=>false,//关闭用户邮箱验证
         'locked_dir'=> __DIR__ . '/../cache/locked', // 判断队列锁定的文件
+        'sync'=>[
+            'email.notify'=>false, //同步到osc时是否发送用户邮件通知
+        ],
+
+        'admin'=>[ //管理员信息设置
+            'sckey'=>'SCUxxxxx', //Server酱密钥 http://sc.ftqq.com/?c=code            
+
+        ],
 
         'debug'         => true,
         'whoops.editor' => 'sublime',
