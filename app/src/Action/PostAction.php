@@ -23,6 +23,7 @@ use Response as GlobalResponse;
 use Route;
 use stdClass;
 use Symfony\Component\Config\Definition\Exception\Exception;
+use Illuminate\Database\Capsule\Manager as DB;
 
 use Violin\Violin;
 
@@ -31,6 +32,7 @@ final class PostAction extends \App\Helper\BaseAction
 
     public function index(Request $request, Response $response, $args) {
         echo "hello";
+        
     }
     /**
      * 同步到osc
@@ -42,80 +44,86 @@ final class PostAction extends \App\Helper\BaseAction
         try{
 
             //锁机制 (待优化)
-            $queueName = 'syncOsc';
-            $lockedFilePath = $this->settings['locked_dir'] .'/'.$queueName .'.lock';
+            // $queueName = 'syncOsc';
+            // $lockedFilePath = $this->settings['locked_dir'] .'/'.$queueName .'.lock';
 
-            if( is_file($lockedFilePath) && time() - filemtime($lockedFilePath) < 60 ) {
-                exit('Sync Locked, Last launch at ' .date('Y-m-d H:i:s', 3600 * $this->settings['UTC']+ filemtime($lockedFilePath)));
-            }
+            // if( is_file($lockedFilePath) && time() - filemtime($lockedFilePath) < 60 ) {
+            //     exit('Sync Locked, Last launch at ' .date('Y-m-d H:i:s', 3600 * $this->settings['UTC']+ filemtime($lockedFilePath)));
+            // }
 
-            if(!is_dir($this->settings['locked_dir'] )){
-                if( !mkdir($this->settings['locked_dir'] ,0755) ){
-                    $this->logger->error('fail to create lock dir in '. $this->settings['locked_dir']);
+            // if(!is_dir($this->settings['locked_dir'] )){
+            //     if( !mkdir($this->settings['locked_dir'] ,0755) ){
+            //         $this->logger->error('fail to create lock dir in '. $this->settings['locked_dir']);
+            //     }
+            // }
+            
+
+            $currentTime = date('Y-m-d H:i');            
+            $posts = Post::where('post_status','future')->where('post_date','<=', $currentTime)->get();         
+            if( $posts->count() > 0 ){     
+                   // 过滤未绑定osc帐户的      
+                foreach( $posts as $k=>$post ){
+                    $hasOscBind = UserMeta::where('user_id', $post->post_author)
+                    ->where('meta_key','osc_cookie')->count();
+                    if(!$hasOscBind) {
+                        unset($posts[$k]);
+                    }
                 }
             }
             
-
-
-            $currentTime = date('Y-m-d H:i');
-            $posts = Post::where('post_status','future')->where('post_date','<=', $currentTime)->get();
-            //$posts = Post::where('post_date','<=', $currentTime)->get();
-            if($posts->count() == 0) {
-                is_file($lockedFilePath) && unlink($lockedFilePath);
+            if($posts->count() == 0) {  //再次检查                           
                 exit('None To Sync Post');
             }
-
-            touch($lockedFilePath); //更新锁定文件修改时间
-
+                        
+            //touch($lockedFilePath); //更新锁定文件修改时间
+            
             foreach($posts as $postDbData) {
-
-                $hasOscBind = UserMeta::where('user_id', $postDbData->post_author)
-                    ->where('meta_key','osc_cookie')->count();
+                
                 if(!$hasOscBind) {
                     continue;
                 }
-
                 $result = $this->doSyncOsc( $postDbData->post_id );
-                $info = sprintf(
-                    'Synced Post Id:%d , title:《%s》',
-                            $postDbData->post_id,
-                            $postDbData->post_title
-                );
-                $info .= "\n=======\n" .var_export($result,true);
+                
+                $this->logger->info('sync post result',['post_id'=>$postDbData->post_id, 'post_title'=>$postDbData->post_title, 'result'=>$result]);
 
-                $this->logger->info($info);
+                $notifyTitle = '同步文章到osc结果:' . $result->message;
+                $notifyBody = sprintf('post_id:%d-[%s], https://my.oschina.net/u/%s/blog/%s',
+                    $postDbData->post_id,
+                    $postDbData->post_title,
+                    $result->result->space,
+                    $result->result->id); 
+                    
+                if( @$this->settings['sync']['email.notify'] ) {
+                    
+                    // $mailBody = $result->message . sprintf( 'https://my.oschina.net/u/%s/blog/%s',
+                    // $result->result->space,$result->result->id);            
+                    $user = User::find($postDbData->post_author);                    
+                    $sendAddress = $user->email;
+                    $this->mailer->Subject = $notifyTitle;
+                    $this->mailer->Body = $notifyBody;
+                    $this->mailer->AddAddress($sendAddress);
 
-                $mailBody = $result->message . sprintf( 'https://my.oschina.net/u/%s/blog/%s',
-                        $result->result->space,$result->result->id);
+                    if (!$this->mailer->send()) {
+                        $this->logger->info("failed to send mail to " . $user->email);
+                    } else {
+                        $this->logger->info("send mail to " . $user->email);                 
+                    }
 
-
-                $user = User::find($postDbData->post_author);
-
-                $sendAddress = $user->email;
-                $this->mailer->Subject = '发布文章到osc';
-                $this->mailer->Body = $mailBody;
-                $this->mailer->AddAddress($sendAddress);
-
-                if (!$this->mailer->send()) {
-                    $this->logger->info("failed to send mail to " . $user->email);
-                } else {
-                    $this->logger->info("send mail to " . $user->email);
-                    //$response = $response->withRedirect($this->router->pathFor('thanks'));
+                }      
+                
+                if( @isset($this->settings['admin']['sckey']) ){
+                    $body =  
+                    $this->scNofify($notifyTitle, $notifyBody);
                 }
 
-                //sleep(1);
-
+                sleep(1);
             }
-            is_file($lockedFilePath) && unlink($lockedFilePath);
-
-
-
+            
         }catch(Exception $e){
-
-            $this->logger->error($e->getMessage() . "\n". $e->getTraceAsString());
+            $this->logger->error('Sync post error', ['error'=> $e->getMessage() ,'detail'=>$e->getTraceAsString()]);
 
         }finally{
-            is_file($lockedFilePath) && unlink($lockedFilePath);
+            //is_file($lockedFilePath) && unlink($lockedFilePath);
         }
 
     }
@@ -161,6 +169,7 @@ final class PostAction extends \App\Helper\BaseAction
 
         //self::init( $request, $response , $args) ;
         $postDbData = Post::where('post_id',$postId)->first();
+        
         $postArr['title'] = $postDbData->post_title;
         $postArr['content'] = $postDbData->post_content;
 
@@ -208,13 +217,28 @@ final class PostAction extends \App\Helper\BaseAction
         if(!count($catalogNode)) {
             throw new Exception('catalog not exists');
         }
-
-
         $postArr['user_code'] = $userCode;
 
-        $oscResponse = $client->request('POST', $blogSaveUrl,[
-            'form_params' => $postArr,
-        ]);
+        $oldStatus = $postDbData->post_status;
+        $postDbData = Post::where('post_id',$postId)->first(); //fetch again
+        if($postDbData->post_status != $oldStatus) {
+            throw new Exception('post not need to sync,having different status');
+        }
+        $postDbData->post_status = 'syncing';
+        $postDbData->save();
+        
+        try {
+            $oscResponse = $client->request('POST', $blogSaveUrl,[
+                'form_params' => $postArr,
+            ]);
+        }catch(Exception $e){
+            
+            $postDbData->post_status = 'future';
+            $postDbData->save();
+            throw $e;
+        }
+        
+        
         $body = (string)$oscResponse->getBody();
 
         $jData = json_decode($body);
@@ -222,12 +246,16 @@ final class PostAction extends \App\Helper\BaseAction
             throw new Exception(json_last_error_msg(),json_last_error());
         }
         $syncResult = PostMeta::firstOrNew(['post_id'=>$postId,'meta_key'=>'osc_sync_result']);
-        $jData->content=null; //移除文章内容，减少空间
+        //$jData->result->content=null; //移除文章内容，减少空间
         $syncResult->meta_value = maybe_serialize($jData);
         $syncResult->save();
 
         $postDbData->post_status="publish";
+        $utcTimestamp = time();
+        $postDbData->post_date=date('Y-m-d H:i:s',$utcTimestamp);
+        $postDbData->post_date_local=$this->dateTolocal('Y-m-d H:i:s',$postDbData->post_date);
         $postDbData->save();
+        
         return $jData;
 
 

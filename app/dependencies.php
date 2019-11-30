@@ -143,7 +143,8 @@ $container['session'] = function ($c) {
 //mailer
 $container['mailer'] = function ($c) {
 
-    $settings = $c['settings']['mailer'];
+    $settings = $c->get('settings');
+    $settings = $settings['mailer'];
     $mailer = new PHPMailer();
     $mailer->IsSMTP(); //设置使用SMTP服务器发送
     $mailer->SMTPAuth = true; //开启SMTP认证
@@ -158,4 +159,10 @@ $container['mailer'] = function ($c) {
     //$mailer->SMTPSecure = $settings['SMTPSecure'];
 
     return $mailer;
+};
+
+$container['guzzle'] = function($c) {
+    $settings = $c->get('settings');        
+    $client = new GuzzleHttp\Client($settings['guzzle']);
+    return $client;
 };

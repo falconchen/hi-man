@@ -23,6 +23,7 @@ use Response as GlobalResponse;
 use Route;
 use stdClass;
 use Symfony\Component\Config\Definition\Exception\Exception;
+use Illuminate\Database\Capsule\Manager as DB;
 
 use Violin\Violin;
 
@@ -463,30 +464,7 @@ final class PostAdminAction extends \App\Helper\LoggedAction
 
     }
 
-    //utc timestamp 转当地
-    private function localTimestamp($utcTimestamp=null)
-    {
-        $utcTimestamp = is_null($utcTimestamp) ? time() : $utcTimestamp;
-        return $utcTimestamp + $this->get('settings')['UTC']*3600;
-    }
-
-    //当时 timestamp 转UTC
-    private function utclTimestamp($localTimestamp=null)
-    {
-        return $localTimestamp - $this->get('settings')['UTC']*3600;
-    }
-    //utc时间格式转到当地时间
-    private function dateTolocal($format,$dateStr) {
-        return date($format,$this->localTimestamp(strtotime($dateStr)));
-    }
-
-    //本地时间转换到utc
-    
-    private function dateToUtc($format,$dateStr) {
-        return date($format,(strtotime($dateStr) - $this->get('settings')['UTC']*3600));
-    }
-
-    private function localTimeArr($localStamp=null) {
+    protected function localTimeArr($localStamp=null) {
         $localStamp = is_null($localStamp) ? $this->localTimestamp() : $localStamp;
         return [
           'y'=>date('Y',$localStamp),'m'=>date('m',$localStamp), 'd'=>date('d',$localStamp),
@@ -494,5 +472,4 @@ final class PostAdminAction extends \App\Helper\LoggedAction
         ];
 
     }
-
 }

@@ -51,4 +51,58 @@ class BaseAction
 
     }
 
+    protected function scNofify($title,$description=null){
+        
+        if(isset($this->c->settings['admin']) && isset($this->c->settings['admin']['sckey'])){
+            $sckey = $this->c->settings['admin']['sckey'];
+            $scUrl = 'https://sc.ftqq.com/'.$sckey.'.send';
+            $description = is_null($description) ? $title : $description;
+            $scResponse = $this->guzzle->request('POST',$scUrl ,[
+                'form_params' => [
+                    'text' => str_replace(' ','_',$title),
+                    'desp' => $description,
+                ],
+            ]);
+            $body = (string)$scResponse->getBody();      
+            $jsonArr = json_decode($body,true);
+            if(json_last_error() !== JSON_ERROR_NONE){
+                throw new \Exception(json_last_error_msg(),json_last_error());
+            }
+            if(isset( $jsonArr['errmsg'] ) && $jsonArr['errmsg'] == 'success'){
+                return true;
+            }
+            return false;
+
+            
+        }else{
+            throw new \Exception('admin sckey Not set');
+        }
+
+    }
+
+    //utc timestamp 转当地
+    protected function localTimestamp($utcTimestamp=null)
+    {
+        $utcTimestamp = is_null($utcTimestamp) ? time() : $utcTimestamp;
+        return $utcTimestamp + $this->get('settings')['UTC']*3600;
+    }
+
+    //当地 timestamp 转UTC
+    protected function utcTimestamp($localTimestamp)
+    {
+        return $localTimestamp - $this->get('settings')['UTC']*3600;
+    }
+    //utc时间格式转到当地时间
+    protected function dateTolocal($format,$dateStr) {
+        return date($format,$this->localTimestamp(strtotime($dateStr)));
+    }
+
+    //本地时间转换到utc
+    
+    protected function dateToUtc($format,$dateStr) {
+        return date($format,(strtotime($dateStr) - $this->get('settings')['UTC']*3600));
+    }
+
+
+
 }
