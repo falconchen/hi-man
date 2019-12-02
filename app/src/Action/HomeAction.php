@@ -269,4 +269,16 @@ final class HomeAction extends \App\Helper\BaseAction
 
     }
 
+    public function sendmail(Request $request, Response $response, $args)
+    {
+        $sendAddress = 'falcon_chen@qq.com';
+        $this->mailer->Subject = "test send mail";
+        $this->mailer->Body = 'text send mail content';
+        $this->mailer->AddAddress($sendAddress);
+        
+        $this->mailer->SMTPDebug = 1;
+        $result = $this->mailer->send();
+        var_dump($result);
+    }
+
 }

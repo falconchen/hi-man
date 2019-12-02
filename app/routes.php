@@ -9,6 +9,7 @@ $app->post('/login','App\Action\HomeAction:loginPost')->setName('login.post');
 //$app->post('/login','App\Action\HomeAction:testJson')->setName('login.post');
 $app->post('/register','App\Action\HomeAction:registerPost')->setName('register.post');
 
+$app->get('/sendmail', 'App\Action\HomeAction:sendmail')->setName('sendmail');
 
 
 $app->get('/verify/{user}/{code}', 'App\Action\HomeAction:verifyEmail')->setName('verify.email');
