@@ -276,7 +276,7 @@ final class HomeAction extends \App\Helper\BaseAction
         $this->mailer->Body = 'text send mail content';
         $this->mailer->AddAddress($sendAddress);
         
-        $this->mailer->SMTPDebug = 1;
+        $this->mailer->SMTPDebug = 3;
         $t = $this;
         $this->mailer->Debugoutput = function($e) use ($t){ $t->scNofify($e); };
         $result = $this->mailer->send();
