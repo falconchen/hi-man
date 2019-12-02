@@ -151,6 +151,7 @@ $container['mailer'] = function ($c) {
     $mailer->Host = $settings['Host']; //设置 SMTP 服务器,自己注册邮箱服务器地址
     $mailer->Username = $settings['Username']; //发信人的邮箱用户名
     $mailer->Password = $settings['Password']; //发信人的邮箱密码
+    $mailer->Port = $settings['Port'];
     /*内容信息*/
     $mailer->IsHTML($settings['isHTML']); //指定邮件内容格式为：html
     $mailer->CharSet = $settings['CharSet']; //编码
