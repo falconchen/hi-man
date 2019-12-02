@@ -277,6 +277,7 @@ final class HomeAction extends \App\Helper\BaseAction
         $this->mailer->AddAddress($sendAddress);
         
         $this->mailer->SMTPDebug = 1;
+        $this->mailer->Debugoutput = 'error_log';
         $result = $this->mailer->send();
         var_dump($result);
     }
