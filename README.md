@@ -41,6 +41,12 @@
 
 - [ Symfony Console Components documentation](https://symfony.com/doc/current/components/console.html)
 
+- [markdown-js](https://github.com/evilstreak/markdown-js)
+
+- [一个 PHP markdown 解析器](https://packagist.org/packages/league/commonmark)
+
+- [事件分发器](https://symfony.com/doc/current/components/event_dispatcher.html)
+
 ## codes && tips
 
 ```迭代twig
