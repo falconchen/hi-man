@@ -5,41 +5,30 @@ namespace App\Action;
 use App\Helper\Hash;
 use App\Helper\Session;
 use App\Model\Group;
-use App\Model\User;
 use App\Model\Post;
-use App\Model\PostMeta;
+use App\Model\User;
 use App\Validation\Validator;
 use Carlosocarvalho\SimpleInput\Input\Input;
-use Exception;
-use Psr\Http\Message\ResponseInterface as Response;
+use Psr\Http\Message\ResponseInterface as Response; // http://docs.guzzlephp.org/en/stable/index.html
 use Psr\Http\Message\ServerRequestInterface as Request;
-
-use GuzzleHttp\Psr7;
-use GuzzleHttp\Client; // http://docs.guzzlephp.org/en/stable/index.html
-use GuzzleHttp\Exception\ClientException;
-
-
-
-
 
 final class HomeAction extends \App\Helper\BaseAction
 {
 
     public function dispatch(Request $request, Response $response, $args)
     {
-        //$this->logger->info("Home page action dispatched"); 
+        //$this->logger->info("Home page action dispatched");
         //echo hi_generate_uuid4();exit;
-         
+
         //echo date('Y-m-d H:i:s');
         // $this->view->render($response, 'home.twig', [
         //     'user' => User::all(),
         // ]);
 
-
         // $item = PostMeta::firstOrNew(['meta_key'=>'osc_sync_options','post_id'=>18]);
         // $item['meta_value'] = "test";
         // $item->save();
-        
+
         //echo $this->utcTimestamp();
         // try{
         //     $this->testing();
@@ -48,43 +37,41 @@ final class HomeAction extends \App\Helper\BaseAction
         // }finally{
         //     $this->logger->debug("hello finally",['aaa'=>'bbb']);
         // }
-        
+
         //echo "hello world";exit;
-        
-        // echo 'start' . date('H:i:s');        
-        // $lock = $this->fileLock('Hello');        
-        // $lock->acquire();  
-        // echo 'acquire' .date('H:i:s');      
+
+        // echo 'start' . date('H:i:s');
+        // $lock = $this->fileLock('Hello');
+        // $lock->acquire();
+        // echo 'acquire' .date('H:i:s');
         // sleep(18);
         // $lock->release();
         // echo 'release' . date('H:i:s');
         // exit;
 
-
         $this->view->render($response, 'home.twig', [
-                'posts' => Post::all(),
-            ]);
+            'posts' => Post::all(),
+        ]);
         return $response;
 
     }
 
-    private function testing(){
+    private function testing()
+    {
         //throw new Exception("hello exception");
         echo "hello";
         //$this->logger->debug("hello world");
         //echo "asd"
         //$this->scNofify("hello 你是 认","world");
         //$this->logger->abc('aaa');
-        echo $this->dateToLocal('Y-m-d H:i:s','2019-11-30 15:39');
+        echo $this->dateToLocal('Y-m-d H:i:s', '2019-11-30 15:39');
     }
-
-    
 
     public function dashboard(Request $request, Response $response, $args)
     {
         $user_id = $this->session->get($this->auth['session']);
         $user = User::where('id', $user_id)->first();
-        if($user){
+        if ($user) {
             return $response->withRedirect($this->router->pathFor('post-admin'));
         }
 
@@ -122,7 +109,7 @@ final class HomeAction extends \App\Helper\BaseAction
         } else {
             if ($v->passes()) {
                 $user = User::where('username', $identifier)->orWhere('email', $identifier)->first();
-                if ($user && $this->hash->passwordCheck($password, $user->password) && $user->status >0) {
+                if ($user && $this->hash->passwordCheck($password, $user->password) && $user->status > 0) {
                     $this->session->set($this->auth['session'], $user->id);
                     $this->session->set($this->auth['session'], $user->id);
                     $this->session->set($this->auth['group'], $user->group_id);
@@ -131,18 +118,16 @@ final class HomeAction extends \App\Helper\BaseAction
 
                     $this->flash->addMessage('flash', "[success] Welcome back ," . $user->username);
 
-
-                    if( $user->group_id <= 2 ){
-                        return $response->withRedirect($this->router->pathFor('admin'));//admin和mod转向管理页
-                    } else{
-                        return $response->withRedirect($this->router->pathFor('post-admin'));//普通用户转向
+                    if ($user->group_id <= 2) {
+                        return $response->withRedirect($this->router->pathFor('admin')); //admin和mod转向管理页
+                    } else {
+                        return $response->withRedirect($this->router->pathFor('post-admin')); //普通用户转向
                     }
 
                 } else {
                     $flash = ['[error] Sorry, you couldn\'t be logged in. <br/>Wrong Username/Email/Password Or account Inactive ? '];
                     $this->view->render($response, 'login.twig', ['errors' => $v->errors(), 'flash' => $flash, 'request' => $request]);
                 }
-
 
             } else {
                 $this->view->render($response, 'login.twig',
@@ -165,9 +150,9 @@ final class HomeAction extends \App\Helper\BaseAction
     public function registerPost(Request $request, Response $response, $args)
     {
 
-        if(isset($this->settings['email.verify']) && $this->settings['email.verify'] == true){
+        if (isset($this->settings['email.verify']) && $this->settings['email.verify'] == true) {
             $needEmailVerify = true;
-        }else{
+        } else {
             $needEmailVerify = false;
         }
 
@@ -186,7 +171,6 @@ final class HomeAction extends \App\Helper\BaseAction
 
         if ($v->passes()) {
             $inactive_group = Group::where('group_name', 'inactive')->first();
-
 
             $user = new User();
             $user->email = $email;
@@ -210,8 +194,8 @@ final class HomeAction extends \App\Helper\BaseAction
             $this->mailer->Subject = $mailSubject;
             $this->mailer->Body = $mailContent;
             $this->mailer->AddAddress($sendAddress);
-            
-            if($needEmailVerify) {
+
+            if ($needEmailVerify) {
                 if (!$this->mailer->send()) {
                     $this->logger->info("failed to send mail to " . $user->email);
                 } else {
@@ -219,7 +203,7 @@ final class HomeAction extends \App\Helper\BaseAction
                     //$response = $response->withRedirect($this->router->pathFor('thanks'));
                 }
                 $flash = "[info] An Email has been sent to your mailbox, please check the email to verify!";
-            }else{
+            } else {
                 $flash = "[info] You can login now !";
             }
             $this->flash->addMessage('flash', $flash);
@@ -227,7 +211,6 @@ final class HomeAction extends \App\Helper\BaseAction
         } else {
             $flash = "registration failed.";
         }
-
 
         $this->view->render($response, 'register.twig', ['errors' => $v->errors(), 'flash' => $flash, 'request' => $request->getParsedBody()]);
 
@@ -241,7 +224,6 @@ final class HomeAction extends \App\Helper\BaseAction
     {
         $userName = $args['user'];
         $activeCode = $args['code'];
-
 
         $user = User::where('username', $userName)->where('active_code', $activeCode)->first();
 
@@ -275,10 +257,10 @@ final class HomeAction extends \App\Helper\BaseAction
         $this->mailer->Subject = "test send mail";
         $this->mailer->Body = 'text send mail content';
         $this->mailer->AddAddress($sendAddress);
-        
+
         $this->mailer->SMTPDebug = 3;
         $t = $this;
-        $this->mailer->Debugoutput = function($e) use ($t){ $t->scNofify($e); };
+        $this->mailer->Debugoutput = function ($e) use ($t) {$t->scNofify($e);};
         $result = $this->mailer->send();
         var_dump($result);
     }
