@@ -1,3 +1,4 @@
+{% set c = container %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,10 +9,11 @@
     <title>{% block title %}{% endblock %} &ndash; Hi</title>
 
     <link rel="stylesheet" href="{{ base_url() }}/css/bootstrap.min.css">
-    <link rel="stylesheet" href="{{ base_url() }}/css/bootstrap-theme.min.css">    
+    <link rel="stylesheet" href="{{ base_url() }}/css/bootstrap-theme.min.css"> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">   
     <link rel="stylesheet" href="{{ base_url() }}/css/w3.css">
     <link rel="stylesheet" href="{{ base_url() }}/css/style.css">
-    <link rel="icon" href="https://freewriting.design/wp-content/uploads/2019/09/cropped-BlackFire-32x32.png" sizes="32x32" />
+    <link rel="icon" href="{{ base_url() }}/images/cropped-BlackFire-32x32.png" sizes="32x32" />
 
     {# <link href='https://fonts.googleapis.com/css?family=Source Code Pro' rel='stylesheet'> #}
 
@@ -36,7 +38,7 @@
                     <span class="icon-bar"></span>
                 </button>
                 <a class="navbar-brand w3-text-white" href="{{ base_url() }}">Hi
-
+                <i class="fa fa-fw fa-smile-o"></i>
                 </a>
 
             </div>
@@ -98,7 +100,7 @@
     {% block content %}{% endblock %}
 
 
-        <footer class="w3-container w3-padding-16 w3-center">
+        <footer class="w3-container w3-padding-16 w3-center w3-margin-top">
             <strong><p class="w3-text-grey"><a class="w3-small w3-hover-opacity w3-padding-small w3-border-aqua" href="{{ base_url() }}" target="_blank"><i class="fa fa-heart"></i> Powered by Hi-CMS &copy; 2019</a></p></strong>
 
         </footer>
