@@ -111,7 +111,7 @@
 </div>
 
 <!-- Sidebar/menu -->
-<nav class="w3-sidebar w3-collapse w3-white w3-animate-left" style="z-index:3;width:300px;" id="mySidebar"><br>
+<nav class="w3-sidebar w3-collapse w3-white " style="z-index:3;width:300px;" id="mySidebar"><br>
     <div class="w3-container w3-row">
         <div class="w3-col s4">
             <img src="{{ avatar|default('https://www.w3schools.com/w3images/avatar1.png') }}"
@@ -389,8 +389,9 @@
         $('input[name=post_future]').change(
             function(){
                 var status = 'post_future-radio-' + $(this).val();
-                var text = $('label[for='+ status +']').text();
-                $('.hi-publish-btn').val(text).text(text);
+                var text = $('label[for='+ status +']').text();                
+                var publishBtnVal = ($(this).val() == 'yes') ? 'future' : 'publish';
+                $('.hi-publish-btn').val(publishBtnVal).text(text);
                 
             }
         )
