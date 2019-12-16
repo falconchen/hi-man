@@ -109,17 +109,22 @@
             <h6>发表</h6>
         </div>
         <div class="w3-container">
-            <div class="w3-hide hi-to-hide">
+            <div class="hi-wrapper">
             <div class="w3-section  w3-small w3-row">
-                <div class="w3-col s6">
-                <button class="w3-btn w3-card-4 w3-white w3-padding-small w3-hover-blue" type="submit">保存草稿</button>
+                <div class="w3-col s4">
+                <button class="w3-btn w3-border w3-white w3-padding-small w3-hover-green" type="submit" name="post_status" value="draft">保存草稿</button>
                 </div>
-                <div class="w3-col s6">
+                <div class="w3-col s4">
+                <button class="w3-btn w3-border w3-white w3-padding-small w3-hover-red" type="submit" name="post_status" value="trash">删除文章</button>
+                </div>
+                
+                <div class="w3-col s4">
                 <a class="w3-btn w3-white w3-padding-small w3-right w3-disabled" type="submit">预览</a>
                 </div>
             </div>
 
-            <div class="w3-section  w3-small">
+            
+            {# <div class="w3-section  w3-small">
                 <label>状态：</label>
                 
                 <span id="hi-post-status-select " class="" >
@@ -130,25 +135,26 @@
                     </select>                    
                 </span>
             </div>
+         #}
 
             <div class="w3-section  w3-small hi-post-visibility">
-                <label>公开度：</label>
-
+                <label>本站公开度：</label>
+                {% set postVisible = is_null(post.post_visibility) ? 'publish' :post.post_visibility  %}    
+                       
                 <span id="hi-post-visibility-select " class="hi-post-visibility" >
 
-                                                      
-                <input type="radio" name="visibility" id="visibility-radio-public" value="public" checked="checked"> 
+                <input type="radio" name="post_visibility" id="visibility-radio-public" value="public" {{ checked('public',postVisible) }}> 
                 <label for="visibility-radio-public" class="selectit">公开</label>    
 
                 {# <span id="sticky-span"><input id="sticky" name="sticky" type="checkbox" value="sticky"> <label for="sticky" class="selectit">将文章置于首页顶端</label><br></span>
                 <input type="radio" name="visibility" id="visibility-radio-password" value="password"> <label for="visibility-radio-password" class="selectit">密码保护</label><br>
                 <span id="password-span" style="display: none;"><label for="post_password">密码：</label> <input type="text" name="post_password" id="post_password" value="" maxlength="255"><br></span> #}
-                <input type="radio" name="visibility" id="visibility-radio-private" value="private"> <label for="visibility-radio-private" class="selectit">私密</label>
+                <input type="radio" name="post_visibility" id="visibility-radio-private" value="private" {{ checked('private',postVisible) }}> <label for="visibility-radio-private" class="selectit">私密</label>
 
-                <input type="radio" name="visibility" id="visibility-radio-password" value="password" class="hi-accordion"> <label for="visibility-radio-password" class="selectit">密码保护</label>
+                <input type="radio" name="post_visibility" id="visibility-radio-password" value="text" class="hi-accordion" {{ checked('password',postVisible) }}> <label for="visibility-radio-password" class="selectit">密码保护</label>
                 
                 <div id="hi-password-panel" class="hi-detail-panel" style="padding:0">                
-                    <input class="w3-input w3-border w3-section w3-small" name="post_password" type="text" placeholder="请输入密码">                            
+                    <input class="w3-input w3-border w3-section w3-small" name="post_password" type="password" placeholder="请输入密码">                            
                 </div>
                 </span>
                 
@@ -212,7 +218,11 @@
                 </div>
                 <div class="w3-col s5">
                     <i class="fa fa-spinner fa-spin animated  w3-large w3-padding-small w3-hide"></i>
-                    <button class="w3-text-black w3-btn  w3-padding-small w3-white w3-card-4 w3-hover-blue w3-right hi-publish-btn" type="submit">发布</button>
+
+                    <button class="w3-text-black w3-btn  w3-padding-small w3-white w3-card-4 w3-hover-blue w3-right hi-publish-btn" type="submit" name="post_status" 
+                    value = "{{post.post_status == 'future' ? 'future' :'publish'}}"
+                    >{{ post.post_status == 'future' ? '定时发布' : '立即发布'}}</button>
+
                 </div>          
                 
         </div>

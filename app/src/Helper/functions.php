@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Description:一些有用的 function, 部分移植自wordpress
  * Author: falcon
@@ -209,19 +210,26 @@ function maybe_serialize($data)
  */
 function wp_generate_uuid4()
 {
-    return sprintf('%04x%04x-%04x-%04x-%04x-%04x%04x%04x',
-        mt_rand(0, 0xffff), mt_rand(0, 0xffff),
+    return sprintf(
+        '%04x%04x-%04x-%04x-%04x-%04x%04x%04x',
+        mt_rand(0, 0xffff),
+        mt_rand(0, 0xffff),
         mt_rand(0, 0xffff),
         mt_rand(0, 0x0fff) | 0x4000,
         mt_rand(0, 0x3fff) | 0x8000,
-        mt_rand(0, 0xffff), mt_rand(0, 0xffff), mt_rand(0, 0xffff)
+        mt_rand(0, 0xffff),
+        mt_rand(0, 0xffff),
+        mt_rand(0, 0xffff)
     );
 }
 
 function hi_random()
 {
-    return sprintf('%04x%04x%04x',
-        mt_rand(0, 0xffff), mt_rand(0, 0xffff), mt_rand(0, 0xffff)
+    return sprintf(
+        '%04x%04x%04x',
+        mt_rand(0, 0xffff),
+        mt_rand(0, 0xffff),
+        mt_rand(0, 0xffff)
     );
 }
 
@@ -255,4 +263,191 @@ function validateDate($date, $format = 'Y-m-d H:i:s')
     $d = DateTime::createFromFormat($format, $date);
 
     return $d && $d->format($format) == $date;
+}
+
+/**
+ * Retrieves a modified URL query string.
+ *
+ * You can rebuild the URL and append query variables to the URL query by using this function.
+ * There are two ways to use this function; either a single key and value, or an associative array.
+ *
+ * Using a single key and value:
+ *
+ *     add_query_arg( 'key', 'value', 'http://example.com' );
+ *
+ * Using an associative array:
+ *
+ *     add_query_arg( array(
+ *         'key1' => 'value1',
+ *         'key2' => 'value2',
+ *     ), 'http://example.com' );
+ *
+ * Omitting the URL from either use results in the current URL being used
+ * (the value of `$_SERVER['REQUEST_URI']`).
+ *
+ * Values are expected to be encoded appropriately with urlencode() or rawurlencode().
+ *
+ * Setting any query variable's value to boolean false removes the key (see remove_query_arg()).
+ *
+ * Important: The return value of add_query_arg() is not escaped by default. Output should be
+ * late-escaped with esc_url() or similar to help prevent vulnerability to cross-site scripting
+ * (XSS) attacks.
+ *
+ * @since 1.5.0
+ *
+ * @param string|array $key   Either a query variable key, or an associative array of query variables.
+ * @param string       $value Optional. Either a query variable value, or a URL to act upon.
+ * @param string       $url   Optional. A URL to act upon.
+ * @return string New URL query string (unescaped).
+ */
+function add_query_arg()
+{
+    $args = func_get_args();
+    if (is_array($args[0])) {
+        if (count($args) < 2 || false === $args[1])
+            $uri = $_SERVER['REQUEST_URI'];
+        else
+            $uri = $args[1];
+    } else {
+        if (count($args) < 3 || false === $args[2])
+            $uri = $_SERVER['REQUEST_URI'];
+        else
+            $uri = $args[2];
+    }
+
+    if ($frag = strstr($uri, '#'))
+        $uri = substr($uri, 0, -strlen($frag));
+    else
+        $frag = '';
+
+    if (0 === stripos($uri, 'http://')) {
+        $protocol = 'http://';
+        $uri = substr($uri, 7);
+    } elseif (0 === stripos($uri, 'https://')) {
+        $protocol = 'https://';
+        $uri = substr($uri, 8);
+    } else {
+        $protocol = '';
+    }
+
+    if (strpos($uri, '?') !== false) {
+        list($base, $query) = explode('?', $uri, 2);
+        $base .= '?';
+    } elseif ($protocol || strpos($uri, '=') === false) {
+        $base = $uri . '?';
+        $query = '';
+    } else {
+        $base = '';
+        $query = $uri;
+    }
+
+    wp_parse_str($query, $qs);
+    $qs = urlencode_deep($qs); // this re-URL-encodes things that were already in the query string
+    if (is_array($args[0])) {
+        foreach ($args[0] as $k => $v) {
+            $qs[$k] = $v;
+        }
+    } else {
+        $qs[$args[0]] = $args[1];
+    }
+
+    foreach ($qs as $k => $v) {
+        if ($v === false)
+            unset($qs[$k]);
+    }
+
+    $ret = http_build_query($qs);
+    $ret = trim($ret, '?');
+    $ret = preg_replace('#=(&|$)#', '$1', $ret);
+    $ret = $protocol . $base . $ret . $frag;
+    $ret = rtrim($ret, '?');
+    return $ret;
+}
+
+/**
+ * Navigates through an array, object, or scalar, and encodes the values to be used in a URL.
+ *
+ * @since 2.2.0
+ *
+ * @param mixed $value The array or string to be encoded.
+ * @return mixed $value The encoded value.
+ */
+function urlencode_deep($value)
+{
+    return map_deep($value, 'urlencode');
+}
+
+
+/**
+ * Parses a string into variables to be stored in an array.
+ *
+ * Uses {@link https://secure.php.net/parse_str parse_str()} and stripslashes if
+ * {@link https://secure.php.net/magic_quotes magic_quotes_gpc} is on.
+ *
+ * @since 2.2.1
+ *
+ * @param string $string The string to be parsed.
+ * @param array  $array  Variables will be stored in this array.
+ */
+function wp_parse_str($string, &$array)
+{
+    parse_str($string, $array);
+    if (get_magic_quotes_gpc())
+        $array = stripslashes_deep($array);
+    return $array;
+}
+
+/**
+ * Navigates through an array, object, or scalar, and removes slashes from the values.
+ *
+ * @since 2.0.0
+ *
+ * @param mixed $value The value to be stripped.
+ * @return mixed Stripped value.
+ */
+function stripslashes_deep($value)
+{
+    return map_deep($value, 'stripslashes_from_strings_only');
+}
+
+/**
+ * Maps a function to all non-iterable elements of an array or an object.
+ *
+ * This is similar to `array_walk_recursive()` but acts upon objects too.
+ *
+ * @since 4.4.0
+ *
+ * @param mixed    $value    The array, object, or scalar.
+ * @param callable $callback The function to map onto $value.
+ * @return mixed The value with the callback applied to all non-arrays and non-objects inside it.
+ */
+function map_deep($value, $callback)
+{
+    if (is_array($value)) {
+        foreach ($value as $index => $item) {
+            $value[$index] = map_deep($item, $callback);
+        }
+    } elseif (is_object($value)) {
+        $object_vars = get_object_vars($value);
+        foreach ($object_vars as $property_name => $property_value) {
+            $value->$property_name = map_deep($property_value, $callback);
+        }
+    } else {
+        $value = call_user_func($callback, $value);
+    }
+
+    return $value;
+}
+
+/**
+ * Callback function for `stripslashes_deep()` which strips slashes from strings.
+ *
+ * @since 4.4.0
+ *
+ * @param mixed $value The array or string to be stripped.
+ * @return mixed $value The stripped value.
+ */
+function stripslashes_from_strings_only($value)
+{
+    return is_string($value) ? stripslashes($value) : $value;
 }

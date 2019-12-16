@@ -1,5 +1,7 @@
 <?php
+
 namespace App\Helper;
+
 use Twig\Environment;
 use Twig\Extension\AbstractExtension;
 use Twig\Extension\GlobalsInterface;
@@ -18,64 +20,78 @@ class ProjectTwigExtension extends AbstractExtension implements GlobalsInterface
     //注入全局变量
     public function getGlobals()
     {
-        return array(      
-            'container'=>$this->container ,      
-            'server'=>$_SERVER,
+        return array(
+            'container' => $this->container,
+            'server' => $_SERVER,
             'session'   => $_SESSION,
-        ) ;
+        );
     }
 
     public function getFilters()
     {
         return [
-            new TwigFilter('truncate', [$this,'twig_truncate_filter'], ['needs_environment' => true]),
-            new TwigFilter('wordwrap', [$this,'twig_wordwrap_filter'], ['needs_environment' => true]),
-            new TwigFilter('flash_fmt', [$this, 'flash_fmt'], [ 'is_safe' => ['html'], ])
+            new TwigFilter('truncate', [$this, 'twig_truncate_filter'], ['needs_environment' => true]),
+            new TwigFilter('wordwrap', [$this, 'twig_wordwrap_filter'], ['needs_environment' => true]),
+            new TwigFilter('flash_fmt', [$this, 'flash_fmt'], ['is_safe' => ['html'],])
         ];
     }
 
     //demo
-    public function getFunctions(){
+    public function getFunctions()
+    {
         return [
-            new TwigFunction('red', [$this, 'red'], [ 'is_safe' => ['html'], ])
+            new TwigFunction('red', [$this, 'red'], ['is_safe' => ['html'],]),
+            new TwigFunction('checked', [$this, 'checked'], ['is_safe' => ['html'],]),
+            new TwigFunction('is_null', [$this, 'is_null']),
+
         ];
     }
 
 
-    function red($string){
+    function red($string)
+    {
 
-        return "<div class='w3-red'>" .$string .'</div>';
+        return "<div class='w3-red'>" . $string . '</div>';
     }
 
+    function checked($val1, $val2)
+    {
+        return ($val1 === $val2) ? ' checked="checked" ' : '';
+    }
 
+    function is_null($val)
+    {
+        return is_null($val);
+    }
     /**
      * @param $value
      * @param string $type msg/type
      * @return string
      */
-    function flash_fmt($value, $type='msg'){
+    function flash_fmt($value, $type = 'msg')
+    {
 
-        if($type == 'msg') {
-            return trim(preg_replace('#\[.*\]#iUs','',$value));
+        if ($type == 'msg') {
+            return trim(preg_replace('#\[.*\]#iUs', '', $value));
         }
 
 
         $error_type = 'info';
-        if(preg_match('#\[(.*)\]#iUs',$value,$match)){
+        if (preg_match('#\[(.*)\]#iUs', $value, $match)) {
             $error_type = trim($match[1]);
         }
-        if($type == 'type'){
+        if ($type == 'type') {
             return $error_type;
         }
 
 
-        if($type == 'class'){
-//
-//            {{ "[warning] Lorem ipsum dolor sit amet, consectetur adipiscing"|flash_fmt('msg') }}
-//            {{ "[warning] Lorem ipsum dolor sit amet, consectetur adipiscing"|flash_fmt('class') }}
+        if ($type == 'class') {
+            //
+            //            {{ "[warning] Lorem ipsum dolor sit amet, consectetur adipiscing"|flash_fmt('msg') }}
+            //            {{ "[warning] Lorem ipsum dolor sit amet, consectetur adipiscing"|flash_fmt('class') }}
 
 
-            switch($error_type){
+            switch ($error_type) {
                 case 'success':
                     return 'w3-white w3-border-green w3-leftbar';
                 case 'error':
@@ -88,9 +104,6 @@ class ProjectTwigExtension extends AbstractExtension implements GlobalsInterface
                     return 'w3-white w3-leftbar w3-border-blue';
             }
         }
-
-
-
     }
 
     //参考：https://twig-extensions.readthedocs.io/en/latest/text.html
@@ -105,7 +118,7 @@ class ProjectTwigExtension extends AbstractExtension implements GlobalsInterface
                 }
                 $length = $breakpoint;
             }
-            return rtrim(mb_substr($value, 0, $length, $env->getCharset())).$separator;
+            return rtrim(mb_substr($value, 0, $length, $env->getCharset())) . $separator;
         }
         return $value;
     }
@@ -128,7 +141,4 @@ class ProjectTwigExtension extends AbstractExtension implements GlobalsInterface
         }
         return implode($separator, $sentences);
     }
-
-
-
 }
