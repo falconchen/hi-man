@@ -37,10 +37,11 @@ $container['notAllowedHandler'] = function ($c) {
     return function ($request, $response, $methods) use ($c) {
 
         $view = new App\Helper\JsonRenderer();
-        return $view->render($response, 405,
+        return $view->render(
+            $response,
+            405,
             ['error_code' => 'not_allowed', 'error_message' => 'Method must be one of: ' . implode(', ', $methods)]
         );
-
     };
 };
 
@@ -98,10 +99,15 @@ $container['flash'] = function ($c) {
 
 // database
 use Illuminate\Database\Capsule\Manager as Capsule;
+
 $setting = include 'settings.php';
 $capsule = new Capsule;
 $capsule->addConnection($setting['settings']['database']);
 $capsule->setAsGlobal();
+// 注册分页类
+Capsule::setPaginator(function () use ($app, $config) {
+    return new App\Helper\Paginator($app->request, $config->get('pager', 'page'));
+});
 $capsule->bootEloquent();
 
 // -----------------------------------------------------------------------------
@@ -162,8 +168,8 @@ $container['mailer'] = function ($c) {
     return $mailer;
 };
 
-$container['guzzle'] = function($c) {
-    $settings = $c->get('settings');        
+$container['guzzle'] = function ($c) {
+    $settings = $c->get('settings');
     $client = new GuzzleHttp\Client($settings['guzzle']);
     return $client;
 };

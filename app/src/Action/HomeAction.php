@@ -48,12 +48,16 @@ final class HomeAction extends \App\Helper\BaseAction
         // $lock->release();
         // echo 'release' . date('H:i:s');
         // exit;
+        $data = array();
+        $posts = Post::where(['post_status' => 'publish', 'post_visibility' => 'public'])
+            ->orderBy('post_date', 'DESC')->get();
 
-        $this->view->render($response, 'home.twig', [
-            'posts' => Post::all(),
-        ]);
+        $data['posts'] = $posts;
+
+        //extract
+
+        $this->view->render($response, 'home.twig', $data);
         return $response;
-
     }
 
     private function testing()
@@ -123,17 +127,19 @@ final class HomeAction extends \App\Helper\BaseAction
                     } else {
                         return $response->withRedirect($this->router->pathFor('post-admin')); //普通用户转向
                     }
-
                 } else {
                     $flash = ['[error] Sorry, you couldn\'t be logged in. <br/>Wrong Username/Email/Password Or account Inactive ? '];
                     $this->view->render($response, 'login.twig', ['errors' => $v->errors(), 'flash' => $flash, 'request' => $request]);
                 }
-
             } else {
-                $this->view->render($response, 'login.twig',
-                    ['errors' => $v->errors(),
+                $this->view->render(
+                    $response,
+                    'login.twig',
+                    [
+                        'errors' => $v->errors(),
                         'request' => $request,
-                    ]);
+                    ]
+                );
             }
         }
 
@@ -182,7 +188,8 @@ final class HomeAction extends \App\Helper\BaseAction
             $user->save();
 
             $mailSubject = "Verify Your Email Address";
-            $mailContent = sprintf("
+            $mailContent = sprintf(
+                "
                     <h1>Dear %s , Thanks for signing up Hi !</h1>
                      We're happy you're here. Let's get your email address verified: <a href='%s'>Click to Verify Email</a> .",
                 $user->username,
@@ -235,12 +242,10 @@ final class HomeAction extends \App\Helper\BaseAction
                 $this->logger->info('active user id:' . $user->id);
                 $this->flash->addMessage('flash', '[success] Verified email address successful,you can login now :)');
                 return $response->withRedirect($this->router->pathFor('login'));
-
             } else {
                 $flash = 'This email address was verified before';
                 exit($flash);
             }
-
         } else {
             $this->logger->info(sprintf('invalid user verify with %1$s :%2$s', $userName, $activeCode));
             $this->flash->addMessage('flash', '[error] Bad Request. Try register again.');
@@ -248,7 +253,6 @@ final class HomeAction extends \App\Helper\BaseAction
         }
 
         return $response;
-
     }
 
     public function sendmail(Request $request, Response $response, $args)
@@ -260,9 +264,10 @@ final class HomeAction extends \App\Helper\BaseAction
 
         $this->mailer->SMTPDebug = 3;
         $t = $this;
-        $this->mailer->Debugoutput = function ($e) use ($t) {$t->scNofify($e);};
+        $this->mailer->Debugoutput = function ($e) use ($t) {
+            $t->scNofify($e);
+        };
         $result = $this->mailer->send();
         var_dump($result);
     }
-
 }
