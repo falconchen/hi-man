@@ -11,6 +11,9 @@ use App\Validation\Validator;
 use Carlosocarvalho\SimpleInput\Input\Input;
 use Psr\Http\Message\ResponseInterface as Response; // http://docs.guzzlephp.org/en/stable/index.html
 use Psr\Http\Message\ServerRequestInterface as Request;
+use App\Helper\Paginator;
+
+//use Illuminate\Support\Facades\DB;
 
 final class HomeAction extends \App\Helper\BaseAction
 {
@@ -49,8 +52,27 @@ final class HomeAction extends \App\Helper\BaseAction
         // echo 'release' . date('H:i:s');
         // exit;
         $data = array();
+        // $page = 1;
+        // Paginator::currentPageResolver(function () use ($page) {
+        //     return $page;
+        // });
         $posts = Post::where(['post_status' => 'publish', 'post_visibility' => 'public'])
-            ->orderBy('post_date', 'DESC')->get();
+            ->orderBy('post_date', 'DESC')->paginate(30);
+
+
+        if ($posts->count() > 0) {
+            foreach ($posts as &$post) {
+                // $post->post_modified = $this->dateTolocal('Y-m-d H:i:s', $post->post_modified);
+                $post->post_author_name = User::where('id', $post->post_author)->first()->username;
+            }
+        }
+        //$posts->render();
+
+        //$pager = $data->render(); //如果路径在二级目录下 分页访问的url 会指向根目录
+        //exit;
+        //$pager = $posts->render(); //如果路径在二级目录下 分页访问的url 会指向根目录
+        //var_dump($list);
+        //exit;
 
         $data['posts'] = $posts;
 
