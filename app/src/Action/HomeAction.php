@@ -57,7 +57,7 @@ final class HomeAction extends \App\Helper\BaseAction
         //     return $page;
         // });
         $posts = Post::where(['post_status' => 'publish', 'post_visibility' => 'public'])
-            ->orderBy('post_date', 'DESC')->paginate(30);
+            ->orderBy('post_date', 'DESC')->paginate(20);
 
 
         if ($posts->count() > 0) {
