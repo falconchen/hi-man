@@ -105,9 +105,10 @@ $capsule = new Capsule;
 $capsule->addConnection($setting['settings']['database']);
 $capsule->setAsGlobal();
 // 注册分页类
-Capsule::setPaginator(function () use ($app, $config) {
-    return new App\Helper\Paginator($app->request, $config->get('pager', 'page'));
-});
+// Capsule::setPaginator(function () use ($app, $c) {
+//     $settings = $c->get('settings');
+//     return new App\Helper\Paginator($app->request, 4);
+// });
 $capsule->bootEloquent();
 
 // -----------------------------------------------------------------------------

@@ -60,8 +60,8 @@ class ComposerStaticInitc3765e25676b2cbb624df054aef313e2
         ),
         'I' => 
         array (
-            'Interop\\Container\\' => 18,
             'Illuminate\\Support\\' => 19,
+            'Illuminate\\Pagination\\' => 22,
             'Illuminate\\Database\\' => 20,
             'Illuminate\\Contracts\\' => 21,
             'Illuminate\\Container\\' => 21,
@@ -185,13 +185,13 @@ class ComposerStaticInitc3765e25676b2cbb624df054aef313e2
         array (
             0 => __DIR__ . '/..' . '/monolog/monolog/src/Monolog',
         ),
-        'Interop\\Container\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/container-interop/container-interop/src/Interop/Container',
-        ),
         'Illuminate\\Support\\' => 
         array (
             0 => __DIR__ . '/..' . '/illuminate/support',
+        ),
+        'Illuminate\\Pagination\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/illuminate/pagination',
         ),
         'Illuminate\\Database\\' => 
         array (
