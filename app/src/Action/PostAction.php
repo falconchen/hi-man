@@ -27,13 +27,24 @@ use Symfony\Component\Config\Definition\Exception\Exception;
 use Illuminate\Database\Capsule\Manager as DB;
 
 use Violin\Violin;
+use Symfony\Component\Translation\Loader\ArrayLoader;
+use Symfony\Component\Translation\Translator;
+
 
 final class PostAction extends \App\Helper\BaseAction
 {
 
     public function index(Request $request, Response $response, $args)
     {
-        echo "coming soon...";
+        //echo "coming soon...";
+
+        $translator = new Translator('zh_CN');
+        $translator->addLoader('array', new ArrayLoader());
+        $translator->addResource('array', [
+            'coming soon...' => '正在开发，敬请期待...',
+        ], 'zh_CN');
+
+        print($translator->trans('coming soon...'));
     }
     /**
      * 同步到osc
