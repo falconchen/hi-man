@@ -139,8 +139,8 @@
 
             <div class="w3-section  w3-small hi-post-visibility">
                 <label>本站公开度：</label>
-                {% set postVisible = is_null(post.post_visibility) ? 'publish' :post.post_visibility  %}    
-                       
+                {% set postVisible = is_null(post.post_visibility) ? 'public' :post.post_visibility  %}    
+                
                 <span id="hi-post-visibility-select " class="hi-post-visibility" >
 
                 <input type="radio" name="post_visibility" id="visibility-radio-public" value="public" {{ checked('public',postVisible) }}> 
