@@ -57,6 +57,7 @@ final class PostAction extends \App\Helper\BaseAction
         try {
             $currentTime = date('Y-m-d H:i');
             $posts = Post::where('post_status', 'future')->where('post_date', '<=', $currentTime)->get();
+
             if ($posts->count() > 0) {
                 // 过滤未绑定osc帐户的      
                 foreach ($posts as $k => $post) {
@@ -126,6 +127,7 @@ final class PostAction extends \App\Helper\BaseAction
 
     private function doSyncOsc($postId, $oscSyncOptions = [])
     {
+        $this->logger('info', 'start sync ' . $postId);
 
         //default sync options
         $postArr = array(
@@ -148,6 +150,7 @@ final class PostAction extends \App\Helper\BaseAction
 
         if (empty($oscSyncOptions)) {
             $syncOptions = PostMeta::where(['post_id' => $postId, 'meta_key' => 'osc_sync_options'])->first();
+
             if ($syncOptions === NULL) {
                 throw new Exception('No OSC Sync Options');
             }

@@ -396,7 +396,7 @@ final class PostAdminAction extends \App\Helper\LoggedAction
             $sync =  Input::post('sync');
 
 
-            if ($sync && $post->post_status == 'publish' && isset($sync['osc']) && !empty($sync['osc'])) {
+            if ($sync && isset($sync['osc']) && !empty($sync['osc'])) {
 
                 if (isset($sync['osc']['save_as_default']) && !empty($sync['osc']['save_as_default'])) {
                     unset($sync['osc']['save_as_default']);
@@ -410,7 +410,7 @@ final class PostAdminAction extends \App\Helper\LoggedAction
                 $postMeta->meta_value = maybe_serialize($sync['osc']);
                 $postMeta->save();
 
-                if ($post->post_status != 'future') { //此时提交
+                if ($post->post_status == 'publish') { //此时提交
 
                     $syncResult = self::doSyncOsc($postId, $sync['osc']);
                     if ($syncResult->code == 1) {
