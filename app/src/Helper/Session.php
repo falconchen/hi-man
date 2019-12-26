@@ -22,9 +22,18 @@ class Session
      */
     public function get($key, $default = null)
     {
-        return $this->exists($key)
-            ? $_SESSION[$key]
-            : $default;
+        // return $this->exists($key)
+        //     ? $_SESSION[$key]
+        //     : $default;
+
+        if ($this->exists($key)) {
+            if ($_SESSION[$key]['expire'] > time()) {
+                return $_SESSION[$key]['data'];
+            } else {
+                $this->clear();
+            }
+        }
+        return $default;
     }
 
     /**
@@ -32,10 +41,14 @@ class Session
      *
      * @param string $key
      * @param mixed  $value
+     * @param int $expire (99999999s)
      */
-    public function set($key, $value)
+    public function set($key, $value, $expire = 99999999)
     {
-        $_SESSION[$key] = $value;
+        $session_data = array();
+        $session_data['data'] = $value;
+        $session_data['expire'] = time() + $expire;
+        $_SESSION[$key] = $session_data;
     }
 
     /**
