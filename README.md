@@ -47,6 +47,10 @@
 
 - [事件分发器](https://symfony.com/doc/current/components/event_dispatcher.html)
 
+- [anti-xss](https://github.com/voku/anti-xss)
+
+- [html-sanitizer](https://github.com/tgalopin/html-sanitizer)
+
 ## codes && tips
 
 ```迭代twig
