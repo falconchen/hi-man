@@ -36,7 +36,8 @@
         "phpmailer/phpmailer": "^5.2",
         "guzzlehttp/guzzle": "~6.0",
         "paquettg/php-html-parser": "^2.1",
-        "texthtml/php-lock": "^2.2"
+        "texthtml/php-lock": "^2.2",
+        "voku/anti-xss": "^4.1"
     },
 
     "scripts": {

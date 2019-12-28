@@ -1,54 +1,59 @@
 {% extends 'layout.twig' %}
 
 {% set title = '主页 '  %}
-{% block title %}{{ title }}{% endblock %}
+{% block title %}
+	{{ title }}
+{% endblock %}
 
 {% block content %}
 
-       <!-- Header -->
-    <header class="w3-panel w3-center w3-opacity" style="">
-      <h1 class="w3-xlarge">{{ title|upper }}</h1>
-      <h2>正在开发</h2>
-      
-      <div class="w3-padding-32">
-        <div class="w3-bar w3-border">
-          <a href="#" class="w3-bar-item w3-button w3-light-grey">主页</a>
-          <a href="#" class="w3-bar-item w3-button ">文章</a>
-          <a href="#" class="w3-bar-item w3-button">动态</a>
-          <a href="#" class="w3-bar-item w3-button w3-hide-small">相册</a>
-        </div>
-      </div>      
-    </header>
+	<!-- Header -->
+	<header class="w3-panel w3-center w3-opacity" style="">
+		<h1 class="w3-xlarge">{{ title|upper }}</h1>
+		<h2>正在开发</h2>
 
-    
-    <main class="w3-container hi-main">
-      {% if posts %}
-      <ul class="w3-ul  w3-mobile " style="max-width:750px;margin:0 auto;">
-        {%for post in posts %}
-        <li id="note-{{ post.post_name }}" class="w3-border-0">
-        <div class="w3-padding-bottom hi-excerpt">
+		<div class="w3-padding-32">
+			<div class="w3-bar w3-border">
+				<a href="#" class="w3-bar-item w3-button w3-light-grey">主页</a>
+				<a href="#" class="w3-bar-item w3-button ">文章</a>
+				<a href="#" class="w3-bar-item w3-button">动态</a>
+				<a href="#" class="w3-bar-item w3-button w3-hide-small">相册</a>
+			</div>
+		</div>
+	</header>
 
-          <h5>
-          <a class="title w3-hover-text-grey" href="{{ c.router.pathFor('post',{'name':post.post_name}) }}">{{ post.post_title }}</a>
-          </h5>
 
-          <p class="w3-small">
-            {{post.post_content|striptags|truncate(150, "...\n") }}
-          </p>
+	<main class="w3-container hi-main">
+		{% if posts %}
+			<ul class="w3-ul  w3-mobile " style="max-width:750px;margin:0 auto;">
+				{%for post in posts %}
+					<li id="note-{{ post.post_name }}" class="w3-border-0">
+						<div class="w3-padding-bottom hi-excerpt">
 
-          <div class="w3-small hi-meta">
+							<h5>
+								<a class="title w3-hover-text-grey" href="{{ c.router.pathFor('post',{'name':post.post_name}) }}">{{ post.post_title }}</a>
+							</h5>
 
-            <a class="nickname" target="_blank" href="#">{{post.post_author_name}}</a>
-              
-              <span class="w3-text-grey"><i class="iconfont ic-list-like"></i> {{post.post_date|time_diff}} </span>
-              
-          </div>
-        </div>
-      </li>
-        {% endfor %}
-      </ul>
-      {% else %}
+							<p class="w3-small">
+								{{post.post_content|striptags|truncate(150, "...\n")|raw }}
+							</p>
 
-      {% endif %}
-    </main>
+							<div class="w3-small hi-meta">
+
+								<a class="nickname" target="_blank" href="#">{{post.post_author_name}}</a>
+
+								<span class="w3-text-grey">
+									<i class="iconfont ic-list-like"></i>
+									{{post.post_date|time_diff}}
+								</span>
+
+							</div>
+						</div>
+					</li>
+				{% endfor %}
+			</ul>
+			{% else %}
+
+		{% endif %}
+	</main>
 {% endblock %}

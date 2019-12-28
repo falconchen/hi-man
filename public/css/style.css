@@ -1204,3 +1204,12 @@ hr[id^="ez-insert-after-placeholder"] {
   
 }
 
+.hi-content-wrap:before{
+  content: '';
+  height: 1px;
+  width: 100px;
+  background: #eee;
+  display: block;
+  margin: 15px auto 20px;
+}
+

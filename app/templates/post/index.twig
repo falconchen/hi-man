@@ -1,0 +1,39 @@
+{% extends 'layout.twig' %}
+
+{% block title %}
+	{{ post.post_title}}
+{% endblock %}
+
+{% block content %}
+
+	<!-- Header -->
+	<header class="w3-margin-top w3-center" "style=" color:#555">
+		<h1 class="w3-xlarge">{{ post.post_title }}</h1>
+		<div class="w3-small w3-center">
+
+
+			<span class="w3-text-grey">
+				<i class="iconfont ic-list-like"></i>
+				{{post.post_date_local}}
+			</span>
+			by
+			<a class="nickname" target="_blank" href="#">
+				{{post.post_author_name}}</a>
+
+		</div>
+	</header>
+
+
+	<main class="hi-content-wrap w3-mobile " style="max-width:750px;margin:0 auto;">
+
+
+		<div class="w3-content hi-content">
+			{{post.post_content_clean|raw}}
+		</div>
+
+
+		<hr/>
+	</main>
+
+
+{% endblock %}
