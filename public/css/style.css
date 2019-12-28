@@ -1190,7 +1190,9 @@ hr[id^="ez-insert-after-placeholder"] {
     max-width: 100%;
     height: auto;
   }
-  
+  .hi-content a{
+    color:#8bc34a;
+  }
 }
 
 .hi-form {
