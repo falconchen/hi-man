@@ -56,7 +56,8 @@ final class PostAction extends \App\Helper\BaseAction
         $post = Post::where('post_name', $post_name)->first();
 
         if (($post->post_status !== 'publish'
-            || $post->post_visiblity !== 'public')) {
+            || $post->post_visibility !== 'public')) {
+
             if (
                 $post->post_author !== $this->userId
                 || ($this->user !== null && $this->user->group > 2)
