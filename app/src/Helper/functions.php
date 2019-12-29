@@ -451,3 +451,22 @@ function stripslashes_from_strings_only($value)
 {
     return is_string($value) ? stripslashes($value) : $value;
 }
+
+/**
+ * Removes an item or items from a query string.
+ *
+ * @since 1.5.0
+ *
+ * @param string|array $key   Query key or keys to remove.
+ * @param bool|string  $query Optional. When false uses the current URL. Default false.
+ * @return string New URL query string.
+ */
+function remove_query_arg($key, $query = false)
+{
+    if (is_array($key)) { // removing multiple keys
+        foreach ($key as $k)
+            $query = add_query_arg($k, false, $query);
+        return $query;
+    }
+    return add_query_arg($key, false, $query);
+}

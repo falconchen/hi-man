@@ -1,6 +1,5 @@
 <?php
 $app->add($app->getContainer()->get('csrf'));
-
 $app->add(new App\Middleware\PaginationMiddleware);
 
 $app->add(function ($request, $response, $next) {

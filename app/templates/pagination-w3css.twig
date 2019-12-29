@@ -1,0 +1,45 @@
+{#  pagination.twig #}
+{% if data is not empty and data.lastPage > 1 %}
+
+{# Pagination shows a "window" of links to the left and right of the current page #}
+{% set num_visible_pages = 20 %}
+
+<div class="w3-white w3-bar  w3-small w3-border w3-round pagination">
+  
+  <a class="w3-bar-item w3-button {{ (data.currentPage == 1) ? 'w3-disabled' : '' }} page-link" href="{{ data.url(1) }}">First</a>
+  
+  <a href="{{ data.url(data.currentPage -1) }}" class="w3-bar-item w3-button {{ (data.currentPage -1) < 1 ? 'w3-disabled':'' }}">&laquo;</a>
+  
+
+  {% for page_number in 1..(data.lastPage) %}
+    {% set half_visible_links = num_visible_pages / 2 | round %}
+    {# {% set from = data.currentPage - half_visible_links %} #}
+    {% set from = (data.currentPage) - half_total_links - 1 %}
+    {% set to = data.currentPage + half_visible_links %}
+
+    {# if near beginning of pages, extend end to ensure num_visible_pages are shown #}
+    {% if data.currentPage < half_visible_links %}
+      {# we can be sloppy because the loop iteration constrains-out-of-bounds values #}
+      {% set to = (half_visible_links - data.currentPage) + to %}
+    {% endif %}
+
+    {# if near end of pages, extend beginning to ensure num_visible_pages are shown #}
+    {% if (data.lastPage - data.currentPage) < half_visible_links %}
+      {# we can be sloppy because the loop iteration constrains-out-of-bounds values #}
+      {% set from = data.lastPage - num_visible_pages %}
+    {% endif %}
+
+    {# only print pages between "from" and "to" #}
+    {% if from < page_number and page_number < to %}      
+      <a class="w3-bar-item w3-button {{ (data.currentPage == page_number) ? 'w3-green' : '' }} page-link" href="{{ data.url(page_number) }}">{{ page_number }}</a>
+
+    {% endif %}
+  {% endfor %}
+
+    
+    <a href="{{ data.url(data.currentPage + 1 ) }}" class="w3-bar-item w3-button {{(data.currentPage + 1) > data.lastPage ?'w3-disabled':'' }}">&raquo;</a>
+    
+    <a class="w3-bar-item w3-button {{ (data.currentPage == data.lastPage) ? 'w3-disabled' : '' }} page-link" href="{{ data.url(data.lastPage) }}">Last</a>
+</div>
+
+{% endif %}
