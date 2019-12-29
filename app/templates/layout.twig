@@ -14,7 +14,7 @@
 		<link rel="stylesheet" href="{{ static_url() }}/css/bootstrap-theme.min.css">
 		<link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css">
 		<link rel="stylesheet" href="{{ static_url() }}/css/w3.css">
-		<link rel="stylesheet" href="{{ static_url() }}/css/style.css">
+		<link rel="stylesheet" href="{{ static_url() }}/css/style.css?ver={{ git_latest().dateVer }}">
 		<link rel="icon" href="{{ static_url() }}/images/cropped-BlackFire-32x32.png" sizes="32x32"/>
 
 	{# <link href='https://fonts.googleapis.com/css?family=Source Code Pro' rel='stylesheet'> #}
@@ -133,7 +133,7 @@
 
 		<script type="text/javascript" src="{{ static_url() }}/js/jquery-1.11.3.min.js"></script>
 		<script type="text/javascript" src="{{ static_url() }}/js/bootstrap.min.js"></script>
-		<script type="text/javascript" src="{{ static_url() }}/js/site.js"></script>
+		<script type="text/javascript" src="{{ static_url() }}/js/site.js?ver={{ git_latest().dateVer }}"></script>
 		{% block javascript %}{% endblock %}
 
 	</body>
