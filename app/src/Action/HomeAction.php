@@ -51,6 +51,9 @@ final class HomeAction extends \App\Helper\BaseAction
         // $lock->release();
         // echo 'release' . date('H:i:s');
         // exit;
+
+
+
         $data = array();
         // $page = 1;
         // Paginator::currentPageResolver(function () use ($page) {

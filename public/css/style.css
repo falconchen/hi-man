@@ -1188,7 +1188,7 @@ hr[id^="ez-insert-after-placeholder"] {
   }
   .hi-content img{
     max-width: 100%;
-    height: auto;
+    height: auto !important;
   }
   
 }
@@ -1210,6 +1210,13 @@ hr[id^="ez-insert-after-placeholder"] {
   
 }
 
+.hi-hearder{
+  color:#555;
+}
+.hi-content-wrap{
+  max-width:750px;
+  margin:0 auto ;
+}
 .hi-content-wrap:before{
   content: '';
   height: 1px;
@@ -1218,4 +1225,9 @@ hr[id^="ez-insert-after-placeholder"] {
   display: block;
   margin: 15px auto 20px;
 }
+.hi-content {
+  margin-bottom:64px;
+}
+
+
 

@@ -1,11 +1,15 @@
 <?php
 return [
     'app' => [
-            'url' => 'http://slim.dev',
-            'hash' => [
-                'algo' => PASSWORD_BCRYPT,
-                'cost' => 10
-            ]
+        'url' => 'http://hi.dev',
+        'hash' => [
+            'algo' => PASSWORD_BCRYPT,
+            'cost' => 10
+        ],
+        'cdn' => [
+            'allow' => true,
+            'url' => 'http://cdn.hi.dev',
+        ],
     ],
     'auth' => [
         'session'   => 'user_id',
@@ -13,14 +17,14 @@ return [
         'remember'  => 'user_r'
     ],
     'settings' => [
-        'email.verify'=>false,//关闭用户邮箱验证
-        'locked_dir'=> __DIR__ . '/../cache/locked', // 判断队列锁定的文件
-        'sync'=>[
-            'email.notify'=>false, //同步到osc时是否发送用户邮件通知
+        'email.verify' => false, //关闭用户邮箱验证
+        'locked_dir' => __DIR__ . '/../cache/locked', // 判断队列锁定的文件
+        'sync' => [
+            'email.notify' => false, //同步到osc时是否发送用户邮件通知
         ],
 
-        'admin'=>[ //管理员信息设置
-            'sckey'=>'SCUxxxxx', //Server酱密钥 http://sc.ftqq.com/?c=code            
+        'admin' => [ //管理员信息设置
+            'sckey' => 'SCUxxxxx', //Server酱密钥 http://sc.ftqq.com/?c=code            
 
         ],
 
@@ -57,30 +61,30 @@ return [
             'prefix'    => '',
         ],
 
-        'mailer'=>[
+        'mailer' => [
 
-            'Host'=>'smtp.host',
-            'SMTPAuth'=>true,
-            'Username'=>'mail.username',
-            'Password'=>'mail.password',
-            'SMTPSecure'=>'tls',
-            'CharSet'=>'UTF-8',
-            'Port'=>'465',
-            'From'=>'your@mailbox',
-            'FromName'=>'Hi-cms',
-            'isHTML'=>true,
+            'Host' => 'smtp.host',
+            'SMTPAuth' => true,
+            'Username' => 'mail.username',
+            'Password' => 'mail.password',
+            'SMTPSecure' => 'tls',
+            'CharSet' => 'UTF-8',
+            'Port' => '465',
+            'From' => 'your@mailbox',
+            'FromName' => 'Hi-cms',
+            'isHTML' => true,
         ],
 
 
-        'guzzle'=>[
+        'guzzle' => [
             'allow_redirects' => true,
-            'connect_timeout'=>10,
+            'connect_timeout' => 10,
             'read_timeout' => 20,
-            'timeout'=>40,
+            'timeout' => 40,
             'cookies' => true,
             //'proxy' => 'http://127.0.0.1:8123',
             'headers' => [
-                'User-Agent' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.103 Safari/537.36 DongDangClub',//
+                'User-Agent' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.103 Safari/537.36 DongDangClub', //
             ],
         ],
 
