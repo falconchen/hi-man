@@ -52,8 +52,13 @@
 					</li>
 				{% endfor %}
 			</ul>
+			<div class=" w3-center w3-margin-top">
+			{% include 'pagination.twig' with {data: posts} only%}
+			</div>
 			{% else %}
 
 		{% endif %}
+
+		
 	</main>
 {% endblock %}

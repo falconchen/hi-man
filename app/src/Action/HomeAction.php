@@ -11,7 +11,11 @@ use App\Validation\Validator;
 use Carlosocarvalho\SimpleInput\Input\Input;
 use Psr\Http\Message\ResponseInterface as Response; // http://docs.guzzlephp.org/en/stable/index.html
 use Psr\Http\Message\ServerRequestInterface as Request;
-use App\Helper\Paginator;
+//use App\Helper\Paginator;
+// use Illuminate\Pagination;
+
+// use Illuminate\Pagination\Paginator;
+
 
 //use Illuminate\Support\Facades\DB;
 
@@ -60,7 +64,8 @@ final class HomeAction extends \App\Helper\BaseAction
         //     return $page;
         // });
         $posts = Post::where(['post_status' => 'publish', 'post_visibility' => 'public'])
-            ->orderBy('post_date', 'DESC')->paginate(20);
+            ->orderBy('post_date', 'DESC')->paginate(10);
+
 
 
         if ($posts->count() > 0) {
