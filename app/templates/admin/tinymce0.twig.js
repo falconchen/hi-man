@@ -1,26 +1,25 @@
-tinymce.init({
-    selector: '#hi-editor',
-    language: 'zh_CN',
-    //menubar: 'edit insert view format table tools help',
-    menubar: false,
-    height : 600,
-    //plugins: 'code',
-    plugins: "image imagetools code link fullscreen autosave wordcount",
+// tinymce.init({
+//     selector: '#hi-editor',
+//     language: 'zh_CN',
+//     //menubar: 'edit insert view format table tools help',
+//     menubar: false,
+//     height : 600,
+//     //plugins: 'code',
+//     plugins: "image imagetools code link fullscreen autosave wordcount",
 
-    toolbar: ' undo redo | styleselect | bold italic | link image  | code ',
-    language_url: '/js/node_modules/tinymce/langs/zh_CN.js',
-    //skin: 'oxide-dark'
-    
-    autosave_interval: "20s",
-    autosave_prefix: "hi-autosave-{path}{query}-{id}-",
-    //autosave_restore_when_empty: true,
-    autosave_retention: "30m",
-    content_style: [
-        'body{font-size:14px;font-family:Lato,"Helvetica Neue",Helvetica,Arial,sans-serif; line-height:1.6;}'
-    ]
+//     toolbar: ' undo redo | styleselect | bold italic | link image  | code ',
+//     language_url: '/js/node_modules/tinymce/langs/zh_CN.js',
+//     //skin: 'oxide-dark'
 
+//     autosave_interval: "20s",
+//     autosave_prefix: "hi-autosave-{path}{query}-{id}-",
+//     //autosave_restore_when_empty: true,
+//     autosave_retention: "30m",
+//     content_style: [
+//         'body{font-size:14px;font-family:Lato,"Helvetica Neue",Helvetica,Arial,sans-serif; line-height:1.6;}'
+//     ]
 
-});
+// });
 
 // tinymce.init({
 //     selector: "textarea",  // change this value according to your HTML
