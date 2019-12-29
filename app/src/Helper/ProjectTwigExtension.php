@@ -13,6 +13,8 @@ use Twig\TwigFunction;
 class ProjectTwigExtension extends AbstractExtension implements GlobalsInterface
 {
     private $container;
+    private $uri;
+
     public static $units = [
         'y' => 'year',
         'm' => 'month',
@@ -25,6 +27,7 @@ class ProjectTwigExtension extends AbstractExtension implements GlobalsInterface
     public function __construct($c)
     {
         $this->container = $c;
+        $this->uri = $c->get('request')->getUri();
     }
     //注入全局变量
     public function getGlobals()
@@ -43,6 +46,7 @@ class ProjectTwigExtension extends AbstractExtension implements GlobalsInterface
             new TwigFilter('wordwrap', [$this, 'twig_wordwrap_filter'], ['needs_environment' => true]),
             new TwigFilter('flash_fmt', [$this, 'flash_fmt'], ['is_safe' => ['html'],]),
             new TwigFilter('time_diff', [$this, 'diff'], ['needs_environment' => true]),
+
         ];
     }
 
@@ -53,6 +57,7 @@ class ProjectTwigExtension extends AbstractExtension implements GlobalsInterface
             new TwigFunction('red', [$this, 'red'], ['is_safe' => ['html'],]),
             new TwigFunction('checked', [$this, 'checked'], ['is_safe' => ['html'],]),
             new TwigFunction('is_null', [$this, 'is_null']),
+            new TwigFunction('static_url', [$this, 'staticUrl']),
 
         ];
     }
@@ -187,5 +192,26 @@ class ProjectTwigExtension extends AbstractExtension implements GlobalsInterface
             $unit .= 's';
         }
         return $invert ? "in $count $unit" : "$count $unit ago";
+    }
+    public function staticUrl()
+    {
+        $appSettings = $this->container->get('app');
+        if (
+            isset($appSettings['cdn'])
+            && $appSettings['cdn']['allow']
+            && isset($appSettings['cdn']['url'])
+        ) {
+            return $appSettings['cdn']['url'];
+        }
+
+        return $this->baseUrl();
+    }
+
+    private function baseUrl()
+    {
+
+        if (method_exists($this->uri, 'getBaseUrl')) {
+            return $this->uri->getBaseUrl();
+        }
     }
 }
