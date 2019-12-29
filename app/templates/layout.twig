@@ -61,12 +61,21 @@
 									<a href="{{ base_url() }}/register">Register</a>
 								</li>
 							{% else %}
-								<li>
-									<a href="{{ base_url() }}/dashboard">{{ container.session.user.username }}</a>
+                                <li>
+                                    
+                                    <a href="{{path_for('post-admin.new')}}"><i class="fa fa-pencil-square-o"></i> 写文章</a>
+                                </li>
+								<li>									
+									<a href="{{ base_url() }}/dashboard">
+                                    <i class="fa  fa-user-o"></i> 
+                                    {{ container.session.user.username }}</a>
 								</li>
 								<li></li>
 								<li>
-									<a href="{{ base_url() }}/logout">logout</a>
+									<a href="{{ base_url() }}/logout">
+                                    <i class="fa fa-sign-out"></i>
+                                     退出
+                                    </a>
 								</li>
 							{% endif %}
 
