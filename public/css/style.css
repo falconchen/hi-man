@@ -1229,6 +1229,12 @@ hr[id^="ez-insert-after-placeholder"] {
   margin-bottom:64px;
 }
 
+.hi-content a{
+  color: #4183c4;
+}
+.hi-content a:hover{
+  text-decoration: underline;
+}
 
 
 
