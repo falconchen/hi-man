@@ -27,7 +27,7 @@ class Git
 					$obj->date = strtotime($match[1]);
 					$obj->dateString = trim($match[1]);
 					$obj->dateMySQL = date("Y-m-d H:i:s", $obj->date);
-					//$obj->dateVer = date('YmdHi', $obj->date);
+					$obj->dateVer = date('ymdHis', $obj->date);
 				}
 			}
 			self::$logObj = $obj;
