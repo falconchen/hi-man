@@ -20,7 +20,7 @@
     </button>
     <a class="w3-button w3-bar-item w3-left" href="{{ base_url() }}/dashboard"><i class="fa fa-home"> Hi 管理后台</i></a>
     <a class="w3-button w3-bar-item w3-right" href="{{ base_url() }}">返回首页</a>
-    <a class="w3-button w3-bar-item w3-right" href="{{ base_url() }}/logout">注销</a>
+    <a class="w3-button w3-bar-item w3-right" href="{{ base_url() }}/logout">退出</a>
 </div>
 
 <!-- Sidebar/menu -->
@@ -161,7 +161,7 @@
 </div>
 
 
-<script type="text/javascript" src="{{ static_url() }}/js/jquery-1.11.3.min.js"></script>
+<script type="text/javascript" src="https://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
 <script type="text/javascript" src="{{ static_url() }}/js/vendors/sha1.min.js"></script>
 <script src='{{ static_url() }}/js/node_modules/tinymce/tinymce.min.js'></script>
 <script src='{{ static_url() }}/js/admin.js?ver={{ git_latest().dateVer }}'></script>
