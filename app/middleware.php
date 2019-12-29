@@ -1,8 +1,9 @@
 <?php
 $app->add($app->getContainer()->get('csrf'));
 
+$app->add(new App\Middleware\PaginationMiddleware);
 
-$app->add(function($request, $response, $next){
+$app->add(function ($request, $response, $next) {
 	$path = $request->getUri()->getPath();
 
 	switch ($path) {
@@ -10,54 +11,53 @@ $app->add(function($request, $response, $next){
 		case '/login':
 		case '/register':
 		case '/logout':
-        case '/p/':
-        case '/p/sync-osc':
-		break;
+		case '/p/':
+		case '/p/sync-osc':
+			break;
 
-        // case '/oscer':
-		// case '/dashboard':
-		// case '/hi-admin/':
-		// case '/post-admin/':
+			// case '/oscer':
+			// case '/dashboard':
+			// case '/hi-admin/':
+			// case '/post-admin/':
 
 
 		case '/hi-admin':
 
-			if(! App\Helper\Acl::isLogged()){
-		        return $response->withRedirect('/login');
+			if (!App\Helper\Acl::isLogged()) {
+				return $response->withRedirect('/login');
 			}
 
 			$routes = App\Helper\Acl::getRoute($path);
 
-			if($routes){
+			if ($routes) {
 
-				if(! $routes->count() == 0){
+				if (!$routes->count() == 0) {
 					$acl = new App\Helper\Acl();
-					if(! $acl->cekPermission($routes->page,$routes->action)){
-						return $this->view->render($response, 'error.twig',['flash' => '[error] You dont have permission to access '.$path ] );
+					if (!$acl->cekPermission($routes->page, $routes->action)) {
+						return $this->view->render($response, 'error.twig', ['flash' => '[error] You dont have permission to access ' . $path]);
 					}
 				}
 			}
 			break;
 
-		default :
-		    $allow = false;
-		    $allowStartWith = [
-		        '/p/','/verify/',
-            ];
+		default:
+			$allow = false;
+			$allowStartWith = [
+				'/p/', '/verify/',
+			];
 
-            foreach($allowStartWith as $word){
-                if( strpos($path,$word) === 0 ){
-                    $allow = true;
-                    break;
-                }
-            }
-
-            if( $allow ) {
-              break;
-            } elseif(! App\Helper\Acl::isLogged()){
-				return $response->withRedirect('/login');
+			foreach ($allowStartWith as $word) {
+				if (strpos($path, $word) === 0) {
+					$allow = true;
+					break;
+				}
 			}
 
+			if ($allow) {
+				break;
+			} elseif (!App\Helper\Acl::isLogged()) {
+				return $response->withRedirect('/login');
+			}
 	}
 	$response = $next($request, $response);
 	return $response;
