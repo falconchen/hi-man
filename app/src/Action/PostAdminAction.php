@@ -75,6 +75,18 @@ final class PostAdminAction extends \App\Helper\LoggedAction
         $posts = Post::where($conditions)
             ->orderBy('post_date', 'DESC')->get();
 
+
+
+        $postsCurrentPage = Post::where($conditions)
+            ->orderBy('post_date', 'DESC')->paginate(12);
+
+        $postsCurrentPage->withPath(remove_query_arg('page'));
+
+
+        //$postsCurrentPage->appends('b=3');
+
+        $this->data['postsCurrentPage'] =  $postsCurrentPage;
+
         if ($posts->count() > 0) {
             foreach ($posts as &$post) {
                 $post->post_modified = $this->dateTolocal('Y-m-d H:i:s', $post->post_modified);
