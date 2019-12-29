@@ -7,7 +7,7 @@ use Twig\Extension\AbstractExtension;
 use Twig\Extension\GlobalsInterface;
 use Twig\TwigFilter;
 use Twig\TwigFunction;
-
+use App\Helper\Git;
 
 
 class ProjectTwigExtension extends AbstractExtension implements GlobalsInterface
@@ -58,6 +58,7 @@ class ProjectTwigExtension extends AbstractExtension implements GlobalsInterface
             new TwigFunction('checked', [$this, 'checked'], ['is_safe' => ['html'],]),
             new TwigFunction('is_null', [$this, 'is_null']),
             new TwigFunction('static_url', [$this, 'staticUrl']),
+            new TwigFunction('git_latest', [$this, 'gitLatest']),
 
         ];
     }
@@ -213,5 +214,10 @@ class ProjectTwigExtension extends AbstractExtension implements GlobalsInterface
         if (method_exists($this->uri, 'getBaseUrl')) {
             return $this->uri->getBaseUrl();
         }
+    }
+
+    public function gitLatest()
+    {
+        return Git::latestLog();
     }
 }

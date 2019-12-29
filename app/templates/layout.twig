@@ -12,7 +12,7 @@
 
 		<link rel="stylesheet" href="{{ static_url() }}/css/bootstrap.min.css">
 		<link rel="stylesheet" href="{{ static_url() }}/css/bootstrap-theme.min.css">
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+		<link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css">
 		<link rel="stylesheet" href="{{ static_url() }}/css/w3.css">
 		<link rel="stylesheet" href="{{ static_url() }}/css/style.css">
 		<link rel="icon" href="{{ static_url() }}/images/cropped-BlackFire-32x32.png" sizes="32x32"/>
@@ -117,7 +117,7 @@
 							Powered by Hi-CMS &copy; 2019</a>
 					</p>
 				</strong>
-
+                <div class="w3-tiny w3-opacity"><b>系统构建时间:</b> {{ git_latest().dateString }}</div>
 			</footer>
 		</div>
 
