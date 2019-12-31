@@ -84,9 +84,18 @@ label {
 #bind-osc-form-solo {
     padding-top: 48px;
 }
+.hi-error-border{
+    border:1px solid #f44336;    
+}
+.hi-modal-content{
+    min-height: 100px;
+  }
+  
+  
 @media screen and (max-width: 475px) {
     
     .pagination.w3-bar .w3-bar-item{
       padding: 8px 12px;
     }
   }
+

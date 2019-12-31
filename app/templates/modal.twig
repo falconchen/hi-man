@@ -1,0 +1,21 @@
+  <div id="hi-modal-{{modal.id|default(1)}}" class="w3-modal hi-modal">
+    <div class="w3-modal-content w3-card-4">
+      <header class="w3-container w3-blue "> 
+        <span onclick="document.getElementById('hi-modal-{{modal.id|default(1)}}').style.display='none'" 
+        class="w3-button w3-display-topright">&times;</span>
+        <h4 class="hi-modal-header">{{modal.header|default('出错了!')}}</h4>
+      </header>
+      <div class="w3-container hi-modal-content">
+        {% for content in modal.contents %}
+            <p>{{ modal.content }}</p>
+        {% else %}
+            <p>{{ modal.contents }}</p>
+        {% endfor %}
+      </div>
+      {% if modal.footer %}
+      <footer class="w3-container w3-blue ">
+        <small><h5 class="hi-modal-footer">{{modal.footer}}</h5></small>
+      </footer>
+      {% endif %}
+    </div>
+  </div>

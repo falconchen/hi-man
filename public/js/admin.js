@@ -171,7 +171,62 @@ $(document).ready(function() {
       .val(publishBtnVal)
       .text(text);
   });
+
+  $(".hi-post-form").submit(function() {
+    var errors = [];
+    $(".hi-post-form .hi-error-border").removeClass("hi-error-border");
+
+    var inputs = parseQueryString(
+      $(
+        ".hi-post-form input,.hi-post-form select ,.hi-post-form  button"
+      ).serialize()
+    );
+    //check date valid
+    if (inputs.post_future == "yes") {
+      var dateInput =
+        inputs.y +
+        "-" +
+        inputs.m +
+        "-" +
+        inputs.d +
+        " " +
+        inputs.h +
+        ":" +
+        inputs.i;
+
+      if (!isValidDate(dateInput)) {
+        errors.push({
+          class: "time-wrap",
+          message: "无效的定时发布时间: " + dateInput
+        });
+      } else {
+        var dateCurrent = new Date();
+        var dateFuture = new Date(dateInput);
+        if (dateCurrent.getTime() > dateFuture.getTime()) {
+          errors.push({
+            class: "time-wrap",
+            message:
+              "定时发布时间不能比当前时间早，请检查你的设置值: " + dateInput
+          });
+        }
+      }
+    }
+    if (errors.length > 0) {
+      var error_contents = "";
+      for (var i = 0; i < errors.length; i++) {
+        $("." + errors[i].class).addClass("hi-error-border");
+        error_contents += "<p>" + errors[i].message + "</p>";
+      }
+      $(".hi-post-form .w3-modal").show();
+      $(".hi-post-form .hi-modal-header").text("出错了");
+      $(".hi-post-form .hi-modal-content").html(error_contents);
+      return false;
+    }
+
+    return true;
+  });
 });
+
 tinymce.init({
   selector: "#hi-editor",
   language: "zh_CN",
@@ -193,3 +248,41 @@ tinymce.init({
     'body{font-size:14px;font-family:Lato,"Helvetica Neue",Helvetica,Arial,sans-serif; line-height:1.6;}'
   ]
 });
+
+//parse Query to obj
+function parseQueryString(queryString) {
+  var params = {},
+    queries,
+    temp,
+    i,
+    l;
+
+  // Split into key/value pairs
+  queries = queryString.split("&");
+
+  // Convert the array of strings into an object
+  for (i = 0, l = queries.length; i < l; i++) {
+    temp = queries[i].split("=");
+    params[temp[0]] = temp[1];
+  }
+
+  return params;
+}
+
+/**
+ *
+ * check date validate
+ * ref https://medium.com/@esganzerla/simple-date-validation-with-javascript-caea0f71883c
+ * @param  dateString format : 2019-12-31 15:49
+ */
+function isValidDate(dateString) {
+  var d = new Date(dateString);
+  if (isNaN(d)) {
+    return false;
+  }
+  var day = parseInt(dateString.split(" ")[0].split("-")[2]);
+  if (d.getDate() != day) {
+    return false;
+  }
+  return true;
+}
