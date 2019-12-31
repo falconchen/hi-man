@@ -1,7 +1,7 @@
 {% extends 'admin/layout.twig' %}
 
 {% block main %}
-<form class="w3-row-padding" method="post" action="{{ c.router.pathFor('post-admin.save') }}">
+<form class="w3-row-padding hi-post-form" method="post" action="{{ c.router.pathFor('post-admin.save') }}">
     {{ csrf_inputs() }}
     <div class="w3-col s9 w3-mobile" id="hi-editor-wrapper">
 
@@ -140,7 +140,8 @@
 
             <div class="w3-section  w3-small hi-post-visibility">
                 <label>本站公开度：</label>
-                {% set postVisible = is_null(post.post_visibility) ? 'public' :post.post_visibility  %}    
+                
+                {% set postVisible = (is_null(post.post_visibility) or post.post_visibility =='') ? 'public' :post.post_visibility  %}    
                 
                 <span id="hi-post-visibility-select " class="hi-post-visibility" >
 
@@ -172,40 +173,41 @@
 
 
                 <div id="timestampdiv" class="w3-section hi-detail-panel " >
+                    <div class="time-wrap">
+                        <label>
+                            <input type="text" id="y" name="y" value="{{ publishDate.y }}" size="4" maxlength="4" autocomplete="off">
+                            <span class=""> 年 </span>
+                        </label>
 
-                    <label>
-                        <input type="text" id="y" name="y" value="{{ publishDate.y }}" size="4" maxlength="4" autocomplete="off">
-                        <span class=""> 年 </span>
-                    </label>
-
-                    <label>
-                        <select id="m" name="m">
-                            <option value="01" {% if publishDate.m == '01' %}selected="selected" {% endif %} data-text="一月">一</option>
-                            <option value="02" {% if publishDate.m == '02' %}selected="selected" {% endif %} data-text="二月">二</option>
-                            <option value="03" {% if publishDate.m == '03' %}selected="selected" {% endif %} data-text="三月">三</option>
-                            <option value="04" {% if publishDate.m == '04' %}selected="selected" {% endif %} data-text="四月">四</option>
-                            <option value="05" {% if publishDate.m == '05' %}selected="selected" {% endif %} data-text="五月">五</option>
-                            <option value="06" {% if publishDate.m == '06' %}selected="selected" {% endif %} data-text="六月">六</option>
-                            <option value="07" {% if publishDate.m == '07' %}selected="selected" {% endif %} data-text="七月">七</option>
-                            <option value="08" {% if publishDate.m == '08' %}selected="selected" {% endif %} data-text="八月">八</option>
-                            <option value="09" {% if publishDate.m == '09' %}selected="selected" {% endif %} data-text="九月">九</option>
-                            <option value="10" {% if publishDate.m == '10' %}selected="selected" {% endif %} data-text="十月">十</option>
-                            <option value="11" {% if publishDate.m == '11' %}selected="selected" {% endif %} data-text="十一月" >十一</option>
-                            <option value="12" {% if publishDate.m == '12' %}selected="selected" {% endif %} data-text="十二月">十二</option>
-                        </select>
-                        <span class=""> 月 </span>
-                    </label>
-                    <label>
-                        <input type="text" id="d" name="d" value="{{ publishDate.d }}" size="2" maxlength="2" autocomplete="off">
-                        <span class=""> 日 </span>
-                    </label>
-                    <div class="w3-margin-top">
-                    <label>
-                        <input type="text" id="h" name="h" value="{{ publishDate.h }}" size="2" maxlength="2" autocomplete="off"><span class=""> 时 </span>
-                    </label>
-                    <label><input type="text" id="i" name="i" value="{{ publishDate.i }}" size="2" maxlength="2" autocomplete="off">
-                        <span class=""> 分 </span>
-                    </label>
+                        <label>
+                            <select id="m" name="m">
+                                <option value="01" {% if publishDate.m == '01' %}selected="selected" {% endif %} data-text="一月">一</option>
+                                <option value="02" {% if publishDate.m == '02' %}selected="selected" {% endif %} data-text="二月">二</option>
+                                <option value="03" {% if publishDate.m == '03' %}selected="selected" {% endif %} data-text="三月">三</option>
+                                <option value="04" {% if publishDate.m == '04' %}selected="selected" {% endif %} data-text="四月">四</option>
+                                <option value="05" {% if publishDate.m == '05' %}selected="selected" {% endif %} data-text="五月">五</option>
+                                <option value="06" {% if publishDate.m == '06' %}selected="selected" {% endif %} data-text="六月">六</option>
+                                <option value="07" {% if publishDate.m == '07' %}selected="selected" {% endif %} data-text="七月">七</option>
+                                <option value="08" {% if publishDate.m == '08' %}selected="selected" {% endif %} data-text="八月">八</option>
+                                <option value="09" {% if publishDate.m == '09' %}selected="selected" {% endif %} data-text="九月">九</option>
+                                <option value="10" {% if publishDate.m == '10' %}selected="selected" {% endif %} data-text="十月">十</option>
+                                <option value="11" {% if publishDate.m == '11' %}selected="selected" {% endif %} data-text="十一月" >十一</option>
+                                <option value="12" {% if publishDate.m == '12' %}selected="selected" {% endif %} data-text="十二月">十二</option>
+                            </select>
+                            <span class=""> 月 </span>
+                        </label>
+                        <label>
+                            <input type="text" id="d" name="d" value="{{ publishDate.d }}" size="2" maxlength="2" autocomplete="off">
+                            <span class=""> 日 </span>
+                        </label>
+                        <div class="w3-margin-top">
+                        <label>
+                            <input type="text" id="h" name="h" value="{{ publishDate.h }}" size="2" maxlength="2" autocomplete="off"><span class=""> 时 </span>
+                        </label>
+                        <label><input type="text" id="i" name="i" value="{{ publishDate.i }}" size="2" maxlength="2" autocomplete="off">
+                            <span class=""> 分 </span>
+                        </label>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -232,6 +234,7 @@
 
 
     </div><!-- h#i-metabox-wrapper-->
-
+    {% include 'modal.twig' with {modal: {'id':'post-admin','footer':'部分字段填写不正确，请修正后重新提交','contents':''}} only%}
 </form>
+
 {% endblock %}
