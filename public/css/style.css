@@ -1193,7 +1193,9 @@ hr[id^="ez-insert-after-placeholder"] {
   .hi-content * {
     max-width: 100%;
   }
-  
+  .pagination.w3-bar .w3-bar-item{
+    padding: 8px 12px;
+  }
 }
 
 .hi-form {
