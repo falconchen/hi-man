@@ -51,7 +51,9 @@
 
 - [html-sanitizer](https://github.com/tgalopin/html-sanitizer)
 
--[Eloquent Slim 3 分页](https://stackoverflow.com/questions/40395805/pagination-with-eloquent-5-3-using-slim-3)
+- [Eloquent Slim 3 分页](https://stackoverflow.com/questions/40395805/pagination-with-eloquent-5-3-using-slim-3)
+
+- [Eloquent raw 查询](https://laravel.com/docs/5.8/queries)
 
 ## codes && tips
 

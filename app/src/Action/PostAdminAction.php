@@ -78,7 +78,7 @@ final class PostAdminAction extends \App\Helper\LoggedAction
 
 
         $postsCurrentPage = Post::where($conditions)
-            ->orderBy('post_date', 'DESC')->paginate(12);
+            ->orderBy('post_date', 'DESC')->paginate(10);
 
         $postsCurrentPage->withPath(remove_query_arg('page'));
 
@@ -299,6 +299,25 @@ final class PostAdminAction extends \App\Helper\LoggedAction
 
         $postArr['user_code'] = $userCode;
 
+        //当文章为更新时
+        if ($oscId = getOscPostId($postId)) {
+
+            $oscOldlink = getOscPostLink($postId, $postDbData->post_author); //检测旧文章是否被移除
+            try {
+                $oscOldPostResponse = $client->request('HEAD', $oscOldlink);
+
+                if ($oscOldPostResponse->getStatusCode() == 200) {
+                    $postArr['id'] = $oscId;
+                    $blogSaveUrl = $oscer['homepage'] . '/blog/edit';
+                }
+            } catch (\GuzzleHttp\Exception\RequestException $e) {
+                if ($e->getCode() != 404) { //ignore  404
+                    throw $e;
+                }
+            }
+        }
+
+
         $oscResponse = $client->request('POST', $blogSaveUrl, [
             'form_params' => $postArr,
         ]);
@@ -379,9 +398,9 @@ final class PostAdminAction extends \App\Helper\LoggedAction
 
                 $post->post_date = $utc;
                 $syncResult = PostMeta::where(['post_id' => $post->post_id, 'meta_key' => 'osc_sync_result']);
-                if ($syncResult->count()) {
-                    $syncResult->delete();
-                }
+                // if ($syncResult->count()) {
+                //     $syncResult->delete();
+                // }
             }
         }
 
@@ -428,8 +447,8 @@ final class PostAdminAction extends \App\Helper\LoggedAction
                     $syncResult = self::doSyncOsc($postId, $sync['osc']);
                     if ($syncResult->code == 1) {
                         $location =  $this->data['oscer']['homepage'] . '/blog/' . $syncResult->result->id;
-                        $this->flash->addMessage('flash', "[info] 同步到OSC：" . $syncResult->message);
-                        $this->flash->addMessage('flash', sprintf("[info] <a target='_blank' href='%s'>osc链接</a>", $location));
+
+                        $this->flash->addMessage('flash', "[info] 同步到OSC：" . $syncResult->message . sprintf(" <a class='w3-text-blue' target='_blank' href='%s'>在osc中查看</a>", $location));
                     } else { //其他code未测试
                         $this->flash->addMessage('flash', "[error] 同步到OSC出错：code: " . $syncResult->code);
                     }

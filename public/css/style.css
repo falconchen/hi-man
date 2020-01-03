@@ -1245,3 +1245,10 @@ hr[id^="ez-insert-after-placeholder"] {
   min-height: 100px;
 }
 
+.hi-underline{
+  text-decoration: underline;
+}
+
+.hi-underline-dotted{
+  text-decoration: underline dotted;
+}

@@ -53,15 +53,27 @@
             <td>{{ post.post_date_local }}</td><!-- 发布时间-->
             <td>{{ post.post_modified  }}</td><!-- 修改时间 -->
             <td>{{ post.post_status  }}</td><!-- 文章状态 -->
-            <td>
+            <td class="w3-small">
+                {%if post.post_status == 'future' %}
+                    <span class="w3-text-yellow">等待同步</span>
+                {% endif %}
+
                 {% if post.getSyncStatus().meta_value %}
-                {% set oscSyncResult=post.getSyncStatus().meta_value.result %}
-                {{ post.getSyncStatus().meta_value.message }}
-                <a target="_blank" href="https://my.oschina.net/u/{{oscSyncResult.space}}/blog/{{oscSyncResult.id}}">
-                查看
+                {% set oscSyncResult=post.getSyncStatus().meta_value.result %}                
+                <div class="">                
+                    {%if post.post_status == 'future' %}
+                    上次同步于
+                    {%endif%}
+                    {{ post.getSyncStatus().meta_value.time }}
+                
+                {{ post.getSyncStatus().meta_value.message }}  
+                              
+                <a class=" w3-text-green" target="_blank" href="{{ post.getOscLink() }}">
+                OSC链接
                 </a>
+                </div>
                 {% else %}
-                    <span class="w3-text-yellow">暂未发布</span>
+                    <span class="w3-text-yellow">暂未同步</span>
                 {% endif %}
             </td><!-- OSC同步 -->
 
