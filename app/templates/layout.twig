@@ -1,4 +1,6 @@
 {% set c = container %}
+{% set user = c.session.user ? c.session.user : null %}
+{% set user_id = user ? user.id : 0 %}
 <!DOCTYPE html>
 <html lang="en">
 	<head>

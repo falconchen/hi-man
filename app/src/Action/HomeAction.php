@@ -7,6 +7,7 @@ use App\Helper\Session;
 use App\Model\Group;
 use App\Model\Post;
 use App\Model\User;
+
 use App\Validation\Validator;
 use Carlosocarvalho\SimpleInput\Input\Input;
 use Psr\Http\Message\ResponseInterface as Response; // http://docs.guzzlephp.org/en/stable/index.html
@@ -24,6 +25,8 @@ final class HomeAction extends \App\Helper\BaseAction
 
     public function dispatch(Request $request, Response $response, $args)
     {
+        //var_dump(getOscPostId(28));
+        //exit;
         //$this->logger->info("Home page action dispatched");
         //echo hi_generate_uuid4();exit;
 
@@ -57,15 +60,15 @@ final class HomeAction extends \App\Helper\BaseAction
         // exit;
 
 
-
         $data = array();
-        // $page = 1;
-        // Paginator::currentPageResolver(function () use ($page) {
-        //     return $page;
-        // });
-        $posts = Post::where(['post_status' => 'publish', 'post_visibility' => 'public'])
-            ->orderBy('post_date', 'DESC')->paginate(8);
 
+        $postsQuery = Post::where(['post_status' => 'publish', 'post_visibility' => 'public']);
+
+        if ($this->userId > 0) {
+            //$postsQuery->orWhereRaw('post_author = ? and post_status <> ?', [$this->userId, 'trash']);
+            $postsQuery->orWhereRaw('post_author = ? and post_status = ?', [$this->userId, 'draft']);
+        }
+        $posts = $postsQuery->orderBy('post_date', 'DESC')->paginate(10);
 
 
         if ($posts->count() > 0) {

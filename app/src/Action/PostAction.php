@@ -72,6 +72,8 @@ final class PostAction extends \App\Helper\BaseAction
             $antiXss = new AntiXSS();
             $post->post_content_clean = $antiXss->xss_clean($post->post_content);
         }
+        $post->osc_link = getOscPostLink($post->post_id);
+
 
 
         $this->view->render($response, 'post/index.twig', ['post' => $post]);
@@ -114,13 +116,12 @@ final class PostAction extends \App\Helper\BaseAction
 
                 $this->logger->info('sync post result', ['post_id' => $postDbData->post_id, 'post_title' => $postDbData->post_title, 'result' => $result]);
 
-                $notifyTitle = '同步文章到osc结果:' . $result->message;
+                $notifyTitle =  '文章 《' . $postDbData->post_title . '》 同步到osc: ' . $result->message;
                 $notifyBody = sprintf(
-                    'post_id:%d-[%s], https://my.oschina.net/u/%s/blog/%s',
+                    '网站文章ID: %d , OSC链接 [%s](%s)',
                     $postDbData->post_id,
                     $postDbData->post_title,
-                    $result->result->space,
-                    $result->result->id
+                    $postDbData->getOscLink()
                 );
 
                 if (@$this->settings['sync']['email.notify']) {
@@ -247,6 +248,24 @@ final class PostAction extends \App\Helper\BaseAction
             throw new Exception('catalog not exists');
         }
         $postArr['user_code'] = $userCode;
+        //当文章为更新时
+        if ($oscId = getOscPostId($postId)) {
+
+            $oscOldlink = getOscPostLink($postId, $postDbData->post_author); //检测旧文章是否被移除
+            try {
+                $oscOldPostResponse = $client->request('HEAD', $oscOldlink);
+
+                if ($oscOldPostResponse->getStatusCode() == 200) {
+                    $postArr['id'] = $oscId;
+                    $blogSaveUrl = $oscer['homepage'] . '/blog/edit';
+                }
+            } catch (\GuzzleHttp\Exception\RequestException $e) {
+                if ($e->getCode() != 404) { //ignore  404
+                    throw $e;
+                }
+            }
+        }
+
 
 
         $oldStatus = $postDbData->post_status;
@@ -267,6 +286,7 @@ final class PostAction extends \App\Helper\BaseAction
         //     $postDbData->save();
         //     throw $e;
         // }
+        $this->logger->debug('SyncArgs', ['postId' => $postId, 'oscId' => $oscId, 'postArr' => $postArr, 'blogSaveUrl' => $blogSaveUrl]);
         $oscResponse = $client->request('POST', $blogSaveUrl, [
             'form_params' => $postArr,
         ]);

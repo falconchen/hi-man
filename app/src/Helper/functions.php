@@ -7,6 +7,8 @@
  * Time: 11:27 PM.
  */
 
+
+
 /**
  * just a test.
  *
@@ -469,4 +471,109 @@ function remove_query_arg($key, $query = false)
         return $query;
     }
     return add_query_arg($key, false, $query);
+}
+
+
+
+/**
+ * PHP stdClass Object转array  
+ *
+ * @param [type] $array
+ * @return 
+ */
+function object2array($object)
+{
+    $arr =  json_decode(json_encode($object), true);
+    return  $arr;
+}
+
+
+function getMetaValue($model, $id, $key)
+{
+    // switch ($model) {
+    //     case :'PostMeta'
+    //         $idName = 'post_id';
+    //         break;
+    // }
+
+    $modelName = class_basename($model);
+    switch ($modelName) {
+        case 'PostMeta':
+            $idName = 'post_id';
+            break;
+        case 'UserMeta':
+            $idName = 'user_id';
+            break;
+            //.... others more
+        default:
+            return null;
+    }
+
+    $data = (new $model())->where($idName, $id)->where('meta_key', $key)->first();
+
+    if (!is_null($data)) {
+        $data = unserialize($data->meta_value);
+        if (is_object($data)) {
+            $data = object2array($data);
+        }
+    }
+    return $data;
+}
+
+function getPostMeta($postId, $key)
+{
+    // $oscSyncResult = PostMeta::where('post_id', 16)->where('meta_key', 'osc_sync_result')->first();
+    // if (!is_null($oscSyncResult)) {
+    //     $oscSyncResult = unserialize($oscSyncResult->meta_value);
+    //     if (is_object($oscSyncResult)) {
+    //         $oscSyncResult = object2array($oscSyncResult);
+    //     }
+    // }
+    return getMetaValue('App\Model\PostMeta', $postId, $key);
+}
+
+function getUserMeta($userId, $key)
+{
+    // $userOscMeta = UserMeta::where('user_id', 16)->where('meta_key', 'osc_userinfo')->first();
+    // if (!is_null($userOscMeta)) {
+    //     $userOsc = unserialize($userOscMeta->meta_value);
+    //     echo $userOsc['homepage'] . '/blog/' . $oscSyncResult['result']['id'];
+    // }
+    return getMetaValue('App\Model\UserMeta', $userId, $key);
+}
+
+/**
+ * 获取同步到osc后的链接
+ *
+ * @param int $postId
+ * @param integer $postAuthor  //提供时可减少查询
+ * @return null | string
+ */
+function getOscPostLink($postId, $postAuthor = 0)
+{
+    $link = null;
+    $oscId = getOscPostId($postId);
+    if ($oscId) {
+        if ($postAuthor == 0) {
+            $post = App\Model\Post::where('post_id', $postId)->first();
+            $postAuthor = $post->post_author;
+        }
+        $oscUserInfo = getUserMeta($postAuthor, 'osc_userinfo');
+        if (isset($oscUserInfo['homepage'])) {
+            $link = $oscUserInfo['homepage'] . '/blog/' . $oscId;
+        }
+    }
+    return $link;
+}
+
+/**
+ * 获取同步后的osc 文章id
+ *
+ * @param [int] $postId
+ * @return int | 0
+ */
+function getOscPostId($postId)
+{
+    $oscSyncResult = getPostMeta($postId, 'osc_sync_result');
+    return isset($oscSyncResult['result']['id']) ? intval($oscSyncResult['result']['id']) : 0;
 }
