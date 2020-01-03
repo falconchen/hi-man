@@ -11,7 +11,7 @@
 		<h1 class="w3-xlarge">{{ post.post_title }}</h1>
 		<div class="w3-small w3-center">
 
-
+			
 			<span class="w3-text-grey">
 				<i class="fa fa-calendar-check-o "></i>
 				{{  (post.post_status == 'draft') ? 'draft' : post.post_date_local }}			
@@ -24,24 +24,27 @@
 				<a class="hi-underline-dotted" href="{{ c.router.pathFor('post-admin.edit',{'name':post.post_name}) }}">Edit</a>
 			{% endif %}
 			
-			{% if post.osc_link %}
-			<a class="w3-text-green w3-margin-left" href="{{ post.osc_link }}" target="_blank">				
-			<i class="fa  fa-paper-plane-o"></i>
-				View in OSC 
-			</a>
-			{% endif %}
+			
 		</div>
 	</header>
 
 
 	<main class="hi-content-wrap w3-mobile ">
-
+		
 
 		<div class="w3-content hi-content">
 			{{post.post_content_clean|raw}}
+			{% if post.osc_link %}
+				<div class="w3-clear">
+				<a class="w3-text-green w3-right" href="{{ post.osc_link }}" target="_blank">				
+				<i class="fa fa-paper-plane-o"></i>
+					View in OSC 
+				</a>
+				</div>
+			{% endif %}
 		</div>
 
-
+		
 		<hr/>
 	</main>
 
