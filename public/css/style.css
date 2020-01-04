@@ -421,6 +421,9 @@ input.gsc-input,
 .w3-main {
   transition: margin-left 0s;
 }
+blockquote{
+  background-color: #f6f6f6;
+}
 
 /*"nullstilling" slutt*/
 @media (min-width:1675px) {
