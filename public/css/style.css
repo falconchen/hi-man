@@ -1190,11 +1190,17 @@ hr[id^="ez-insert-after-placeholder"] {
     max-width: 100%;
     height: auto !important;
   }
+  .w3-ul li:first-of-type .hi-excerpt{
+    padding-top:0;
+  }
   .hi-content * {
     max-width: 100%;
   }
   .pagination.w3-bar .w3-bar-item{
     padding: 8px 12px;
+  }
+  .w3-xlarge{
+    font-size:22px;
   }
 }
 
@@ -1230,10 +1236,22 @@ hr[id^="ez-insert-after-placeholder"] {
   display: block;
   margin: 15px auto 20px;
 }
+
 .hi-content {  
   margin-bottom:64px;
 }
-
+.hi-content h1{
+  font-size:22px;
+  padding: 8px 0;
+}
+.hi-content h2{
+  font-size:20px;
+  padding: 8px 0;
+}
+.hi-content h3{
+  font-size:18px;
+  padding: 8px 0;
+}
 .hi-content a{
   color: #4183c4;
 }
