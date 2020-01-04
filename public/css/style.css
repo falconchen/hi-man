@@ -1200,7 +1200,7 @@ hr[id^="ez-insert-after-placeholder"] {
     padding: 8px 12px;
   }
   .w3-xlarge{
-    font-size:22px;
+    font-size:22px!important;
   }
 }
 
