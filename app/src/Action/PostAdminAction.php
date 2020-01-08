@@ -350,9 +350,9 @@ final class PostAdminAction extends \App\Helper\LoggedAction
 
         }
 
-        if (Input::post('post_id')) {
-            $post_id = intval(Input::post('post_id'));
-            $postQuery = Post::where('post_id', $post_id);
+        if (Input::post('post_id') && intval(Input::post('post_id')) > 0) {
+            $postId = intval(Input::post('post_id'));
+            $postQuery = Post::where('post_id', $postId);
             if ($this->user->group_id >= 3) {
                 $postQuery = $postQuery->where('post_author', $this->userId);
             }
@@ -371,11 +371,18 @@ final class PostAdminAction extends \App\Helper\LoggedAction
         $post->post_content = Input::post('post_content');
 
         $currentTimestamp = time();
-        $post->post_date = date('Y-m-d H:i:s', $currentTimestamp);
-        $post->post_modified = $post->post_date;
-        $post->post_date_local = date('Y-m-d H:i:s', $this->localTimestamp($currentTimestamp));
-        $post->post_status = Input::post('post_status');
 
+        $post->post_modified = date('Y-m-d H:i:s', $currentTimestamp);
+
+
+        if (!isset($postId) || !in_array($post->post_status, ['publish', 'future'])) {
+            // only update publish time on new post or old status in daft/trash
+            $post->post_date = $post->post_modified;
+            $post->post_date_local = date('Y-m-d H:i:s', $this->localTimestamp($currentTimestamp));
+        }
+
+        //@todo validate post status
+        $post->post_status = Input::post('post_status');
 
         if (Input::post('post_future') == 'yes') {
 
