@@ -294,12 +294,15 @@ final class PostAction extends \App\Helper\BaseAction
 
         $body = (string) $oscResponse->getBody();
 
+        $this->logger->debug('OscReturnMessage', ['OscReturnMessage' => $body]);
+
         $jData = json_decode($body);
         if (json_last_error() !== JSON_ERROR_NONE) {
             throw new Exception(json_last_error_msg(), json_last_error());
         }
         $syncResult = PostMeta::firstOrNew(['post_id' => $postId, 'meta_key' => 'osc_sync_result']);
         //$jData->result->content=null; //移除文章内容，减少空间
+        @$jData->result->content = mb_substr($jData->result->content, 0, 100, 'UTF-8') . '...'; //移除文
         $syncResult->meta_value = maybe_serialize($jData);
         $syncResult->save();
 
