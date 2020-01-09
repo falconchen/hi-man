@@ -1274,12 +1274,15 @@ hr[id^="ez-insert-after-placeholder"] {
   border-radius: 0px !important;
   margin-top: -10px !important;
   margin-bottom: 20px !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
   line-height: 20px !important;
   word-break: break-all !important;
   overflow-wrap: break-word !important;
   white-space: pre-wrap !important;
   background: white !important;
   border: 10px solid #f5f5f5 !important;
+
 }
 .hi-content code{
   padding: 0.125rem 0.3125rem 0.0625rem !important;
