@@ -1296,6 +1296,14 @@ hr[id^="ez-insert-after-placeholder"] {
 .hi-content img{
   max-width: 100%;
 }
+.hi-view-in-osc-link{
+    text-rendering: optimizelegibility;
+    font-family: brandon-grotesque;
+    font-size: 10.2px;
+    letter-spacing: 0.25em;
+    line-height: 2.2em;
+    text-transform: uppercase;
+}
 
 .hi-modal-content{
   min-height: 100px;
