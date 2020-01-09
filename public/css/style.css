@@ -1248,7 +1248,7 @@ hr[id^="ez-insert-after-placeholder"] {
     padding: 8px 0 !important;
     color: #2196F3!important;
     font-weight: 600 !important;
-    font-size:16px !important;
+    font-size:18px !important;
 }
 .hi-content h1{
   font-size:22px !important;
@@ -1258,16 +1258,19 @@ hr[id^="ez-insert-after-placeholder"] {
   font-size:20px !important;
   
 }
-.hi-content h3{
-  font-size:18px !important;
-  padding: 8px 0;
-}
+
 .hi-content a{
   color: #4183c4 !important;
 }
 
 .hi-content a:hover{
   text-decoration: underline !important;
+}
+.hi-content code{
+  padding: 0.125rem 0.3125rem 0.0625rem !important;
+  color: #c7254e !important;
+  background-color: #f9f2f4 !important;
+  border-radius: 4px !important;
 }
 .hi-content img{
   max-width: 100%;
