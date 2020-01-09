@@ -1263,11 +1263,11 @@ hr[id^="ez-insert-after-placeholder"] {
   padding: 8px 0;
 }
 .hi-content a{
-  color: #4183c4;
+  color: #4183c4 !important;
 }
 
 .hi-content a:hover{
-  text-decoration: underline;
+  text-decoration: underline !important;
 }
 .hi-content img{
   max-width: 100%;
