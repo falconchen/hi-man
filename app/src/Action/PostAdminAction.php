@@ -27,6 +27,7 @@ use Symfony\Component\Config\Definition\Exception\Exception;
 use Illuminate\Database\Capsule\Manager as DB;
 
 use Violin\Violin;
+use Whoops\Handler\JsonResponseHandler;
 
 final class PostAdminAction extends \App\Helper\LoggedAction
 {
@@ -167,6 +168,8 @@ final class PostAdminAction extends \App\Helper\LoggedAction
             $this->data['flash'] = $flash;
             return $this->view->render($response, 'post-admin/post.twig', $this->data);
         }
+
+        $post->osc_link = getOscPostLink($post->post_id);
 
         $this->data['post'] = $post;
 
@@ -429,7 +432,16 @@ final class PostAdminAction extends \App\Helper\LoggedAction
             if ($post->post_status == 'trash') {
                 $message = '文章已放入回收站';
             } else {
-                $message = '文章保存成功。';
+                $message = '文章保存成功。 ';
+                $message  .= sprintf(
+                    ' <a class="w3-text-green" href="%s" target="_blank">%s</a>',
+                    $this->router->pathFor(
+                        'post',
+                        ['name' => $post->post_name]
+                    ),
+                    '查看'
+
+                );
             }
             $this->flash->addMessage('flash', "[success] " . $message);
             $sync =  Input::post('sync');
@@ -546,5 +558,30 @@ final class PostAdminAction extends \App\Helper\LoggedAction
             'y' => date('Y', $localStamp), 'm' => date('m', $localStamp), 'd' => date('d', $localStamp),
             'h' => date('H', $localStamp), 'i' => date('i', $localStamp),
         ];
+    }
+
+
+    /**
+     * 保存预览的session
+     */
+    public function savePreview(Request $request, Response $response, $args)
+    {
+        //@todo : check csrf
+
+        if (!empty(Input::post()) && is_array(Input::post())) {
+            $post = new Post;
+            foreach (Input::post()  as $field => $value) {
+                if (strpos($field, 'post') === 0) {
+                    $post->$field = $value;
+                }
+            }
+            $post->post_author = $this->userId;
+
+            $this->flash->addMessage('preview_post', maybe_serialize($post));
+            $data = [
+                'url' => add_query_arg('preview', 'true', $this->router->pathFor('post', ['name' => 'burn-after-reading']))
+            ];
+            $this->JsonRender->render($response, 200, $data);
+        }
     }
 }

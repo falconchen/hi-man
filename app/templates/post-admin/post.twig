@@ -22,6 +22,34 @@
     
     
     <div class="w3-col s3 w3-mobile w3-tiny" id="hi-metabox-wrapper">
+
+        {% if post.post_id %}
+        <div class="w3-card-2 w3-section hi-metabox hi-links-metabox">
+            <div class="w3-container w3-white w3-border-bottom w3-border-gray">
+                <h6>文章链接</h6>
+            </div>
+            <div class="w3-container">
+                
+                    <div class="w3-section w3-row">
+                        <div class="w3-col s6 ">
+                        
+                        <a class="w3-grey w3-button w3-hover-blue w3-tiny w3-padding-small" target="_blank" href="{{ c.router.pathFor('post',{'name':post.post_name}) }}">在本站查看</a>
+                        </div>
+                        {% if post.osc_link%}
+                        <div class="w3-col s6">
+                        <a class="w3-grey  w3-button w3-hover-green w3-right w3-tiny w3-padding-small" target="_blank" href="{{post.osc_link}}">在osc查看</a>
+                        </div> 
+                        {% endif %}                                             
+                    </div>
+
+                
+
+            </div><!-- .w3-container-->
+
+        </div><!-- .hi-links-metabox-->
+        {% endif %}
+
+
         {% if oscer %}
         <div class="w3-card-2 w3-section hi-metabox hi-osc-sync-metabox">
             <div class="w3-container w3-white w3-border-bottom w3-border-gray">
@@ -120,7 +148,7 @@
                 </div>
                 
                 <div class="w3-col s4">
-                <a class="w3-btn w3-white w3-padding-small w3-right w3-disabled" type="submit">预览</a>
+                <a class="w3-btn w3-border w3-white w3-padding-small w3-right hi-preview-link"  href="javascript:;" target="_blank">预览</a>
                 </div>
             </div>
 

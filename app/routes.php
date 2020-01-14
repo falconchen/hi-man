@@ -28,10 +28,12 @@ $app->get('/post-admin/new', 'App\Action\PostAdminAction:postNew')->setName('pos
 $app->get('/post-admin/edit/{name}', 'App\Action\PostAdminAction:postEdit')->setName('post-admin.edit');
 $app->post('/post-admin/save', 'App\Action\PostAdminAction:save')->setName('post-admin.save');
 $app->get('/post-admin/sync-osc', 'App\Action\PostAdminAction:syncOsc')->setName('post-admin.syncOsc');
+$app->post('/post-admin/save-preivew', 'App\Action\PostAdminAction:savePreview')->setName('post-admin.savePreview');
 
 $app->group(
     '/p',
     function () {
+
         $this->get('/sync-osc', 'App\Action\PostAction:syncOsc')->setName('post.syncOsc');
         $this->get('/{name}', 'App\Action\PostAction:index')->setName('post');
     }
