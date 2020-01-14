@@ -49,22 +49,36 @@ final class PostAction extends \App\Helper\BaseAction
 
         // print($translator->trans('coming soon...'));
 
-        $post_name = $args['name'];
-        if (!preg_match('#\w{12}#', $post_name)) {
-            exit("bad request");
-        }
-        $post = Post::where('post_name', $post_name)->first();
 
-        if (($post->post_status !== 'publish'
-            || $post->post_visibility !== 'public')) {
+        if (Input::get('preview') && !empty($this->flash->getMessage('preview_post'))) {
 
-            if (
-                $post->post_author !== $this->userId
-                || ($this->user !== null && $this->user->group > 2)
-            ) {
-                exit("not pervilage to read"); //非当前用户可见
+            $preview = $this->flash->getMessage('preview_post');
+            $post = unserialize($preview[0]);
+            $post->post_preview = true;
+        } else {
+            //正常预览
+
+            $post_name = $args['name'];
+            if (!preg_match('#\w{12}#', $post_name)) {
+                exit("bad request");
+            }
+            $post = Post::where('post_name', $post_name)->first();
+
+            if (($post->post_status !== 'publish'
+                || $post->post_visibility !== 'public')) {
+
+                if (
+                    $post->post_author !== $this->userId
+                    || ($this->user !== null && $this->user->group > 2)
+                ) {
+                    exit("not pervilage to read"); //非当前用户可见
+                }
             }
         }
+
+
+
+
         $post->post_author_name = User::where('id', $post->post_author)->first()->username;
         if ($post->post_author_name == 'Falcon' || $post->post_author_name == '小小编辑') {
             $post->post_content_clean = $post->post_content;
@@ -73,8 +87,6 @@ final class PostAction extends \App\Helper\BaseAction
             $post->post_content_clean = $antiXss->xss_clean($post->post_content);
         }
         $post->osc_link = getOscPostLink($post->post_id);
-
-
 
         $this->view->render($response, 'post/index.twig', ['post' => $post]);
     }

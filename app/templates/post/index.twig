@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block content %}
-
+	
 	<!-- Header -->
 	<header class="w3-margin-top w3-center w3-content hi-header">
 		<h1 class="w3-xlarge">{{ post.post_title }}</h1>
@@ -14,13 +14,14 @@
 			
 			<span class="w3-text-grey">
 				<i class="fa fa-calendar-check-o "></i>
-				{{  (post.post_status == 'draft') ? 'draft' : post.post_date_local }}			
+				{{  (post.post_status == 'draft') ? 'Draft' : post.post_date_local }}
+				{{post.post_preview ? 'Previewing' : ''}}			
 			</span>
 			by
 			<a class="nickname" target="_blank" href="#">
 				{{post.post_author_name}}</a>
 
-			{% if user_id == post.post_author %}	
+			{% if user_id == post.post_author and not post.post_preview %}	
 				<a class="hi-underline-dotted" href="{{ c.router.pathFor('post-admin.edit',{'name':post.post_name}) }}">Edit</a>
 			{% endif %}
 			
@@ -34,7 +35,8 @@
 
 		<div class="w3-content hi-content">
 			{{post.post_content_clean|raw}}
-			{% if post.osc_link %}
+
+			{% if not post.post_preview and post.osc_link %}
 				<div class="w3-clear">
 				<a class="hi-view-in-osc-link w3-left w3-margin-top" href="{{ post.osc_link }}" target="_blank">				
 				<i class="fa fa-paper-plane-o"></i>

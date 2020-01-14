@@ -23,7 +23,8 @@ class BaseAction
     //Constructor
     public function __construct(\Slim\Container $c)
     {
-
+        $this->jsonRequest = new JsonRequest();
+        $this->JsonRender = new JsonRenderer();
         $this->c = $c;
         $this->route = $this->c->get('router'); //alias
         $this->setupUser();

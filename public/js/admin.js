@@ -181,6 +181,7 @@ $(document).ready(function() {
         ".hi-post-form input,.hi-post-form select ,.hi-post-form  button"
       ).serialize()
     );
+
     //check date valid
     if (inputs.post_future == "yes") {
       var dateInput =
@@ -227,12 +228,33 @@ $(document).ready(function() {
   });
 });
 
+//预览
+$(".hi-preview-link").click(function() {
+  $(".hi-post-form textarea[name=post_content]").val(
+    tinyMCE.get("hi-editor").getContent()
+  );
+  var data = $(".hi-post-form").serialize();
+
+  $.ajax({
+    type: "POST",
+    url: savePreviewUrl,
+    data: data,
+    success: function(response) {
+      //location.href = response.url;
+      window.open(response.url, "preview_" + parseInt(Math.random() * 1000000));
+    },
+    dataType: "json"
+  });
+
+  return false;
+});
+
 tinymce.init({
   selector: "#hi-editor",
   language: "zh_CN",
   //menubar: 'edit insert view format table tools help',
   menubar: false,
-  height: 600,
+  height: 667,
   //plugins: 'code',
   plugins: "image imagetools code link fullscreen autosave wordcount",
 

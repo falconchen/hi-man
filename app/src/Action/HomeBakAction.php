@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Action;
 
 use App\Helper\Hash;
@@ -30,7 +31,6 @@ final class HomeBakAction
         $this->session = new \App\Helper\Session;
         $this->jsonRequest = new JsonRequest();
         $this->JsonRender = new JsonRenderer();
-
     }
 
     public function dispatch(Request $request, Response $response, $args)
@@ -99,12 +99,15 @@ final class HomeBakAction
                     $flash = 'Sorry, you couldn\'t be logged in.';
                     $this->view->render($response, 'login.twig', ['errors' => $v->errors(), 'flash' => $flash, 'request' => $request]);
                 }
-
             } else {
-                $this->view->render($response, 'login.twig',
-                    ['errors' => $v->errors(),
+                $this->view->render(
+                    $response,
+                    'login.twig',
+                    [
+                        'errors' => $v->errors(),
                         'request' => $request,
-                    ]);
+                    ]
+                );
             }
         }
 
