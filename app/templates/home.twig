@@ -1,8 +1,8 @@
 {% extends 'layout.twig' %}
 
-{% set title = '主页 '  %}
+
 {% block title %}
-	{{ title }}
+	{{ t.trans('Homepage') }}
 {% endblock %}
 
 {% block content %}
@@ -35,7 +35,7 @@
 							</h5>
 
 							<p class="w3-small">
-								{{post.post_content|striptags|truncate(160, false,"...\n")|raw }}
+								{{post.post_content|striptags|truncate(200, false,"...\n")|raw }}
 							</p>
 
 							<div class="w3-small hi-meta">

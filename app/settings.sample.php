@@ -89,5 +89,12 @@ return [
         ],
 
 
+        'language' => [
+            'html' => 'zh-CN',
+            'locale' => 'zh_CN',
+            'dir' => __DIR__ . '/../langs',
+        ],
+
+
     ],
 ];

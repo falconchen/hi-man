@@ -1,16 +1,19 @@
 {% set c = container %}
 {% set user = c.session.user ? c.session.user : null %}
 {% set user_id = user ? user.id : 0 %}
+{% set t = c.translator %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{c.get('settings').language.html|default('en')}}">
 	<head>
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 
 		<title>
-			{% block title %}{% endblock %}
-			&ndash; Hi.CMS : a simple and stupid cms</title>
+			{% block title %}
+			{{ t.tran('A simple and stupid cms') }}
+			{% endblock %}
+			&ndash; Hi-CMS</title>
 
 		<link rel="stylesheet" href="{{ static_url() }}/css/bootstrap.min.css">
 		<link rel="stylesheet" href="{{ static_url() }}/css/bootstrap-theme.min.css">
@@ -57,15 +60,15 @@
 						<ul class="nav navbar-nav navbar-right">
 							{% if container.session.user is not defined %}
 								<li>
-									<a href="{{ base_url() }}/login">login</a>
+									<a href="{{ base_url() }}/login">{{t.trans('Login')}}</a>
 								</li>
 								<li>
-									<a href="{{ base_url() }}/register">Register</a>
+									<a href="{{ base_url() }}/register">{{t.trans('Register')}}</a>
 								</li>
 							{% else %}
                                 <li class="w3-text-blue">
                                     
-                                    <a href="{{path_for('post-admin.new')}}"><i class="fa fa-pencil-square-o"></i> 写文章</a>
+                                    <a href="{{path_for('post-admin.new')}}"><i class="fa fa-pencil-square-o"></i> {{t.trans('Go writing')}}</a>
                                 </li>
 								<li>									
 									<a href="{{ base_url() }}/dashboard">
@@ -76,7 +79,7 @@
 								<li>
 									<a href="{{ base_url() }}/logout">
                                     <i class="fa fa-sign-out"></i>
-                                     退出
+                                     {{t.trans('Logout')}}
                                     </a>
 								</li>
 							{% endif %}
@@ -128,7 +131,7 @@
 							Powered by Hi-CMS &copy; 2019</a>
 					</p>
 				</strong>
-                <div class="w3-tiny w3-opacity">Latest commit at {{ git_latest().dateString }}</div>
+                <div class="w3-tiny w3-opacity">{{t.trans('Latest commit at')}} {{ git_latest().dateString }}</div>
 			</footer>
 		</div>
 

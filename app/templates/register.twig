@@ -1,15 +1,15 @@
 {% extends 'layout.twig' %}
-{% set title = 'register '  %}
-{% block title %}{{ title }}{% endblock %}
+
+{% block title %}{{ t.trans('Register') }}{% endblock %}
 
 {% block content %}
-<h1>{{ title }}</h1>
+<h1 class="w3-pannel w3-xlarge w3-margin-bottom">{{ t.trans('Register') }}</h1>
 
 <form action="register" class="w3-container w3-padding-large w3-card-4 hi-form w3-mobile"  method="post" autocomplete="off">
 
             
             <div class="form-group {% if errors.first('email') %}has-error{% endif %}">
-                <label for="email">Email</label>
+                <label for="email">{{t.trans('Email')}}</label>
                 <input class="form-control" type="text" name="email" id="email"{% if request.email|length %}value="{{ request.email }}"{% endif %}>
                 {% if errors.first('email') %}
                 <div class="w3-panel w3-note w3-padding-small">{{ errors.first('email') }}</div>
@@ -18,24 +18,24 @@
 
             <div class="form-group {% if errors.first('username') %}has-error{% endif %}">
 
-                <label for="username">Username</label>
+                <label for="username">{{t.trans('Username')}}</label>
                 <input class="form-control" type="text" name="username" id="username"{% if request.username %}value="{{ request.username }}"{% endif %}>
                 {% if errors.first('username') %}<div class="w3-panel w3-note w3-padding-small">{{ errors.first('username') }}</div>{% endif %}
             </div>
             <div class="form-group {% if errors.first('password') %}has-error{% endif %}">
-                <label for="password">Password</label>
+                <label for="password">{{t.trans('Password')}}</label>
                 <input class="form-control" type="password" name="password" id="password">
                 {% if errors.first('password') %}<div class="w3-panel w3-note w3-padding-small">{{ errors.first('password') }}</div>{% endif %}
             </div>
             <div class="form-group {% if errors.first('password_confirm') %}has-error{% endif %}">
-                <label for="password_confirm">Confirm Password</label>
+                <label for="password_confirm">{{t.trans('Confirm Password')}}</label>
                 <input class="form-control" type="password" name="password_confirm" id="password_confirm">
                 {% if errors.first('password_confirm') %}<div class="w3-panel w3-note w3-padding-small">{{ errors.first('password_confirm') }}</div>{% endif %}
             </div>
 
             <div class="form-group">
                 {{ csrf_inputs() }}                
-                <input class="btn btn-primary" type="submit" value="Register">
+                <input class="btn btn-primary" type="submit" value="{{t.trans('Register')}}">
             </div>
         
     </form>
