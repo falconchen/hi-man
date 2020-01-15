@@ -37,7 +37,8 @@
         "guzzlehttp/guzzle": "~6.0",
         "paquettg/php-html-parser": "^2.1",
         "texthtml/php-lock": "^2.2",
-        "voku/anti-xss": "^4.1"
+        "voku/anti-xss": "^4.1",
+        "symfony/yaml": "^4.4"
     },
 
     "scripts": {

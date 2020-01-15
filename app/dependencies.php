@@ -1,6 +1,10 @@
 <?php
 // DIC configuration
 
+use Symfony\Component\Translation\Loader\YamlFileLoader;
+use Symfony\Component\Translation\Translator;
+
+
 $container = $app->getContainer();
 
 // -----------------------------------------------------------------------------
@@ -173,4 +177,13 @@ $container['guzzle'] = function ($c) {
     $settings = $c->get('settings');
     $client = new GuzzleHttp\Client($settings['guzzle']);
     return $client;
+};
+
+$container['translator'] = function ($c) use ($setting) {
+    $langArr = $setting['settings']['language'];
+    $translator = new Translator($langArr['locale']);
+    $translator->addLoader('yaml', new YamlFileLoader());
+    $path = sprintf($langArr['dir'] . '/messages.%s.yaml', $langArr['locale']);
+    $translator->addResource('yaml', $path, $langArr['locale']);
+    return $translator;
 };

@@ -1,7 +1,8 @@
 {% set c = container %}
+{% set t = c.translator %}
 {% set currentPath = container.request.getUri.getPath|replace({'/hi-admin/': ''}) %}
 <!DOCTYPE html>
-<html>
+<html lang="{{c.get('settings').language.html|default('en')}}">
 <title>{% block title %}Dashbard{% endblock %} - Hi Admin</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
