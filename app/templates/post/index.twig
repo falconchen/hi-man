@@ -14,15 +14,15 @@
 			
 			<span class="w3-text-grey">
 				<i class="fa fa-calendar-check-o "></i>
-				{{  (post.post_status == 'draft') ? 'Draft' : post.post_date_local }}
-				{{post.post_preview ? 'Previewing' : ''}}			
+				{{  (post.post_status == 'draft') ? t.trans('Draft') : post.post_date_local }}
+				{{post.post_preview ? t.trans('Previewing') : ''}}			
 			</span>
 			by
 			<a class="nickname" target="_blank" href="#">
 				{{post.post_author_name}}</a>
 
 			{% if user_id == post.post_author and not post.post_preview %}	
-				<a class="hi-underline-dotted" href="{{ c.router.pathFor('post-admin.edit',{'name':post.post_name}) }}">Edit</a>
+				<a class="hi-underline-dotted" href="{{ c.router.pathFor('post-admin.edit',{'name':post.post_name}) }}">{{t.trans('Edit')}}</a>
 			{% endif %}
 			
 			
@@ -40,7 +40,7 @@
 				<div class="w3-clear">
 				<a class="hi-view-in-osc-link w3-left w3-margin-top" href="{{ post.osc_link }}" target="_blank">				
 				<i class="fa fa-paper-plane-o"></i>
-					View in OSC 
+					{{t.trans('View in OSC')}} 
 				</a>
 				</div>
 			{% endif %}
