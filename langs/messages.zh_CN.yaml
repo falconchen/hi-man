@@ -1,4 +1,4 @@
-hello world: 世界你好
+Hello World: 世界你好
 comming soon: 即将上线
 A simple and stupid cms: 一个简单粗暴的内容管理系统
 Homepage: 主页
@@ -12,3 +12,7 @@ Password: 密码
 Confirm Password: 确认密码
 Login: 登录
 Username/Email: 用户名/密码
+Previewing: 预览中
+Draft: 草稿
+Edit: 编辑
+View in OSC: 在OSC查看

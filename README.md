@@ -55,6 +55,10 @@
 
 - [Eloquent raw 查询](https://laravel.com/docs/5.8/queries)
 
+- [Symfony 翻译组件](https://symfony.com/doc/current/components/translation.html)
+
+- [Symfony 翻译组件（中文文档）](http://www.symfonychina.com/doc/current/translation.html)
+
 ## codes && tips
 
 ```迭代twig
