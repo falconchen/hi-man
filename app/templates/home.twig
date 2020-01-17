@@ -47,13 +47,13 @@
 									{% if post.post_status == 'publish' %}
 									{{post.post_date|time_diff}}
 									{% elseif post.post_status == 'future'%}
-										{{post.post_date_local}} in {{post.post_status}} 
-									{% else %}		
-										in {{post.post_status}}
+										{{post.post_date_local}} {{t.trans('Draft status')}} 
+									{% elseif post.post_status == 'draft' %}		
+										{{ t.trans('Draft status')}}
 									{% endif %}
 
 									{% if user_id == post.post_author %}	
-										<a class="hi-underline-dotted" href="{{ c.router.pathFor('post-admin.edit',{'name':post.post_name}) }}">Edit</a>
+										<a class="hi-underline-dotted" href="{{ c.router.pathFor('post-admin.edit',{'name':post.post_name}) }}">{{t.trans('Edit')}}</a>
 									{% endif %}
 								</span>
 								

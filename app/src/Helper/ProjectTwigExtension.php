@@ -28,6 +28,7 @@ class ProjectTwigExtension extends AbstractExtension implements GlobalsInterface
     {
         $this->container = $c;
         $this->uri = $c->get('request')->getUri();
+        $this->translator = $c->translator;
     }
     //注入全局变量
     public function getGlobals()
@@ -184,10 +185,10 @@ class ProjectTwigExtension extends AbstractExtension implements GlobalsInterface
     }
     private function getPluralizedInterval($count, $invert, $unit)
     {
-        // if ($this->translator) {
-        //     $id = sprintf('diff.%s.%s', $invert ? 'in' : 'ago', $unit);
-        //     return $this->translator->transChoice($id, $count, ['%count%' => $count], 'date');
-        // }
+        if ($this->translator) {
+            $id = sprintf('diff.%s.%s', $invert ? 'in' : 'ago', $unit);
+            return $this->translator->transChoice($id, $count, ['%count%' => $count], 'date');
+        }
         $id = sprintf('diff.%s.%s', $invert ? 'in' : 'ago', $unit);
         if (1 !== $count) {
             $unit .= 's';
