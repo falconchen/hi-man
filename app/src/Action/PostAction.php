@@ -46,9 +46,22 @@ final class PostAction extends \App\Helper\BaseAction
         // $translator->addResource('array', [
         //     'coming soon...' => '正在开发，敬请期待...',
         // ], 'zh_CN');
+        // echo $this->translator->transChoice(
+        //     'Apple String',
 
+        //     1,
+        //     array('%count%' => 1)
+        // );
+        // echo $this->translator->transChoice(
+        //     'Apple String',
+
+        //     2,
+        //     array('%count%' => 2)
+        // );
+        // exit;
         // print($this->translator->trans('comming soon'));
         // exit;
+
 
 
         if (Input::get('preview') && !empty($this->flash->getMessage('preview_post'))) {

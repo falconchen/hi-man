@@ -1296,6 +1296,7 @@ hr[id^="ez-insert-after-placeholder"] {
 }
 .hi-content img{
   max-width: 100%;
+  height: auto;
 }
 .hi-view-in-osc-link{
     text-rendering: optimizelegibility;

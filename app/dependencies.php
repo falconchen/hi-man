@@ -180,10 +180,15 @@ $container['guzzle'] = function ($c) {
 };
 
 $container['translator'] = function ($c) use ($setting) {
+
     $langArr = $setting['settings']['language'];
     $translator = new Translator($langArr['locale']);
     $translator->addLoader('yaml', new YamlFileLoader());
-    $path = sprintf($langArr['dir'] . '/messages.%s.yaml', $langArr['locale']);
-    $translator->addResource('yaml', $path, $langArr['locale']);
+
+    foreach (glob($langArr['dir'] . '/' . $langArr['locale'] . '/*.yml') as $k => $filePath) {
+        $domain = rtrim(basename($filePath), '.yml');
+        $translator->addResource('yaml', $filePath, $langArr['locale'], $domain);
+    }
+
     return $translator;
 };
