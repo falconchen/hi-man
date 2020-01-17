@@ -1246,7 +1246,7 @@ hr[id^="ez-insert-after-placeholder"] {
 .hi-content h1,.hi-content h2,.hi-content h3,.hi-content h4,.hi-content h5{
   
     padding: 8px 0 !important;
-    color: #2196F3!important;
+    color: #333 !important;
     font-weight: 600 !important;
     font-size:18px !important;
 }
