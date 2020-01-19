@@ -3,7 +3,7 @@
 {% set currentPath = container.request.getUri.getPath|replace({'/hi-admin/': ''}) %}
 <!DOCTYPE html>
 <html lang="{{c.get('settings').language.html|default('en')}}">
-<title>{% block title %}{{t.trans('Dashbard')}}{% endblock %} - Hi Admin</title>
+<title>{% block title %}{{t.trans('Dashbard')}}{% endblock %} - Hi.CMS Admin</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="icon" href="{{ static_url() }}/images/hi-logo.png" sizes="32x32" />
@@ -109,7 +109,7 @@
         <div id="hi-footer-wrapper" role="contentinfo">
         
             <footer class="w3-container w3-padding-16">
-                <strong><p class="w3-text-grey"><a class="w3-small w3-hover-opacity w3-padding-small w3-border-aqua" href="{{ c.router.pathFor('homepage') }}" target="_blank"><i class="fa fa-heart"></i> Powered by Hi-CMS &copy; 2019-{{"now"|date('Y',c.settings.timezone)}}</a></p></strong>
+                <strong><p class="w3-text-grey"><a class="w3-small w3-hover-opacity w3-padding-small w3-border-aqua" href="{{ c.router.pathFor('homepage') }}" target="_blank"><i class="fa fa-heart"></i> Powered by Hi.CMS &copy; 2019-{{"now"|date('Y',c.settings.timezone)}}</a></p></strong>
                 
             </footer>        
         </div><!-- #hi-footer-wrapper-->
