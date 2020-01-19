@@ -27,6 +27,8 @@ return [
             'sckey' => 'SCUxxxxx', //Server酱密钥 http://sc.ftqq.com/?c=code            
 
         ],
+        'UTC' => 8, //UTC时间偏移量(小时），+/- 整数
+        'timezone' => 'PRC', //服务器时区
 
         'debug'         => true,
         'whoops.editor' => 'sublime',
