@@ -124,11 +124,11 @@
 
 
 			<footer class="w3-container w3-padding-16 w3-center ">
-				<strong>
+				<strong>					
 					<p class="w3-text-grey">
 						<a class="w3-small w3-hover-opacity w3-padding-small w3-border-aqua" href="{{ base_url() }}" target="_blank">
 							<i class="fa fa-heart"></i>
-							Powered by Hi-CMS &copy; 2019</a>
+							Powered by Hi-CMS &copy; 2019-{{"now"|date('Y',c.settings.timezone)}}</a>
 					</p>
 				</strong>
                 <div class="w3-tiny w3-opacity">{{t.trans('Latest commit at')}} {{ git_latest().dateString }}</div>

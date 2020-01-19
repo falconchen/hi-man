@@ -19,3 +19,52 @@ Future status: 定时
 Edit: 编辑
 View in OSC: 在OSC查看
 Apple String: "{0} 没有苹果|{1} 一个苹果|]1,19] %count%个苹果|[20,Inf[ 很多苹果"
+
+Hi Admin: Hi 管理后台
+Welcome Back,: 欢迎回来,
+Back to Homepage: 返回首页
+User Info: 个人信息
+Dashboard: 管理面板
+OSC Ready: 已连接OSC
+Close Menu: 关闭菜单
+Not Connected to OSC: 未连接osc
+No post yet, <a class="w3-btn-large" href="%link%">Go to write</a>: 暂无文章，<a class="w3-btn-large" href="%link%">去写文章</a>
+No Title: 暂无标题
+View: 查看
+publish: 公开
+future: 定时
+draft: 草稿
+trash: 回收站
+Posts List: 文章列表
+ID: ID
+Title: 标题
+Author: 作者
+Publish Time: 发布时间
+Last Modified: 最后修改
+Post Status: 文章状态
+Last Sync to OSChina: 上次同步到OSC
+Hello %name%: 你好,%name%
+Waiting for Syncing: 等待同步
+Last Syncing at: 上次同步于
+Not synced yet: 从未同步
+Search..: 搜索...
+# 请输入标题
+# 文章链接
+# 在本站查看
+# OSC同步
+# 文章分类
+# 系统分类
+# 保存为默认同步选项
+# 发布
+# 保存草稿
+# 删除文章
+# 预览
+# 本站公开度：
+# 公开
+# 私密
+# 密码保护
+# 请输入密码
+# 发布时间：
+# 立即发布
+# 定时发布
+# 部分字段填写不正确，请修正后重新提交

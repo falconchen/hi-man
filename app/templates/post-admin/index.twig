@@ -1,15 +1,19 @@
 {% extends 'admin/layout.twig' %}
+{% block title %}{{t.trans('Posts List')}}{% endblock %}
 
-{% block main %}
+{% block main %}    
+
     {% if postStatuses.any.count == 0 %}
-        <div class="w3-panel w3-red">
-        <p> 暂无文章，<a class="w3-btn-large" href="{{ c.router.pathFor('post-admin.new')}}">去写文章</a>
+        <div class="w3-panel w3-red">        
+        <p>
+        {{t.trans('No post yet, <a class="w3-btn-large" href="%link%">Go to write</a>',{'%link%':c.router.pathFor('post-admin.new')})|raw}}
         </p>        
+        
         </div>
     {% else %}
     <div class="w3-container w3-padding-large hi-posts-list">
 
-        <h2>文章列表</h2>
+        <h2>{{t.trans('Posts List')}}</h2>
         <div class="w3-margin-bottom">
             <div class="w3-bar w3-white w3-small">
                 {% for status in postStatuses %}
@@ -23,7 +27,7 @@
                 <a href="{{ postStatus.any.url }}" class="w3-bar-item w3-button {{ postStatus.any.current ? 'w3-light-blue' : '' }}">全部 ({{postStatus.any.count}})</a> #}
 
                 <div class="w3-bar-item w3-right" style="padding:0;">
-                    <input type="text" class="w3-bar-item w3-input" placeholder="Search..">
+                    <input type="text" class="w3-bar-item w3-input" placeholder="{{t.trans('Search..')}}">
                     <a href="#" class="w3-bar-item w3-button w3-green">Go</a>
                 </div>
             </div>
@@ -32,37 +36,41 @@
         <div class="w3-responsive">
             <table class="w3-table-all w3-hoverable">
             <tr class="w3-blue">
-            <th>ID</th>
-            <th style="width:25%">标题</th>
-            <th class="w3-center">编辑</th>
-            <th>作者</th>
-            <th>发布时间</th>
-            <th>最后修改</th>
-            <th>文章状态</th>
-            <th style="width:15%">OSC同步</th>
+            <th>{{t.trans('ID')}}</th>
+            <th style="width:25%">{{t.trans('Title')}}</th>
+            
+            <th>{{t.trans('Author')}}</th>
+            <th>{{t.trans('Publish Time')}}</th>
+            <th>{{t.trans('Last Modified')}}</th>
+            <th>{{t.trans('Post Status')}}</th>
+            <th style="width:15%">{{t.trans('Last Sync to OSChina')}}</th>
             </tr>
             {% for post in postsCurrentPage %}
             <tr>
             <td>{{ post.post_id }}</td><!--ID-->
-            <td>{{ post.post_title }}</td><!--标题-->            
-            <td class="w3-center">
-            <a href="{{ c.router.pathFor('post-admin.edit',{'name':post.post_name}) }}">
-            编辑</a>
-            </td><!--编辑-->
+            <td>
+            {{ post.post_title|default(t.trans('No Title')) }}
+            <div class="w3-content w3-small">
+                <a class="w3-text-grey w3-hover-text-blue" href="{{ c.router.pathFor('post-admin.edit',{'name':post.post_name}) }}">{{t.trans('Edit')}}</a>
+                &nbsp;|&nbsp;
+                <a class="w3-text-grey w3-hover-text-green" target="_blank" href="{{ c.router.pathFor('post',{'name':post.post_name}) }}">{{t.trans('View')}}</a>
+            </div>
+            </td><!--标题-->            
+            
             <td>{{ post.post_author_name }}</td><!--作者-->
             <td>{{ post.post_date_local }}</td><!-- 发布时间-->
             <td>{{ post.post_modified  }}</td><!-- 修改时间 -->
-            <td>{{ post.post_status  }}</td><!-- 文章状态 -->
+            <td>{{ t.trans(post.post_status)  }}</td><!-- 文章状态 -->
             <td class="w3-small">
                 {%if post.post_status == 'future' %}
-                    <span class="w3-text-yellow">等待同步</span>
+                    <span class="w3-text-yellow">{{t.trans('Waiting for Syncing')}}</span>
                 {% endif %}
 
                 {% if post.getSyncStatus().meta_value %}
                 {% set oscSyncResult=post.getSyncStatus().meta_value.result %}                
                 <div class="">                
                     {%if post.post_status == 'future' %}
-                    上次同步于
+                    {{t.trans('Last Syncing at')}}
                     {%endif%}
                     {{ post.getSyncStatus().meta_value.time }}
                 
@@ -73,7 +81,7 @@
                 </a>
                 </div>
                 {% else %}
-                    <span class="w3-text-yellow">暂未同步</span>
+                    <span class="w3-text-yellow">{{t.trans('Not synced yet')}}</span>
                 {% endif %}
             </td><!-- OSC同步 -->
 

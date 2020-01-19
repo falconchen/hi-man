@@ -3,7 +3,7 @@
 {% set currentPath = container.request.getUri.getPath|replace({'/hi-admin/': ''}) %}
 <!DOCTYPE html>
 <html lang="{{c.get('settings').language.html|default('en')}}">
-<title>{% block title %}Dashbard{% endblock %} - Hi Admin</title>
+<title>{% block title %}{{t.trans('Dashbard')}}{% endblock %} - Hi Admin</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="icon" href="{{ static_url() }}/images/hi-logo.png" sizes="32x32" />
@@ -19,9 +19,9 @@
 <div class="w3-bar w3-top w3-black w3-large" style="z-index:4">
     <button class="w3-bar-item w3-button w3-hide-large w3-hover-none w3-hover-text-light-grey" onclick="w3_open();">☰
     </button>
-    <a class="w3-button w3-bar-item w3-left" href="{{ base_url() }}/dashboard"><i class="fa fa-home"> Hi 管理后台</i></a>
-    <a class="w3-button w3-bar-item w3-right" href="{{ base_url() }}">返回首页</a>
-    <a class="w3-button w3-bar-item w3-right" href="{{ base_url() }}/logout">退出</a>
+    <a class="w3-button w3-bar-item w3-left" href="{{ base_url() }}/dashboard"><i class="fa fa-home"> {{t.trans('Hi Admin')}}</i></a>
+    <a class="w3-button w3-bar-item w3-right" href="{{ base_url() }}">{{t.trans('Back to Homepage')}}</a>
+    <a class="w3-button w3-bar-item w3-right" href="{{ base_url() }}/logout">{{t.trans('Logout')}}</a>
 </div>
 
 <!-- Sidebar/menu -->
@@ -32,34 +32,35 @@
                  class="w3-circle w3-margin-right" style="width:46px">
         </div>
         <div class="w3-col s8 w3-bar">
-            <span>欢迎回来, <strong>{{ c.session.user.username }}</strong></span><br>
+            <span>{{t.trans('Welcome Back,')}} <strong>{{ c.session.user.username }}</strong></span><br>
             {#<a href="#" class="w3-bar-item w3-button"><i class="fa fa-envelope"></i></a>#}
-            <a href="#" class="w3-bar-item w3-button w3-tiny hi-user-info" style="margin-left:-16px;"><i class="fa fa-user"></i> <span>个人信息</span></a>
+            <a href="#" class="w3-padding-small w3-bar-item w3-button w3-tiny hi-user-info" style=""><i class="fa fa-user"></i> <span>{{t.trans('User Info')}}</span></a>
             {#<a href="#" class="w3-bar-item w3-button w3-tiny w3-text-green"><i class="fa fa-cog "></i> 连接OSC</a>#}
             <button onclick="document.getElementById('bind-osc-form-wrapper').style.display='block'"
-                    class="w3-bar-item w3-button w3-tiny {{ oscer ?'w3-text-green':'w3-text-red' }} hi-osc-status">
+                    class="w3-padding-small w3-bar-item w3-button w3-tiny {{ oscer ?'w3-text-green':'w3-text-red' }} hi-osc-status">
 
-                <i class="fa fa-cog "></i> <span>{{ oscer ?'已连接osc':'未连接osc' }}</span>
+                <i class="fa fa-cog "></i> <span>  
+                {{ oscer ?t.trans('OSC Ready') : t.trans('Not Connected to OSC') }}</span>
             </button>
 
         </div>
 
         {% include 'oscer/bind-osc-form.twig' with {'wrapper_id': 'bind-osc-form-wrapper'} %}
         {% if c.session.user.group_id < 3 %}
-        <div class="w3-col s12 w3-tiny w3-text-grey w3-opacity w3-right"><b>系统构建时间:</b> {{ git_latest().dateString  }}</div>
+        <div class="w3-col s12 w3-tiny w3-text-grey w3-opacity w3-right"><b>{{t.trans('Latest commit at')}}</b> {{ git_latest().dateString  }}</div>
         {% endif %}
 
     </div>
     
     <hr>
     <div class="w3-container">
-        <h5>Dashboard</h5>
+        <h5>{{t.trans('Dashboard')}}</h5>
         
     </div>
 
     <div id="hi-admin-menu" class="w3-bar-block">
         <a href="javascript:;" class="w3-bar-item w3-button w3-padding-16 w3-hide-large w3-dark-grey w3-hover-black"
-           onclick="w3_close()" title="close menu"><i class="fa fa-remove fa-fw"></i>&nbsp; Close Menu</a>
+           onclick="w3_close()" title="close menu"><i class="fa fa-remove fa-fw"></i>&nbsp; {{t.trans('Close Menu')}}</a>
 
 
         {% block menu %}
@@ -108,7 +109,7 @@
         <div id="hi-footer-wrapper" role="contentinfo">
         
             <footer class="w3-container w3-padding-16">
-                <strong><p class="w3-text-grey"><a class="w3-small w3-hover-opacity w3-padding-small w3-border-aqua" href="{{ c.router.pathFor('homepage') }}" target="_blank"><i class="fa fa-heart"></i> Powered by Hi-CMS &copy; 2019</a></p></strong>
+                <strong><p class="w3-text-grey"><a class="w3-small w3-hover-opacity w3-padding-small w3-border-aqua" href="{{ c.router.pathFor('homepage') }}" target="_blank"><i class="fa fa-heart"></i> Powered by Hi-CMS &copy; 2019-{{"now"|date('Y',c.settings.timezone)}}</a></p></strong>
                 
             </footer>        
         </div><!-- #hi-footer-wrapper-->
