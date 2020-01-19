@@ -68,6 +68,7 @@ class ComposerStaticInitc3765e25676b2cbb624df054aef313e2
             'Psr\\Log\\' => 8,
             'Psr\\Http\\Message\\' => 17,
             'Psr\\Container\\' => 14,
+            'Pheanstalk\\' => 11,
             'PHPHtmlParser\\' => 14,
         ),
         'M' => 
@@ -226,6 +227,10 @@ class ComposerStaticInitc3765e25676b2cbb624df054aef313e2
         'Psr\\Container\\' => 
         array (
             0 => __DIR__ . '/..' . '/psr/container/src',
+        ),
+        'Pheanstalk\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/pda/pheanstalk/src',
         ),
         'PHPHtmlParser\\' => 
         array (

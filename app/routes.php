@@ -39,6 +39,16 @@ $app->group(
     }
 );
 
+$app->group(
+    '/task',
+    function () {
+        $this->get('/list', 'App\Action\TaskAction:list')->setName('task.list');
+        $this->get('/producer', 'App\Action\TaskAction:producer')->setName('task.producer');
+        $this->get('/worker', 'App\Action\TaskAction:worker')->setName('task.worker');
+    }
+);
+
+
 $route = App\Model\Route::all();
 $app->get('/hi-admin/', 'App\Action\Admin:index');
 
