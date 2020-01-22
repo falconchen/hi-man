@@ -421,6 +421,7 @@ input.gsc-input,
 .w3-main {
   transition: margin-left 0s;
 }
+
 blockquote{
   background-color: #f6f6f6;
 }
@@ -1317,4 +1318,8 @@ hr[id^="ez-insert-after-placeholder"] {
 
 .hi-underline-dotted{
   text-decoration: underline dotted;
+}
+
+.w3-text,p{
+  word-break: break-all;
 }
