@@ -1323,7 +1323,7 @@ hr[id^="ez-insert-after-placeholder"] {
 }
 
 .w3-text,p,h1,h2,h3,h4,h5,h6{  
-  word-break: break-all;
-    font-family: Georgia, 'Times New Roman', Times, 'Songti SC', serif;
+    word-break: break-all;
+    font-family: Georgia, 'Times New Roman', Times, 'Songti SC', serif  !important;
     line-height: 1.8;
 }
