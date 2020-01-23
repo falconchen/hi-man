@@ -260,7 +260,7 @@ tinymce.init({
   plugins: "image imagetools code link fullscreen autosave wordcount",
 
   toolbar:
-    " undo redo | styleselect | bold italic forecolor  | link image  | code | menuDateButton", //basicDateButton selectiveDateButton toggleDateButton splitDateButton
+    " undo redo | styleselect | bold italic forecolor  | link image  | code |basicDateButton menuDateButton", //
 
   language_url: "/js/node_modules/tinymce/langs/zh_CN.js",
   //skin: 'oxide-dark'
@@ -274,6 +274,20 @@ tinymce.init({
   ],
   setup: function(editor) {
     /* Helper functions */
+    var toTimeHtml = function(time) {
+      return (
+        '<time datetime="' +
+        time.toString() +
+        '">' +
+        time.toString() +
+        "</time>"
+      );
+    };
+    var toAuthorHtml = function(name) {
+      return (
+        '<cite title="' + name.toString() + '">' + name.toString() + "</cite>"
+      );
+    };
     var toDateHtml = function(date) {
       return (
         '<time datetime="' +
@@ -302,106 +316,98 @@ tinymce.init({
       );
     };
 
-    /* Basic button that just inserts the date */
+    Date.prototype.format = function(fmt) {
+      var o = {
+        "M+": this.getMonth() + 1, //月份
+        "d+": this.getDate(), //日
+        "h+": this.getHours(), //小时
+        "m+": this.getMinutes(), //分
+        "s+": this.getSeconds(), //秒
+        "q+": Math.floor((this.getMonth() + 3) / 3), //季度
+        S: this.getMilliseconds() //毫秒
+      };
+      if (/(y+)/.test(fmt)) {
+        fmt = fmt.replace(
+          RegExp.$1,
+          (this.getFullYear() + "").substr(4 - RegExp.$1.length)
+        );
+      }
+      for (var k in o) {
+        if (new RegExp("(" + k + ")").test(fmt)) {
+          fmt = fmt.replace(
+            RegExp.$1,
+            RegExp.$1.length == 1
+              ? o[k]
+              : ("00" + o[k]).substr(("" + o[k]).length)
+          );
+        }
+      }
+      return fmt;
+    };
+
     editor.ui.registry.addButton("basicDateButton", {
-      text: "Insert Date",
-      tooltip: "Insert Current Date",
-      onAction: function(_) {
-        editor.insertContent(toDateHtml(new Date()));
-      }
-    });
-
-    /* Basic button that inserts the date, but only if the cursor isn't currently in a "time" element */
-    editor.ui.registry.addButton("selectiveDateButton", {
       icon: "insert-time",
-      tooltip: "Insert Current Date",
-      disabled: true,
+      tooltip: "Insert Current Time",
       onAction: function(_) {
-        editor.insertContent(toDateHtml(new Date()));
-      },
-      onSetup: function(buttonApi) {
-        var editorEventCallback = function(eventApi) {
-          buttonApi.setDisabled(
-            eventApi.element.nodeName.toLowerCase() === "time"
-          );
-        };
-        editor.on("NodeChange", editorEventCallback);
-        return function(buttonApi) {
-          editor.off("NodeChange", editorEventCallback);
-        };
+        var time = new Date().format("yyyy-MM-dd hh:mm");
+        editor.insertContent(toTimeHtml(time));
       }
     });
 
-    /* Toggle button that inserts the date, but becomes inactive when the cursor is in a "time" element */
-    /* so you can't insert a "time" element inside another one. Also gives visual feedback. */
-    editor.ui.registry.addToggleButton("toggleDateButton", {
-      icon: "insert-time",
-      tooltip: "Insert Current Date",
-      onAction: function(_) {
-        editor.insertContent(toDateHtml(new Date()));
-      },
-      onSetup: function(buttonApi) {
-        var editorEventCallback = function(eventApi) {
-          buttonApi.setActive(
-            eventApi.element.nodeName.toLowerCase() === "time"
-          );
-        };
-        editor.on("NodeChange", editorEventCallback);
-        return function(buttonApi) {
-          editor.off("NodeChange", editorEventCallback);
-        };
-      }
-    });
-
-    /* Split button that lists 3 formats, and inserts the date in the selected format when clicked */
-    editor.ui.registry.addSplitButton("splitDateButton", {
-      text: "Insert Date",
-      onAction: function(_) {
-        editor.insertContent("<p>Its Friday!</p>");
-      },
-      onItemAction: function(buttonApi, value) {
-        editor.insertContent(value);
-      },
-      fetch: function(callback) {
-        var items = [
-          {
-            type: "choiceitem",
-            text: "Insert Date",
-            value: toDateHtml(new Date())
-          },
-          {
-            type: "choiceitem",
-            text: "Insert GMT Date",
-            value: toGmtHtml(new Date())
-          },
-          {
-            type: "choiceitem",
-            text: "Insert ISO Date",
-            value: toIsoHtml(new Date())
-          }
-        ];
-        callback(items);
-      }
-    });
-
-    /* Menu button that has a simple "insert date" menu item, and a submenu containing other formats. */
-    /* Clicking the first menu item or one of the submenu items inserts the date in the selected format. */
     editor.ui.registry.addMenuButton("menuDateButton", {
-      icon: "insert-time",
+      icon: "browse",
+      //text: "DateTime",
       fetch: function(callback) {
         var items = [
           {
             type: "menuitem",
-            text: "Insert Date",
+            text: "Author",
             onAction: function(_) {
-              editor.insertContent(toDateHtml(new Date()));
+              var name = currentUser.name;
+              editor.insertContent(toAuthorHtml(name));
+              //editor.insertContent(toDateHtml(new Date()));
             }
           },
           {
+            type: "menuitem",
+            text: "Date",
+            onAction: function(_) {
+              var time = new Date().format("yyyy-MM-dd");
+              editor.insertContent(toTimeHtml(time));
+              //editor.insertContent(toDateHtml(new Date()));
+            }
+          },
+          {
+            type: "menuitem",
+            text: "ShortTime",
+            onAction: function(_) {
+              var time = new Date().format("hh:mm:ss");
+              editor.insertContent(toTimeHtml(time));
+              //editor.insertContent(toDateHtml(new Date()));
+            }
+          },
+          {
+            type: "menuitem",
+            text: "FullTime",
+            onAction: function(_) {
+              var time = new Date().format("yyyy-MM-dd hh:mm:ss");
+              editor.insertContent(toTimeHtml(time));
+              //editor.insertContent(toDateHtml(new Date()));
+            }
+          },
+
+          {
             type: "nestedmenuitem",
-            text: "Other formats",
+            text: "Others Formats",
             getSubmenuItems: function() {
               return [
+                {
+                  type: "menuitem",
+                  text: "EN",
+                  onAction: function(_) {
+                    editor.insertContent(toDateHtml(new Date()));
+                  }
+                },
                 {
                   type: "menuitem",
                   text: "GMT",
