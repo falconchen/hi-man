@@ -1322,6 +1322,8 @@ hr[id^="ez-insert-after-placeholder"] {
   text-decoration: underline dotted;
 }
 
-.w3-text,p{
+.w3-text,p,h1,h2,h3,h4,h5,h6{  
   word-break: break-all;
+    font-family: Georgia, 'Times New Roman', Times, 'Songti SC', serif;
+    line-height: 1.8;
 }
