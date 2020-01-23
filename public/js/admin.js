@@ -459,7 +459,7 @@ function parseQueryString(queryString) {
  * @param  dateString format : 2019-12-31 15:49
  */
 function isValidDate(dateString) {
-  var d = new Date(dateString);
+  var d = new Date(dateString.replace(/\s/, "T"));
   if (isNaN(d)) {
     return false;
   }
