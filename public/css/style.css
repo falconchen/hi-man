@@ -1294,6 +1294,7 @@ hr[id^="ez-insert-after-placeholder"] {
   border-radius: 4px !important;
 }
 .hi-content pre code{
+  color: #ccc !important;
   background-color: transparent !important;
 }
 .hi-content img{
