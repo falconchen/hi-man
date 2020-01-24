@@ -1284,7 +1284,7 @@ hr[id^="ez-insert-after-placeholder"] {
   background: #2d2d2d !important;
   
   border: 10px solid #f5f5f5 !important;
-  max-width: 100% !important;
+  width: 100% !important;
 
 }
 .hi-content code{
