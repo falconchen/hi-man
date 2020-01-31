@@ -110,7 +110,9 @@ i.fa-caret-down,
 i.fa-caret-up {
   width: 10px
 }
-
+.hi-navbar-header .navbar-brand {  
+  font-family: Verdana,sans-serif !important;
+}
 #sidenav h2 {
   font-size: 21px;
   padding-left: 16px;
