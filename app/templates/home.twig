@@ -43,7 +43,9 @@
 								<a class="nickname" target="_blank" href="#">{{post.post_author_name}}</a>
 								
 								
-								<span class="w3-text-grey">									
+								<span class="w3-text-grey">	
+									&nbsp;	
+									{# <i class="w3-small fa fa-paperclip"></i>							 #}
 									{% if post.post_status == 'publish' %}
 									{{post.post_date|time_diff}}
 									{% elseif post.post_status == 'future'%}
@@ -53,7 +55,9 @@
 									{% endif %}
 
 									{% if user_id == post.post_author %}	
-										<a class="hi-underline-dotted" href="{{ c.router.pathFor('post-admin.edit',{'name':post.post_name}) }}">{{t.trans('Edit')}}</a>
+										&nbsp;	
+										<a class="hi-underline-dotted" href="{{ c.router.pathFor('post-admin.edit',{'name':post.post_name}) }}">
+										 {{t.trans('Edit')}}</a>
 									{% endif %}
 								</span>
 								
