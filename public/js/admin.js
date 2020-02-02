@@ -187,13 +187,13 @@ $(document).ready(function() {
       var dateInput =
         inputs.y +
         "-" +
-        inputs.m +
+        prefixInteger(inputs.m,2) +
         "-" +
-        inputs.d +
+        prefixInteger(inputs.d,2) +
         " " +
-        inputs.h +
+        prefixInteger(inputs.h,2) +
         ":" +
-        inputs.i;
+        prefixInteger(inputs.i,2);
 
       if (!isValidDate(dateInput)) {
         errors.push({
@@ -468,4 +468,8 @@ function isValidDate(dateString) {
     return false;
   }
   return true;
+}
+
+function prefixInteger(num, length) {
+  return (Array(length).join('0') + num).slice(-length);
 }
