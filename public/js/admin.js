@@ -260,7 +260,7 @@ tinymce.init({
   plugins: "image imagetools code link fullscreen autosave wordcount",
 
   toolbar:
-    " undo redo | styleselect | bold italic forecolor  | link image  | code |basicDateButton menuDateButton", //
+    " undo redo | styleselect | bold italic forecolor  | link image  | code | basicDateButton menuDateButton| removeformat ", //
 
   language_url: "/js/node_modules/tinymce/langs/zh_CN.js",
   //skin: 'oxide-dark'
