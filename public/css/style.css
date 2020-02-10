@@ -1,7 +1,8 @@
 html,
-body {
+body,.w3-text,p,h1,h2,h3,h4,h5,h6 {
   min-height: 100%;  
-  font-family: Georgia, 'Times New Roman', Times, 'Songti SC', serif !important;  
+  /* font-family: Georgia, 'Times New Roman', Times, 'Songti SC', serif !important;   */
+  font-family: "Helvetica Neue", "Luxi Sans", "DejaVu Sans", Tahoma, "Hiragino Sans GB", STHeiti !important;
 }
 
 body {
@@ -1247,6 +1248,11 @@ hr[id^="ez-insert-after-placeholder"] {
 .hi-content {  
   margin-bottom:64px;
 }
+.hi-content p{    
+  font-size: 1.1em !important;
+  line-height: 1.8em !important;
+
+}
 .hi-content h1,.hi-content h2,.hi-content h3,.hi-content h4,.hi-content h5{
   
     padding: 8px 0 !important;
@@ -1328,7 +1334,8 @@ hr[id^="ez-insert-after-placeholder"] {
 
 .w3-text,p,h1,h2,h3,h4,h5,h6{  
     word-break: break-all;
-    font-family: Georgia, 'Times New Roman', Times, 'Songti SC', serif  !important;
+    /* font-family: Georgia, 'Times New Roman', Times, 'Songti SC', serif  !important; */
+    
     line-height: 1.8;
 }
 .hi-text-grey{
