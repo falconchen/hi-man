@@ -270,7 +270,7 @@ tinymce.init({
   //autosave_restore_when_empty: true,
   autosave_retention: "30m",
   content_style: [
-    'body{font-size:1.1em;font-family:"Helvetica Neue", "Luxi Sans", "DejaVu Sans", Tahoma, "Hiragino Sans GB", STHeiti !important; line-height:1.8;}h1{font-size:22px;}h2{font-size:20px;}'
+    'body{font-size:1em;font-family:"Helvetica Neue", "Luxi Sans", "DejaVu Sans", Tahoma, "Hiragino Sans GB", STHeiti !important; line-height:1.8;}h1{font-size:22px;}h2{font-size:20px;}p{margin:0}'
   ],
   setup: function(editor) {
     /* Helper functions */
