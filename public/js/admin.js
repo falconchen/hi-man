@@ -256,11 +256,26 @@ tinymce.init({
   toolbar_sticky: true,
   menubar: false,
   height: 667,
+  
   //plugins: 'code',
-  plugins: "image imagetools code link fullscreen autosave wordcount",
+  plugins: "image imagetools code link fullscreen autosave wordcount codesample",
+
+  codesample_languages: [
+		{text: 'HTML/XML', value: 'markup'},
+		{text: 'JavaScript', value: 'javascript'},
+		{text: 'CSS', value: 'css'},
+		{text: 'PHP', value: 'php'},
+		{text: 'Ruby', value: 'ruby'},
+		{text: 'Python', value: 'python'},
+		{text: 'Java', value: 'java'},
+		{text: 'C', value: 'c'},
+		{text: 'C#', value: 'csharp'},
+    { text: 'C++', value: 'cpp' },
+    {text: 'Swift', value: 'swift'}
+	],
 
   toolbar:
-    " undo redo | styleselect | bold italic forecolor  | link image  | code | basicDateButton menuDateButton| removeformat ", //
+    "codesample  | undo redo | styleselect basicDateButton menuDateButton | bold italic forecolor  |removeformat link image  | code  ", //
 
   language_url: "/js/node_modules/tinymce/langs/zh_CN.js",
   //skin: 'oxide-dark'
