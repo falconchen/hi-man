@@ -35,7 +35,7 @@
 
 		{% block nav %}
 			<nav
-				class="navbar w3-white navbar-fixed-top w3-border-bottom">
+				class="navbar  navbar-fixed-top w3-border-bottom w3-card hi-dark">
 				{# <nav class="navbar navbar-inverse navbar-fixed-top"> #}
 				<div class="container">
 					<div class="navbar-header hi-navbar-header">
@@ -45,7 +45,7 @@
 							<span class="icon-bar w3-blue"></span>
 							<span class="icon-bar w3-blue"></span>
 						</button>
-						<a class="navbar-brand w3-hover w3-blue w3-text-white" href="{{ base_url() }}" style="font-weight:600;">
+						<a class="navbar-brand w3-hover w3-blue w3-text-white w3-card" href="{{ base_url() }}" style="font-weight:600;">
 							{# <i class="fa fa-fw fa-smile-o"></i> #}
 							Hi
 
@@ -67,16 +67,16 @@
 							{% else %}
                                 <li class="">
                                     
-                                    <a href="{{path_for('post-admin.new')}}"><i class="fa fa-pencil-square-o"></i> {{t.trans('Go writing')}}</a>
+                                    <a class="w3-hover-blue" href="{{path_for('post-admin.new')}}"><i class="fa fa-pencil-square-o"></i> {{t.trans('Go writing')}}</a>
                                 </li>
 								<li>									
-									<a href="{{ base_url() }}/dashboard">
+									<a class="w3-hover-blue" href="{{ base_url() }}/dashboard">
                                     <i class="fa  fa-user-o"></i> 
                                     {{ container.session.user.username }}</a>
 								</li>
-								<li></li>
+								
 								<li>
-									<a href="{{ base_url() }}/logout">
+									<a class="w3-hover-blue" href="{{ base_url() }}/logout">
                                     <i class="fa fa-sign-out"></i>
                                      {{t.trans('Logout')}}
                                     </a>

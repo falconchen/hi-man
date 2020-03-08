@@ -117,7 +117,8 @@ i.fa-caret-up {
 
 #navbar  .navbar-nav{
   font-weight: 550;
-  color:#043448;
+  
+  color:#fff;
 }
 #sidenav h2 {
   font-size: 21px;
@@ -1178,7 +1179,9 @@ a.btnsmall:hover {
     display: none;
   }
 }
-
+.navbar-brand, .navbar-nav>li>a {
+  text-shadow:none;
+}
 .w3-note {
   background-color: #ffffcc;
   border-left: 6px solid #ffeb3b
