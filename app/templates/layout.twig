@@ -41,11 +41,11 @@
 					<div class="navbar-header hi-navbar-header">
 						<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
 							<span class="sr-only">Toggle navigation</span>
-							<span class="icon-bar w3-blue"></span>
-							<span class="icon-bar w3-blue"></span>
-							<span class="icon-bar w3-blue"></span>
+							<span class="icon-bar hi-blue"></span>
+							<span class="icon-bar hi-blue"></span>
+							<span class="icon-bar hi-blue"></span>
 						</button>
-						<a class="navbar-brand w3-hover w3-blue w3-text-white w3-card" href="{{ base_url() }}" style="font-weight:600;">
+						<a class="navbar-brand w3-hover hi-blue w3-text-white w3-card" href="{{ base_url() }}" style="font-weight:600;">
 							{# <i class="fa fa-fw fa-smile-o"></i> #}
 							Hi
 
@@ -60,34 +60,34 @@
 								
 							{% if container.session.user is not defined %}
 								<li>
-									<a class="w3-hover-blue" href="{{ base_url() }}"><i class="fa fa-home"></i>
+									<a class="hi-hover-blue" href="{{ base_url() }}"><i class="fa fa-home"></i>
 									{{t.trans('Homepage')}}</a>
 								</li>
 								<li>
-									<a class="w3-hover-blue" href="{{ base_url() }}/login"><i class="fa fa-sign-in"></i>
+									<a class="hi-hover-blue" href="{{ base_url() }}/login"><i class="fa fa-sign-in"></i>
 									{{t.trans('Login')}}</a>
 								</li>
 								<li>
-									<a class="w3-hover-blue" href="{{ base_url() }}/register"><i class="fa fa-registered"></i>
+									<a class="hi-hover-blue" href="{{ base_url() }}/register"><i class="fa fa-registered"></i>
 									{{t.trans('Register')}}</a>
 								</li>
 							{% else %}
                                 <li>
                                     
-                                    <a class="w3-hover-blue" href="{{path_for('post-admin.new')}}"><i class="fa fa-pencil-square-o"></i> {{t.trans('Go writing')}}</a>
+                                    <a class="hi-hover-blue" href="{{path_for('post-admin.new')}}"><i class="fa fa-pencil-square-o"></i> {{t.trans('Go writing')}}</a>
                                 </li>
 								<li>
-									<a class="w3-hover-blue" href="{{ base_url() }}"><i class="fa fa-home"></i>
+									<a class="hi-hover-blue" href="{{ base_url() }}"><i class="fa fa-home"></i>
 									{{t.trans('Homepage')}}</a>
 								</li>
 								<li>									
-									<a class="w3-hover-blue" href="{{ base_url() }}/dashboard">
+									<a class="hi-hover-blue" href="{{ base_url() }}/dashboard">
                                     <i class="fa  fa-user-o"></i> 
                                     {{ container.session.user.username }}</a>
 								</li>
 								
 								<li>
-									<a class="w3-hover-blue" href="{{ base_url() }}/logout">
+									<a class="hi-hover-blue" href="{{ base_url() }}/logout">
                                     <i class="fa fa-sign-out"></i>
                                      {{t.trans('Logout')}}
                                     </a>

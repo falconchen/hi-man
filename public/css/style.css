@@ -435,13 +435,20 @@ input.gsc-input,
 blockquote{
   background-color: #f6f6f6;
 }
-
+.hi-blue,.hi-hover-blue:hover {
+  color:#fff;
+  background-color: #2157f3!important;
+}
+.hi-text-blue {
+  color:#2157f3 !important;
+}
 .hi-dark {
-  background-color:#043448 !important;
+  background-color:#0e2a4b !important;
+  /* background-color:#043448 !important; */
   color:#fff !important;
 }
 .hi-text-dark{
-  color:#043448 !important;
+  color:#0e2a4b !important;
 }
 .hi-light-dark {
   background-color:#4183c4 !important;

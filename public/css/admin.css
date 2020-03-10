@@ -27,22 +27,28 @@ body{
 #hi-footer-wrapper footer{
 
 }
-.hi-dark {
-    background-color:#043448 !important;
+.hi-blue,.hi-hover-blue:hover {
+    color:#fff;
+    background-color: #2157f3!important;
+  }
+  .hi-text-blue {
+    color:#2157f3 !important;
+  }
+  .hi-dark {
+    background-color:#0e2a4b !important;
+    /* background-color:#043448 !important; */
     color:#fff !important;
   }
   .hi-text-dark{
-    color:#043448 !important;
+    color:#0e2a4b !important;
   }
-
   .hi-light-dark {
     background-color:#4183c4 !important;
     color:#fff !important;
   }
   .hi-text-light-dark{
     color:#4183c4 !important;
-  }  
-
+  }
 footer a{
     text-decoration:none ;
 }
