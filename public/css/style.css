@@ -567,10 +567,6 @@ blockquote{
   font-size: 2em;
 }
 
-.fa-home:before {
-  content: '\e800';
-}
-
 .fa-menu:before {
   content: '\f0c9';
 }
