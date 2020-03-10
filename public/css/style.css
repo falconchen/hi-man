@@ -1250,6 +1250,7 @@ hr[id^="ez-insert-after-placeholder"] {
 
 .hi-hearder{
   color:#555;
+  max-width: 900px;
 }
 .hi-content-wrap{
   max-width:750px;
