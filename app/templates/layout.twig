@@ -57,11 +57,12 @@
 						{# <ul class="nav navbar-nav"></ul> #}
 
 						<ul class="nav navbar-nav navbar-right">
+								
+							{% if container.session.user is not defined %}
 								<li>
 									<a class="w3-hover-blue" href="{{ base_url() }}"><i class="fa fa-home"></i>
 									{{t.trans('Homepage')}}</a>
 								</li>
-							{% if container.session.user is not defined %}
 								<li>
 									<a class="w3-hover-blue" href="{{ base_url() }}/login"><i class="fa fa-sign-in"></i>
 									{{t.trans('Login')}}</a>
@@ -71,10 +72,14 @@
 									{{t.trans('Register')}}</a>
 								</li>
 							{% else %}
-                                <li class="">
+                                <li>
                                     
                                     <a class="w3-hover-blue" href="{{path_for('post-admin.new')}}"><i class="fa fa-pencil-square-o"></i> {{t.trans('Go writing')}}</a>
                                 </li>
+								<li>
+									<a class="w3-hover-blue" href="{{ base_url() }}"><i class="fa fa-home"></i>
+									{{t.trans('Homepage')}}</a>
+								</li>
 								<li>									
 									<a class="w3-hover-blue" href="{{ base_url() }}/dashboard">
                                     <i class="fa  fa-user-o"></i> 
