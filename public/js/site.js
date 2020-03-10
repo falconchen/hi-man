@@ -4,4 +4,7 @@ $(document).ready(function() {
     window.setTimeout(function() {
         $(".autofadeout").slideUp("slow")
     }, 6000);
+
+    $('iframe[src*="youtube.com"]').parent().addClass('responsive-youtube');
+
 });

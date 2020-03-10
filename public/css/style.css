@@ -1366,3 +1366,8 @@ hr[id^="ez-insert-after-placeholder"] {
 .hi-text-grey{
   color:#2d2d2d;
 }
+
+.responsive-youtube
+{overflow:hidden; padding-bottom:56.25%; position:relative; height:0;}
+.responsive-youtube iframe
+{left:0; top:0; height:100%; width:100%; position:absolute;}
