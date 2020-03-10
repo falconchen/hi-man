@@ -443,6 +443,13 @@ blockquote{
 .hi-text-dark{
   color:#043448 !important;
 }
+.hi-light-dark {
+  background-color:#4183c4 !important;
+  color:#fff !important;
+}
+.hi-text-light-dark{
+  color:#4183c4 !important;
+}
 
 /*"nullstilling" slutt*/
 @media (min-width:1675px) {
@@ -1331,7 +1338,7 @@ hr[id^="ez-insert-after-placeholder"] {
 .hi-view-in-osc-link{
     text-rendering: optimizelegibility;
     font-family: brandon-grotesque;
-    font-size: 10.2px;
+    font-size: 0.9em;
     letter-spacing: 0.25em;
     line-height: 2.2em;
     text-transform: uppercase;
