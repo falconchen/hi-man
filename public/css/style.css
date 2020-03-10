@@ -23,7 +23,7 @@ footer {
 
 a:hover,
 a:active {
-  color: #4CAF50
+  color: #043448;
 }
 
 table.w3-table-all {
@@ -437,10 +437,11 @@ blockquote{
 }
 
 .hi-dark {
-  background-color:#043448;
+  background-color:#043448 !important;
+  color:#fff !important;
 }
 .hi-text-dark{
-  color:#043448;
+  color:#043448 !important;
 }
 
 /*"nullstilling" slutt*/

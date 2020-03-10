@@ -27,7 +27,13 @@ body{
 #hi-footer-wrapper footer{
 
 }
-
+.hi-dark {
+    background-color:#043448 !important;
+    color:#fff !important;
+  }
+  .hi-text-dark{
+    color:#043448 !important;
+  }
 
 footer a{
     text-decoration:none ;
