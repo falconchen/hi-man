@@ -35,6 +35,14 @@ body{
     color:#043448 !important;
   }
 
+  .hi-light-dark {
+    background-color:#4183c4 !important;
+    color:#fff !important;
+  }
+  .hi-text-light-dark{
+    color:#4183c4 !important;
+  }  
+
 footer a{
     text-decoration:none ;
 }
