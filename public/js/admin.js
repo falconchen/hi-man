@@ -317,7 +317,7 @@ tinymce.init({
       onAction: function(_) {
         //console.log("<code>"+editor.selection.getContent()+"</code>");
         //editor.insertContent( "<code>"+editor.selection.getContent()+"</code>" );
-        console.log(editor.execCommand('mceToggleFormat', false, 'code')); //格式化
+        editor.execCommand('mceToggleFormat', false, 'code'); //格式化
       }
     });
 
