@@ -249,6 +249,24 @@ $(".hi-preview-link").click(function() {
   return false;
 });
 
+tinyMCE.PluginManager.add('stylebuttons', function(editor, url) {
+  ['pre', 'p', 'code', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6'].forEach(function(name){
+      editor.addButton("style-" + name, {
+          tooltip: "Toggle " + name,
+          text: name.toUpperCase(),
+          onClick: function() { editor.execCommand('mceToggleFormat', false, name); },
+          onPostRender: function() {
+              var self = this, setup = function() {
+                  editor.formatter.formatChanged(name, function(state) {
+                      self.active(state);
+                  });
+              };
+              editor.formatter ? setup() : editor.on('init', setup);
+          }
+      })
+  });
+});
+
 tinymce.init({
   selector: "#hi-editor",
   language: "zh_CN",
@@ -275,7 +293,9 @@ tinymce.init({
 	],
 
   toolbar:
-    "codesample  | undo redo | styleselect basicDateButton menuDateButton | bold italic forecolor  |removeformat link image  | code  ", //
+    "codesample  | undo redo | styleselect basicDateButton menuDateButton |codeSC  bold italic forecolor  |removeformat link image  | code  ", //
+  
+  
 
   language_url: "/js/node_modules/tinymce/langs/zh_CN.js",
   //skin: 'oxide-dark'
@@ -287,7 +307,20 @@ tinymce.init({
   content_style: [
     'body{font-size:1em;font-family:"Helvetica Neue", "Luxi Sans", "DejaVu Sans", Tahoma, "Hiragino Sans GB", STHeiti !important; line-height:1.8;}h1{font-size:22px;}h2{font-size:20px;}p{margin:0}'
   ],
+
+  
   setup: function(editor) {
+
+    editor.ui.registry.addButton("codeSC", {
+      text:"💡",
+      tooltip: "insert code Element Here",
+      onAction: function(_) {
+        //console.log("<code>"+editor.selection.getContent()+"</code>");
+        //editor.insertContent( "<code>"+editor.selection.getContent()+"</code>" );
+        console.log(editor.execCommand('mceToggleFormat', false, 'code')); //格式化
+      }
+    });
+
     /* Helper functions */
     var toTimeHtml = function(time) {
       return (
