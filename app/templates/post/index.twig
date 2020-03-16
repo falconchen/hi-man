@@ -8,22 +8,33 @@
 	
 	<!-- Header -->
 	<header class="w3-margin-top w3-center w3-content hi-header">
-		<h1 class="w3-xlarge">{{ post.post_title }}</h1>
+		<h1 class="w3-xlarge">{{ post.post_title }} 
+		</h1>
 		<div class="w3-small w3-center">
 
 			
 			<span class="w3-text-grey">
+
 				<i class="fa fa-calendar-check-o "></i>
 				{{  (post.post_status == 'draft') ? t.trans('Draft') : post.post_date_local }}
-				{{post.post_preview ? t.trans('Previewing') : ''}}			
+				{{post.post_preview ? t.trans('Previewing') : ''}}	
+				
 			</span>
 			by
 			<a class="nickname" target="_blank" href="#">
 				{{post.post_author_name}}</a>
 
+			
+
 			{% if user_id == post.post_author and not post.post_preview %}	
 				<a class="hi-underline-dotted" href="{{ c.router.pathFor('post-admin.edit',{'name':post.post_name}) }}">{{t.trans('Edit')}}</a>
 			{% endif %}
+
+			{% if post.post_visibility == 'private' or post.post_visibility == 'password' %}
+			<code>{{ t.trans(post.post_visibility) }} 🔒</code>
+			{% endif %}	
+
+			
 			
 			
 		</div>
