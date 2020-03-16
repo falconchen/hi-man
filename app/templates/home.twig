@@ -34,6 +34,7 @@
 								
 							    
 								<a class="title w3-hover-text-blue" href="{{ c.router.pathFor('post',{'name':post.post_name}) }}">{{ post.post_title }} </a>
+
 								{% if post.post_visibility == 'private' or post.post_visibility == 'password' %}
 								<code class="w3-small">{{ t.trans(post.post_visibility) }} 🔒</code>
 								{% endif %}	
@@ -53,9 +54,9 @@
 									{% if post.post_status == 'publish' %}
 									{{post.post_date|time_diff}}
 									{% elseif post.post_status == 'future'%}
-										{{post.post_date_local}} {{t.trans('Draft status')}} 
+									{{post.post_date_local}} <code class="w3-text-red">{{t.trans('Future status')}}</code>
 									{% elseif post.post_status == 'draft' %}		
-										{{ t.trans('Draft status')}}
+										<code class="w3-text-blue">{{ t.trans('Draft status')}}</code>
 									{% endif %}
 
 									{% if user_id == post.post_author %}	
