@@ -1054,9 +1054,6 @@ a.btnsmall:hover {
      !important
 }
 
-.darktheme .sqlnumbercolor {
-  color:
-}
 
 @media only screen and (max-device-width: 480px) {
 
@@ -1280,11 +1277,13 @@ hr[id^="ez-insert-after-placeholder"] {
   line-height: 1.8em !important;
 
 }
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 600 !important;
+}
 .hi-content h1,.hi-content h2,.hi-content h3,.hi-content h4,.hi-content h5{
   
     padding: 8px 0 !important;
-    color: #333 !important;
-    font-weight: 600 !important;
+    color: #333 !important;    
     font-size:18px !important;
 }
 .hi-content h1{
