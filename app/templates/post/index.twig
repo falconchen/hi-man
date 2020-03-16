@@ -16,9 +16,16 @@
 			<span class="w3-text-grey">
 
 				<i class="fa fa-calendar-check-o "></i>
-				{{  (post.post_status == 'draft') ? t.trans('Draft') : post.post_date_local }}
+				{# {{  (post.post_status == 'draft') ? t.trans('Draft') : post.post_date_local }} #}
 				{{post.post_preview ? t.trans('Previewing') : ''}}	
-				
+
+				{% if post.post_status == 'publish' %}
+				{{ post.post_date_local }}
+				{% elseif post.post_status == 'future'%}
+				{{post.post_date_local}} <code class="w3-text-red">{{t.trans('Future status')}}</code>
+				{% elseif post.post_status == 'draft' %}		
+					<code class="w3-text-blue">{{ t.trans('Draft status')}}</code>
+				{% endif %}
 			</span>
 			by
 			<a class="nickname" target="_blank" href="#">
