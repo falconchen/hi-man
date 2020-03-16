@@ -66,7 +66,8 @@ final class HomeAction extends \App\Helper\BaseAction
 
         if ($this->userId > 0) {
             //$postsQuery->orWhereRaw('post_author = ? and post_status <> ?', [$this->userId, 'trash']);
-            $postsQuery->orWhereRaw('post_author = ? and post_status = ?', [$this->userId, 'draft']);
+            $postsQuery->orWhereRaw('post_author = ? ', [$this->userId]);
+            
         }
         $posts = $postsQuery->orderBy('post_date', 'DESC')->paginate(10);
 

@@ -60,7 +60,7 @@
             <td>{{ post.post_author_name }}</td><!--作者-->
             <td>{{ post.post_date_local }}</td><!-- 发布时间-->
             <td>{{ post.post_modified  }}</td><!-- 修改时间 -->
-            <td>{{ t.trans(post.post_status)  }}</td><!-- 文章状态 -->
+            <td>{{ t.trans(post.post_status)  }}-{{ t.trans(post.post_visibility)  }} </td><!-- 文章状态 -->
             <td class="w3-small">
                 {%if post.post_status == 'future' %}
                     <span class="w3-text-yellow">{{t.trans('Waiting for Syncing')}}</span>
