@@ -1335,6 +1335,7 @@ hr[id^="ez-insert-after-placeholder"] {
 .hi-content pre code,.hi-content pre code, .hi-content pre code *{
   color: #ccc !important;
   background-color: transparent !important;
+  display: block;
 }
 .hi-content img{
   max-width: 100%;
