@@ -249,23 +249,23 @@ $(".hi-preview-link").click(function() {
   return false;
 });
 
-tinyMCE.PluginManager.add('stylebuttons', function(editor, url) {
-  ['pre', 'p', 'code', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6'].forEach(function(name){
-      editor.addButton("style-" + name, {
-          tooltip: "Toggle " + name,
-          text: name.toUpperCase(),
-          onClick: function() { editor.execCommand('mceToggleFormat', false, name); },
-          onPostRender: function() {
-              var self = this, setup = function() {
-                  editor.formatter.formatChanged(name, function(state) {
-                      self.active(state);
-                  });
-              };
-              editor.formatter ? setup() : editor.on('init', setup);
-          }
-      })
-  });
-});
+// tinyMCE.PluginManager.add('stylebuttons', function(editor, url) {
+//   ['pre', 'p', 'code', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6'].forEach(function(name){
+//       editor.addButton("style-" + name, {
+//           tooltip: "Toggle " + name,
+//           text: name.toUpperCase(),
+//           onClick: function() { editor.execCommand('mceToggleFormat', false, name); },
+//           onPostRender: function() {
+//               var self = this, setup = function() {
+//                   editor.formatter.formatChanged(name, function(state) {
+//                       self.active(state);
+//                   });
+//               };
+//               editor.formatter ? setup() : editor.on('init', setup);
+//           }
+//       })
+//   });
+// });
 
 tinymce.init({
   selector: "#hi-editor",
@@ -276,7 +276,7 @@ tinymce.init({
   height: 667,
   
   //plugins: 'code',
-  plugins: "image imagetools code link fullscreen autosave wordcount codesample",
+  plugins: "image imagetools code link fullscreen autosave wordcount codesample emoticons",
 
   codesample_languages: [
     { text: 'Shell',value: 'bash'},
@@ -296,7 +296,7 @@ tinymce.init({
 	],
 
   toolbar:
-    "codesample  | undo redo | styleselect basicDateButton menuDateButton |codeSC  bold italic forecolor  |removeformat link image  | code  ", //
+    "codesample  | undo redo | styleselect basicDateButton menuDateButton |codeSC  bold italic forecolor  |removeformat link image  emoticons| code  ", //
   
   
 
