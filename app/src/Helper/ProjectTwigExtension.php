@@ -127,6 +127,28 @@ class ProjectTwigExtension extends AbstractExtension implements GlobalsInterface
     function twig_truncate_filter(Environment $env, $value, $length = 30, $preserve = false, $separator = '...')
     {
 
+        /**另一种但并不在服务器奏效
+         * setlocale(LC_ALL, "zh_CN.UTF-8");
+        
+        
+        if ( str_word_count( $value,0 ) > $length) {
+       
+            $words = str_word_count($value, 2);
+            
+            $pos = array_keys($words);   
+            $sub_pos = $pos[$length];
+            
+            
+            $value = substr($value, 0, $sub_pos) . $separator;
+            
+        }
+        
+
+        return $value;
+
+        或者安装intl扩展
+         * 
+         */
         if (mb_strlen($value, $env->getCharset()) > $length) {
             if ($preserve) {
                 // If breakpoint is on the last word, return the value without separator.
