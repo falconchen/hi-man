@@ -8,7 +8,7 @@ $(document).ready(function() {
     $('iframe[src*="youtube.com"]').parent().addClass('responsive-youtube');
 
     //remove  <p>&nbsp;</p>  content in front end
-    $('.hi-content-wrap >p').each(function (id, el) {
+    $('.hi-content-wrap > .hi-content > p').each(function (id, el) {
         if ($(el).html() == '&nbsp;') {
             $(el).remove();
         }
