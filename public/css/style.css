@@ -1411,6 +1411,7 @@ h1, h2, h3, h4, h5, h6 {
   height: 100%;
   width: 100%;
   position: absolute;
+  border:none;
 }
 
 @media only screen and (max-device-width: 480px) {
