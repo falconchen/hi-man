@@ -1294,7 +1294,7 @@ hr[id^="ez-insert-after-placeholder"] {
 .hi-content p{    
   font-size: 1.1em !important;
   line-height: 1.8em !important;
-
+  word-break: normal !important;
 }
 h1, h2, h3, h4, h5, h6 {
   font-weight: 600 !important;
