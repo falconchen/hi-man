@@ -1,4 +1,5 @@
 #vendor/
+/public/baidu_verify_*.html
 /public/.well-known/
 /.idea/
 log/*
