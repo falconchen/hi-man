@@ -453,6 +453,8 @@ input.gsc-input,
 
 blockquote{
   background-color: #f6f6f6;
+  border-left: 4px solid #0073cc;
+  padding: 8px 16px;
 }
 .hi-blue,.hi-hover-blue:hover {
   color:#fff;
@@ -1315,7 +1317,8 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .hi-content a{
-  color: #4183c4 !important;
+  color: #0073cc !important;
+  
 }
 
 .hi-content a:hover{
