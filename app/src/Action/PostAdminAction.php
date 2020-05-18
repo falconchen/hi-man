@@ -79,7 +79,7 @@ final class PostAdminAction extends \App\Helper\LoggedAction
 
 
         $postsCurrentPage = Post::where($conditions)
-            ->orderBy('post_date', 'DESC')->paginate(10);
+            ->orderBy('post_date', 'DESC')->paginate(20);
 
         $postsCurrentPage->withPath(remove_query_arg('page'));
 
