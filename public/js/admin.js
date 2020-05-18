@@ -255,7 +255,7 @@ $(document).ready(function() {
             errors.push({
               class: "hi-post-title-input",
               message:
-                "☹ 乱弹标题是【" + postTitle.replace(titleDay, '<strong class="w3-red">' + titleDay + '</strong>') + "】，定时发布的时间是 <strong class='w3-indigo' >" + publishDay + " </strong> 哦！"+ '<div class="w3-section"><button type="submit" name="post_status" class="force_publish w3-red w3-btn  w3-padding-small  w3-card-2" value="'+ post_status_val +'">😡不管了，就用这个标题，继续发布</button> <a href="javascript:;"  class="cancel_publish w3-btn w3-green w3-btn  w3-padding-small w3-card-2" >☺️哦，那我还是修改一下标题好了</a></div>'
+                "☹ 乱弹标题是【" + postTitle.replace(titleDay, '<strong class="w3-red">' + titleDay + '</strong>') + "】，定时发布的时间是 <strong class='w3-indigo' >" + publishDay + " </strong> 哦！"+ '<div class="w3-section"><button type="submit" name="post_status" class="force_publish w3-red w3-btn  w3-padding-small  w3-card-2" value="'+ post_status_val +'">😤不管了，就用这个标题，继续发布</button> <a href="javascript:;"  class="cancel_publish w3-btn w3-green w3-btn  w3-padding-small w3-card-2" >☺️哦，那我还是修改一下标题好了</a></div>'
             }); 
           }
       } 
