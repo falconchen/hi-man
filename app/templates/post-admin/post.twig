@@ -3,6 +3,7 @@
 {% block main %}
 <form class="w3-row-padding hi-post-form" method="post" action="{{ c.router.pathFor('post-admin.save') }}">
     <input type="hidden" name="force_ignore_errors" class="force_ignore_errors" value="no" />
+    
     {{ csrf_inputs() }}
     <div class="w3-col s9 w3-mobile" id="hi-editor-wrapper">
 
