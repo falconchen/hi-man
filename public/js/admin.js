@@ -172,7 +172,18 @@ $(document).ready(function() {
       .text(text);
   });
 
-  $(".hi-post-form").submit(function() {
+  
+  $('body').on('click', '[name="forece_publish"]', function () {
+    $(".hi-post-form .force_ignore_errors").val('yes');
+  });
+
+  $('body').on('click', '.canel_publish', function () {
+    document.getElementById('hi-modal-post-admin').style.display = 'none'
+  });
+  
+  
+  $(".hi-post-form").on('submit',function (event) {
+    var $form = $(this);
     var errors = [];
     $(".hi-post-form .hi-error-border").removeClass("hi-error-border");
 
@@ -207,12 +218,44 @@ $(document).ready(function() {
           errors.push({
             class: "time-wrap",
             message:
-              "定时发布时间不能比当前时间早，请检查你的设置值: " + dateInput
+              "☹ 定时发布时间不能比当前时间早，请检查你的设置值: " + '<strong class="w3-red">' + dateInput + '</strong>'
           });
         }
+        
+          
+        if( $('.force_ignore_errors').val() != 'yes' ) {
+          
+        
+          var daysInWeek = [
+            '周日', '周一', '周二', '周三', '周四', '周五', '周六'
+          ];
+          var publishDay = daysInWeek[dateFuture.getDay()];
+          var titleDay = '';
+          var postTitle = $('input[name="post_title"]').val();
+          for (var i = 0; i < daysInWeek.length; i++) {
+            if ( postTitle.indexOf( daysInWeek[i] +'乱弹' ) >= 0) {
+              titleDay = daysInWeek[i];
+              break;
+            }
+          }
+          
+          if (titleDay !== '' && titleDay !== publishDay) {
+            errors.push({
+              class: "time-wrap",
+              message:
+                "☹ 乱弹标题是《" + postTitle.replace(titleDay, '<strong class="w3-red">' + titleDay + '</strong>') + "》，定时发布的时间是 <strong class='w3-indigo' >" + publishDay + " </strong>哦！"+ '<div class="w3-section"><button type="submit" name="forece_publish" class="w3-indigo w3-btn  w3-padding-small  w3-card-2" value="1">😡不管了，就用这个标题，继续发布</button> <a href="javascript:;"  class="canel_publish w3-btn w3-blue w3-btn  w3-padding-small w3-card-2" >☺️那还是修改一下标题好了</a></div>'
+            }); 
+          }
+      } 
+      
+
       }
     }
-    if (errors.length > 0) {
+    //console.log(errors)
+    //debugger;
+
+    
+    if (errors.length > 0 ) {
       var error_contents = "";
       for (var i = 0; i < errors.length; i++) {
         $("." + errors[i].class).addClass("hi-error-border");
@@ -221,6 +264,9 @@ $(document).ready(function() {
       $(".hi-post-form .w3-modal").show();
       $(".hi-post-form .hi-modal-header").text("出错了");
       $(".hi-post-form .hi-modal-content").html(error_contents);
+      
+      //event.preventDefault();
+    
       return false;
     }
 
