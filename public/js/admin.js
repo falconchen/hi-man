@@ -177,15 +177,19 @@ $(document).ready(function() {
     $(".hi-post-form .force_ignore_errors").val('yes');
   });
 
-  $('body').on('click', '.canel_publish', function () {
-    document.getElementById('hi-modal-post-admin').style.display = 'none'
+  $('body').on('click', '.cancel_publish', function () {
+    document.getElementById('hi-modal-post-admin').style.display = 'none';
   });
   
   $('.hi-save-metabox [name="post_status"]').click(
     function(){$(this).attr("clicked", "yes");}
   );
   
-  $(".hi-post-form").on('submit',function (event) {
+  $(".hi-post-form").on('submit', function (event) {
+
+    var post_status_val = $('.hi-save-metabox [name="post_status"][clicked=yes]').val();
+    $('.hi-save-metabox [name="post_status"][clicked=yes]').removeAttr("clicked");
+
     var $form = $(this);
     var errors = [];
     $(".hi-post-form .hi-error-border").removeClass("hi-error-border");
@@ -227,7 +231,8 @@ $(document).ready(function() {
         }
         
         
-        if( $('.force_ignore_errors').val() != 'yes' ) {
+
+        if( $('.force_ignore_errors').val() != 'yes' &&  post_status_val == 'future') {
           
         
           var daysInWeek = [
@@ -245,12 +250,12 @@ $(document).ready(function() {
           
           if (titleDay !== '' && titleDay !== publishDay) {
             
-            var old_post_status = $('.hi-save-metabox [name="post_status"][clicked=yes]').val(); 
-            $('.hi-save-metabox [name="post_status"][clicked=yes]').removeAttr("clicked");
+            
+            
             errors.push({
               class: "time-wrap",
               message:
-                "☹ 乱弹标题是【" + postTitle.replace(titleDay, '<strong class="w3-red">' + titleDay + '</strong>') + "】，定时发布的时间是 <strong class='w3-indigo' >" + publishDay + " </strong> 哦！"+ '<div class="w3-section"><button type="submit" name="post_status" class="force_publish w3-red w3-btn  w3-padding-small  w3-card-2" value="'+ old_post_status +'">😡不管了，就用这个标题，继续发布</button> <a href="javascript:;"  class="canel_publish w3-btn w3-green w3-btn  w3-padding-small w3-card-2" >☺️哦，那我还是修改一下标题好了</a></div>'
+                "☹ 乱弹标题是【" + postTitle.replace(titleDay, '<strong class="w3-red">' + titleDay + '</strong>') + "】，定时发布的时间是 <strong class='w3-indigo' >" + publishDay + " </strong> 哦！"+ '<div class="w3-section"><button type="submit" name="post_status" class="force_publish w3-red w3-btn  w3-padding-small  w3-card-2" value="'+ post_status_val +'">😡不管了，就用这个标题，继续发布</button> <a href="javascript:;"  class="cancel_publish w3-btn w3-green w3-btn  w3-padding-small w3-card-2" >☺️哦，那我还是修改一下标题好了</a></div>'
             }); 
           }
       } 
