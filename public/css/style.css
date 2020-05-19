@@ -1351,12 +1351,17 @@ h1, h2, h3, h4, h5, h6 {
 */
 .hi-content pre {
 
-  width: auto;
-  background-color: #fff;
-  padding: 8px 12px;
-  border-left: 4px solid #4CAF50;
-  word-wrap: break-word;
-  margin: 0 0 16px 0;
+    width: auto;
+    background-color: #f6f8fa !important;
+    padding: 16px !important;
+    border-left: 4px solid #4CAF50;
+    word-wrap: break-word;
+    margin: 0 0 16px 0;
+    border-radius: 0 !important;
+    border-color: #4CAF50;
+    max-width: 100%;
+    font-size: 13.6px;
+    font-family: SFMono-Regular, Consolas, 'Liberation Mono', Menlo, monospace;
 }
 
 .hi-content code{
