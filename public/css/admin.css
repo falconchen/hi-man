@@ -15,7 +15,10 @@ body{
 .w3-border-grey, .w3-hover-border-grey:hover, .w3-border-gray, .w3-hover-border-gray:hover{
     background-color: #f5f5f5!important;
 }
-
+.w3-button:not(.w3-disable-hover):hover {
+    color: #000!important;
+    background-color: #cef!important;
+}
 {# 覆盖 w3css样式结束 #}
 #hi-footer-wrapper{
     position: absolute;
