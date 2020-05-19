@@ -1360,9 +1360,9 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .hi-content code{
-  padding: 0.125rem 0.3125rem 0.0625rem !important;
-  color: #c7254e !important;
-  background-color: #f9f2f4 !important;
+  padding: 0.125rem 0.3125rem 0.0625rem !important;  
+  color: #e96900 !important;
+  background-color: #f8f8f8 !important;
   border-radius: 4px !important;
 }
 .hi-content pre code,.hi-content pre code, .hi-content pre code *{
