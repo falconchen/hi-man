@@ -1439,7 +1439,7 @@ a.nickname{
   color: #c7254e;
   background-color: #f9f2f4; 
   border-radius: 4px;
-  font-weight: bold;
+  
 }
 
 @media only screen and (max-device-width: 480px) {
