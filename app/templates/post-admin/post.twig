@@ -94,12 +94,12 @@
                             <input type="radio" name="sync[osc][type]" id="sync-osc-type-0" value="1" class="w3-check" {% if storeOptions.type == 1 %} checked="checked" {% endif %} tabindex="0">
                             <label for="sync-osc-type-0">原创</label>
 
-                            <input type="radio" name="sync[osc][type]" id="sync-osc-type-1" {% if storeOptions.type == 0 %} checked="checked" {% endif %} value="0" class="w3-check hi-accordion" tabindex="0">
+                            <input type="radio" name="sync[osc][type]" id="sync-osc-type-1" {% if storeOptions.type == 0 %} checked="checked" {% endif %} value="0" class="w3-check hi-accordion" tabindex="0" />
                             <label for="sync-osc-type-1" class="w3-label">转载</label>
                             <br/>
                             <div class="hi-detail-panel" style="padding:0">
-                                <input name="sync[osc][origin_url]" class="w3-input w3-border w3-section w3-small"  type="text" placeholder="请输入原文链接"  autocomplete="false"
-                                value="{{ post ? storeOptions.origin_url : '' }}">
+                                <input name="sync[osc][origin_url]" class="w3-input w3-border w3-section w3-small"  type="text" placeholder="请输入原文链接"  autocomplete="nope"
+                                value="{{ post ? storeOptions.origin_url : '' }}" />
                             </div>
                         </div>
                         
