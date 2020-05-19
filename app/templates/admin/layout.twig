@@ -80,7 +80,7 @@
                 {% else %}
 
                     <div class="{% if not item.current %}w3-dropdown-hover{% endif %}">
-                        <a class="w3-bar-item w3-button hi-sub-header {% if item.current %}hi-light-dark{% endif %}" href="javascript:void(0)">
+                        <a class="w3-bar-item w3-button hi-sub-header {% if item.current %}hi-light-dark w3-disable-hover{% endif %}" href="javascript:void(0)">
                             {% if item.icon is not defined %}
                                 <i class="fa fa-cog fa-fw"></i>
                             {% else %}

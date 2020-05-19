@@ -15,6 +15,7 @@ body{
 .w3-border-grey, .w3-hover-border-grey:hover, .w3-border-gray, .w3-hover-border-gray:hover{
     background-color: #f5f5f5!important;
 }
+
 {# 覆盖 w3css样式结束 #}
 #hi-footer-wrapper{
     position: absolute;
@@ -64,7 +65,9 @@ footer a{
 #hi-admin-menu .hi-sub-item {
     padding-left: 48px;
     color:#333;
+    
 }
+
 #hi-admin-menu .hi-sub-item.hi-current .fa{
     margin-left: -24px;
 
@@ -118,6 +121,7 @@ label {
 #hi-admin-menu {
     font-weight: bold;
 }
+
   
 @media screen and (max-width: 475px) {
     
