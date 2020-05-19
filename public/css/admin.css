@@ -115,6 +115,9 @@ label {
     padding: 2px 8px;
 }
   
+.hi-admin-menu {
+    font-weight: bold;
+}
   
 @media screen and (max-width: 475px) {
     
