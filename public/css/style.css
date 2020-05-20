@@ -1441,6 +1441,9 @@ a.nickname{
   border-radius: 4px;
   
 }
+.hi-excerpt .w3-small {
+  font-size: 13px !important;
+}
 
 @media only screen and (max-device-width: 480px) {
   .responsive-meting {
