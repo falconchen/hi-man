@@ -1446,11 +1446,8 @@ a.nickname{
 }
 
 #back2Top {
-  
-  overflow: hidden;    
-  cursor: pointer;    
-  background-color: #DDD;
-  color: #555;
+    
+  cursor: pointer;        
   text-align: center;
   text-decoration: none;
   
