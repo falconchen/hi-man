@@ -1445,6 +1445,20 @@ a.nickname{
   font-size: 13px !important;
 }
 
+#back2Top {
+  
+  overflow: hidden;    
+  cursor: pointer;    
+  background-color: #DDD;
+  color: #555;
+  text-align: center;
+  text-decoration: none;
+  
+}
+#back2Top:hover {
+  opacity:.8;
+}
+
 @media only screen and (max-device-width: 480px) {
   .responsive-meting {
     padding-bottom: 138.5%; 

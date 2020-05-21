@@ -134,14 +134,22 @@
 
 
 			<footer class="w3-container w3-padding-16 w3-center hi-text-dark">
+				<div class="">
+				<a class="w3-margin-small w3-padding hi-light-dark  w3-round " id="back2Top" title="{{ t.trans('Back to top')}}" href="javascript:;">				
+				{{ t.trans('Back to top')}} 
+				<i class="fa fa-angle-up" aria-hidden="true"></i> 
+				</a>
+				</div>
 				<strong>					
-					<p class="">
+					<p class="w3-margin-top">
 						<span class="w3-small  w3-padding-small ">
 							<i class="fa fa-heart"></i>
 							Powered by <a href="{{ base_url() }}"  class="w3-hover-opacity w3-border-bottom hi-text-light-dark" target="_blank" style="text-decoration:none;">HiCMS</a> &copy; 2019-{{"now"|date('Y',c.settings.timezone)}}</span>
 					</p>
 				</strong>
-                <div class="w3-tiny w3-opacity">{{t.trans('Latest commit at')}} {{ git_latest().dateString }}</div>
+                <div class="w3-tiny w3-opacity w3-margin-bottom">{{t.trans('Latest commit at')}} {{ git_latest().dateString }} 				
+				</div>
+				
 			</footer>
 		</div>
 
@@ -150,6 +158,11 @@
 		<script type="text/javascript" src="{{ static_url() }}/js/bootstrap.min.js"></script>
 		<script type="text/javascript" src="{{ static_url() }}/js/site.js?ver={{ git_latest().dateVer }}"></script>
 		{% block javascript %}{% endblock %}
+
+		{# <a href="#" id="scroll-to-top" class="back-to-top"><i class="fa fa-angle-up" aria-hidden="true"></i></a> #}
+		
+
+
 
 	</body>
 </html>
