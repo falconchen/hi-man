@@ -1,0 +1,32 @@
+{% extends 'layout.twig' %}
+
+{% block title %}	
+	{{ space_user.username }}{{ t.trans("'s Space") }}
+{% endblock %}
+
+{% block content %}
+
+	<!-- Header -->
+	<header class="w3-panel w3-center w3-opacity " style="">
+		
+		<h2>{{ space_user.username }}{{ t.trans("'s Space") }}</h2>
+
+		<div class="w3-padding-32">
+			<div class="w3-bar w3-border">
+				<a href="{{ c.router.pathFor('user',{'uid':space_user.id}) }}" class="w3-bar-item w3-button w3-light-grey">{{ t.trans('Articles') }}</a>
+				{# <a href="" class="w3-bar-item w3-button ">主页</a> #}
+				<a href="#" class="w3-bar-item w3-button">{{ t.trans('Tweets') }}</a>
+				<a href="#" class="w3-bar-item w3-button">{{ t.trans('Photos') }}</a>
+			</div>
+		</div>
+	</header>
+
+
+	<main class="hi-main post-list">
+		{% if posts.count() %}
+			{% include 'post-list.twig' with {posts: posts,c:c} only%}
+		{% else %}
+			{% include 'post-list-none.twig' %}
+		{% endif %}		
+	</main>
+{% endblock %}

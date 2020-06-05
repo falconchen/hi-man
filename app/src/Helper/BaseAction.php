@@ -27,6 +27,7 @@ class BaseAction
         $this->JsonRender = new JsonRenderer();
         $this->c = $c;
         $this->route = $this->c->get('router'); //alias
+        
         $this->setupUser();
     }
 

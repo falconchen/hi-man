@@ -1,6 +1,6 @@
 <?php
 // Routes
-$app->get('/', 'App\Action\HomeAction:dispatch')->setName('homepage');
+$app->get('/', 'App\Action\HomeAction:dispatch')->setName('u');
 $app->get('/login', 'App\Action\HomeAction:login')->setName('login');
 $app->get('/logout', 'App\Action\HomeAction:logout')->setName('logout');
 $app->get('/register', 'App\Action\HomeAction:register')->setName('register');
@@ -38,6 +38,16 @@ $app->group(
         $this->get('/{name}', 'App\Action\PostAction:index')->setName('post');
     }
 );
+
+$app->group(
+    '/u',
+    function () {
+
+        $this->get('', 'App\Action\UserAction:index')->setName('myspace');
+        $this->get('/{uid}', 'App\Action\UserAction:index')->setName('user');
+    }
+);
+
 
 $app->group(
     '/task',
