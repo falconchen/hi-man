@@ -149,6 +149,11 @@ final class PostAction extends \App\Helper\BaseAction
                     $postDbData->post_title,
                     $postDbData->getOscLink()
                 );
+                
+                if (@isset($this->settings['admin']['sckey'])) {
+                    //$body =  
+                    $this->scNofify($notifyTitle, $notifyBody);
+                }
 
                 if (@$this->settings['sync']['email.notify']) {
 
@@ -167,10 +172,7 @@ final class PostAction extends \App\Helper\BaseAction
                     }
                 }
 
-                if (@isset($this->settings['admin']['sckey'])) {
-                    //$body =  
-                    $this->scNofify($notifyTitle, $notifyBody);
-                }
+               
 
                 sleep(1);
             }
