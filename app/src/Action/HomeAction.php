@@ -25,6 +25,7 @@ final class HomeAction extends \App\Helper\BaseAction
 
     public function dispatch(Request $request, Response $response, $args)
     {
+        
         //var_dump(getOscPostId(28));
         //exit;
         //$this->logger->info("Home page action dispatched");
