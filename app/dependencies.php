@@ -3,6 +3,9 @@
 
 use Symfony\Component\Translation\Loader\YamlFileLoader;
 use Symfony\Component\Translation\Translator;
+use PHPMailer\PHPMailer\PHPMailer;
+// database
+use Illuminate\Database\Capsule\Manager as Capsule;
 
 
 $container = $app->getContainer();
@@ -101,8 +104,7 @@ $container['flash'] = function ($c) {
     return new \Slim\Flash\Messages;
 };
 
-// database
-use Illuminate\Database\Capsule\Manager as Capsule;
+
 
 $setting = include 'settings.php';
 $capsule = new Capsule;
