@@ -19,6 +19,12 @@ Future status: 定时
 Edit: 编辑
 View in OSC: 在OSC查看
 Apple String: "{0} 没有苹果|{1} 一个苹果|]1,19] %count%个苹果|[20,Inf[ 很多苹果"
+Space: 个人空间
+’ Space:  的空间
+Articles: 文章
+Tweets: 动弹
+Photos: 相册
+
 
 Hi Admin: Hi 管理后台
 Welcome Back,: 欢迎回来,
