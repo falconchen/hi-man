@@ -149,7 +149,7 @@ final class PostAction extends \App\Helper\BaseAction
                     $postDbData->post_title,
                     $postDbData->getOscLink()
                 );
-                
+
                 if (@isset($this->settings['admin']['sckey'])) {
                     //$body =  
                     $this->scNofify($notifyTitle, $notifyBody);
@@ -158,17 +158,25 @@ final class PostAction extends \App\Helper\BaseAction
                 if (@$this->settings['sync']['email.notify']) {
 
                     // $mailBody = $result->message . sprintf( 'https://my.oschina.net/u/%s/blog/%s',
-                    // $result->result->space,$result->result->id);            
-                    $user = User::find($postDbData->post_author);
-                    $sendAddress = $user->email;
-                    $this->mailer->Subject = $notifyTitle;
-                    $this->mailer->Body = $notifyBody;
-                    $this->mailer->AddAddress($sendAddress);
+                    // $result->result->space,$result->result->id);
+                    
+                    try {            
 
-                    if (!$this->mailer->send()) {
+                        $user = User::find($postDbData->post_author);
+                        $this->logger->info("sending mail to " . $user->email);
+                        $sendAddress = $user->email;
+                        $this->mailer->Subject = $notifyTitle;
+                        $this->mailer->Body = $notifyBody;
+                        $this->mailer->AddAddress($sendAddress);
+
+                        if (!$this->mailer->send()) {
+                            $this->logger->info("failed to send mail to " . $user->email);
+                        } else {
+                            $this->logger->info("success send mail to " . $user->email);
+                        }
+                    }catch (Exception $e) {
                         $this->logger->info("failed to send mail to " . $user->email);
-                    } else {
-                        $this->logger->info("send mail to " . $user->email);
+                        $this->logger->error( $this->mailer->ErrorInfo );                        
                     }
                 }
 
