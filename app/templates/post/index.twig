@@ -27,8 +27,8 @@
 					<code class="w3-text-blue">{{ t.trans('Draft status')}}</code>
 				{% endif %}
 			</span>
-			by
-			<a class="nickname" target="_blank" href="#">
+			
+			<a class="nickname" target="_blank" href="{{ c.router.pathFor('user',{'uid':user.id}) }}">
 				{{post.post_author_name}}</a>
 
 			
