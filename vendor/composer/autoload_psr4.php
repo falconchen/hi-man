@@ -36,6 +36,7 @@ return array(
     'Psr\\Http\\Message\\' => array($vendorDir . '/psr/http-message/src'),
     'Psr\\Container\\' => array($vendorDir . '/psr/container/src'),
     'Pheanstalk\\' => array($vendorDir . '/pda/pheanstalk/src'),
+    'PHPMailer\\PHPMailer\\' => array($vendorDir . '/phpmailer/phpmailer/src'),
     'PHPHtmlParser\\' => array($vendorDir . '/paquettg/php-html-parser/src/PHPHtmlParser'),
     'Monolog\\' => array($vendorDir . '/monolog/monolog/src/Monolog'),
     'Illuminate\\Support\\' => array($vendorDir . '/illuminate/support'),
