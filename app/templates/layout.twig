@@ -52,7 +52,7 @@
 						</a>
 
 					</div>
-					<div id="navbar" class="collapse navbar-collapse">
+					<div id="navbar" class="hi-navbar collapse navbar-collapse">
 
 						{# <ul class="nav navbar-nav"></ul> #}
 
@@ -77,22 +77,34 @@
                                     <a class="hi-hover-blue" href="{{path_for('post-admin.new')}}"><i class="fa fa-pencil-square-o"></i> {{t.trans('Go writing')}}</a>
                                 </li>
 								
-								<li>
-									<a class="hi-hover-blue" href="{{ path_for('myspace') }}"><i class="fa fa-home"></i>
-									{{t.trans('Space')}}</a>
-								</li>
-								<li>									
-									<a class="hi-hover-blue" href="{{ base_url() }}/dashboard">
-                                    <i class="fa  fa-user-o"></i> 
-                                    {{ container.session.user.username }}</a>
+								<li class="w3-dropdown-hover w3-left">
+									
+									<a class="w3-button w3-left-align"><i class="fa  fa-user-o"></i> {{ container.session.user.username }}
+									 <i class="fa fa-angle-down"></i>
+									</a>
+
+									<ul class="w3-dropdown-content w3-bar-block w3-card-4 nav nabar">
+ 
+										<li>
+										<a class="hi-hover-blue" href="{{ path_for('myspace') }}"><i class="fa fa-home"></i>
+										{{t.trans('Space')}}</a>
+										</li>
+										<li>
+										<a class="hi-hover-blue" href="{{ base_url() }}/dashboard">
+										<i class="fa fa-file-text-o fa-fw"></i> {{t.trans('Dashboard')}}</a>
+										</a>
+										</li>
+										
+										<li>
+										<a class="hi-hover-blue" href="{{ base_url() }}/logout">
+										<i class="fa fa-sign-out"></i>
+										{{t.trans('Logout')}}
+										</a>
+										</li>
+									</ul>
+								
 								</li>
 								
-								<li>
-									<a class="hi-hover-blue" href="{{ base_url() }}/logout">
-                                    <i class="fa fa-sign-out"></i>
-                                     {{t.trans('Logout')}}
-                                    </a>
-								</li>
 							{% endif %}
 
 						</ul>

@@ -1456,9 +1456,16 @@ a.nickname{
   opacity:.8;
 }
 
+.hi-navbar.navbar-collapse.in {
+  overflow-y: visible;
+}
+
+
 @media only screen and (max-device-width: 480px) {
   .responsive-meting {
     padding-bottom: 138.5%; 
   }
-  
+  .hi-navbar .w3-dropdown-hover, .hi-navbar  .w3-dropdown-content {
+    width:100%;
+  }
 }
