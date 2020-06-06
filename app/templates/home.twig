@@ -25,7 +25,7 @@
 
 	<main class="hi-main">
 		{% if posts %}
-			{% include 'post-list.twig' with {posts: posts,c:c} only%}
+			{% include 'post-list.twig' with { posts: posts,c:c,t:t } only%}
 		{% else %}
 			{% include 'post-list-none.twig' %}
 		{% endif %}
