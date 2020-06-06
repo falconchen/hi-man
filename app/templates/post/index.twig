@@ -34,7 +34,7 @@
 			
 
 			{% if user_id == post.post_author and not post.post_preview %}	
-				<a class="hi-underline-dotted" href="{{ c.router.pathFor('post-admin.edit',{'name':post.post_name}) }}">{{t.trans('Edit')}}</a>
+				<a class="hi-underline-dotted" style="margin-left:4px;" href="{{ c.router.pathFor('post-admin.edit',{'name':post.post_name}) }}">{{t.trans('Edit')}}</a>
 			{% endif %}
 
 			{% if post.post_visibility == 'private' or post.post_visibility == 'password' %}
