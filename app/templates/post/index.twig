@@ -38,7 +38,7 @@
 			{% endif %}
 
 			{% if post.post_visibility == 'private' or post.post_visibility == 'password' %}
-			<code>{{ t.trans(post.post_visibility) }} 🔒</code>
+			<code>{{ t.trans(post.post_visibility) }} 🔒{{t.trans('Private')}}</code>
 			{% endif %}	
 
 			
