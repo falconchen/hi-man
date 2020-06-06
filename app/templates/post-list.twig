@@ -9,7 +9,7 @@
                         <a class="title w3-hover-text-blue" href="{{ c.router.pathFor('post',{'name':post.post_name}) }}">{{ post.post_title }} </a>
 
                         {% if post.post_visibility == 'private' or post.post_visibility == 'password' %}
-                        <code class="w3-small">{{ t.trans(post.post_visibility) }} 🔒{{t.trans('Private')}}</code>
+                        <code class="w3-small">{{ t.trans(post.post_visibility) }} 🔒</code>
                         {% endif %}	
                     </h5>
 
