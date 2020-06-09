@@ -63,16 +63,16 @@ final class HomeAction extends \App\Helper\BaseAction
 
         $data = array();
 
-        $postsQuery = Post::where(['post_status' => 'publish', 'post_visibility' => 'public']);
+        $postsQuery = Post::where(['post_status' => 'publish', 'post_visibility' => 'public','post_type'=>'post']);
 
         if ($this->userId > 0) {
             //$postsQuery->orWhereRaw('post_author = ? and post_status <> ?', [$this->userId, 'trash']);
-            $postsQuery->orWhereRaw('post_author = ? and post_status <> "trash" ', [$this->userId]);
+            $postsQuery->orWhereRaw('post_author = ? and post_status <> "trash" and post_type="post"', [$this->userId]);
             
         }
         $posts = $postsQuery->orderBy('post_date', 'DESC')->paginate(10);
 
-
+        
         if ($posts->count() > 0) {
             foreach ($posts as &$post) {
                 // $post->post_modified = $this->dateTolocal('Y-m-d H:i:s', $post->post_modified);

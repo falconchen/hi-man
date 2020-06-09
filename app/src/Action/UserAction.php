@@ -52,11 +52,11 @@ final class UserAction extends \App\Helper\BaseAction
         }
         
 
-        $postsQuery = Post::where(['post_status' => 'publish', 'post_visibility' => 'public', 'post_author'=>$uid]);
+        $postsQuery = Post::where(['post_status' => 'publish', 'post_visibility' => 'public', 'post_type'=>'post','post_author'=>$uid]);
 
         if ( $this->userId === $uid ) {
             //$postsQuery->orWhereRaw('post_author = ? and post_status <> ?', [$this->userId, 'trash']);
-            $postsQuery->orWhereRaw('post_author = ? and post_status <> "trash" ', [$this->userId]);
+            $postsQuery->orWhereRaw('post_author = ? and post_status <> "trash" and post_type="post"', [$this->userId]);
             
         }
         $posts = $postsQuery->orderBy('post_date', 'DESC')->paginate(10);
