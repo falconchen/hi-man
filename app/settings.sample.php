@@ -96,7 +96,9 @@ return [
             'locale' => 'zh_CN',
             'dir' => __DIR__ . '/../langs',
         ],
-
+        'commands' => [
+            'BackupDongDanTask' => App\Task\BackupDongDanTask::class,        
+        ],
 
     ],
 ];

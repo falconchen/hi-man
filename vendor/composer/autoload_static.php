@@ -31,6 +31,10 @@ class ComposerStaticInitc3765e25676b2cbb624df054aef313e2
             'voku\\helper\\' => 12,
             'voku\\' => 5,
         ),
+        'a' => 
+        array (
+            'adrianfalleiro\\' => 15,
+        ),
         'V' => 
         array (
             'Violin\\' => 7,
@@ -124,6 +128,10 @@ class ComposerStaticInitc3765e25676b2cbb624df054aef313e2
         array (
             0 => __DIR__ . '/..' . '/voku/portable-ascii/src/voku',
             1 => __DIR__ . '/..' . '/voku/portable-utf8/src/voku',
+        ),
+        'adrianfalleiro\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/adrianfalleiro/slim-cli-runner/src',
         ),
         'Violin\\' => 
         array (

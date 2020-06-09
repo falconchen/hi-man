@@ -16,8 +16,14 @@ ini_set('session.cookie_lifetime', '99999999');
 ini_set('session.gc_maxlifetime', '99999999');
 
 // Instantiate the app
-$settingsFile = __DIR__ . '/../app/settings.' . $_SERVER['HTTP_HOST'] . '.php';;
-$settingsFile = (file_exists($settingsFile)) ? $settingsFile : __DIR__ . '/../app/settings.php';
+if (PHP_SAPI == 'cli') {
+    $settingsFile = __DIR__ . '/../app/settings.php';
+}else{
+    $settingsFile = __DIR__ . '/../app/settings.' . $_SERVER['HTTP_HOST'] . '.php';;
+    $settingsFile = (file_exists($settingsFile)) ? $settingsFile : __DIR__ . '/../app/settings.php';
+}
+
+
 $settings = require $settingsFile;
 unset($settingsFile);
 

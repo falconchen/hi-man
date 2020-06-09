@@ -9,6 +9,7 @@ return array(
     'voku\\tests\\' => array($vendorDir . '/voku/portable-ascii/tests', $vendorDir . '/voku/portable-utf8/tests'),
     'voku\\helper\\' => array($vendorDir . '/voku/anti-xss/src/voku/helper'),
     'voku\\' => array($vendorDir . '/voku/portable-ascii/src/voku', $vendorDir . '/voku/portable-utf8/src/voku'),
+    'adrianfalleiro\\' => array($vendorDir . '/adrianfalleiro/slim-cli-runner/src'),
     'Violin\\' => array($vendorDir . '/alexgarrett/violin/src'),
     'Twig\\' => array($vendorDir . '/twig/twig/src'),
     'TH\\Lock\\' => array($vendorDir . '/texthtml/php-lock/src'),

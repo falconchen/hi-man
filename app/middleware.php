@@ -1,6 +1,7 @@
 <?php
 $app->add($app->getContainer()->get('csrf'));
 $app->add(new App\Middleware\PaginationMiddleware);
+$app->add(\adrianfalleiro\SlimCLIRunner::class); //Slim CLI Runner
 
 $app->add(function ($request, $response, $next) {
 	$path = $request->getUri()->getPath();
