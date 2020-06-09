@@ -59,7 +59,7 @@ final class PostAdminAction extends \App\Helper\LoggedAction
 
     public function index(Request $request, Response $response, $args)
     { //list all posts
-        self::init($request, $response, $args);
+        $this->init($request, $response, $args);
 
 
 
@@ -68,6 +68,7 @@ final class PostAdminAction extends \App\Helper\LoggedAction
 
         $conditions = [
             'post_author' => $postAuthor,
+            'post_type'=>'post'
         ];
         if ($currentPostStatus != 'any') {
             $conditions['post_status'] = $currentPostStatus;
