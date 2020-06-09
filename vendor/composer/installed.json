@@ -1,5 +1,51 @@
 [
     {
+        "name": "adrianfalleiro/slim-cli-runner",
+        "version": "2.6",
+        "version_normalized": "2.6.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/adrianfalleiro/slim-cli-runner.git",
+            "reference": "a7a6b5fc71514edf5498f26884c5f6612bb549ed"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/adrianfalleiro/slim-cli-runner/zipball/a7a6b5fc71514edf5498f26884c5f6612bb549ed",
+            "reference": "a7a6b5fc71514edf5498f26884c5f6612bb549ed",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.5.0",
+            "psr/container": "^1.0"
+        },
+        "require-dev": {
+            "squizlabs/php_codesniffer": "^2.5"
+        },
+        "time": "2019-12-10T01:02:51+00:00",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "adrianfalleiro\\": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Adrian Falleiro",
+                "email": "adrian@falleiro.com"
+            }
+        ],
+        "description": "Run command line tasks for Slim PHP",
+        "keywords": [
+            "cli",
+            "slim"
+        ]
+    },
+    {
         "name": "alexgarrett/violin",
         "version": "2.2.2",
         "version_normalized": "2.2.2.0",
