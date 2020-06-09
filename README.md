@@ -72,3 +72,9 @@
 {% endfor %}
 
 ```
+## 备份动弹
+
+```
+
+php public/index.php BackupDongDanTask [user_id] [pageToken]
+```
