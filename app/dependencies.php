@@ -127,10 +127,11 @@ $container['logger'] = function ($c) {
     $settings = $c->get('settings');
 
     \Monolog\Logger::setTimezone(new \DateTimeZone($settings['timezone']));
-    $logger = new \Monolog\Logger($settings['logger']['name']);
+    $loggerSettting = PHP_SAPI == 'cli' ? $settings['cli-logger'] : $settings['logger'];
+    $logger = new \Monolog\Logger($loggerSettting['name'] );
     
     $logger->pushProcessor(new \Monolog\Processor\WebProcessor());
-    $logger->pushHandler(new \Monolog\Handler\StreamHandler($settings['logger']['path'], \Monolog\Logger::DEBUG));
+    $logger->pushHandler(new \Monolog\Handler\StreamHandler($loggerSettting['path'], \Monolog\Logger::DEBUG));
     return $logger;
 };
 
