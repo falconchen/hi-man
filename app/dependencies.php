@@ -125,8 +125,11 @@ $capsule->bootEloquent();
 $container['logger'] = function ($c) {
     //$settings = $c->settings;
     $settings = $c->get('settings');
+
+    \Monolog\Logger::setTimezone(new \DateTimeZone($settings['timezone']));
     $logger = new \Monolog\Logger($settings['logger']['name']);
-    $logger->pushProcessor(new \Monolog\Processor\UidProcessor());
+    
+    $logger->pushProcessor(new \Monolog\Processor\WebProcessor());
     $logger->pushHandler(new \Monolog\Handler\StreamHandler($settings['logger']['path'], \Monolog\Logger::DEBUG));
     return $logger;
 };
