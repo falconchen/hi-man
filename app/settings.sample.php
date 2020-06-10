@@ -42,10 +42,17 @@ return [
             ],
         ],
 
+
         // monolog settings
         'logger' => [
             'name' => 'app',
             'path' => __DIR__ . '/../log/app.log',
+        ],
+        
+        // cli monolog settings
+        'cli-logger' => [
+            'name' => 'cli',
+            'path' => __DIR__ . '/../log/cli.log',
         ],
 
         //error

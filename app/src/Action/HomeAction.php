@@ -28,7 +28,7 @@ final class HomeAction extends \App\Helper\BaseAction
         
         //var_dump(getOscPostId(28));
         //exit;
-        //$this->logger->info("Home page action dispatched");
+        $this->logger->info("Home page action dispatched");
         //echo hi_generate_uuid4();exit;
 
         //echo date('Y-m-d H:i:s');
