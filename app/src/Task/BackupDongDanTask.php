@@ -99,6 +99,7 @@ class BackupDongDanTask {
                 $post = Post::firstOrNew(['post_name' => sprintf('%012d',$userId.$item['id'])]);                
                 $post->post_author = $userId ;
                 $post->post_content = $item['content'];
+                $post->post_name = $item['id'];
                 $post->post_date = $this->dateToUtc('Y-m-d H:i:s',$item['pubDate']);
                 $post->post_date_local = $item['pubDate'];                
                 $post->post_modified = date('Y-m-d H:i:s');
