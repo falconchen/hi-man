@@ -1351,17 +1351,18 @@ h1, h2, h3, h4, h5, h6 {
 */
 .hi-content pre {
 
+  color: #333 !important;
+  border: none;
   width: auto;
-  background-color: transparent !important;
+  background-color: #f9f9f9 !important;
   padding: 8px 12px !important;
-  border-left: 4px solid #4183c4;
+  border-left: 4px solid #BDC2A7;
   word-wrap: break-word;
   margin: 0 0 16px 0;
-  border-radius: 0 !important;
-  /* border-color: #0e2a4b; */
+  border-radius: 0 !important;  
   max-width: 100%;
-  font-size: 13.6px;
-  font-family: SFMono-Regular, Consolas, 'Liberation Mono', Menlo, monospace;
+  font-size: 14px;
+  font-family: Consolas,Monaco,"Andale Mono","Ubuntu Mono",monospace;
 }
 
 .hi-content code{
