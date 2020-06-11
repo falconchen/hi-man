@@ -1413,9 +1413,12 @@ h1, h2, h3, h4, h5, h6 {
 a.nickname,.hi-excerpt .hi-meta.w3-small{
   padding: 2px 4px;
   font-size: 90%;
-  color: #4183c4;
+  color: #666;
   /* background-color: #4183c4; */  
   font-weight: bold;
+}
+a.nickname {
+  color: #4183c4;
 }
 .hi-excerpt .w3-small {
   font-size: 13px !important;
