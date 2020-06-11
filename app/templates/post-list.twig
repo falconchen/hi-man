@@ -17,7 +17,7 @@
                         {{post.post_content|striptags|truncate(180, false,"...\n")|raw }}
                     </p>
 
-                    <div class="w3-small hi-meta">
+                    <div class="w3-small w3-margin-right hi-meta">
                         
 
                         <a class="nickname" target="_blank" href="{{ c.router.pathFor('user',{'uid':post.post_author}) }}">{{post.post_author_name}}</a>
@@ -38,8 +38,10 @@
                                 <a class="hi-underline-dotted" href="{{ c.router.pathFor('post-admin.edit',{'name':post.post_name}) }}">
                                     {{t.trans('Edit')}}</a>
                             {% endif %}
+
                         </span>
-                        
+                            ｜ 								
+                        <a class="hi-read-link" target="_blank" href="{{ c.router.pathFor('post',{'name':post.post_name}) }}">{{ t.trans('Read') }}</a>
 
                     </div>
                 </div>
