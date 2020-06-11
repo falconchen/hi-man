@@ -125,13 +125,25 @@ $capsule->bootEloquent();
 $container['logger'] = function ($c) {
     //$settings = $c->settings;
     $settings = $c->get('settings');
-
     \Monolog\Logger::setTimezone(new \DateTimeZone($settings['timezone']));
-    $loggerSettting = PHP_SAPI == 'cli' ? $settings['cli-logger'] : $settings['logger'];
-    $logger = new \Monolog\Logger($loggerSettting['name'] );
     
-    $logger->pushProcessor(new \Monolog\Processor\WebProcessor());
-    $logger->pushHandler(new \Monolog\Handler\StreamHandler($loggerSettting['path'], \Monolog\Logger::DEBUG));
+    if( PHP_SAPI == 'cli' ) {
+        $loggerSettting =  $settings['cli-logger'];
+        $logger = new \Monolog\Logger($loggerSettting['name'] );            
+        $logger->pushProcessor(new \Monolog\Processor\MemoryUsageProcessor());        
+        $logger->pushProcessor(new \Monolog\Processor\MemoryPeakUsageProcessor());
+        $logger->pushHandler(new \Monolog\Handler\StreamHandler($loggerSettting['path'], \Monolog\Logger::DEBUG));
+    }else{
+        $loggerSettting =  $settings['logger'];
+        $logger = new \Monolog\Logger($loggerSettting['name'] );            
+        $logger->pushProcessor(new \Monolog\Processor\WebProcessor());
+        $logger->pushProcessor(new \Monolog\Processor\UidProcessor());
+        $logger->pushHandler(new \Monolog\Handler\StreamHandler($loggerSettting['path'], \Monolog\Logger::DEBUG));
+        $logger->info('user visit');
+    }
+    
+        
+    
     return $logger;
 };
 
