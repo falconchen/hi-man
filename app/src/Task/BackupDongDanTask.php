@@ -30,6 +30,7 @@ class BackupDongDanTask {
         $this->container = $container;
         $this->settings = $this->container->get('settings');
         $this->logger = $this->container->get('logger');
+        $this->logger->info("=== Running Task :". __CLASS__);
     }
 
     /**
@@ -96,10 +97,9 @@ class BackupDongDanTask {
 
                 $this->logger->info('backup tweet to Post : '. $item['href']);
                 $this->logger->info( sprintf("%d: %s", $item['id'], $item['content'] ) );
-                $post = Post::firstOrNew(['post_name' => sprintf('%012d',$userId.$item['id'])]);                
+                $post = Post::firstOrNew(['post_name' => $item['id']]);                
                 $post->post_author = $userId ;
-                $post->post_content = $item['content'];
-                $post->post_name = $item['id'];
+                $post->post_content = $item['content'];                
                 $post->post_date = $this->dateToUtc('Y-m-d H:i:s',$item['pubDate']);
                 $post->post_date_local = $item['pubDate'];                
                 $post->post_modified = date('Y-m-d H:i:s');
