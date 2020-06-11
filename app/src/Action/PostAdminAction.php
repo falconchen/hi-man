@@ -109,6 +109,7 @@ final class PostAdminAction extends \App\Helper\LoggedAction
                 $count = $posts->count();
             } else {
                 $conditions = [
+                    'post_type' => 'post',
                     'post_author' => $postAuthor,
                 ];
                 if ($postStatus != 'any') {
