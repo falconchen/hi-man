@@ -71,22 +71,26 @@ $container['errorHandler'] = function ($c) {
             $errorCode = $exception->getCode();
         }
 
-        if ($settings['displayErrorDetails'] == true) {
-            $data = [
-                'error_code' => $errorCode,
-                'error_message' => $exception->getMessage(),
-                'file' => $exception->getFile(),
-                'line' => $exception->getLine(),
-                'trace' => explode("\n", $exception->getTraceAsString()),
-            ];
-        } else {
+        $data = [
+            'error_code' => $errorCode,
+            'error_message' => $exception->getMessage(),
+            'file' => $exception->getFile(),
+            'line' => $exception->getLine(),
+            'trace' => explode("\n", $exception->getTraceAsString()),
+        ];        
+        $c->get('logger')->error(var_export($data,true)); // always log error 
+
+        if ( $settings['debug'] == false || $settings['displayErrorDetails'] == false ) {                    
             $data = [
                 'error_code' => $errorCode,
                 'error_message' => $exception->getMessage(),
             ];
         }
-
+               
+        
         return $view->render($response, $errorCode, $data);
+                        
+        
     };
 };
 
