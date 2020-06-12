@@ -13,7 +13,7 @@
 		<div class="w3-center">
 
 			
-			<span class="hi-text-dark">
+			<strong class="hi-text-dark">
 
 				<i class="fa fa-calendar-check-o "></i>
 				{# {{  (post.post_status == 'draft') ? t.trans('Draft') : post.post_date_local }} #}
@@ -26,7 +26,7 @@
 				{% elseif post.post_status == 'draft' %}		
 					<code class="w3-text-blue">{{ t.trans('Draft status')}}</code>
 				{% endif %}
-			</span>
+			</strong>
 			
 			<a class="nickname" target="_blank" href="{{ c.router.pathFor('user',{'uid':post.post_author}) }}">
 				{{post.post_author_name}}</a>
