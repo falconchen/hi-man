@@ -33,7 +33,7 @@
                                 <code class="w3-text-blue">{{ t.trans('Draft status')}}</code>
                             {% endif %}
 
-                            {% if user_id == post.post_author %}	
+                            {% if c.session.user.id == post.post_author %}	
                                     ｜ 	
                                 <a class="hi-underline-dotted" href="{{ c.router.pathFor('post-admin.edit',{'name':post.post_name}) }}">
                                     {{t.trans('Edit')}}</a>
