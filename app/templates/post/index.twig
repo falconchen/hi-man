@@ -13,7 +13,7 @@
 		<div class="w3-center">
 
 			
-			<strong class="hi-text-dark">
+			<dt class="hi-text-dark">
 
 				<i class="fa fa-calendar-check-o "></i>
 				{# {{  (post.post_status == 'draft') ? t.trans('Draft') : post.post_date_local }} #}
@@ -26,22 +26,22 @@
 				{% elseif post.post_status == 'draft' %}		
 					<code class="w3-text-blue">{{ t.trans('Draft status')}}</code>
 				{% endif %}
-			</strong>
 			
-			<a class="nickname" target="_blank" href="{{ c.router.pathFor('user',{'uid':post.post_author}) }}">
-				{{post.post_author_name}}</a>
-
 			
+				<a class="nickname" target="_blank" href="{{ c.router.pathFor('user',{'uid':post.post_author}) }}">
+					{{post.post_author_name}}</a>
 
-			{% if user_id == post.post_author and not post.post_preview %}	
-				<a class="hi-underline-dotted" style="margin-left:4px;" href="{{ c.router.pathFor('post-admin.edit',{'name':post.post_name}) }}">{{t.trans('Edit')}}</a>
-			{% endif %}
+				
 
-			{% if post.post_visibility == 'private' or post.post_visibility == 'password' %}
-			<code>{{ t.trans(post.post_visibility) }} 🔒</code>
-			{% endif %}	
+				{% if user_id == post.post_author and not post.post_preview %}	
+					<a class="hi-underline-dotted" style="margin-left:4px;" href="{{ c.router.pathFor('post-admin.edit',{'name':post.post_name}) }}">{{t.trans('Edit')}}</a>
+				{% endif %}
 
-			
+				{% if post.post_visibility == 'private' or post.post_visibility == 'password' %}
+				<code>{{ t.trans(post.post_visibility) }} 🔒</code>
+				{% endif %}	
+
+			</dt>
 			
 			
 		</div>
