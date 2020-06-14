@@ -55,9 +55,19 @@
 
 - [Eloquent raw 查询](https://laravel.com/docs/5.8/queries)
 
+- [Schema Builder 数据库类型](https://laravel.com/docs/5.0/schema)
+
+- [Schema Builder 添加/删除索引](http://laravelhowto.blogspot.com/2017/04/how-to-add-and-drop-indexes-in-laravel.html)
+
 - [Symfony 翻译组件](https://symfony.com/doc/current/components/translation.html)
 
 - [Symfony 翻译组件（中文文档）](http://www.symfonychina.com/doc/current/translation.html)
+
+- [Guzzle6 文档(并发请求)](http://docs.guzzlephp.org/en/stable/quickstart.html#concurrent-requests)
+
+- [ stackoverflow Guzzle并发请求示例 ](https://stackoverflow.com/questions/53271764/how-to-perform-concurrent-requests-with-guzzlehttp/53272469)
+
+- [关于laraval 和Eloquent各种 howto的网站](http://laravelhowto.blogspot.com/)
 
 ## codes && tips
 
@@ -72,9 +82,16 @@
 {% endfor %}
 
 ```
+
+```输出Eloquent / ORM的sql 及执行时间```
+$users = User::get();
+print_r(DB::getQueryLog());
+```
+
 ## 备份动弹
 
 ```
 
 php public/index.php BackupDongDanTask [user_id] [pageToken]
 ```
+

@@ -40,7 +40,8 @@
         "voku/anti-xss": "^4.1",
         "symfony/yaml": "^4.4",
         "pda/pheanstalk": "^4.0",
-        "adrianfalleiro/slim-cli-runner": "^2.6"
+        "adrianfalleiro/slim-cli-runner": "^2.6",
+        "doctrine/dbal": "^2.10"
     },
 
     "scripts": {
