@@ -10,7 +10,8 @@ class MediaMetaAddPrimaryIndex extends Migration
     public function up()
     {
         Capsule::schema()->table('media_meta', function($table)
-        {
+        {            
+            $table->string('meta_key',50)->change();
             $table->index(['post_id', 'meta_key']);	
         });
 
@@ -24,6 +25,7 @@ class MediaMetaAddPrimaryIndex extends Migration
         //Capsule::schema()->drop('media_meta_add_primary_index');
         Capsule::schema()->table('media_meta', function($table)
         {
+            $table->string('meta_key')->change();
             $table->dropIndex('media_meta_post_id_meta_key_index');	
         });
         
