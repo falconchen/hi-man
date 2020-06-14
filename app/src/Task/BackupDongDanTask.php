@@ -1,40 +1,21 @@
 <?php
 namespace App\Task;
 
-use \Psr\Container\ContainerInterface;
-use \RuntimeException;
 use App\Model\Post;
-use App\Model\User;
 use App\Model\PostMeta;
-use App\Model\UserMeta;
-use Exception;
-use GuzzleHttp\Psr7;
-use GuzzleHttp\Client; // http://docs.guzzlephp.org/en/stable/index.html
-use GuzzleHttp\Exception\ClientException;
 
-class BackupDongDanTask {
 
-    /** @var ContainerInterface */
-    protected $container;
+class BackupDongDanTask extends BackupDongDanAbstract{
 
-    /**
-     * Constructor
-     *
-     * @param ContainerInterface $container
-     * @return void
-     */
+
     public function __construct($container)
     {
-        // access container classes
-        // eg $container->get('redis');
-        $this->container = $container;
-        $this->settings = $this->container->get('settings');
-        $this->logger = $this->container->get('logger');
-        $this->logger->info("=== Running Task :". __CLASS__);
+        parent::__construct($container);
+        $this->logger->info("=== Running Task :". $this->getShortName());
     }
 
     /**
-     * SampleTask command
+     * command
      *
      * @param array $args
      * @return void
@@ -48,24 +29,10 @@ class BackupDongDanTask {
         $userId =  empty($args) ? 12 : $args[0];
         $pageToken = isset($args[1]) ? $args[1] : '';
 
-        $cookieField = UserMeta::where('user_id', $userId)->where('meta_key', 'osc_cookie')->first();
-        if(is_null($cookieField)) {
-            $this->logError( "Cookie not exists for user_id ".$userId );          
-        }
-        
-        $cookies = unserialize($cookieField->meta_value);
-        $guzzleConf = $this->settings['guzzle'];
-        $guzzleConf['cookies'] = $cookies;        
-        $guzzleConf['headers']['Referer'] = 'https://www.oschina.net/tweets';
+        $client = $this->setupClient($userId);
 
-        $oscUserInfo = UserMeta::where('user_id', $userId)->where('meta_key', 'osc_userinfo')->first();
-        
-        if ( is_null($oscUserInfo )) {            
-            $this->logError( "Osc User Info failed for user_id ".$userId );          
-        }
-        $oscUserInfoArr = unserialize($oscUserInfo->meta_value) ;        
+        $oscUserInfoArr = $this->getOSCUserInfo($userId);
         $authorId = $oscUserInfoArr['userId'];
-        $client = new Client($guzzleConf);       
 
         $myTweetsUrl = sprintf('https://www.oschina.net/action/apiv2/tweets?authorId=%d&pageToken=%s',$authorId,$pageToken);
         try{
@@ -86,10 +53,12 @@ class BackupDongDanTask {
 
             if( isset($tweetsArr['result']['items']) && count($tweetsArr['result']['items']) === 0 ) {
                 if( $tweetsArr['result']['totalResults'] > 0 ) {                    
-                    $this->logger->info('End of backup' );
+                    $this->logger->info('End of tweets backup' );
                 }else{
                     $this->logger->info('No tweet to backup' );
                 }
+                $this->logger->info(sprintf('finish tweets backups, time consumed: %d (s)', (time() - $this->startTime)));
+                return true;
                 exit;
             }
 
@@ -128,25 +97,6 @@ class BackupDongDanTask {
             $this->logError($msg);     
         }
 
-
-
     }
 
-        
-        
-
-    //本地时间转换到utc
-
-    protected function dateToUtc($format, $dateStr)
-    {
-        return date($format, (strtotime($dateStr) - $this->settings['UTC'] * 3600));
-    }
-        
-
-
-    private function logError($msg) {
-        
-        $this->logger->error( $msg );
-        throw new RuntimeException($msg);
-    }
 }

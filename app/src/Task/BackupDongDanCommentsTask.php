@@ -13,28 +13,15 @@ use GuzzleHttp\Psr7;
 use GuzzleHttp\Client; // http://docs.guzzlephp.org/en/stable/index.html
 use GuzzleHttp\Exception\ClientException;
 
-class BackupDongDanCommentsTask
+class BackupDongDanCommentsTask extends BackupDongDanAbstract 
 {
 
-    /** @var ContainerInterface */
-    protected $container;
+    private $items;
 
-    protected $items;
-
-    /**
-     * Constructor
-     *
-     * @param ContainerInterface $container
-     * @return void
-     */
     public function __construct($container)
     {
-        // access container classes
-        // eg $container->get('redis');
-        $this->container = $container;
-        $this->settings = $this->container->get('settings');
-        $this->logger = $this->container->get('logger');
-        $this->logger->info("=== Running Task :". __CLASS__);
+        parent::__construct($container);
+        $this->logger->info("=== Running Task :". $this->getShortName());
     }
 
     /**
@@ -45,9 +32,8 @@ class BackupDongDanCommentsTask
      */
     public function command($args)
     {
-        //$firstArg = $args[0];     
-        // Throw if no arguments provided
-        $start_time = time();
+        
+        
         $this->logger->info("Start backup dongdan comments args: " . implode(' ', $args));
 
         $userId =  empty($args) ? 12 : $args[0]; //HiCMS的用户id
@@ -70,24 +56,7 @@ class BackupDongDanCommentsTask
         }
         $this->logger->info('tweet with comments total: ' . $posts->count());
 
-        $cookieField = UserMeta::where('user_id', $userId)->where('meta_key', 'osc_cookie')->first();
-        if (is_null($cookieField)) {
-            $this->logError("Cookie not exists for user_id " . $userId);
-        }
-
-        $cookies = unserialize($cookieField->meta_value);
-        $guzzleConf = $this->settings['guzzle'];
-        $guzzleConf['cookies'] = $cookies;
-        $guzzleConf['headers']['Referer'] = 'https://www.oschina.net/tweets';
-
-        $oscUserInfo = UserMeta::where('user_id', $userId)->where('meta_key', 'osc_userinfo')->first();
-
-        if (is_null($oscUserInfo)) {
-            $this->logError("Osc User Info failed for user_id " . $userId);
-        }
-        $oscUserInfoArr = unserialize($oscUserInfo->meta_value);
-        $authorId = $oscUserInfoArr['userId'];
-        $client = new Client($guzzleConf);
+        $client = $this->setupClient($userId);
 
 
         $totalTweets = count($posts);
@@ -139,9 +108,8 @@ class BackupDongDanCommentsTask
 
             $this->logger->info(sprintf('Progress: %d/%d - %.2f%%', $k, $totalTweets, $k / $totalTweets * 100));
         }
-
-        $end_time = time();
-        $this->logger->info(sprintf('finish comments/likes backups, time consumed: %d (s)', ($end_time - $start_time)));
+        
+        $this->logger->info(sprintf('finish comments/likes backups, time consumed: %d (s)', (time() - $this->startTime)));
         return true;
     }
 
@@ -195,19 +163,5 @@ class BackupDongDanCommentsTask
 
 
 
-    //本地时间转换到utc
 
-    protected function dateToUtc($format, $dateStr)
-    {
-        return date($format, (strtotime($dateStr) - $this->settings['UTC'] * 3600));
-    }
-
-
-
-    private function logError($msg)
-    {
-
-        $this->logger->error($msg);
-        throw new RuntimeException($msg);
-    }
 }
