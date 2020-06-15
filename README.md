@@ -83,10 +83,46 @@
 
 ```
 
-```输出Eloquent / ORM的sql 及执行时间```
-$users = User::get();
-print_r(DB::getQueryLog());
+## 输出Eloquent / ORM的sql
+
 ```
+function getSQL($builder) {
+    $sql = $builder->toSql();
+    foreach ( $builder->getBindings() as $binding ) {
+        $value = is_numeric($binding) ? $binding : "'".$binding."'";
+        $sql = preg_replace('/\?/', $value, $sql, 1);
+    }
+    return $sql;
+}
+
+用法:
+$tweet = Post::where('post_name','6276890')->limit(1)->get();
+
+//先转成这样的形式,因为get()方法后得到的是Collection对象，所以必须在这之前截取出Buider对象，去除get
+$tweetBuider = Post::where('post_name','6276890')->limit(1);
+echo getSQL($tweetBuider);
+
+//目前getSql作为ActionHelper的一个方法，在Action里可用
+echo $this->getSQL($tweetBuider);
+
+```
+## 添加了Post和PostMeta表的一对多和多对多关系
+```
+
+$tweet = Post::where('post_name',$tweetId)->first();
+if(!is_null($tweet)){
+   $tweetDatas = $tweet->metas('meta_key','like','tweet%')->get();
+}
+
+var_dump(  $tweetDatas );
+
+$post = PostMeta::find(8025)->post()->first();
+var_dump($post);
+
+        
+        
+```        
+
 
 ## 备份动弹
 
@@ -94,4 +130,10 @@ print_r(DB::getQueryLog());
 
 php public/index.php BackupDongDanTask [user_id] [pageToken]
 ```
+
+### 带 热门评论 like /comments的动弹id(不带图)
+21147461
+
+### 带图/评论/likes的动弹id（不带热门评论)
+12620768
 

@@ -1,6 +1,7 @@
 #vendor/
 /public/baidu_verify_*.html
 /public/.well-known/
+/public/media/
 /.idea/
 log/*
 cache/*

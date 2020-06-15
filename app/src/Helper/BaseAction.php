@@ -7,6 +7,9 @@ use App\Model\User;
 
 class BaseAction
 {
+
+    use ActionHelper;
+    
     protected $c;
     protected $route;
     protected $user = null;

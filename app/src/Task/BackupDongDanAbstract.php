@@ -13,8 +13,11 @@ use GuzzleHttp\Client; // http://docs.guzzlephp.org/en/stable/index.html
 use GuzzleHttp\Exception\ClientException;
 
 
+
 //abstraclass BackupDongDanTask {
 abstract class BackupDongDanAbstract {
+
+     use \App\Helper\ActionHelper;      
 
       /** @var ContainerInterface */
       protected $container;

@@ -32,4 +32,9 @@ class Post extends Model
 	{
 		return getOscPostLink($this->post_id, $this->post_author);
 	}
+
+	public function metas() 
+	{
+		return $this->hasMany('App\Model\PostMeta','post_id');
+	}
 }
