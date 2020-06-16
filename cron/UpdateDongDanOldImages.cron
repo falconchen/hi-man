@@ -1,0 +1,13 @@
+#!/bin/env bash
+
+# update old 50x50 portaits to 200x200
+# */15 * * * * /path/to/UpdateDongDanOldImages.cron >/dev/null 2>&1
+
+SHELL_FOLDER=$(dirname $(readlink -f "$0"))
+cd $SHELL_FOLDER
+
+PHP_BIN=$(which php)
+$PHP_BIN ../public/index.php UpdateDongDanOldImages
+
+exit 0
+
