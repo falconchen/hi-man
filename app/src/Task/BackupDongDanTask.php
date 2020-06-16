@@ -89,6 +89,7 @@ class BackupDongDanTask extends BackupDongDanAbstract{
                 $post->post_modified = date('Y-m-d H:i:s');
                 $post->post_type = 'tweet';
                 $post->post_title = '';
+                $post->like_count = $item['statistics']['like'];
                 $post->comment_count = $item['statistics']['comment'];                
                 if( $post->save() ){
                     $this->logger->info('backup tweet to PostMeta : '. $item['href']);
