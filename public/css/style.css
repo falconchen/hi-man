@@ -1267,16 +1267,14 @@ hr[id^="ez-insert-after-placeholder"] {
 .hi-main .w3-ul li {
   padding: 0px 16px;
 }
-.hi-main a:hover{
-  /* color:#5bc0de !important; */
-    /* color:#666 !important; */
+
+
+.hi-header{
+  color:#555;
+  max-width: 750px;
   
 }
 
-.hi-hearder{
-  color:#555;
-  max-width: 900px;
-}
 .hi-content-wrap{
   max-width:750px;
   margin:0 auto ;
