@@ -8,8 +8,8 @@ cd $SHELL_FOLDER
 
 PHP_BIN=$(which php)
 $PHP_BIN ../public/index.php BackupDongDan  
-$PHP_BIN ../public/index.php BackupDongDanComments "take=20"
-$PHP_BIN ../public/index.php BackupDongDanImages "take=20"
+$PHP_BIN ../public/index.php BackupDongDanComments "take=10"
+$PHP_BIN ../public/index.php BackupDongDanImages "take=10"
 
 exit 0
 
