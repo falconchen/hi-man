@@ -24,7 +24,7 @@ class BackupDongDanTask extends BackupDongDanAbstract{
     public function command($args)
     {   
         
-        $this->logger->info("Start backup dongdan args: ". var_export($args,true));
+        $this->logger->info("Start backup dongdan with args: ". var_export($args,true));
 
         $inputs = $this->initInputs($args);
         
