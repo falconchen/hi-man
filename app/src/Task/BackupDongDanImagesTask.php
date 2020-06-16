@@ -14,7 +14,9 @@ use GuzzleHttp\Client;
 
 class BackupDongDanImagesTask extends BackupDongDanAbstract{
 
-    private $images = [];
+    protected $images = [];
+    protected $forceUpdate;
+
     public function __construct($container)
     {
         parent::__construct($container);
@@ -32,9 +34,8 @@ class BackupDongDanImagesTask extends BackupDongDanAbstract{
      * @return void
      */
     public function command($args)
-    {   
-        
-        $this->logger->info("Start backup images args: ". implode(' ',$args));
+    {           
+        $this->logger->info("Start backup images with args: ". var_export($args,true));
 
         $inputs = $this->initInputs($args);
 
@@ -44,6 +45,7 @@ class BackupDongDanImagesTask extends BackupDongDanAbstract{
         $order = isset($inputs['order']) ? $inputs['order'] : 'desc';
         $take = isset($inputs['take']) ? intval($inputs['take']) : 0;
         $tweetId = isset($inputs['tweetId']) ? intval($inputs['tweetId']) : 0;
+        $this->forceUpdate = isset($inputs['forceUpdate']) ? boolval($inputs['forceUpdate']) : false;
         
         $client = $this->setupClient($userId);
         $postsBuilder = Post::select(['*'])
@@ -75,7 +77,7 @@ class BackupDongDanImagesTask extends BackupDongDanAbstract{
         
     }
 
-    private function backupImage4Tweet(Post $tweet ,Client $client) {
+    protected function backupImage4Tweet(Post $tweet ,Client $client) {
 
         try {
 
@@ -106,6 +108,12 @@ class BackupDongDanImagesTask extends BackupDongDanAbstract{
             $pool = new Pool($client, $requests(), [
                 'concurrency' => 10,
                 'fulfilled'   => function ($response, $index) {
+
+                    if( $response->getStatusCode() !== 200 ){
+                        $this->logError(
+                                sprintf('Failed Request url:%s,status code:%d ',$this->images[$index]->origin_url,$response->getStatusCode() )
+                        );
+                    }
                     
                     if(!empty( $response->getHeader('Content-Type') )) {
                         $contentType = $response->getHeader('Content-Type'); 
@@ -132,10 +140,15 @@ class BackupDongDanImagesTask extends BackupDongDanAbstract{
 
                     $this->logger->info(sprintf('media_id:%d , write file path:%s',$this->images[$index]->media_id,$realPath));
 
-                    if(!file_put_contents($realPath,$response->getBody()->getContents())){
-                        $this->logError('error in writing file, path:'.$realPath);
+                    $content = $response->getBody()->getContents();
+                    if( $content  && strlen($content) > 0 ) {
+                        if(!file_put_contents($realPath, $content )){
+                            $this->logger->error('error in writing file, path:'.$realPath);
+                        }                
+                    }else{
+                        $this->logger->error('not content get '. $this->images[$index]->origin_url);
                     }
-
+                    
                     $this->images[$index]->content_type = $contentType;
                     $this->images[$index]->local_path = $locaPathDB;
                     $this->images[$index]->save();
@@ -144,7 +157,11 @@ class BackupDongDanImagesTask extends BackupDongDanAbstract{
                         
                 },
                 'rejected' => function ($reason, $index){                    
-                    $this->logError("rejected reason: " . $reason );                    
+                    
+                    $this->logger->error(
+                        sprintf('Failed to Request media_id:%d',$this->images[$index]->media_id)
+                    );          
+                    $this->logger->error("rejected reason: " . $reason->getMessage() );              
                 },
 
             ]);
@@ -156,19 +173,20 @@ class BackupDongDanImagesTask extends BackupDongDanAbstract{
         }catch (\Exception $e) {
 
             $msg = $e->getMessage();
-            $this->logError($msg);            
+            $this->logger->error($msg);              
+            //$this->logError($msg);            
         }
 
     
     }
 
-    private function getRealPath($locaPathDB) {
+    protected function getRealPath($locaPathDB) {
 
         return $this->settings['media']['image']['dir'] . $locaPathDB;
         
     }
 
-    private function saveOrigin($metaItem,Post $tweet)
+    protected function saveOrigin($metaItem,Post $tweet)
     {
 
         
@@ -183,7 +201,7 @@ class BackupDongDanImagesTask extends BackupDongDanAbstract{
                     foreach( $metaValue['images'] as $image) {
                         
                         $mediaMap = MediaMap::firstOrNew(['origin_url'=>$image['href']]);
-                        if( !$this->dbPathIsValid($mediaMap->local_path) ) {
+                        if( $this->forceUpdate || !$this->dbPathIsValid($mediaMap->local_path) ) {
                             $mediaMap->title = $image['name'];
                             $mediaMap->post_id = $tweet->post_id;
                             $mediaMap->media_author = $tweet->post_author;
@@ -197,7 +215,7 @@ class BackupDongDanImagesTask extends BackupDongDanAbstract{
                         
 
                         $mediaMapThumb = MediaMap::firstOrNew(['origin_url'=>$image['thumb']]);
-                        if( !$this->dbPathIsValid($mediaMapThumb->local_path) ) {
+                        if( $this->forceUpdate || !$this->dbPathIsValid($mediaMapThumb->local_path) ) {
 
                             $mediaMapThumb->title = $image['name'];
                             $mediaMapThumb->post_id = $tweet->post_id;
@@ -245,11 +263,11 @@ class BackupDongDanImagesTask extends BackupDongDanAbstract{
         return true;
     }
 
-    private function savePortaitMedia($metaValue) {
+    protected function savePortaitMedia($metaValue) {
 
         $mediaPortrait = MediaMap::firstOrNew(['origin_url'=>$metaValue['author']['portrait']]);
 
-        if( !$this->dbPathIsValid($mediaPortrait->local_path) ) {
+        if( $this->forceUpdate || !$this->dbPathIsValid($mediaPortrait->local_path) ) {
             $mediaPortrait->title = $metaValue['author']['name'];
             $mediaPortrait->tags = 'tweet_portrait';
             $mediaPortrait->save();
@@ -258,12 +276,13 @@ class BackupDongDanImagesTask extends BackupDongDanAbstract{
         return false;
 
     }
-    private function dbPathIsValid($path) {
+    protected function dbPathIsValid($path) {
+
         return !is_null($path) && file_exists($this->getRealPath($path));
                             
     }
 
-    private function setLocalPathDB(MediaMap $media,$extensionName) {
+    protected function setLocalPathDB(MediaMap $media,$extensionName) {
         
         $realPath = sprintf("/%d/%d/%s", $media->media_id % 1024, $media->media_id % 512,  $media->media_id . $extensionName);                
         return $realPath;

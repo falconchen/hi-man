@@ -37,7 +37,7 @@ class BackupDongDanCommentsTask extends BackupDongDanAbstract
     {
         
         
-        $this->logger->info("Start backup dongdan comments args: " . implode(' ', $args));
+        $this->logger->info("Start backup dongdan comments with args: " . var_export($args,true));
 
         //使用userId=12&fromPostId=1234&orderBy=post_date&order=desc&take=10&tweetId=123456
         $inputs = $this->initInputs($args);
