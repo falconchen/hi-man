@@ -22,7 +22,7 @@ return [
             
             'image'=>[
                 'dir'=> __DIR__ . '/../public/media/image',
-                'uri'=>'http://hi.dev/media/image'
+                'uri'=>'/media/image'
             ],
             
         ],
