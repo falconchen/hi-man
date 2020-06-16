@@ -14,11 +14,7 @@ class UpdateDongDanOldImagesTask extends BackupDongDanImagesTask
     private $uris =[];
     private $count = 0;
 
-    public function __construct($container)
-    {
-        parent::__construct($container);
-        $this->logger->info("=== Running Task :" . $this->getShortName());
-    }
+    
 
     public function command($args)
     {
