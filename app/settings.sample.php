@@ -17,6 +17,15 @@ return [
         'remember'  => 'user_r'
     ],
     'settings' => [
+
+        'media'=>[
+            
+            'image'=>[
+                'dir'=> __DIR__ . '/../public/media/image',
+                'uri'=>'http://hi.dev/media/image'
+            ],
+            
+        ],
         'email.verify' => false, //关闭用户邮箱验证
         'locked_dir' => __DIR__ . '/../cache/locked', // 判断队列锁定的文件
         'sync' => [
@@ -103,8 +112,26 @@ return [
             'locale' => 'zh_CN',
             'dir' => __DIR__ . '/../langs',
         ],
-        'commands' => [
-            'BackupDongDanTask' => App\Task\BackupDongDanTask::class,        
+        'commands' => [       
+            /**
+             * php public/index.php BackupDongDan "userId=12&pageToken=DBA816934CD0AA59&forceUpdate=0"
+             * forceUpdate 强制更新所有动弹，否则只更新未入库的动弹
+             */
+            'BackupDongDan' => App\Task\BackupDongDanTask::class, 
+            /**
+             * 完整参数
+             * php public/index.php BackupDongDanComments "userId=12&fromPostId=1234&orderBy=post_date&order=desc&take=10"
+             * 特定动弹id
+             * php public/index.php BackupDongDanComments "tweetId=123456"
+             */
+            'BackupDongDanComments'=>App\Task\BackupDongDanCommentsTask::class,      
+             /**
+             * 完整参数
+             * php public/index.php BackupDongDanImages "userId=12&fromPostId=1234&orderBy=post_date&order=desc&take=10"
+             * 特定动弹id
+             * php public/index.php BackupDongDanImages "tweetId=123456"
+             */
+            'BackupDongDanImages'=>App\Task\BackupDongDanImagesTask::class,
         ],
 
     ],
