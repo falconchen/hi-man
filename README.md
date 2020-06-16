@@ -119,21 +119,48 @@ var_dump(  $tweetDatas );
 $post = PostMeta::find(8025)->post()->first();
 var_dump($post);
 
-        
-        
+
 ```        
 
 
-## 备份动弹
+### 备份动弹
+
+参数:
+- userId=12&pageToken=DBA816934CD0AA59&forceUpdate=0
+- forceUpdate 强制更新所有动弹，否则只更新未入库的动弹
 
 ```
-
-php public/index.php BackupDongDanTask [user_id] [pageToken]
+php public/index.php BackupDongDan [args]
 ```
 
-### 带 热门评论 like /comments的动弹id(不带图)
-21147461
+### 备份动弹评论/精彩评论/点赞
 
-### 带图/评论/likes的动弹id（不带热门评论)
-12620768
+参数：
+- userId=12&fromPostId=1234&orderBy=post_date&order=desc&take=10
+- tweetId=123456 特定动弹id
+```
+php public/index.php BackupDongDanComments [args]
+```
+
+### 备份动弹图片和评论/点赞者头像
+- userId=12&fromPostId=1234&orderBy=post_date&order=desc&take=10
+- tweetId=123456 特定动弹id
+```
+php public/index.php BackupDongDanImages [args]
+```
+
+### 更新旧osc静态文件服务器50x50的头像为200x200的，部分404
+
+```
+php public/index.php UpdateDongDanOldImages
+```
+
+
+带 热门评论 like /comments的动弹id(不带图)
+
+`21147461`
+
+带图/评论/likes的动弹id（不带热门评论)
+
+`12620768`
 
