@@ -9,7 +9,7 @@ class PostMetaChangeDataType extends Migration
      */
     public function up()
     {
-        Capsule::schema()->table('post_meta', function($table)
+        Capsule::schema()->table('post', function($table)
         {
             $table->mediumText('meta_value')->change();
 
