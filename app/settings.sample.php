@@ -132,6 +132,10 @@ return [
              * php public/index.php BackupDongDanImages "tweetId=123456"
              */
             'BackupDongDanImages'=>App\Task\BackupDongDanImagesTask::class,
+            /**
+             * 更新旧osc静态文件服务器50x50的头像为200x200的，部分404
+             */
+            'UpdateDongDanOldImages'=>App\Task\UpdateDongDanOldImagesTask::class,
         ],
 
     ],

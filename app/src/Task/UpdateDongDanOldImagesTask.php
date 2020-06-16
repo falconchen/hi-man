@@ -30,10 +30,18 @@ class UpdateDongDanOldImagesTask extends BackupDongDanImagesTask
 
         $client = $this->setupClient($userId);
 
-        $this->images = MediaMap::where('origin_url', 'like', '%//static.oschina.net/uploads/%\_50.jpg%')
-        ->orWhere('origin_url','like','%//static.oschina.net/uploads/%\_50.jpeg%')->get(); 
+        $this->images = MediaMap::where(
+            function($query) {
+                $query->where('origin_url', 'like', '%//static.oschina.net/uploads/%\_50.jpg%')
+                ->orWhere('origin_url','like','%//static.oschina.net/uploads/%\_50.jpeg%');
+            })->where('tags','not like','%tweet_portrait_200x200%')->get();
 
+            //echo $this->getSQL($this->images);exit;
         
+        if( count($this->images) == 0 ){
+            $this->logger->info('No image need to update');
+            return;
+        }
 
         try {
 
@@ -84,6 +92,7 @@ class UpdateDongDanOldImagesTask extends BackupDongDanImagesTask
                     }
                                                                                                                 
                     $this->logger->info("current index: " .$index);
+                    $this->updateTags($this->images[$index]);
                     $this->checkAndEnd();
                         
                 },
@@ -93,6 +102,7 @@ class UpdateDongDanOldImagesTask extends BackupDongDanImagesTask
                         sprintf('Failed to Request url:%s',$this->uris[$index])
                     );          
                     $this->logger->error("rejected reason: " . $reason->getMessage() );
+                    $this->updateTags($this->images[$index]);
                     $this->checkAndEnd();
                 },
 
@@ -110,6 +120,12 @@ class UpdateDongDanOldImagesTask extends BackupDongDanImagesTask
 
     }
 
+    protected function updateTags(MediaMap $imageObj) 
+    {
+        $this->logger->info('update tags for media_id '.$imageObj->media_id);
+        $imageObj->tags = rtrim($imageObj->tags,',') . ',tweet_portrait_200x200';
+        $imageObj->save();
+    }
 
 
     protected function checkAndEnd() 
