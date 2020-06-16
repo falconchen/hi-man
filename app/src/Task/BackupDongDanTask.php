@@ -30,7 +30,7 @@ class BackupDongDanTask extends BackupDongDanAbstract{
         
         $userId = isset($inputs['userId']) ? $inputs['userId'] : 12;
         $pageToken = isset($inputs['pageToken']) ? $inputs['pageToken'] : '';
-        $forceUpdate = isset($inputs['forceUpdate']) ? boolval($inputs['forceUpdate']) : true;
+        $forceUpdate = isset($inputs['forceUpdate']) ? boolval($inputs['forceUpdate']) : false;
         
 
         $client = $this->setupClient($userId);
