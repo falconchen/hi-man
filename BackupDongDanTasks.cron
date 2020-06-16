@@ -1,0 +1,13 @@
+#!/bin/env bash
+
+# backup dongDong in cron
+# */10 * * * * /path/to/tasks.cron >/dev/null 2>&1
+
+SHELL_FOLDER=$(dirname $(readlink -f "$0"))
+cd $SHELL_FOLDER
+
+PHP_BIN=$(which php)
+$PHP_BIN public/index.php BackupDongDan  
+$PHP_BIN public/index.php BackupDongDanComments "take=20"
+$PHP_BIN public/index.php BackupDongDanImages "take=20"
+
