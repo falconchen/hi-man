@@ -25,8 +25,11 @@ class BackupDongDanCommentsTask extends BackupDongDanAbstract
     }
 
     /**
-     * php public/index.php BackupDongDanCommentsTask
-     *
+     * php public/index.php BackupDongDanComments "userId=12&fromPostId=1234&orderBy=post_date&order=desc&take=10"
+     * php public/index.php BackupDongDanComments "tweetId=123456"
+     * 
+     * Backup DongDan comments/hot comments/likes
+     *      
      * @param array $args
      * @return void
      */
@@ -36,18 +39,30 @@ class BackupDongDanCommentsTask extends BackupDongDanAbstract
         
         $this->logger->info("Start backup dongdan comments args: " . implode(' ', $args));
 
-        $userId =  empty($args) ? 12 : $args[0]; //HiCMS的用户id
-        $fromPostId = isset($args[1]) ? intval($args[1]) : 0;
-        $orderBy = isset($args[2]) ? $args[2] : 'post_date';
-        $order = isset($args[3]) ? $args[3] : 'desc';
+        //使用userId=12&fromPostId=1234&orderBy=post_date&order=desc&take=10&tweetId=123456
+        $inputs = $this->initInputs($args);
 
-        $posts = Post::select('post_id', 'post_name', 'post_content')
-            ->where('post_type', 'tweet')
-            //->where('comment_count' ,'>', 0)
-            ->where('post_id', '>=', $fromPostId)
-            ->orderBy($orderBy, $order)
-            //->take(1)
-            ->get();
+        $userId = isset($inputs['userId']) ? $inputs['userId'] : 12;
+        $fromPostId = isset($inputs['fromPostId']) ? intval($inputs['fromPostId']) : 0;
+        $orderBy = isset($inputs['orderBy']) ? $inputs['orderBy'] : 'post_date';
+        $order = isset($inputs['order']) ? $inputs['order'] : 'desc';
+        $take = isset($inputs['take']) ? intval($inputs['take']) : 0;
+        $tweetId = isset($inputs['tweetId']) ? intval($inputs['tweetId']) : 0;
+
+
+        $postsBuilder = Post::select('post_id', 'post_name', 'post_content')
+            ->where('post_type', 'tweet')            
+            ->where('post_id', '>=', $fromPostId);
+            
+        if( $tweetId > 0 ) {
+            $postsBuilder->where('post_title',$tweetId);
+        }
+        $postsBuilder->orderBy($orderBy, $order); 
+        if( $take > 0 ){
+            $postsBuilder->take($take);
+        }
+        
+        $posts = $postsBuilder->get();
 
 
         if ($posts->count() == 0) {
@@ -106,11 +121,11 @@ class BackupDongDanCommentsTask extends BackupDongDanAbstract
                 }
             }
 
-            $this->logger->info(sprintf('Progress: %d/%d - %.2f%%', $k, $totalTweets, $k / $totalTweets * 100));
+            $this->logger->info(sprintf('Progress: %d/%d - %.2f%%', $k+1, $totalTweets, ($k+1) / $totalTweets * 100));
         }
         
         $this->logger->info(sprintf('finish comments/likes backups, time consumed: %d (s)', (time() - $this->startTime)));
-        return true;
+        return ;
     }
 
 

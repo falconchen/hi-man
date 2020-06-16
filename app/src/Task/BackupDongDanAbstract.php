@@ -109,7 +109,14 @@ abstract class BackupDongDanAbstract {
             throw new RuntimeException($msg);
         }
 
+        protected function initInputs($args) {
 
+            $inputs = [];
+            if(isset($args[0])) {
+                parse_str($args[0],$inputs);
+            }
+            return $inputs;
+        }
         abstract public function command($args) ;
 
 }

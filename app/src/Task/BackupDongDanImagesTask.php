@@ -22,7 +22,11 @@ class BackupDongDanImagesTask extends BackupDongDanAbstract{
     }
 
     /**
-     * command
+     * 
+     * php public/index.php BackupDongDanImages "userId=12&fromPostId=1234&orderBy=post_date&order=desc&take=10"
+     * php public/index.php BackupDongDanImages "tweetId=123456"
+     * 
+     * Backup DongDan images inlude tweets images/ author portaits
      *
      * @param array $args
      * @return void
@@ -32,24 +36,39 @@ class BackupDongDanImagesTask extends BackupDongDanAbstract{
         
         $this->logger->info("Start backup images args: ". implode(' ',$args));
 
-        $userId =  empty($args) ? 12 : $args[0];        
-                
-        $fromPostId = isset($args[1]) ? intval($args[1]) : 0;
-        $orderBy = isset($args[2]) ? $args[2] : 'post_date';
-        $order = isset($args[3]) ? $args[3] : 'desc';
+        $inputs = $this->initInputs($args);
+
+        $userId = isset($inputs['userId']) ? $inputs['userId'] : 12;
+        $fromPostId = isset($inputs['fromPostId']) ? intval($inputs['fromPostId']) : 0;
+        $orderBy = isset($inputs['orderBy']) ? $inputs['orderBy'] : 'post_date';
+        $order = isset($inputs['order']) ? $inputs['order'] : 'desc';
+        $take = isset($inputs['take']) ? intval($inputs['take']) : 0;
+        $tweetId = isset($inputs['tweetId']) ? intval($inputs['tweetId']) : 0;
+        
         $client = $this->setupClient($userId);
-                        
-        $tweets = Post::where('post_type', 'tweet')            
-            ->where('post_id', '>=', $fromPostId)
-            //->take(30)
-            ->orderBy($orderBy, $order)            
-            ->get();
+        $postsBuilder = Post::select(['*'])
+            ->where('post_type', 'tweet')            
+            ->where('post_id', '>=', $fromPostId);
             
-        foreach($tweets as $tweet) {
-            $this->logger->info( sprintf("Start backup images for post_id:%d tweet : %s",$tweet->post_id, $tweet->post_content) );
-            
-            $this->backupImage4Tweet($tweet,$client);    
+        if( $tweetId > 0 ) {
+            $postsBuilder->where('post_title',$tweetId);
+        }
+        $postsBuilder->orderBy($orderBy, $order); 
+        if( $take > 0 ){
+            $postsBuilder->take($take);
+        }
+        
+        $tweets = $postsBuilder->get();
+
+        if($tweets->count() > 0 ){
+
+            foreach($tweets as $tweet) {
+                $this->logger->info( sprintf("Start backup images for post_id:%d tweet : %s",$tweet->post_id, $tweet->post_content) );                
+                $this->backupImage4Tweet($tweet,$client);                
+            }    
+
         }    
+        
         
         $this->logger->info(sprintf('finish images backups, time consumed: %d (s)', (time() - $this->startTime)));
         return ;
@@ -193,13 +212,12 @@ class BackupDongDanImagesTask extends BackupDongDanAbstract{
                 }
                 
                 if(isset($metaValue['author']['portrait'])) {
-                    $mediaPortrait = MediaMap::firstOrNew(['origin_url'=>$metaValue['author']['portrait']]);
-                    if( !$this->dbPathIsValid($mediaPortrait->local_path) ) {
-                        $mediaPortrait->title = $metaValue['author']['name'];
-                        $mediaPortrait->tags = 'tweet_portrait';
-                        $mediaPortrait->save();
+
+                    $mediaPortrait = $this->savePortaitMedia($metaValue);
+                    if($mediaPortrait !== false) {
                         $this->images[] = $mediaPortrait;
-                    }
+                    }                    
+
                 }  
 
             break;
@@ -208,14 +226,12 @@ class BackupDongDanImagesTask extends BackupDongDanAbstract{
             case 'tweet_comments':    
             case 'tweet_hot_comments':
                 foreach($metaValue as $v) {
-                    
-                    $mediaPortrait = MediaMap::firstOrNew(['origin_url'=>$v['author']['portrait']]);
-                    if( !$this->dbPathIsValid($mediaPortrait->local_path) ) {
-                        $mediaPortrait->title = $v['author']['name'];
-                        $mediaPortrait->tags = 'tweet_portrait';
-                        $mediaPortrait->save();
+
+                    $mediaPortrait = $this->savePortaitMedia($v);
+                    if($mediaPortrait !== false) {
                         $this->images[] = $mediaPortrait;
-                    }
+                    } 
+                    
                 }                        
             break;
 
@@ -229,6 +245,19 @@ class BackupDongDanImagesTask extends BackupDongDanAbstract{
         return true;
     }
 
+    private function savePortaitMedia($metaValue) {
+
+        $mediaPortrait = MediaMap::firstOrNew(['origin_url'=>$metaValue['author']['portrait']]);
+
+        if( !$this->dbPathIsValid($mediaPortrait->local_path) ) {
+            $mediaPortrait->title = $metaValue['author']['name'];
+            $mediaPortrait->tags = 'tweet_portrait';
+            $mediaPortrait->save();
+            return $mediaPortrait;            
+        }
+        return false;
+
+    }
     private function dbPathIsValid($path) {
         return !is_null($path) && file_exists($this->getRealPath($path));
                             
