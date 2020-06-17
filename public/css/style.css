@@ -1305,6 +1305,10 @@ h1, h2, h3, h4, h5, h6 {
     padding: 8px 0 !important;
     color: #333 !important;    
     font-size:18px !important;
+    margin-top: 40px;
+    margin-bottom: 30px;
+    border-bottom: 1px solid lightgrey;    
+    line-height: 31.59px;
 }
 .hi-content h1{
   font-size:22px !important;
