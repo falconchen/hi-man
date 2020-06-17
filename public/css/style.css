@@ -1410,7 +1410,7 @@ h1, h2, h3, h4, h5, h6 {
   border:none;
 }
 a.nickname,.hi-excerpt .hi-meta.w3-small{
-  padding: 2px 4px;
+  /* padding: 2px 4px; */
   font-size: 90%;
   color: #666;
   /* background-color: #4183c4; */  
@@ -1444,6 +1444,12 @@ a.nickname {
   overflow-y: visible;
 }
 
+.hi-dot::before {
+  content: "\2022";
+  color: #ccc;
+  margin: 0 3px 0 5px;
+  display: inline-block;
+}
 
 @media only screen and (max-device-width: 480px) {
   .responsive-meting {
