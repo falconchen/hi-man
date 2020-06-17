@@ -3,7 +3,13 @@
 {% set currentPath = container.request.getUri.getPath|replace({'/hi-admin/': ''}) %}
 <!DOCTYPE html>
 <html lang="{{c.get('settings').language.html|default('en')}}">
-<title>{% block title %}{{t.trans('Dashbard')}}{% endblock %} - HiCMS Admin</title>
+<title>{% block title %}{{t.trans('Dashbard')}}{% endblock %} 
+            {%if  c.request.getParam('page') %}
+			&middot;
+			{% set currentPageNum = c.request.getParam('page') %}
+			{{ t.transChoice('Current Paginate', currentPageNum,{'%count%':currentPageNum} ) }}
+			{% endif %}
+&ndash; HiCMS Admin</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="icon" href="{{ static_url() }}/images/hi-logo.png" sizes="32x32" />
