@@ -20,8 +20,7 @@
                     <div class="w3-small w3-margin-right hi-meta">
                         
 
-                        <a class="nickname" target="_blank" href="{{ c.router.pathFor('user',{'uid':post.post_author}) }}">{{post.post_author_name}}</a>
-                            ｜ 								
+                         								
                         <span class="hi-date">	
                                 
                             {# <i class="w3-small fa fa-paperclip"></i>							 #}
@@ -32,16 +31,20 @@
                             {% elseif post.post_status == 'draft' %}		
                                 <code class="w3-text-blue">{{ t.trans('Draft status')}}</code>
                             {% endif %}
-
-                            {% if c.session.user.id == post.post_author %}	
-                                    ｜ 	
-                                <a class="hi-underline-dotted" href="{{ c.router.pathFor('post-admin.edit',{'name':post.post_name}) }}">
-                                    {{t.trans('Edit')}}</a>
-                            {% endif %}
-
+            
+                            
                         </span>
-                            ｜ 								
-                        <a class="hi-underline-dotted"  href="{{ c.router.pathFor('post',{'name':post.post_name}) }}">{{ t.trans('Read') }}</a>
+                            
+                        <a class="hi-dot nickname" target="_blank" href="{{ c.router.pathFor('user',{'uid':post.post_author}) }}">{{post.post_author_name}}</a>                            
+                            	
+                            
+                        {% if c.session.user.id == post.post_author %}	
+                                
+                            <a class="hi-dot  hi-text-lighter-blue" href="{{ c.router.pathFor('post-admin.edit',{'name':post.post_name}) }}">
+                                {{t.trans('Edit')}}</a>                                
+                        {% endif %}						
+                            
+                        <a class="hi-dot  hi-text-lighter-blue"  href="{{ c.router.pathFor('post',{'name':post.post_name}) }}">{{ t.trans('Read') }}</a>
 
                     </div>
                 </div>

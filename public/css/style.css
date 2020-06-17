@@ -1416,8 +1416,11 @@ a.nickname,.hi-excerpt .hi-meta.w3-small{
   /* background-color: #4183c4; */  
   font-weight: bold;
 }
-a.nickname {
-  color: #4183c4;
+a.nickname,.hi-text-lighter-blue {
+  color: #4183c4 ;
+}
+.hi-lighter-blue{
+  background-color: #4183c4 ;
 }
 .hi-excerpt .w3-small {
   font-size: 14px !important;
@@ -1443,12 +1446,19 @@ a.nickname {
 .hi-navbar.navbar-collapse.in {
   overflow-y: visible;
 }
+.nav>li>a:focus, .nav>li>a:hover{
+  background-color: #cef;
+}
 
 .hi-dot::before {
   content: "\2022";
   color: #ccc;
-  margin: 0 3px 0 5px;
+  margin: 0 5px 0 3px;
   display: inline-block;
+}
+.hi-content .hi-view-in-osc-link:hover,
+.hi-content .hi-view-in-osc-link:visited{
+  text-decoration: none !important;
 }
 
 @media only screen and (max-device-width: 480px) {
