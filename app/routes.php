@@ -43,7 +43,7 @@ $app->group(
     '/u',
     function () {
 
-        $this->get('', 'App\Action\UserAction:index')->setName('myspace');
+        $this->get('/me', 'App\Action\UserAction:index')->setName('myspace');
         $this->get('/{uid}', 'App\Action\UserAction:index')->setName('user');
     }
 );

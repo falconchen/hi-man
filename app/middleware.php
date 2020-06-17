@@ -43,7 +43,7 @@ $app->add(function ($request, $response, $next) {
 		default:
 			$allow = false;
 			$allowStartWith = [
-				'/p/', '/verify/',
+				'/p/', '/verify/','/u/'
 			];
 
 			foreach ($allowStartWith as $word) {
