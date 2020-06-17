@@ -61,7 +61,7 @@ final class PostAction extends \App\Helper\BaseAction
         // exit;
         // print($this->translator->trans('comming soon'));
         // exit;
-
+            
 
 
         if (Input::get('preview') && !empty($this->flash->getMessage('preview_post'))) {

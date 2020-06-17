@@ -35,8 +35,11 @@ class ProjectTwigExtension extends AbstractExtension implements GlobalsInterface
     {
         return array(
             'container' => $this->container,
-            'server' => $_SERVER,
-            'session'   => $_SESSION,
+            'SERVER' => $_SERVER,
+            'SESSIOIN'   => $_SESSION,
+            'REQUEST'=>$_REQUEST,
+            'GET'=>$_GET,
+            'POST'=>$_POST,
         );
     }
 
