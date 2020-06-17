@@ -1291,8 +1291,8 @@ hr[id^="ez-insert-after-placeholder"] {
 .hi-content {  
   margin-bottom:64px;
 }
-.hi-content p{    
-  font-size: 1.15em !important;
+.hi-content p, .hi-content blockquote{    
+  font-size: 16px !important;
   line-height: 1.8em !important;
   word-break: normal !important;
 }
