@@ -28,6 +28,15 @@ class Post extends Model
 		return $item;
 	}
 
+	public function getSyncOptions($type = 'osc') {
+		$metaKey = $type . '_sync_options';
+		$osc_sync_options = $this->metas()->where('meta_key',$metaKey)->first();
+		if( !is_null($osc_sync_options) ) {
+			return maybe_unserialize($osc_sync_options ->meta_value);			
+		}
+		return null;
+	}
+
 	public function getOscLink()
 	{
 		return getOscPostLink($this->post_id, $this->post_author);

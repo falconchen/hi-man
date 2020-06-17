@@ -34,7 +34,7 @@
 				
 
 				{% if user_id == post.post_author and not post.post_preview %}	
-					<a class="hi-underline-dotted" style="margin-left:8px;" href="{{ c.router.pathFor('post-admin.edit',{'name':post.post_name}) }}">{{t.trans('Edit')}}</a>
+					<a class="hi-dot hi-text-lighter-blue" style="" href="{{ c.router.pathFor('post-admin.edit',{'name':post.post_name}) }}">{{t.trans('Edit')}}</a>
 				{% endif %}
 
 				{% if post.post_visibility == 'private' or post.post_visibility == 'password' %}
@@ -55,12 +55,15 @@
 			{{post.post_content_clean|raw}}
 
 			{% if not post.post_preview and post.osc_link %}
+				{% if (not post.getSyncOptions().privacy) or (post.getSyncOptions().privacy == '1' and  user_id == post.post_author) %}
 				<div class="w3-clear">
-				<a class="hi-view-in-osc-link w3-left w3-margin-top" href="{{ post.osc_link }}" target="_blank">				
+				<a class="hi-view-in-osc-link w3-left w3-margin-top hi-text-lighter-blue w3-padding-small w3-button-small w3-border w3-border-blue w3-hover-blue w3-round" href="{{ post.osc_link }}" target="_blank">				
 				<i class="fa fa-paper-plane-o"></i>
 					{{t.trans('View in OSC')}} 
 				</a>
 				</div>
+			{% endif %}			
+
 			{% endif %}
 		</div>
 

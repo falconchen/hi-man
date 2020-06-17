@@ -100,6 +100,8 @@ final class PostAction extends \App\Helper\BaseAction
             $antiXss = new AntiXSS();
             $post->post_content_clean = $antiXss->xss_clean($post->post_content);
         }
+        
+        
         $post->osc_link = getOscPostLink($post->post_id);
 
         $this->view->render($response, 'post/index.twig', ['post' => $post]);

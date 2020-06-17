@@ -60,21 +60,21 @@
 								
 							{% if container.session.user is not defined %}
 								<li>
-									<a class="hi-hover-blue" href="{{ base_url() }}"><i class="fa fa-home"></i>
+									<a class="" href="{{ base_url() }}"><i class="fa fa-home"></i>
 									{{t.trans('Homepage')}}</a>
 								</li>
 								<li>
-									<a class="hi-hover-blue" href="{{ base_url() }}/login"><i class="fa fa-sign-in"></i>
+									<a class="" href="{{ base_url() }}/login"><i class="fa fa-sign-in"></i>
 									{{t.trans('Login')}}</a>
 								</li>
 								<li>
-									<a class="hi-hover-blue" href="{{ base_url() }}/register"><i class="fa fa-user-plus"></i>
+									<a class="" href="{{ base_url() }}/register"><i class="fa fa-user-plus"></i>
 									{{t.trans('Register')}}</a>
 								</li>
 							{% else %}
                                 <li>
                                     
-                                    <a class="hi-hover-blue" href="{{path_for('post-admin.new')}}"><i class="fa fa-pencil-square-o"></i> {{t.trans('Go writing')}}</a>
+                                    <a class="" href="{{path_for('post-admin.new')}}"><i class="fa fa-pencil-square-o"></i> {{t.trans('Go writing')}}</a>
                                 </li>
 								
 								<li class="w3-dropdown-hover w3-left">
@@ -86,17 +86,17 @@
 									<ul class="w3-dropdown-content w3-bar-block w3-card-4 nav nabar">
  
 										<li>
-										<a class="hi-hover-blue" href="{{ path_for('myspace') }}"><i class="fa fa-home"></i>
+										<a class="" href="{{ path_for('myspace') }}"><i class="fa fa-home"></i>
 										{{t.trans('Space')}}</a>
 										</li>
 										<li>
-										<a class="hi-hover-blue" href="{{ base_url() }}/dashboard">
+										<a class="" href="{{ base_url() }}/dashboard">
 										<i class="fa fa-file-text-o fa-fw"></i> {{t.trans('Dashboard')}}</a>
 										</a>
 										</li>
 										
 										<li>
-										<a class="hi-hover-blue" href="{{ base_url() }}/logout">
+										<a class="" href="{{ base_url() }}/logout">
 										<i class="fa fa-sign-out"></i>
 										{{t.trans('Logout')}}
 										</a>
