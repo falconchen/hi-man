@@ -1460,9 +1460,16 @@ a.nickname,.hi-text-lighter-blue {
   margin: 0 5px 0 3px;
   display: inline-block;
 }
-.hi-content .hi-view-in-osc-link:hover,
-.hi-content .hi-view-in-osc-link:visited{
+.hi-content .hi-content-tail .hi-view-in-osc-link
+{
   text-decoration: none !important;
+}
+
+
+.hi-content-tail blockquote em {
+  font-size: 10px !important;
+    line-height: 1.2em;
+    word-break: break-word;
 }
 
 @media only screen and (max-device-width: 480px) {
