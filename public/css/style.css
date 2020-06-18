@@ -1468,7 +1468,7 @@ a.nickname,.hi-text-lighter-blue {
   margin-top:32px;
 }
 
-.hi-content-tail blockquote em {
+.hi-content blockquote em {
   font-size: 10px !important;
     line-height: 1.2em;
     word-break: break-word;
