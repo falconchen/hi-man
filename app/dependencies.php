@@ -60,17 +60,25 @@ $container['notFoundHandler'] = function ($c) {
     };
 };
 
-$container['errorHandler'] = function ($c) {
+$errorExceptionHandlerFunc = function ($c) {
     return function ($request, $response, $exception) use ($c) {
+        
+
 
         $settings = $c->settings;
-        $view = new App\Helper\JsonRenderer();
 
-        $errorCode = 500;
-        if (is_numeric($exception->getCode()) && $exception->getCode() > 300 && $exception->getCode() < 600) {
-            $errorCode = $exception->getCode();
+        if( PHP_SAPI == 'cli' ) {
+
+            $view = new App\Helper\CliRenderer();    
+            $errorCode = 'PHP Error';    
+        }else{
+            $view = new App\Helper\JsonRenderer();
+            $errorCode = 500;
+            if (is_numeric($exception->getCode()) && $exception->getCode() > 300 && $exception->getCode() < 600) {
+                $errorCode = $exception->getCode();
+            }
         }
-
+                
         $data = [
             'error_code' => $errorCode,
             'error_message' => $exception->getMessage(),
@@ -92,7 +100,12 @@ $container['errorHandler'] = function ($c) {
                         
         
     };
+
+
 };
+$container['phpErrorHandler'] = $errorExceptionHandlerFunc;
+$container['errorHandler'] = $errorExceptionHandlerFunc;
+
 
 $container['csrf'] = function ($c) {
     $guard = new \Slim\Csrf\Guard();
