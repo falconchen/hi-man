@@ -1,11 +1,15 @@
-#!/bin/env bash
+#!/usr/bin/env bash
 
 # backup dongDong in cron
 # */15 * * * * /path/to/BackupDongDanTasks.cron >/dev/null 2>&1
 
-SHELL_FOLDER=$(dirname $(readlink -f "$0"))
-cd $SHELL_FOLDER
+if type greadlink > /dev/null; then
+  SHELL_FOLDER=$(dirname $(greadlink -f "$0"))
+else
+  SHELL_FOLDER=$(dirname $(readlink -f "$0"))
+fi
 
+cd $SHELL_FOLDER
 PHP_BIN=$(which php)
 $PHP_BIN ../public/index.php BackupDongDan  
 $PHP_BIN ../public/index.php BackupDongDanComments "take=10"
