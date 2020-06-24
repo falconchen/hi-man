@@ -1328,6 +1328,11 @@ h1, h2, h3, h4, h5, h6 {
   text-decoration: underline !important;
 }
 
+.hi-content ul>li {
+  list-style-type: circle;
+  list-style-position: inside;
+}
+
 .hi-content pre {
 
   color: #333 !important;
@@ -1342,6 +1347,10 @@ h1, h2, h3, h4, h5, h6 {
   max-width: 100%;
   font-size: 14px;
   font-family: Consolas,Monaco,"Andale Mono","Ubuntu Mono",monospace;
+}
+
+.hi-content td pre {
+  border-left: 1px solid #BDC2A7;
 }
 
 .hi-content code{
