@@ -1399,7 +1399,7 @@ h1, h2, h3, h4, h5, h6 {
     line-height: 1.8;
 }
 .hi-text-grey{
-  color:#2d2d2d;
+  color:#888;
 }
 .hi-light-grey {
   background-color: #ECF0F1 !important;
@@ -1428,9 +1428,12 @@ h1, h2, h3, h4, h5, h6 {
 a.nickname,.hi-excerpt .hi-meta.w3-small{
   /* padding: 2px 4px; */
   font-size: 90%;
-  color: #666;
+  color: #888;
   /* background-color: #4183c4; */  
   font-weight: bold;
+}
+.hi-excerpt .hi-meta.w3-small .hi-date{
+  font-weight: normal;
 }
 a.nickname,.hi-text-lighter-blue {
   color: #4183c4 ;
