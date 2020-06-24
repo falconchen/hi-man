@@ -1489,6 +1489,14 @@ a.nickname,.hi-text-lighter-blue {
     word-break: break-word;
 }
 
+.hi-content figure {
+  margin:0;
+}
+.hi-content table {
+  display: block;
+  overflow-x: auto;
+}
+
 @media only screen and (max-device-width: 480px) {
   .responsive-meting {
     padding-bottom: 138.5%; 
