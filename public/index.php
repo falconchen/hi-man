@@ -1,5 +1,7 @@
 <?php
 
+define('HI_ROOT',__DIR__);
+
 if (PHP_SAPI == 'cli-server') {
     // To help the built-in PHP dev server, check if the request was actually for
     // something which should probably be served as a static file
@@ -9,23 +11,27 @@ if (PHP_SAPI == 'cli-server') {
     }
 }
 
-require __DIR__ . '/../vendor/autoload.php';
+require HI_ROOT . '/../vendor/autoload.php';
 
 //session life time setting
 ini_set('session.cookie_lifetime', '99999999');
 ini_set('session.gc_maxlifetime', '99999999');
 
-// Instantiate the app
-if (PHP_SAPI == 'cli') {
-    $settingsFile = __DIR__ . '/../app/settings.php';
-}else{
-    $settingsFile = __DIR__ . '/../app/settings.' . $_SERVER['HTTP_HOST'] . '.php';;
-    $settingsFile = (file_exists($settingsFile)) ? $settingsFile : __DIR__ . '/../app/settings.php';
+function hiGetSettings($key=null) {
+    
+    if (PHP_SAPI == 'cli') {
+        $settingsFile = HI_ROOT . '/../app/settings.php';
+    }else{
+        $settingsFile = HI_ROOT . '/../app/settings.' . $_SERVER['HTTP_HOST'] . '.php';;
+        $settingsFile = (file_exists($settingsFile)) ? $settingsFile : HI_ROOT . '/../app/settings.php';
+    }
+        
+    $settings = require $settingsFile;
+    return ($key===null) ? $settings : $settings[$key];    
 }
 
-
-$settings = require $settingsFile;
-unset($settingsFile);
+// Instantiate the app
+$settings = hiGetSettings();
 
 session_start();
 $app = new \Slim\App($settings);
@@ -38,7 +44,6 @@ require __DIR__ . '/../app/routes.php';
 
 // Register middleware
 require __DIR__ . '/../app/middleware.php';
-
 
 
 // Run!
