@@ -41,7 +41,8 @@
         "symfony/yaml": "^4.4",
         "pda/pheanstalk": "^4.0",
         "adrianfalleiro/slim-cli-runner": "^2.6",
-        "doctrine/dbal": "^2.10"
+        "doctrine/dbal": "^2.10",
+        "aneek/slim-event-dispatcher": "^1.0"
     },
 
     "scripts": {
