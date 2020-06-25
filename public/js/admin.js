@@ -21,7 +21,21 @@ function w3_close() {
   overlayBg.style.display = "none";
 }
 
+
 $(document).ready(function() {
+
+  $('.w3-accordion-trigger').click(
+    function () {
+      var $contentElement = $($(this).data('content-element'));      
+      if ($contentElement.hasClass('w3-show')) {
+        $contentElement.removeClass('w3-show');
+      } else {
+        $contentElement.addClass('w3-show');
+      }
+    }
+
+  );
+
   //menu
   if ($(".hi-sub-item").hasClass("hi-current")) {
     $(".hi-sub-item")
@@ -133,6 +147,7 @@ $(document).ready(function() {
     ) {
       return; //定时发布
     }
+
     $(this)
       .parent()
       .toggleClass("active");
