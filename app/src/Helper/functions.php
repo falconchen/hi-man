@@ -19,6 +19,8 @@ function hi($name = 'name')
     echo "hi {$name}";
 }
 
+
+
 function update_user_meta($user_id, $meta_key, $meta_value, $prev_value = '')
 {
     return update_metadata('user', $user_id, $meta_key, $meta_value, $prev_value);

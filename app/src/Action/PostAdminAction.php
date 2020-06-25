@@ -133,7 +133,7 @@ final class PostAdminAction extends \App\Helper\LoggedAction
     public function postNew(Request $request, Response $response, $args)
     {
 
-        self::init($request, $response, $args);
+        $this->init($request, $response, $args);
 
         if (isset($this->data['oscer'])) {
 
@@ -159,7 +159,7 @@ final class PostAdminAction extends \App\Helper\LoggedAction
     public function postEdit(Request $request, Response $response, $args)
     {
 
-        self::init($request, $response, $args);
+        $this->init($request, $response, $args);
         $postQuery = Post::where('post_name', $args['name']);
         if ($this->user->group_id >= 3) {
             $postQuery = $postQuery->where('post_author', $this->userId);
@@ -212,7 +212,7 @@ final class PostAdminAction extends \App\Helper\LoggedAction
         }
     }
 
-    private function doSyncOsc($postId, $oscSyncOptions = [])
+    static function doSyncOsc($postId, $oscSyncOptions = [])
     {
 
         //default sync options
@@ -271,7 +271,9 @@ final class PostAdminAction extends \App\Helper\LoggedAction
         $cookies = unserialize($cookieField->meta_value);
 
 
-        $conf = $this->settings['guzzle'];
+        //$conf = $this->settings['guzzle'];
+
+        $conf = hiGetSettings('settings')['guzzle'];        
         if (!is_null($cookies)) {
             $conf['cookies'] = $cookies;
         }
@@ -346,7 +348,7 @@ final class PostAdminAction extends \App\Helper\LoggedAction
     public function save(Request $request, Response $response, $args)
     {
 
-        self::init($request, $response, $args);
+        $this->init($request, $response, $args);
 
 
         if ($request->getAttribute('csrf_status') === false) {
@@ -434,7 +436,13 @@ final class PostAdminAction extends \App\Helper\LoggedAction
             if ($post->post_status == 'trash') {
                 $message = '文章已放入回收站';
             } else {
-                $message = '文章保存成功。 ';
+                
+
+                if($post->post_status == 'future'){
+                    $message .= sprintf('文章保存成功，将定时发布于：<code class="w3-grey w3-padding-small">%s</code>，',$post->post_date_local);
+                }else{
+                    $message = '文章发布成功， ';
+                }
                 $message  .= sprintf(
                     ' <a class="w3-text-green" href="%s" target="_blank">%s</a>',
                     $this->router->pathFor(
