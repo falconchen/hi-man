@@ -121,6 +121,20 @@
                         <input type="checkbox" name="sync[osc][downloadImg]" id="sync-osc-downloadImg" value="1" class="w3-check" tabindex="0"  {% if storeOptions.downloadImg == 1 %} checked="checked" {% endif %}>
                         <label for="sync-osc-downloadImg">下载外站图片到本地</label>
                         </div>
+
+                        <div class="w3-accordion w3-clear ">
+                        
+                        <input class="w3-accordion-trigger w3-check" data-content-element="#osc-tweet-tmpl,.format-head" type="checkbox" name="sync[osc][send_tweet]" id="sync-osc-send_tweet" value="1" class="w3-check" tabindex="0"  {% if storeOptions.send_tweet == 1 %} checked="checked" {% endif %}><label for="sync-osc-send_tweet" class="w3-validate"> 同步成功后，发一条动弹
+                         <strong class="format-head w3-accordion-content">- 格式：</strong>                                                        
+                        </label>
+                        <div id="osc-tweet-tmpl" class="w3-accordion-content w3-margin-top w3-small">
+                            
+                            <textarea rows="2" name="sync[osc][tweet-tmpl]" type="text" style="width:100%;">【:文章标题:】:OSC链接:</textarea>
+                            <div class="w3-light-grey w3-padding-small">
+                            <strong class="w3-text-green">:文章标题:</strong>和<strong class="w3-text-green">:OSC链接:</strong>标记是占位符，发表动弹时会被实际标题和链接替代。
+                            </div>
+                        </div>
+                    </div>
                     
                 </div>
 
@@ -129,11 +143,8 @@
             <div class="w3-container w3-gray">                                    
                     <input type="hidden" name="sync[osc][save_as_default]" value="1" class="w3-check" tabindex="0" >
                     {# <label for="sync[osc][save_as_default]">保存为默认同步选项</label> #}
-                    <div class="w3-text-grey  w3-margin-top w3-margin-bottom w3-tooltip">
-                        &nbsp;
-                        
-                        
-                    </div>                              
+                     
+                                           
             </div>
         </div> <!-- .hi-osc-sync-metabox-->
         {% endif %}

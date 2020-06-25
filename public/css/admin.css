@@ -7,6 +7,15 @@ body{
     height :100%;
      
 }
+.w3-accordion-content a{text-decoration:none!important}
+.w3-accordion {width:100%;cursor:pointer}
+.w3-accordion-content{cursor:auto;display:none;position:relative;width:100%;margin:0;padding:0}
+.w3-accordion-content a{padding:6px 16px;display:block}.w3-accordion-content a:hover{background-color:#ccc}
+
+/* input[type=checkbox].w3-check:checked+.w3-validate,input[type=radio].w3-radio:checked+.w3-validate{color:#2196F3}  */
+input[type=checkbox].w3-check:disabled+.w3-validate,input[type=radio].w3-radio:disabled+.w3-validate{color:#aaa}
+
+strong.w3-show {display: inline!important;}
 /* 覆盖 w3css样式 */
 .w3-grey, .w3-hover-grey:hover, .w3-gray, .w3-hover-gray:hover {
     color: #000!important;
