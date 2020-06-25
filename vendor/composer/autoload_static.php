@@ -63,6 +63,7 @@ class ComposerStaticInitc3765e25676b2cbb624df054aef313e2
             'Symfony\\Component\\Config\\' => 25,
             'Slim\\Views\\' => 11,
             'Slim\\Flash\\' => 11,
+            'Slim\\Event\\' => 11,
             'Slim\\Csrf\\' => 10,
             'Slim\\' => 5,
         ),
@@ -79,6 +80,10 @@ class ComposerStaticInitc3765e25676b2cbb624df054aef313e2
         'M' => 
         array (
             'Monolog\\' => 8,
+        ),
+        'L' => 
+        array (
+            'League\\Event\\' => 13,
         ),
         'I' => 
         array (
@@ -216,6 +221,10 @@ class ComposerStaticInitc3765e25676b2cbb624df054aef313e2
         array (
             0 => __DIR__ . '/..' . '/slim/flash/src',
         ),
+        'Slim\\Event\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/aneek/slim-event-dispatcher/src/Event',
+        ),
         'Slim\\Csrf\\' => 
         array (
             0 => __DIR__ . '/..' . '/slim/csrf/src',
@@ -255,6 +264,10 @@ class ComposerStaticInitc3765e25676b2cbb624df054aef313e2
         'Monolog\\' => 
         array (
             0 => __DIR__ . '/..' . '/monolog/monolog/src/Monolog',
+        ),
+        'League\\Event\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/league/event/src',
         ),
         'Illuminate\\Support\\' => 
         array (
