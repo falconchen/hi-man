@@ -32,6 +32,7 @@ use Whoops\Handler\JsonResponseHandler;
 final class PostAdminAction extends \App\Helper\LoggedAction
 {
 
+    use \App\Helper\OscTrait;
 
     private $data;
 
@@ -206,143 +207,13 @@ final class PostAdminAction extends \App\Helper\LoggedAction
     public function syncOsc(Request $request, Response $response, $args)
     {
         try {
-            $this->doSyncOsc(19);
+            $this->doSyncPostOsc(19);
         } catch (Exception $e) {
             $this->logger->error($e->getMessage() . "\n" . $e->getTraceAsString());
         }
     }
 
-    static function doSyncOsc($postId, $oscSyncOptions = [])
-    {
-
-        //default sync options
-        $postArr = array(
-            'id' => '', //osc的文章id;
-            'user_code' => "i17sGbMlA2FhAI5hwcVZCOlzoXkjZ5TT0hGJUN9z",
-            'title' => "Title",
-            'content' => "Content",
-            'content_type' => "4",
-            'catalog' => "0",
-            'classification' => "430381", //其他类型
-            'type' => "1",
-            'origin_url' => "",
-            'privacy' => "0",
-            'deny_comment' => "0",
-            'as_top' => "0",
-            'downloadImg' => "0",
-            'isRecommend' => "0",
-        );
-
-
-        if (empty($oscSyncOptions)) {
-            $syncOptions = PostMeta::where(['post_id' => $postId, 'meta_key' => 'osc_sync_options'])->first();
-            if ($syncOptions === NULL) {
-                throw new Exception('No OSC Sync Options');
-            }
-            $oscSyncOptions = unserialize($syncOptions->meta_value);
-        }
-
-        $postArr = array_merge($postArr, $oscSyncOptions);
-
-        if (!$postArr['classification']) {
-            throw new Exception('classification empty');
-        }
-        if (!$postArr['catalog']) {
-            throw new Exception('catalog empty');
-        }
-
-        //self::init( $request, $response , $args) ;
-        $postDbData = Post::where('post_id', $postId)->first();
-        $postArr['title'] = $postDbData->post_title;
-        $postArr['content'] = $postDbData->post_content;
-
-
-        //$this->data = ['menu'=>$this->menu];
-        $oscer = UserMeta::where('user_id', $postDbData->post_author)->where('meta_key', 'osc_userinfo')->first();
-        if (!$oscer) {
-            throw new Exception("user did not connected to osc yet");
-        }
-        $oscer = unserialize($oscer->meta_value);
-
-        $blogWriteUrl = $oscer['homepage'] . '/blog/write';
-        $blogSaveUrl = $oscer['homepage'] . '/blog/save';
-
-        $cookieField = UserMeta::where('user_id', $postDbData->post_author)->where('meta_key', 'osc_cookie')->first();
-        $cookies = unserialize($cookieField->meta_value);
-
-
-        //$conf = $this->settings['guzzle'];
-
-        $conf = hiGetSettings('settings')['guzzle'];        
-        if (!is_null($cookies)) {
-            $conf['cookies'] = $cookies;
-        }
-        $conf['headers']['Referer'] = $blogWriteUrl;
-
-        $client = new Client($conf);
-        //确认分类字段是否存在，获取user_code
-        //<input type="hidden" name="user_code" value="i17sGbMlA2FhAI5hwcVZCOlzoXkjZ5TT0hGJUN9z">
-
-        $oscResponse = $client->request('GET', $blogWriteUrl);
-        $body = (string) $oscResponse->getBody();
-
-        $dom = new \PHPHtmlParser\Dom;
-        $dom->load($body, ['whitespaceTextNode' => false]);
-
-
-        //get userCode
-        $userCodeNode = $dom->find('input[name="user_code"]');
-        if (!count($userCodeNode)) {
-            throw new Exception('userCodeNode empty');
-        }
-        $userCode = $userCodeNode[0]->getAttribute('value');
-
-        //check catalog
-        $catalogNode = $dom->find('#catalogDropdown option[value=' . $postArr['catalog'] . ']');
-        if (!count($catalogNode)) {
-            throw new Exception('catalog not exists');
-        }
-
-
-        $postArr['user_code'] = $userCode;
-
-        //当文章为更新时
-        if ($oscId = getOscPostId($postId)) {
-
-            $oscOldlink = getOscPostLink($postId, $postDbData->post_author); //检测旧文章是否被移除
-            try {
-                $oscOldPostResponse = $client->request('HEAD', $oscOldlink);
-
-                if ($oscOldPostResponse->getStatusCode() == 200) {
-                    $postArr['id'] = $oscId;
-                    $blogSaveUrl = $oscer['homepage'] . '/blog/edit';
-                }
-            } catch (\GuzzleHttp\Exception\RequestException $e) {
-                if ($e->getCode() != 404) { //ignore  404
-                    throw $e;
-                }
-            }
-        }
-
-
-        $oscResponse = $client->request('POST', $blogSaveUrl, [
-            'form_params' => $postArr,
-        ]);
-        $body = (string) $oscResponse->getBody();
-
-        $jData = json_decode($body);
-        if (json_last_error() !== JSON_ERROR_NONE) {
-            throw new Exception(json_last_error_msg(), json_last_error());
-        }
-        $syncResult = PostMeta::firstOrNew(['post_id' => $postId, 'meta_key' => 'osc_sync_result']);
-        @$jData->result->content = mb_substr($jData->result->content, 0, 100, 'UTF-8') . '...'; //移除文章内容，减少空间
-        $syncResult->meta_value = maybe_serialize($jData);
-        $syncResult->save();
-
-        $postDbData->post_status = "publish";
-        $postDbData->save();
-        return $jData;
-    }
+    
 
 
     public function save(Request $request, Response $response, $args)
@@ -473,8 +344,11 @@ final class PostAdminAction extends \App\Helper\LoggedAction
 
                 if ($post->post_status == 'publish') { //此时提交
 
-                    $syncResult = self::doSyncOsc($postId, $sync['osc']);
+                    $syncResult = $this->doSyncPostOsc($postId, $sync['osc']);
+
                     if ($syncResult->code == 1) {
+                        
+
                         $location =  $this->data['oscer']['homepage'] . '/blog/' . $syncResult->result->id;
 
                         $this->flash->addMessage('flash', "[info] 同步到OSC：" . $syncResult->message . sprintf(" <a class='w3-text-blue' target='_blank' href='%s'>在osc中查看</a>", $location));

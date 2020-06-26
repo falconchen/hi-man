@@ -21,7 +21,7 @@ return array(
     'App\\Commands\\CreateScaffoldCommand' => $baseDir . '/app/src/Commands/CreateScaffoldCommand.php', 
     'App\\Commands\\MigrationGeneratorCommand' => $baseDir . '/app/src/Commands/MigrationGeneratorCommand.php', 
     'App\\Helper\\Acl' => $baseDir . '/app/src/Helper/Acl.php', 
-    'App\\Helper\\ActionHelper' => $baseDir . '/app/src/Helper/ActionHelper.php', 
+    'App\\Helper\\HelperTrait' => $baseDir . '/app/src/Helper/HelperTrait.php', 
     'App\\Helper\\ArrayAndObjectAccess' => $baseDir . '/app/src/Helper/ArrayAndObjectAccess.php', 
     'App\\Helper\\BaseAction' => $baseDir . '/app/src/Helper/BaseAction.php', 
     'App\\Helper\\CliRenderer' => $baseDir . '/app/src/Helper/CliRenderer.php', 

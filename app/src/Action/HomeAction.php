@@ -26,41 +26,6 @@ final class HomeAction extends \App\Helper\BaseAction
     public function dispatch(Request $request, Response $response, $args)
     {
         
-        //var_dump(getOscPostId(28));
-        //exit;
-        $this->logger->info("Home page action dispatched");
-        //echo hi_generate_uuid4();exit;
-
-        //echo date('Y-m-d H:i:s');
-        // $this->view->render($response, 'home.twig', [
-        //     'user' => User::all(),
-        // ]);
-
-        // $item = PostMeta::firstOrNew(['meta_key'=>'osc_sync_options','post_id'=>18]);
-        // $item['meta_value'] = "test";
-        // $item->save();
-
-        //echo $this->utcTimestamp();
-        // try{
-        //     $this->testing();
-        // }catch(Exception $e){
-        //     $this->logger->debug($e->getMessage());
-        // }finally{
-        //     $this->logger->debug("hello finally",['aaa'=>'bbb']);
-        // }
-
-        //echo "hello world";exit;
-
-        // echo 'start' . date('H:i:s');
-        // $lock = $this->fileLock('Hello');
-        // $lock->acquire();
-        // echo 'acquire' .date('H:i:s');
-        // sleep(18);
-        // $lock->release();
-        // echo 'release' . date('H:i:s');
-        // exit;
-
-
         $data = array();
 
         $postsQuery = Post::where(['post_status' => 'publish', 'post_visibility' => 'public','post_type'=>'post']);
@@ -95,8 +60,50 @@ final class HomeAction extends \App\Helper\BaseAction
         return $response;
     }
 
-    private function testing()
+    public function testing()
     {
+        //$this->get('eventManager')->emit('site.visit');
+        
+        // foreach (range(1, 10) as $i) {
+        //     //$emitter->emit('hello', 'hello ' . $i);
+        //     $this->get('eventManager')->emit('user.visit',$_SERVER['REMOTE_ADDR']);
+        // }
+
+        //var_dump(getOscPostId(28));
+        //exit;
+        // $this->logger->error('test error', ['error' => 'hello', 'detail' => 'my details']);
+        // $this->logger->info("Home page action dispatched");
+        //echo hi_generate_uuid4();exit;
+
+        //echo date('Y-m-d H:i:s');
+        // $this->view->render($response, 'home.twig', [
+        //     'user' => User::all(),
+        // ]);
+
+        // $item = PostMeta::firstOrNew(['meta_key'=>'osc_sync_options','post_id'=>18]);
+        // $item['meta_value'] = "test";
+        // $item->save();
+
+        //echo $this->utcTimestamp();
+        // try{
+        //     $this->testing();
+        // }catch(Exception $e){
+        //     $this->logger->debug($e->getMessage());
+        // }finally{
+        //     $this->logger->debug("hello finally",['aaa'=>'bbb']);
+        // }
+
+        //echo "hello world";exit;
+
+        // echo 'start' . date('H:i:s');
+        // $lock = $this->fileLock('Hello');
+        // $lock->acquire();
+        // echo 'acquire' .date('H:i:s');
+        // sleep(18);
+        // $lock->release();
+        // echo 'release' . date('H:i:s');
+        // exit;
+
         //throw new Exception("hello exception");
         echo "hello";
         //$this->logger->debug("hello world");
@@ -104,6 +111,7 @@ final class HomeAction extends \App\Helper\BaseAction
         //$this->scNofify("hello 你是 认","world");
         //$this->logger->abc('aaa');
         echo $this->dateToLocal('Y-m-d H:i:s', '2019-11-30 15:39');
+        
     }
 
     public function dashboard(Request $request, Response $response, $args)
