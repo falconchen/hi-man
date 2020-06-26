@@ -12,6 +12,7 @@ $app->add(function ($request, $response, $next) {
 		case '/register':
 		case '/logout':
 		case '/p/':
+		case '/testing':
 		case '/p/sync-osc':
 			break;
 
@@ -43,7 +44,7 @@ $app->add(function ($request, $response, $next) {
 		default:
 			$allow = false;
 			$allowStartWith = [
-				'/p/', '/verify/','/u/'
+				'/p/', '/verify/','/u/',
 			];
 
 			foreach ($allowStartWith as $word) {

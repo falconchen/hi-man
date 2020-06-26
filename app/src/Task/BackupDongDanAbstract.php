@@ -17,7 +17,7 @@ use GuzzleHttp\Exception\ClientException;
 //abstraclass BackupDongDanTask {
 abstract class BackupDongDanAbstract {
 
-     use \App\Helper\ActionHelper;      
+     use \App\Helper\HelperTrait;      
 
       /** @var ContainerInterface */
       protected $container;
@@ -33,7 +33,8 @@ abstract class BackupDongDanAbstract {
       {
           // access container classes
           // eg $container->get('redis');
-          $this->container = $container;
+          //$this->container = $container;
+          $this->setContainer($container);
           $this->settings = $this->container->get('settings');
           $this->logger = $this->container->get('logger');     
           $this->startTime = time();     

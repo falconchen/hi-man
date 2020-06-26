@@ -6,6 +6,8 @@ use Symfony\Component\Translation\Translator;
 use PHPMailer\PHPMailer\PHPMailer;
 // database
 use Illuminate\Database\Capsule\Manager as Capsule;
+use Slim\Event\SlimEventManager;
+
 
 
 $container = $app->getContainer();
@@ -123,7 +125,7 @@ $container['flash'] = function ($c) {
 
 
 
-$setting = include 'settings.php';
+$setting = hiGetSettings();
 $capsule = new Capsule;
 $capsule->addConnection($setting['settings']['database']);
 $capsule->setAsGlobal();
@@ -226,4 +228,29 @@ $container['translator'] = function ($c) use ($setting) {
     }
 
     return $translator;
+};
+
+$container['eventManager'] = function ($c) {    
+    // Array of event Listeners
+    $events = [
+        // 'post.save' => [
+        //     // First element is the FQCN class. This element is mandatory.
+        //     // Second element is the listener priority but this is not mandatory.
+        //     [\App\Listener\PostSaveListener::class, 100],
+            
+            
+        // ],
+        // 'site.visit'=>[
+        //     [App\Listener\SiteVisitListener::class],
+        // ],
+        'user.visit'=>[
+            [App\Listener\UserVisit::class],
+        ],
+        'post.sync2osc'=>[
+            [App\Listener\SendEmailOnSync::class],
+            [App\Listener\SendScOnSync::class],
+        ],
+    ];
+    $emitter = new SlimEventManager($events);
+    return $emitter;
 };

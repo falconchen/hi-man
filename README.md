@@ -102,7 +102,7 @@ $tweet = Post::where('post_name','6276890')->limit(1)->get();
 $tweetBuider = Post::where('post_name','6276890')->limit(1);
 echo getSQL($tweetBuider);
 
-//目前getSql作为ActionHelper的一个方法，在Action里可用
+//目前getSql作为HelperTrait的一个方法，在Action里可用
 echo $this->getSQL($tweetBuider);
 
 ```

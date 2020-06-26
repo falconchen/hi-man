@@ -129,7 +129,7 @@
                         </label>
                         <div id="osc-tweet-tmpl" class="w3-accordion-content w3-margin-top w3-small {% if showSendTweetOptions %}w3-show{% endif %}">
                             
-                            <textarea rows="2" name="sync[osc][tweet-tmpl]" type="text" style="width:100%;">【:文章标题:】:OSC链接:</textarea>
+                            <textarea rows="2" name="sync[osc][tweet_tmpl]" type="text" style="width:100%;">{% if storeOptions.tweet_tmpl%}{{ storeOptions.tweet_tmpl }}{% else %}【:文章标题:】:OSC链接:{% endif %}</textarea>
                             <div class="w3-light-grey w3-padding-small">
                             <strong class="w3-text-green">:文章标题:</strong>和<strong class="w3-text-green">:OSC链接:</strong>标记是占位符，发表动弹时会被实际标题和链接替换。
                             </div>
