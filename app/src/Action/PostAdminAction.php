@@ -345,7 +345,7 @@ final class PostAdminAction extends \App\Helper\LoggedAction
                 if ($post->post_status == 'publish') { //此时提交
 
                     $syncResult = $this->doSyncPostOsc($postId, $sync['osc']);
-                    
+                    $this->logger->info('syncResult',[var_export($syncResult,true)]);
                     if ($syncResult->code == 1) {
                         
                         $tweetSyncResult  = '';
