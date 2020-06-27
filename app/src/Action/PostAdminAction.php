@@ -345,16 +345,24 @@ final class PostAdminAction extends \App\Helper\LoggedAction
                 if ($post->post_status == 'publish') { //此时提交
 
                     $syncResult = $this->doSyncPostOsc($postId, $sync['osc']);
-
+                    
                     if ($syncResult->code == 1) {
                         
+                        $tweetSyncResult  = '';
+                        if( property_exists($syncResult,'tweetPub')) {
+                            $tweetSyncResult = $syncResult->tweetPub->code ? '动弹发布成功':'动弹发布出错';
+                        }
 
                         $location =  $this->data['oscer']['homepage'] . '/blog/' . $syncResult->result->id;
 
-                        $this->flash->addMessage('flash', "[info] 同步到OSC：" . $syncResult->message . sprintf(" <a class='w3-text-blue' target='_blank' href='%s'>在osc中查看</a>", $location));
+                        $this->flash->addMessage('flash', "[info] 同步到OSC：" . $syncResult->message . sprintf(" <a class='w3-text-blue' target='_blank' href='%s'>在osc中查看</a>", $location,',<br/>'.$tweetSyncResult ));
+
+                        
                     } else { //其他code未测试
                         $this->flash->addMessage('flash', "[error] 同步到OSC出错：code: " . $syncResult->code);
                     }
+                    
+
                 }
             }
 
