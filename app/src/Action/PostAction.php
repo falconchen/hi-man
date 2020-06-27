@@ -74,9 +74,9 @@ final class PostAction extends \App\Helper\BaseAction
             //正常预览
 
             $post_name = $args['name'];
-            if (!preg_match('#\w{12}#', $post_name)) {
-                exit("bad request");
-            }
+            // if (!preg_match('#\w{12}#', $post_name)) {
+            //     exit("bad request");
+            // }
             $post = Post::where('post_name', $post_name)->first();
 
             if (($post->post_status !== 'publish'

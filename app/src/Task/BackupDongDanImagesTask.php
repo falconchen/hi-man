@@ -17,11 +17,6 @@ class BackupDongDanImagesTask extends BackupDongDanAbstract{
     protected $images = [];
     protected $forceUpdate;
 
-    public function __construct($container)
-    {
-        parent::__construct($container);
-        $this->logger->info("=== Running Task :". $this->getShortName());
-    }
 
     /**
      * 
