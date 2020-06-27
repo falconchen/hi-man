@@ -17,6 +17,11 @@ input[type=checkbox].w3-check:disabled+.w3-validate,input[type=radio].w3-radio:d
 
 strong.w3-show {display: inline!important;}
 /* 覆盖 w3css样式 */
+.w3-section, .w3-code {
+    margin-top: 12px!important;
+    margin-bottom: 12px!important;
+}
+
 .w3-grey, .w3-hover-grey:hover, .w3-gray, .w3-hover-gray:hover {
     color: #000!important;
     background-color: #f5f5f5!important;
