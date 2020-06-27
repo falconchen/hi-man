@@ -69,6 +69,8 @@
 
 - [关于laraval 和Eloquent各种 howto的网站](http://laravelhowto.blogspot.com/)
 
+- [搜狗机器翻译API](https://deepi.sogou.com/)
+
 ## codes && tips
 
 ```迭代twig

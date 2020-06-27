@@ -9,12 +9,7 @@ use function GuzzleHttp\Psr7\build_query;
 class BackupDongDanTask extends BackupDongDanAbstract{
 
 
-    public function __construct($container)
-    {
-        parent::__construct($container);
-        $this->logger->info("=== Running Task :". $this->getShortName());
-    }
-
+    
     /**
      * BackupDongDan
      * php public/index.php BackupDongDan "userId=12&pageToken=DBA816934CD0AA59&forceUpdate=0"

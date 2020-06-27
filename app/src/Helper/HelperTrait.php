@@ -3,6 +3,8 @@ namespace App\Helper;
 
 use Illuminate\Database\Eloquent\Builder;
 use TH\Lock\FileLock;
+use GuzzleHttp\Pool;
+use GuzzleHttp\Psr7\Request;
 use App\Model\User;
 
 
@@ -10,7 +12,8 @@ trait HelperTrait {
 
 
     use BaseTrait;
-    
+        
+
     /**
      * print SQL
      *
@@ -111,5 +114,85 @@ trait HelperTrait {
             $this->logger
         );
     }
-      
+
+    protected function sogouTrans($text) {
+
+        $transApiArr =  $this->c->settings['deepi.sogou'];
+
+        $response = $this->c->guzzle->request('POST',$transApiArr['url'],[
+            'form_params' => [
+                'q' => $text,
+                'from' => 'en',
+                'to' => 'zh-CHS',
+                'pid'=>$transApiArr['pid'],
+                'salt'=>$transApiArr['salt'],
+                //签名md5(pid+q+salt+用户密钥)
+                'sign'=>md5($transApiArr['pid'].$text.$transApiArr['salt'].$transApiArr['key']),
+                'dict'=>false,
+
+            ]
+        ]);
+        
+        $body = (string) $response->getBody();
+        return json_decode($body,true)['translation'];
+
+    }
+
+    /**
+     * 并发请求翻译api
+     *
+     * @param array $textArr
+     * @param integer $concurrency
+     * @return array
+     */
+    protected function sogouTransArray(array $textArr, $concurrency=10) {
+
+        $client = $this->c->guzzle;
+        $transApiArr =  $this->c->settings['deepi.sogou'];
+        $this->textTranArr = [];
+
+        $requests = function () use ($client, $textArr,$transApiArr ){
+
+            foreach($textArr as $text) {
+
+                yield function() use ($client, $text,$transApiArr ){
+                    return $client->postAsync($transApiArr['url'],[
+                        'form_params' => [
+                            'q' => $text,
+                            'from' => 'en',
+                            'to' => 'zh-CHS',
+                            'pid'=>$transApiArr['pid'],
+                            'salt'=>$transApiArr['salt'],
+                            //签名md5(pid+q+salt+用户密钥)
+                            'sign'=>md5($transApiArr['pid'].$text.$transApiArr['salt'].$transApiArr['key']),
+                            'dict'=>false,
+            
+                        ]
+                    ]);
+                };
+                
+            }
+        };
+
+
+        $pool = new Pool($client, $requests(), [
+            'concurrency' => $concurrency,
+            'fulfilled' => function ($response, $index) {
+                // this is delivered each successful response
+                
+                $body = (string) $response->getBody();                
+                $this->textTranArr[$index] = json_decode($body,true)['translation'];
+                
+            },
+            'rejected' => function ($reason, $index) {
+                // this is delivered each failed request                                
+                $textTranArr[$index] = null;                
+            },
+        ]);        
+        $promise = $pool->promise();
+        
+        $promise->wait();
+
+        return $this->textTranArr;
+    }
 }

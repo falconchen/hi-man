@@ -15,39 +15,9 @@ use GuzzleHttp\Exception\ClientException;
 
 
 //abstraclass BackupDongDanTask {
-abstract class BackupDongDanAbstract {
+abstract class BackupDongDanAbstract extends BaseTaskAbstract{
 
-     use \App\Helper\HelperTrait;      
-
-      /** @var ContainerInterface */
-      protected $container;
-      protected $startTime;
-
-      /**
-       * Constructor
-       *
-       * @param ContainerInterface $container
-       * @return void
-       */
-      public function __construct($container)
-      {
-          // access container classes
-          // eg $container->get('redis');
-          //$this->container = $container;
-          $this->setContainer($container);
-          $this->settings = $this->container->get('settings');
-          $this->logger = $this->container->get('logger');     
-          $this->startTime = time();     
-      }
-
-      /**
-       * get current class ShortName
-       *
-       * @return string
-       */
-      protected function getShortName(){
-        return (new \ReflectionClass($this))->getShortName();
-      }
+     
 
       /**
        * setup GuzzleHttp Client base on userId
@@ -84,40 +54,7 @@ abstract class BackupDongDanAbstract {
         return unserialize($oscUserInfo->meta_value) ;  
 
       }
-       /**
-        * 
-        *本地时间转换到utc
-        * @param [string] $format
-        * @param [string] $dateStr
-        * @return string
-        */
-        protected function dateToUtc($format, $dateStr)
-        {
-            return date($format, (strtotime($dateStr) - $this->settings['UTC'] * 3600));
-        }
-
-
-        /**
-         * Log errror 
-         *
-         * @param [type] $msg
-         * @return void
-         */
-        protected function logError($msg)
-        {
-
-            $this->logger->error($msg);
-            throw new RuntimeException($msg);
-        }
-
-        protected function initInputs($args) {
-
-            $inputs = [];
-            if(isset($args[0])) {
-                parse_str($args[0],$inputs);
-            }
-            return $inputs;
-        }
+      
         abstract public function command($args) ;
 
 }

@@ -18,11 +18,7 @@ class BackupDongDanCommentsTask extends BackupDongDanAbstract
 
     private $items;
 
-    public function __construct($container)
-    {
-        parent::__construct($container);
-        $this->logger->info("=== Running Task :". $this->getShortName());
-    }
+
 
     /**
      * php public/index.php BackupDongDanComments "userId=12&fromPostId=1234&orderBy=post_date&order=desc&take=10"
