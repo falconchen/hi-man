@@ -112,31 +112,43 @@ return [
             'locale' => 'zh_CN',
             'dir' => __DIR__ . '/../langs',
         ],
-        'commands' => [       
-            /**
-             * php public/index.php BackupDongDan "userId=12&pageToken=DBA816934CD0AA59&forceUpdate=0"
-             * forceUpdate 强制更新所有动弹，否则只更新未入库的动弹
-             */
-            'BackupDongDan' => App\Task\BackupDongDanTask::class, 
-            /**
-             * 完整参数
-             * php public/index.php BackupDongDanComments "userId=12&fromPostId=1234&orderBy=post_date&order=desc&take=10"
-             * 特定动弹id
-             * php public/index.php BackupDongDanComments "tweetId=123456"
-             */
-            'BackupDongDanComments'=>App\Task\BackupDongDanCommentsTask::class,      
-             /**
-             * 完整参数
-             * php public/index.php BackupDongDanImages "userId=12&fromPostId=1234&orderBy=post_date&order=desc&take=10"
-             * 特定动弹id
-             * php public/index.php BackupDongDanImages "tweetId=123456"
-             */
-            'BackupDongDanImages'=>App\Task\BackupDongDanImagesTask::class,
-            /**
-             * 更新旧osc静态文件服务器50x50的头像为200x200的，部分404
-             */
-            'UpdateDongDanOldImages'=>App\Task\UpdateDongDanOldImagesTask::class,
+        'deepi.sogou'=>[ //搜狗机器翻译
+            'url'=>'https://fanyi.sogou.com/reventondc/api/sogouTranslate',
+            'pid'=>'xxxxxxxxxx',
+            'key'=>'xxxxxxxxxx',
+            'salt'=>'xxxxxxxxx',
         ],
+        
 
+    ],
+    'commands' => [       
+        /**
+         * php public/index.php BackupDongDan "userId=12&pageToken=DBA816934CD0AA59&forceUpdate=0"
+         * forceUpdate 强制更新所有动弹，否则只更新未入库的动弹
+         */
+        'BackupDongDan' => App\Task\BackupDongDanTask::class, 
+        /**
+         * 完整参数
+         * php public/index.php BackupDongDanComments "userId=12&fromPostId=1234&orderBy=post_date&order=desc&take=10"
+         * 特定动弹id
+         * php public/index.php BackupDongDanComments "tweetId=123456"
+         */
+        'BackupDongDanComments'=>App\Task\BackupDongDanCommentsTask::class,      
+         /**
+         * 完整参数
+         * php public/index.php BackupDongDanImages "userId=12&fromPostId=1234&orderBy=post_date&order=desc&take=10"
+         * 特定动弹id
+         * php public/index.php BackupDongDanImages "tweetId=123456"
+         */
+        'BackupDongDanImages'=>App\Task\BackupDongDanImagesTask::class,
+        /**
+         * 更新旧osc静态文件服务器50x50的头像为200x200的，部分404
+         */
+        'UpdateDongDanOldImages'=>App\Task\UpdateDongDanOldImagesTask::class,
+        /**
+         * 发布hackerNews
+         * 
+         */
+        'PubHackerNews'=>App\Task\PubHackerNewsTask::class,
     ],
 ];

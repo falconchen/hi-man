@@ -80,7 +80,7 @@ class PubHackerNewsTask extends BaseTaskAbstract
         $postName = 'hn-'.date('Ymd',$localTimeStamp);
         $post = Post::firstOrnew(['post_name'=>$postName]);
         $post->post_author = 12;
-        $post->post_title = 'Hacker News '. date('Y-m-d',$localTimeStamp);
+        $post->post_title = 'Hacker News 中文简讯 '. date('Y-m-d',$localTimeStamp);
         $post->post_content = $contentHtml;
         $post->post_type='post';
         $currentTimestamp = time();
