@@ -22,6 +22,14 @@ strong.w3-show {display: inline!important;}
     margin-bottom: 12px!important;
 }
 
+.w3-padding-left-0 {
+    padding-left: 0 !important;
+}
+.w3-padding-right-0 {
+    padding-right: 0 !important;
+}
+
+
 .w3-grey, .w3-hover-grey:hover, .w3-gray, .w3-hover-gray:hover {
     color: #000!important;
     background-color: #f5f5f5!important;

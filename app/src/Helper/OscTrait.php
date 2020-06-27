@@ -144,7 +144,7 @@ trait OscTrait {
 
         //发布动弹
         if( $oscSyncOptions['send_tweet'] ) {
-            
+
             $tmpl = $oscSyncOptions['tweet_tmpl'];
             $localTimeStamp = $this->localTimestamp();
             $tmplVars = [
@@ -174,11 +174,11 @@ trait OscTrait {
             $tweePubResult  = (string) $oscTweetResponse->getBody();
             $this->c->logger->debug('pub tweet arg ',$tweetData);
             $this->c->logger->info('pub tweet result ',[var_export($tweePubResult,true)]);
-            $jData->tweetPub = json_decode($tweePubResult);
+            $jData->tweetPub = json_decode($tweePubResult,true);
         }
 
         $this->c->logger->debug('start event post.sync2osc');
-        $this->get('eventManager')->emit('post.sync2osc', $this->c, $postDbData,$oscSyncOptions,$syncResult);
+        $this->get('eventManager')->emit('post.sync2osc', $this->c, $postDbData,$oscSyncOptions,$jData);
 
         return $jData;
     }

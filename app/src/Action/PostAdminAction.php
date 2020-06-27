@@ -348,14 +348,18 @@ final class PostAdminAction extends \App\Helper\LoggedAction
                     $this->logger->info('syncResult',[var_export($syncResult,true)]);
                     if ($syncResult->code == 1) {
                         
-                        $tweetSyncResult  = '';
-                        if( property_exists($syncResult,'tweetPub')) {
-                            $tweetSyncResult = $syncResult->tweetPub->code ? '动弹发布成功':'动弹发布出错';
+                        $tweetSyncResultText  = '';
+                        if( property_exists($syncResult,'tweetPub') && $syncResult->tweetPub['code'] == 1 ) {
+
+                            
+                            $tweetUrl = $this->data['oscer']['homepage'] .'/tweet/'. $syncResult->tweetPub['result']['log'];
+                            $tweetSyncResultText = sprintf("<div class='w3-padding-small w3-padding-left-0'>动弹发送成功 <a class='w3-text-blue' target='_blank' href='%s'>查看动弹</a></div>",$tweetUrl);
+                                                         
                         }
 
                         $location =  $this->data['oscer']['homepage'] . '/blog/' . $syncResult->result->id;
 
-                        $this->flash->addMessage('flash', "[info] 同步到OSC：" . $syncResult->message . sprintf(" <a class='w3-text-blue' target='_blank' href='%s'>在osc中查看</a>", $location,',<br/>'.$tweetSyncResult ));
+                        $this->flash->addMessage('flash', "[info] 同步到OSC：" . $syncResult->message . sprintf(" <a class='w3-text-blue' target='_blank' href='%s'>在osc中查看</a>%s", $location,$tweetSyncResultText ));
 
                         
                     } else { //其他code未测试
