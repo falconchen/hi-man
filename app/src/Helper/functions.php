@@ -649,6 +649,16 @@ function getOscPostLink($postId, $postAuthor = 0)
     return $link;
 }
 
+function getOscTweetLink($postAuthor,$oscTweetId) {
+
+    $link = null;
+    $oscUserInfo = getUserMeta($postAuthor, 'osc_userinfo');
+    if (isset($oscUserInfo['homepage'])) {
+        $link = $oscUserInfo['homepage'] . '/tweet/' . $oscTweetId;
+    }
+    return $link;
+}
+
 /**
  * 获取同步后的osc 文章id
  *

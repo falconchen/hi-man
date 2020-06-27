@@ -30,11 +30,23 @@ class SendEmailOnSync extends AbstractListener
             
             $this->logger->info('now send sync post email for post_id '.$post->post_id);
             $notifyTitle =  '文章 《' . $post->post_title . '》 同步到osc: ' . $syncResult->message;
+            $tweetSyncResultText  = '';
+
+            if ($syncResult->code == 1) {
+    
+                if( property_exists($syncResult,'tweetPub') && $syncResult->tweetPub['code'] == 1 ) {
+                    
+                    $tweetUrl = getOscTweetLink($post->post_author,$syncResult->tweetPub['result']['log']);
+                    $tweetSyncResultText = sprintf(" ;动弹发送成功, 查看动弹 %s",$tweetUrl);
+                    
+                }
+            }
             $notifyBody = sprintf(
-                '网站文章ID: %d , OSC链接 [%s](%s)',
+                '网站文章ID: %d , OSC链接 [%s] %s%s',
                 $post->post_id,
                 $post->post_title,
-                $post->getOscLink()
+                $post->getOscLink(),
+                $tweetSyncResultText
             );
 
             try {            
