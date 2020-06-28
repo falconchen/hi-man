@@ -42,12 +42,13 @@ class PubHackerNewsTask extends BaseTaskAbstract
                 
                 $newsArr[]  = [
                     'title'=>$node->innerHtml,
-                    'site'=>$siteStrNodes[$k]->innerHtml,
+                    'site'=>isset($siteStrNodes[$k]) ? $siteStrNodes[$k]->innerHtml : '',
                     'titleCN'=>$storyTextCNArr[$k],
                     'href'=>$node->getAttribute('href'),
                     'score'=>intval($scoreNodes[$k]->innerHtml),
                     'age'=>strip_tags($ageNodes[$k]->innerHtml),
-                    'comments'=>intval($subTextNodes[$k]->lastChild()->innerHtml)
+                    'comments'=>intval($subTextNodes[$k]->lastChild()->innerHtml),
+                    'commentsLink'=>$subTextNodes[$k]->lastChild()->getAttribute('href'),
                 ];
 
             }    
