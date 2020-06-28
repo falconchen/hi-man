@@ -7,8 +7,8 @@
 {% for news in newsArr %}
     <li>
     <a rel="nofollow noreferrer" target="_blank" href="{{news.href}}"><strong>{{news.title}}</strong></a>
-     <cite>{%if news.site %}{{ ' via ' ~ news.site }}{% endif %}</cite>
-    <p><code class="hi">{{news.titleCN}}</code> <div class="w3-small">得分:{{news.score}} / <a rel="nofollow noreferrer"  target="_blank" href="{{hackerNewsHomePageUrl}}{{news.commentsLink}}">评论:{{news.comments}}</a></div></p>
+     <cite>{%if news.site %}{{ ' - (' ~ news.site ~ ')'}}{% endif %}</cite>
+    <p style="margin:4px 0;"><code class="hi">{{news.titleCN}}</code> <ul class="w3-padding-left-0"><li>得分:{{news.score}} / <a rel="nofollow noreferrer"  target="_blank" href="{{hackerNewsHomePageUrl}}{{news.commentsLink}}">评论:{{news.comments}}</a></li></ul></p>
     </li> 
 {% endfor %}
 </ol>
