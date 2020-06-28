@@ -178,7 +178,7 @@ trait OscTrait {
         }
 
         $this->c->logger->debug('start event post.sync2osc');
-        $this->get('eventManager')->emit('post.sync2osc', $this->c, $postDbData,$oscSyncOptions,$jData);
+        $this->c->get('eventManager')->emit('post.sync2osc', $this->c, $postDbData,$oscSyncOptions,$jData);
 
         return $jData;
     }
