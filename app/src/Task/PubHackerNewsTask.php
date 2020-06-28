@@ -81,7 +81,7 @@ class PubHackerNewsTask extends BaseTaskAbstract
         $isCreate = false;
         if ($post == null) {
             $isCreate = true;
-            $post = new Post(['post_name' => $postName,'post_status'=>'publish']); //新建,如果是trash或draft直接覆盖
+            $post = Post::firstOrNew(['post_name' => $postName]); //新建,如果是trash或draft直接覆盖
             $post->post_author = 12;
             $post->post_title = 'Hacker News 中文简讯 ' . date('Y-m-d', $localTimeStamp);
             $post->post_date = $post->post_modified;
@@ -94,20 +94,20 @@ class PubHackerNewsTask extends BaseTaskAbstract
 
         $post->save();
 
-        if ($isCreate) {
-            $hackerNewsOscSyncOptions = [
-                'catalog' => 7027796, //Hacker News
-                'classification' => 430381, //其他类型
-                'type' => 1,
-                'as_top' => 1,
-                'privacy' => 0,
-                'deny_comment' => 0,
-                'downloadImg' => 1,
-                'send_tweet' => 1,
-                'tweet_tmpl' => "看看老外在搞啥【:文章标题:】:OSC链接:"
-            ];
-            $this->syncOsc($post, $hackerNewsOscSyncOptions);
-        }
+        $hackerNewsOscSyncOptions = [
+            'catalog' => 7027796, //Hacker News
+            'classification' => 430381, //其他类型
+            'type' => 1,
+            'as_top' => 1,
+            'privacy' => 0,
+            'deny_comment' => 0,
+            'downloadImg' => 1,
+            'send_tweet' =>$isCreate ? 1 : 0,
+            'email_me' =>$isCreate ? 1 : 0,
+            'tweet_tmpl' => "看看老外在搞啥【:文章标题:】:OSC链接:"
+        ];
+                
+        $this->syncOsc($post, $hackerNewsOscSyncOptions);
         return $post;
     }
 

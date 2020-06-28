@@ -43,6 +43,7 @@ trait OscTrait {
             'as_top' => "0",
             'downloadImg' => "0",
             'isRecommend' => "0",
+            'email_me'=>"1",
         );
 
 
