@@ -22,7 +22,7 @@ trait OscTrait {
      *
      * @param [type] $postId
      * @param array $oscSyncOptions
-     * @return \stdClass 
+     * @return object
      */
     protected function doSyncPostOsc($postId, $oscSyncOptions = [])
     {
