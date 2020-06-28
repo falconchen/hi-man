@@ -31,8 +31,9 @@ class Post extends Model
 	public function getSyncOptions($type = 'osc') {
 		$metaKey = $type . '_sync_options';
 		$osc_sync_options = $this->metas()->where('meta_key',$metaKey)->first();
+		//var_dump($osc_sync_options);exit;
 		if( !is_null($osc_sync_options) ) {
-			return maybe_unserialize($osc_sync_options ->meta_value);			
+			return maybe_unserialize($osc_sync_options->meta_value);			
 		}
 		return null;
 	}

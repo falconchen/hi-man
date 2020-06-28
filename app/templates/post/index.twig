@@ -57,7 +57,8 @@
 
 			<div class="hi-content-tail">
 
-			{% set syncOptions = post.getSyncOptions() %}			
+			{% set syncOptions = post.getSyncOptions() %}	
+			{{dump(syncOptions)}}
 			{% if  syncOptions.type == '0' and syncOptions.origin_url != 'https://' %}
 			<blockquote class="hi-origin-info">
 				<em>{{t.trans('Original Link')}}：
