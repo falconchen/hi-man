@@ -26,7 +26,8 @@ class SendEmailOnSync extends AbstractListener
         $this->logger = $c->get('logger');        
         $this->mailer = $c->get('mailer');
 
-        if( !$oscSyncOptions['email_me'] ){
+        if( isset($oscSyncOptions['email_me']) &&  $oscSyncOptions['email_me'] == '0'){
+            $this->logger->info('syncOptions',$oscSyncOptions);
             $this->logger->info('skip send email');
             return ;
         }
