@@ -39,13 +39,12 @@ class SendScOnSync extends AbstractListener
             }
         }
         $notifyBody = sprintf(
-            "<ul>
-                <li>标题:《%s》</li>
-                <li><a href='%s'>网站文章</a></li>
+            "<ul>                
+                <li><a href='%s'>《%s》</a></li>
                 <li><a href='%s'>OSC博客</a>%s</li>                
             </ul>",
-            $post->post_title,
             $this->getPostLink($post,true),          
+            $post->post_title,            
             $post->getOscLink(),
             $tweetSyncResultText
         );
