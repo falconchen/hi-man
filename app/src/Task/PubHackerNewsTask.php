@@ -30,7 +30,7 @@ class PubHackerNewsTask extends BaseTaskAbstract
             }
             $contentHtml = $this->c->view->fetch('hacker-news/list.twig', [
                 'newsArr' => $newsArr,
-                'title' => sprintf('最后更新: %s ', date('Y-m-d H:i', $this->localTimestamp())),
+                'title' => sprintf('最后更新时间: %s ', date('Y-m-d H:i', $this->localTimestamp())),
                 'hackerNewsHomePageUrl' => $hackerNewsHomePageUrl,
             ]);
             $this->logger->info('start save hackerNews to Database');
