@@ -40,7 +40,7 @@ class SendScOnSync extends AbstractListener
         }
         $notifyBody = sprintf(
             "<ul>                
-                <li><a href='%s'>《%s》</a></li>
+                <li><a href='%s'>%s</a></li>
                 <li><a href='%s'>OSC博客</a>%s</li>                
             </ul>",
             $this->getPostLink($post,true),          
