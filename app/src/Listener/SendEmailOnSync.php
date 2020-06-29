@@ -55,6 +55,8 @@ class SendEmailOnSync extends AbstractListener
                 $tweetSyncResultText
             );
 
+            $notifyBody .= "<hr />".$post->post_content;
+
             try {            
 
                 $user = User::find($post->post_author);

@@ -6,6 +6,7 @@ use TH\Lock\FileLock;
 use GuzzleHttp\Pool;
 use GuzzleHttp\Psr7\Request;
 use App\Model\User;
+use App\Model\Post;
 
 
 trait HelperTrait {
@@ -194,5 +195,19 @@ trait HelperTrait {
         $promise->wait();
 
         return $this->textTranArr;
+    }
+
+    protected function getPostLink($postName,$absUrl=false) {
+        
+        if($postName instanceof Post) {
+            $post = $postName;
+            $postName = $post->post_name;
+        }
+        $link = $this->c->router->pathFor('post',['name'=>$postName]);
+        
+        return $absUrl ? 
+                rtrim(hiGetSettings('app')['url'],'/'). $link :
+                $link;
+
     }
 }

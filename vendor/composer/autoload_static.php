@@ -83,6 +83,7 @@ class ComposerStaticInitc3765e25676b2cbb624df054aef313e2
         ),
         'L' => 
         array (
+            'League\\HTMLToMarkdown\\' => 22,
             'League\\Event\\' => 13,
         ),
         'I' => 
@@ -264,6 +265,10 @@ class ComposerStaticInitc3765e25676b2cbb624df054aef313e2
         'Monolog\\' => 
         array (
             0 => __DIR__ . '/..' . '/monolog/monolog/src/Monolog',
+        ),
+        'League\\HTMLToMarkdown\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/league/html-to-markdown/src',
         ),
         'League\\Event\\' => 
         array (

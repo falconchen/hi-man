@@ -2,6 +2,7 @@
 namespace App\Listener;
 use League\Event\AbstractListener;
 use League\Event\EventInterface;
+use League\HTMLToMarkdown\HtmlConverter;
 
 
 /**
@@ -38,14 +39,20 @@ class SendScOnSync extends AbstractListener
             }
         }
         $notifyBody = sprintf(
-            '网站文章ID: %d , OSC链接 [%s](%s)%s',
-            $post->post_id,
+            "<ul>
+                <li>标题:《%s》</li>
+                <li><a href='%s'>网站文章</a></li>
+                <li><a href='%s'>OSC博客</a>%s</li>                
+            </ul>",
             $post->post_title,
+            $this->getPostLink($post,true),          
             $post->getOscLink(),
             $tweetSyncResultText
         );
-
-        
+        $this->logger->info('base notify info',[$notifyBody]);
+        $converter = new HtmlConverter();
+        $content = preg_replace('#<blockquote class="hn\-blockquote">.*</blockquote>#iUs','',$post->post_content);        
+        $notifyBody = $converter($notifyBody . $content);
         $this->scNofify($notifyTitle, $notifyBody);
         
 
