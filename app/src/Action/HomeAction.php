@@ -62,6 +62,7 @@ final class HomeAction extends \App\Helper\BaseAction
 
     public function testing()
     {
+        echo $this->getPostLink('hello',true);exit;
         //$this->get('eventManager')->emit('site.visit');
         
         // foreach (range(1, 10) as $i) {

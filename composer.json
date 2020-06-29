@@ -42,7 +42,8 @@
         "pda/pheanstalk": "^4.0",
         "adrianfalleiro/slim-cli-runner": "^2.6",
         "doctrine/dbal": "^2.10",
-        "aneek/slim-event-dispatcher": "^1.0"
+        "aneek/slim-event-dispatcher": "^1.0",
+        "league/html-to-markdown": "^4.9"
     },
 
     "scripts": {
