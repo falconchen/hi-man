@@ -18,11 +18,34 @@ class PubHackerNewsTask extends BaseTaskAbstract
     public function command($args)
     {
 
-        try {
+        
 
+        try {
+            $newsArr = [];
             $hackerNewsHomePageUrl = 'https://hk.phpfun.xyz/hn/';
-            $this->logger->info('start clawer url ' . $hackerNewsHomePageUrl);
-            $hnResponse = $this->c->guzzle->request('GET', $hackerNewsHomePageUrl);
+            
+            for ($i=1;$i<=2;$i++) {
+                $url = rtrim($hackerNewsHomePageUrl,'/') . '/news?p='.$i;
+                $newsArr = array_merge_recursive($newsArr,$this->fetchNews($url));                
+            }
+            $contentHtml = $this->c->view->fetch('hacker-news/list.twig', [
+                'newsArr' => $newsArr,
+                'title' => sprintf('最后更新: %s ', date('Y-m-d H:i', $this->localTimestamp())),
+                'hackerNewsHomePageUrl' => $hackerNewsHomePageUrl,
+            ]);
+            $this->logger->info('start save hackerNews to Database');
+            $this->saveToDb($contentHtml);
+
+            
+        } catch (\Exception $e) {
+            $this->logError($e->getMessage());
+        }
+    }
+
+    function fetchNews($url) {
+            
+            $this->logger->info('start clawer url ' . $url);
+            $hnResponse = $this->c->guzzle->request('GET', $url);
             $body = (string) $hnResponse->getBody();
 
             $this->logger->info('start parse html');
@@ -48,23 +71,13 @@ class PubHackerNewsTask extends BaseTaskAbstract
                     'site' => isset($siteStrNodes[$k]) ? $siteStrNodes[$k]->innerHtml : '',
                     'titleCN' => $storyTextCNArr[$k],
                     'href' => $node->getAttribute('href'),
-                    'score' => intval($scoreNodes[$k]->innerHtml),
+                    'score' =>  isset($scoreNodes[$k]) ? intval($scoreNodes[$k]->innerHtml) : 0,
                     'age' => strip_tags($ageNodes[$k]->innerHtml),
                     'comments' => intval($subTextNodes[$k]->lastChild()->innerHtml),
                     'commentsLink' => $subTextNodes[$k]->lastChild()->getAttribute('href'),
                 ];
             }
-
-            $contentHtml = $this->c->view->fetch('hacker-news/list.twig', [
-                'newsArr' => $newsArr,
-                'title' => sprintf('最后更新: %s ', date('Y-m-d H:i', $this->localTimestamp())),
-                'hackerNewsHomePageUrl' => $hackerNewsHomePageUrl,
-            ]);
-            $this->logger->info('start save hackerNews to Database');
-            $this->saveToDb($contentHtml);
-        } catch (\Exception $e) {
-            $this->logError($e->getMessage());
-        }
+            return $newsArr;
     }
 
     
