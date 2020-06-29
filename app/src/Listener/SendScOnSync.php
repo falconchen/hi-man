@@ -50,7 +50,8 @@ class SendScOnSync extends AbstractListener
         );
         $this->logger->info('base notify info',[$notifyBody]);
         $converter = new HtmlConverter();
-        $content = preg_replace('#<blockquote class="hn\-blockquote">.*</blockquote>#iUs','',$post->post_content);        
+        //$content = preg_replace('#<blockquote class="hn\-blockquote">.*</blockquote>#iUs','',$post->post_content); 
+        $content = $post->post_content;       
         $notifyBody = $converter($notifyBody . $content);
         $this->scNofify($notifyTitle, $notifyBody);
         
