@@ -97,7 +97,7 @@ class PubHackerNewsTask extends BaseTaskAbstract
             $post = Post::firstOrNew(['post_name' => $postName]); //新建,如果是trash或draft直接覆盖
             $post->post_author = 12;
             $post->post_title = 'Hacker News 简讯 ' . date('Y-m-d', $localTimeStamp);
-            $post->post_date = $post->post_modified;
+            $post->post_date = date('Y-m-d H:i:s', $currentTimestamp);            
             $post->post_date_local = date('Y-m-d H:i:s', $localTimeStamp);
             $post->post_status = 'publish';
         }
