@@ -200,7 +200,7 @@ class ProjectTwigExtension extends AbstractExtension implements GlobalsInterface
         // Get the difference between the two DateTime objects.
         $diff = $date->diff($now);
         
-        if($diff->d >= 2) {
+        if($diff->d >= 3) {
             
             return $date->format('Y-m-d');
         }
