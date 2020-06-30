@@ -55,6 +55,6 @@ abstract class BackupDongDanAbstract extends BaseTaskAbstract{
 
       }
       
-        abstract public function command($args) ;
+        //abstract public function command($args) ;
 
 }

@@ -144,38 +144,47 @@ trait OscTrait {
         $postDbData->save();
 
         //发布动弹
+        //$this->c->logger->debug('jData',[var_export($jData,true)]);
+
         if( $oscSyncOptions['send_tweet'] ) {
 
-            $tmpl = $oscSyncOptions['tweet_tmpl'];
-            $localTimeStamp = $this->localTimestamp();
-            $tmplVars = [
-                        ':当前日期:'=>date('Y/m/d',$localTimeStamp),
-                        ':当前时间:'=>date('H:i:s',$localTimeStamp),
-                        ':文章标题:'=>$postDbData->post_title,
-                        ':OSC链接:'=>$postDbData->getOscLink()
-                        ];
-            
-            $tweetContent = str_replace(
-                array_keys($tmplVars),
-                array_values($tmplVars),
-                $tmpl
-            );
-            
-            $tweetData = [
-                'userId'=>$oscer['userId'],
-                'user_code'=>$userCode,
-                'content'=>$tweetContent,
-                'code_snippet'=>'',
-                'code_brush'=>'', 
-                'attachment'=> 0,
-            ];
-            $tweetPubUrl = 'https://www.oschina.net/tweet/pubForwardTweet';
+            if( strpos($jData->message,'审核') !== false ) {
+                $this->c->logger->info('stop publish tweet as the aritecle is in review status',[$jData->message]);
+                
+            }else{
+                $this->c->logger->info('start publish tweet for article');
+                $tmpl = $oscSyncOptions['tweet_tmpl'];
+                $localTimeStamp = $this->localTimestamp();
+                $tmplVars = [
+                            ':当前日期:'=>date('Y/m/d',$localTimeStamp),
+                            ':当前时间:'=>date('H:i:s',$localTimeStamp),
+                            ':文章标题:'=>$postDbData->post_title,
+                            ':OSC链接:'=>$postDbData->getOscLink()
+                            ];
+                
+                $tweetContent = str_replace(
+                    array_keys($tmplVars),
+                    array_values($tmplVars),
+                    $tmpl
+                );
+                
+                $tweetData = [
+                    'userId'=>$oscer['userId'],
+                    'user_code'=>$userCode,
+                    'content'=>$tweetContent,
+                    'code_snippet'=>'',
+                    'code_brush'=>'', 
+                    'attachment'=> 0,
+                ];
+                $tweetPubUrl = 'https://www.oschina.net/tweet/pubForwardTweet';
 
-            $oscTweetResponse = $client->request('POST', $tweetPubUrl, ['form_params'=>$tweetData]);
-            $tweePubResult  = (string) $oscTweetResponse->getBody();
-            $this->c->logger->debug('pub tweet arg ',$tweetData);
-            $this->c->logger->info('pub tweet result ',[var_export($tweePubResult,true)]);
-            $jData->tweetPub = json_decode($tweePubResult,true);
+                $oscTweetResponse = $client->request('POST', $tweetPubUrl, ['form_params'=>$tweetData]);
+                $tweePubResult  = (string) $oscTweetResponse->getBody();
+                $this->c->logger->debug('pub tweet arg ',$tweetData);
+                $this->c->logger->info('pub tweet result ',[var_export($tweePubResult,true)]);
+                $jData->tweetPub = json_decode($tweePubResult,true);
+            }
+            
         }
 
         $this->c->logger->debug('start event post.sync2osc');
