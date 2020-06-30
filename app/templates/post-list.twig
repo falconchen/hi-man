@@ -25,9 +25,10 @@
                                 
                             {# <i class="w3-small fa fa-paperclip"></i>							 #}
                             {% if post.post_status == 'publish' %}
-                            {{post.post_date|time_diff}}
+
+                                {{post.post_date_local|time_diff}}
                             {% elseif post.post_status == 'future'%}
-                            {{post.post_date_local}} <code class="w3-text-red">{{t.trans('Future status')}}</code>
+                                {{post.post_date_local}} <code class="w3-text-red">{{t.trans('Future status')}}</code>
                             {% elseif post.post_status == 'draft' %}		
                                 <code class="w3-text-blue">{{ t.trans('Draft status')}}</code>
                             {% endif %}

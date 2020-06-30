@@ -21,9 +21,9 @@ $container['view'] = function ($c) {
     $settings = $c->get('settings');
     $view = new \Slim\Views\Twig($settings['view']['template_path'], $settings['view']['twig']);
 
-    // Add extensions
-    $view->addExtension(new Slim\Views\TwigExtension($c->get('router'), $c->get('request')->getUri()));
-    $view->addExtension(new App\Helper\ProjectTwigExtension($c));
+    $view->getEnvironment()->getExtension(\Twig\Extension\CoreExtension::class)->setTimezone($settings['timezone']);
+    $view->addExtension(new \Slim\Views\TwigExtension($c->get('router'), $c->get('request')->getUri()));
+    $view->addExtension(new \App\Helper\ProjectTwigExtension($c));
     $view->addExtension(new Twig_Extension_Debug());
     $view->addExtension(new FalconChen\Slim\Views\TwigExtension\CsrfInputs($c->csrf)); // csrf
 

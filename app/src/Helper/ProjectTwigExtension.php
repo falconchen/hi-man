@@ -50,7 +50,7 @@ class ProjectTwigExtension extends AbstractExtension implements GlobalsInterface
             new TwigFilter('wordwrap', [$this, 'twig_wordwrap_filter'], ['needs_environment' => true]),
             new TwigFilter('flash_fmt', [$this, 'flash_fmt'], ['is_safe' => ['html'],]),
             new TwigFilter('time_diff', [$this, 'diff'], ['needs_environment' => true]),
-
+            
         ];
     }
 
@@ -199,6 +199,11 @@ class ProjectTwigExtension extends AbstractExtension implements GlobalsInterface
         $now = twig_date_converter($env, $now);
         // Get the difference between the two DateTime objects.
         $diff = $date->diff($now);
+        
+        if($diff->d >= 2) {
+            
+            return $date->format('Y-m-d');
+        }
         // Check for each interval if it appears in the $diff object.
         foreach (self::$units as $attribute => $unit) {
             $count = $diff->$attribute;
