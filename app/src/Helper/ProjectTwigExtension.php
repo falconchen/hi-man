@@ -199,14 +199,17 @@ class ProjectTwigExtension extends AbstractExtension implements GlobalsInterface
         $now = twig_date_converter($env, $now);
         // Get the difference between the two DateTime objects.
         $corExt = $env->getExtension(\Twig\Extension\CoreExtension::class);
-        $date = new \DateTime($date->format('Y-m-d'),$corExt->getTimeZone());
+        $date0clock = new \DateTime($date->format('Y-m-d'),$corExt->getTimeZone());
                         
 
-        $diff = $date->diff($now);
+        $diff = $date0clock->diff($now);
         
         if($diff->d >= 3) {
             $dateFormat = $corExt->getDateFormat()[0];    
             return $date->format($dateFormat);
+        }else{
+            
+            $diff = $date->diff($now);
         }
         // Check for each interval if it appears in the $diff object.
         foreach (self::$units as $attribute => $unit) {
