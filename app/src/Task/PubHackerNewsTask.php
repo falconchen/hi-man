@@ -21,18 +21,30 @@ class PubHackerNewsTask extends BaseTaskAbstract
         
 
         try {
+            
+            $inputs = $this->initInputs($args);            
+            $defaultInputs = [
+                't'=>'sogou',// 翻译器 sogou/baidu
+                'p'=>2,//hackerNews 页数
+            ];
+            $this->inputs = array_merge($defaultInputs,$inputs);
+
+            
             $newsArr = [];
             $hackerNewsHomePageUrl = 'https://hk.phpfun.xyz/hn/';
             
-            for ($i=1;$i<=2;$i++) {
+            for ($i=1;$i<=$this->inputs['p'];$i++) {
                 $url = rtrim($hackerNewsHomePageUrl,'/') . '/news?p='.$i;
                 $newsArr = array_merge_recursive($newsArr,$this->fetchNews($url));                
             }
+            $consumeTime = time() - $this->startTime;
             $contentHtml = $this->c->view->fetch('hacker-news/list.twig', [
                 'newsArr' => $newsArr,
                 'title' => sprintf('最后更新时间: %s ', date('Y-m-d H:i', $this->localTimestamp())),
                 'hackerNewsHomePageUrl' => $hackerNewsHomePageUrl,
+                'consumeTime' => $consumeTime,//获取和翻译消耗时间
             ]);
+            $this->logger->info('fetch and translated hackerNews time',[ 'consumeTime' => $consumeTime,]);
             $this->logger->info('start save hackerNews to Database');
             $this->saveToDb($contentHtml);
 
@@ -62,7 +74,13 @@ class PubHackerNewsTask extends BaseTaskAbstract
             foreach ($storyLinkNodes as $node) {
                 $storyTextArr[] = $node->innerHtml;
             }
-            $storyTextCNArr = $this->sogouTransArray($storyTextArr);
+            if($this->inputs['t'] == 'baidu'){
+                $storyTextCNArr = $this->baiduTransArray($storyTextArr);
+            }else {
+                $storyTextCNArr = $this->sogouTransArray($storyTextArr);                
+            }
+            
+
             $newsArr = [];
             foreach ($storyLinkNodes as $k => $node) {
 

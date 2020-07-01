@@ -62,7 +62,10 @@ final class HomeAction extends \App\Helper\BaseAction
 
     public function testing()
     {
-        echo $this->getPostLink('hello',true);exit;
+        //echo $this->getPostLink('hello',true);exit;
+        var_dump($this->baiduTrans("New Mac ransomware spreading through piracy"));
+        sleep(1);
+        var_dump($this->baiduTrans("Mozilla Common Voice Dataset: More data, more languages"));
         //$this->get('eventManager')->emit('site.visit');
         
         // foreach (range(1, 10) as $i) {
@@ -106,12 +109,12 @@ final class HomeAction extends \App\Helper\BaseAction
         // exit;
 
         //throw new Exception("hello exception");
-        echo "hello";
+        //echo "hello";
         //$this->logger->debug("hello world");
         //echo "asd"
         //$this->scNofify("hello 你是 认","world");
         //$this->logger->abc('aaa');
-        echo $this->dateToLocal('Y-m-d H:i:s', '2019-11-30 15:39');
+        //echo $this->dateToLocal('Y-m-d H:i:s', '2019-11-30 15:39');
         
     }
 
