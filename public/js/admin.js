@@ -363,7 +363,8 @@ tinymce.init({
 		{text: 'Java', value: 'java'},
 		{text: 'C', value: 'c'},
 		{text: 'C#', value: 'csharp'},
-    { text: 'C++', value: 'cpp' }
+    { text: 'C++', value: 'cpp' },
+    { text: 'Lua', value: 'lua' }
     
    
 	],
@@ -371,7 +372,8 @@ tinymce.init({
   toolbar:
     "codesample  | undo redo | styleselect basicDateButton menuDateButton |codeSC  bold italic forecolor  |removeformat link image  emoticons| code  ", //
   
-  
+  codesample_global_prismjs: true,
+  //content_css:"/css/prism.css",
 
   language_url: "/js/node_modules/tinymce/langs/zh_CN.js",
   //skin: 'oxide-dark'
@@ -381,7 +383,7 @@ tinymce.init({
   //autosave_restore_when_empty: true,
   autosave_retention: "30m",
   content_style: [
-    'body{font-size:1em;font-family:"Helvetica Neue", "Luxi Sans", "DejaVu Sans", Tahoma, "Hiragino Sans GB", STHeiti !important; line-height:1.8;}h1{font-size:22px;}h2{font-size:20px;}p{margin:0}'
+    'body{font-size:1em;font-family:"Helvetica Neue", "Luxi Sans", "DejaVu Sans", Tahoma, "Hiragino Sans GB", STHeiti !important; line-height:1.8;}h1{font-size:22px;}h2{font-size:20px;}p{margin:0}code[class*=language-], pre[class*=language-]{font-size:0.9em;}'
   ],
 
   
