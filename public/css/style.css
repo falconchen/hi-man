@@ -1538,6 +1538,9 @@ a.nickname,.hi-text-lighter-blue {
 .hn-item ul>li {
   list-style-position: outside;
 }
+.hn-item cite{
+  color:#888;
+}
 @media only screen and (max-device-width: 480px) {
   .responsive-meting {
     padding-bottom: 138.5%; 
