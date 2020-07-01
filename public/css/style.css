@@ -1535,7 +1535,9 @@ a.nickname,.hi-text-lighter-blue {
   display: block;
   overflow-x: auto;
 }
-
+.hn-item ul>li {
+  list-style-position: outside;
+}
 @media only screen and (max-device-width: 480px) {
   .responsive-meting {
     padding-bottom: 138.5%; 
