@@ -370,6 +370,7 @@ tinymce.init({
 		{text: 'CSS', value: 'css'},
     { text: 'PHP', value: 'php' },
     { text: 'Swift', value: 'swift' },
+    { text: 'Golang', value: 'go' },
 		{text: 'Ruby', value: 'ruby'},
 		{text: 'Python', value: 'python'},
 		{text: 'Java', value: 'java'},
