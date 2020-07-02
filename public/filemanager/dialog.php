@@ -614,7 +614,12 @@ if ($ftp) {
         die();
     }
 } else {
-    $files = scandir($config['current_path'] . $rfm_subfolder . $subdir);
+    $tmp_path = $config['current_path'] . $rfm_subfolder . $subdir;
+    if(!is_dir($tmp_path)) {
+        mkdir($tmp_path,$config['folderPermission'],true);
+    }
+    $files = scandir($tmp_path);
+    unset($tmp_path);
 }
 
 $n_files = count($files);
