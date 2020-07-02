@@ -1548,6 +1548,29 @@ a.nickname,.hi-text-lighter-blue {
 .hn-item cite{
   color:#888;
 }
+.hi-content div.code-toolbar:hover > .toolbar{
+  opacity: 0;
+}
+.hi-content div.code-toolbar > .toolbar:hover{
+  opacity: 1;
+}
+.hi-content div.code-toolbar > .toolbar button {
+  /* background-color: #1976d2; */
+  padding: .3em;
+  position: absolute;
+  right: .5em;
+  top: .5em;
+  width: 6em;
+  font-size: .8em;
+  padding: .3em;  
+  border-radius: 3px;
+  color: #fff;
+  font-weight: bold;
+  text-transform: uppercase;
+  
+}
+
+
 @media only screen and (max-device-width: 480px) {
   .responsive-meting {
     padding-bottom: 138.5%; 
