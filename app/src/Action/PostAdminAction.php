@@ -306,24 +306,27 @@ final class PostAdminAction extends \App\Helper\LoggedAction
             $postId = $post->post_id;
             if ($post->post_status == 'trash') {
                 $message = '文章已放入回收站';
-            } else {
-                
+            } elseif($post->post_status == 'future'){
 
-                if($post->post_status == 'future'){
-                    $message = sprintf('文章保存成功，将定时发布于：<code class="w3-grey w3-padding-small">%s</code>，',$post->post_date_local);
-                }else{
-                    $message = '文章发布成功， ';
-                }
-                $message  .= sprintf(
-                    ' <a class="w3-text-green" href="%s" target="_blank">%s</a>',
-                    $this->router->pathFor(
-                        'post',
-                        ['name' => $post->post_name]
-                    ),
-                    '查看'
+                $message = sprintf('文章保存成功，将定时发布于：<code class="w3-grey w3-padding-small">%s</code>，',$post->post_date_local);
 
-                );
+            }elseif($post->post_status == 'draft'){
+
+                $message = '草稿保存成功， ';
+            }else {
+                $message = '文章发布成功， ';
             }
+
+            $message  .= sprintf(
+                ' <a class="w3-text-green" href="%s" target="_blank">%s</a>',
+                $this->router->pathFor(
+                    'post',
+                    ['name' => $post->post_name]
+                ),
+                '查看'
+
+            );
+            
             $this->flash->addMessage('flash', "[success] " . $message);
             $sync =  Input::post('sync');
 
