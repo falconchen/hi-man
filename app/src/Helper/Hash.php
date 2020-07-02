@@ -28,4 +28,8 @@ class Hash
     {
         return password_verify($password, $hash);
     }
+
+    public function akeyGen($userId) {
+        return sha1($userId.$this->config['salt']);
+    }
 }

@@ -539,7 +539,8 @@ $get_params = http_build_query($get_params);
                                     {% if (file.error) { %}
                                     <i class="icon icon-remove"></i>
                                     {% } else { %}
-                                    <i class="icon icon-ok"></i>
+                                    <img src="{%=file.url%}" style="height:50px" />
+                                    
                                     {% } %}
                                 </span>
                             </td>
@@ -558,7 +559,13 @@ $get_params = http_build_query($get_params);
                             <td>
                                 <span class="size">{%=o.formatFileSize(file.size)%}</span>
                             </td>
-                            <td></td>
+                            <td>
+                                    {% if (!file.error) { %}
+                                    
+                                    <i class="icon icon-ok"></i>
+                                    
+                                    {% } %}
+                            </td>
                         </tr>
                     {% } %}
                     </script>
@@ -1014,7 +1021,7 @@ $files = $sorted;
             <?php
             }
 
-
+            $config['current_path'] = $config['base_url']. $config['upload_dir'];
             $files_prevent_duplicate = array();
             foreach ($files as $nu=>$file_array) {
                 $file=$file_array['file'];
@@ -1031,6 +1038,9 @@ $files = $sorted;
                     $filename = $file;
                 }
                 if(!$ftp){
+                    
+                    //var_dump( $config['current_path'],$rfm_subfolder.$subdir.$file);
+
                     $file_path=$config['current_path'].$rfm_subfolder.$subdir.$file;
                     //check if file have illegal caracter
 

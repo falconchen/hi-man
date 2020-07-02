@@ -141,7 +141,7 @@ try {
         'storeFolder' => $storeFolder,
         'storeFolderThumb' => $storeFolderThumb,
         'ftp' => $ftp,
-        'upload_dir' => dirname($_SERVER['SCRIPT_FILENAME']) . '/' . $storeFolder,
+        'upload_dir' => $storeFolder,
         'upload_url' => $config['base_url'] . $config['upload_dir'] . $_POST['fldr'],
         'mkdir_mode' => $config['folderPermission'],
         'max_file_size' => $config['MaxSizeUpload'] * 1024 * 1024,
@@ -174,7 +174,7 @@ try {
 
         $uploadConfig['upload_dir'] = $config['ftp_temp_folder'];
     }
-
+    //var_dump($uploadConfig);exit;
     //print_r($_FILES);die();
     $upload_handler = new UploadHandler($uploadConfig, true, $messages);
 } catch (Exception $e) {
