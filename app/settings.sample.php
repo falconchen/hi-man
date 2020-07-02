@@ -10,6 +10,7 @@ return [
             'allow' => true,
             'url' => 'http://cdn.hi.dev',
         ],
+        'salt'=>'pipi', 
     ],
     'auth' => [
         'session'   => 'user_id',
