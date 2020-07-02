@@ -410,14 +410,14 @@ tinymce.init({
   //autosave_restore_when_empty: true,
   autosave_retention: "30m",
   content_style: [
-    'body{font-size:1em;font-family:"Helvetica Neue", "Luxi Sans", "DejaVu Sans", Tahoma, "Hiragino Sans GB", STHeiti !important; line-height:1.8;}h1{font-size:22px;}h2{font-size:20px;}p{margin:0}code[class*=language-], pre[class*=language-]{font-size:0.9em;}'
+    'body{font-size:1em;font-family:"Helvetica Neue", "Luxi Sans", "DejaVu Sans", Tahoma, "Hiragino Sans GB", STHeiti !important; line-height:1.8;}h1{font-size:22px;}h2{font-size:20px;}p{margin:0}code[class*=language-], pre[class*=language-]{font-size:0.9em;}p{margin:0 0 10px;}'
   ],
 
   
   setup: function(editor) {
 
     editor.ui.registry.addButton("codeSC", {
-      text:"💡",
+      text:"<i class='fa fa-file-code-o w3-large w3-text-grey'></i>",
       tooltip: "insert code Element Here",
       onAction: function(_) {
         //console.log("<code>"+editor.selection.getContent()+"</code>");
@@ -508,8 +508,9 @@ tinymce.init({
     });
 
     editor.ui.registry.addMenuButton("menuDateButton", {
-      icon: "browse",
+      //icon: "insert-time",
       //text: "DateTime",
+      text: '<i class="fa fa-calendar-plus-o w3-large"></i>',
       fetch: function(callback) {
         var items = [
           {
