@@ -62,10 +62,12 @@ final class HomeAction extends \App\Helper\BaseAction
 
     public function testing()
     {
+
+        var_dump($this->c->get('app'));
         //echo $this->getPostLink('hello',true);exit;
-        var_dump($this->baiduTrans("New Mac ransomware spreading through piracy"));
-        sleep(1);
-        var_dump($this->baiduTrans("Mozilla Common Voice Dataset: More data, more languages"));
+        // var_dump($this->baiduTrans("New Mac ransomware spreading through piracy"));
+        // sleep(1);
+        // var_dump($this->baiduTrans("Mozilla Common Voice Dataset: More data, more languages"));
         //$this->get('eventManager')->emit('site.visit');
         
         // foreach (range(1, 10) as $i) {

@@ -4,14 +4,45 @@ if (session_id() == '') {
     session_start();
 }
 
+if(!defined('PUBLIC_PATH')) {
+    define('PUBLIC_PATH',realpath('../')); //public    
+}
+if(!defined('ROOT_PATH')) {
+    define('ROOT_PATH',realpath('../../')); //项目根目录    
+}
+
+function getSettins(){
+    $settings = include ROOT_PATH .'/app/settings.php';
+    return $settings;
+}
+
+
+function getUserInfo () {
+
+    static $userInfo;
+    if(!isset($userInfo)) {
+        $auth = getSettins()['auth'];
+        $userIdKey = $auth['session'];
+        $groudIdKey = $auth['group'];
+        $userInfo[$userIdKey] = isset($_SESSION['user_id']['data']) ? intval($_SESSION['user_id']['data']) : 0;
+        $userInfo[$groudIdKey] = isset($_SESSION['group_id']['data']) ? intval($_SESSION['group_id']['data']) : 5;
+    }
+    return $userInfo;
+
+}
+
+$userId = getUserInfo()['user_id'];
+$settings = getSettins();
+
+
 mb_internal_encoding('UTF-8');
 mb_http_output('UTF-8');
 mb_http_input('UTF-8');
 mb_language('uni');
 mb_regex_encoding('UTF-8');
 ob_start('mb_output_handler');
-date_default_timezone_set('Europe/Rome');
-setlocale(LC_CTYPE, 'en_US'); //correct transliteration
+date_default_timezone_set('PRC');
+setlocale(LC_CTYPE, 'zh_CN'); //correct transliteration
 
 /*
 |--------------------------------------------------------------------------
@@ -57,7 +88,10 @@ define('DEBUG_ERROR_MESSAGE', false); // TRUE or FALSE
 |    |   |   |   |   |- plugin.min.js
 */
 
+
 $config = array(
+
+    'user_id'=>$userId,
 
     /*
     |--------------------------------------------------------------------------
@@ -76,7 +110,7 @@ $config = array(
     | with start and final /
     |
     */
-    'upload_dir' => '/source/',
+    'upload_dir' => sprintf('/media/uploads/%d/source/',$userId),
     /*
     |--------------------------------------------------------------------------
     | relative path from filemanager folder to upload folder
@@ -85,7 +119,7 @@ $config = array(
     | with final /
     |
     */
-    'current_path' => '../source/',
+    'current_path' => sprintf(PUBLIC_PATH . '/media/uploads/%d/source/',$userId),
 
     /*
     |--------------------------------------------------------------------------
@@ -96,7 +130,7 @@ $config = array(
     | DO NOT put inside upload folder
     |
     */
-    'thumbs_base_path' => '../thumbs/',
+    'thumbs_base_path' => sprintf(  '../media/uploads/%d/thumbs/',$userId),
 
     /*
     |--------------------------------------------------------------------------
@@ -107,7 +141,7 @@ $config = array(
     | DO NOT put inside upload folder
     |
     */
-    'thumbs_upload_dir' => '/thumbs/',
+    'thumbs_upload_dir' => sprintf('/media/uploads/%d/thumbs/',$userId),
 
 
     /*
@@ -187,7 +221,7 @@ $config = array(
     |
     */
 
-    'access_keys' => array(),
+    'access_keys' => array(sha1($userId.$settings['settings']['salt'])),
 
     //--------------------------------------------------------------------------------------------------------
     // YOU CAN COPY AND CHANGE THESE VARIABLES INTO FOLDERS config.php FILES TO CUSTOMIZE EACH FOLDER OPTIONS
@@ -219,8 +253,8 @@ $config = array(
     |--------------------------------------------------------------------------
     |
     */
-    'filePermission' => 0755,
-    'folderPermission' => 0777,
+    'filePermission' => 0644,
+    'folderPermission' => 0755,
 
 
     /*

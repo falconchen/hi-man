@@ -347,16 +347,34 @@ tinymce.init({
   toolbar_sticky: true,
   menubar: false,
   height: 667,
+  relative_urls : false,
+  remove_script_host : false,
+  document_base_url : siteInfo.url,
+  filemanager_access_key: currentUser.akey,
   
-  //plugins: 'code',
-  plugins: "image imagetools code link fullscreen autosave wordcount codesample emoticons",
-  toolbar:
-    "codesample  | undo redo | styleselect basicDateButton menuDateButton |codeSC  bold italic forecolor  |removeformat link image  emoticons| code  ", //
-  
-  images_upload_url: 'postAcceptor.php',
-  images_upload_credentials: true,
+  plugins: ["image imagetools code link fullscreen autosave wordcount codesample emoticons filemanager responsivefilemanager advlist autolink "],
 
-  automatic_uploads: true,
+  // plugins: [
+	// 	"advlist autolink link image media filemanager code responsivefilemanager"
+	// ],
+  toolbar:
+    "codesample  | undo redo | styleselect basicDateButton menuDateButton |codeSC  bold italic forecolor  |removeformat link image  emoticons| code  | responsivefilemanager", //
+  
+  image_advtab: true, 
+
+  external_filemanager_path: "/filemanager/",
+	filemanager_title: "Responsive Filemanager",
+  external_plugins: {
+    
+    "responsivefilemanager": "/js/vendors/responsive_filemanager/tinymce/plugins/responsivefilemanager/plugin.min.js",
+    
+		"filemanager": "/filemanager/plugin.min.js"
+	},
+  
+  // images_upload_url: 'postAcceptor.php',
+  // images_upload_credentials: true,
+
+  //automatic_uploads: true,
 
 
   // imagetools_cors_hosts: ['hi.cellmean.com', 'hi.local.cellmean.com'],

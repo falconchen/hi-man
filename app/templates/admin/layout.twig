@@ -178,7 +178,11 @@
     var savePreviewUrl = "{{c.router.pathFor('post-admin.savePreview')}}";
     var currentUser = {
         id : {{c.session.user.id}},
-        name: "{{c.session.user.username}}"
+        name: "{{c.session.user.username}}",
+        akey:"{{c.hash.akeyGen(c.session.user.id)}}"                
+    };
+    var siteInfo= {
+        url : "{{c.get('app').url}}"
     };
 </script>
 
