@@ -17,7 +17,7 @@ function getSettins(){
 }
 
 
-function getUserInfo () {
+function getUserInfo ($key) {
 
     static $userInfo;
     if(!isset($userInfo)) {
@@ -27,11 +27,11 @@ function getUserInfo () {
         $userInfo[$userIdKey] = isset($_SESSION['user_id']['data']) ? intval($_SESSION['user_id']['data']) : 0;
         $userInfo[$groudIdKey] = isset($_SESSION['group_id']['data']) ? intval($_SESSION['group_id']['data']) : 5;
     }
-    return $userInfo;
+    return $userInfo[$key];
 
 }
 
-$userId = getUserInfo()['user_id'];
+$userId = getUserInfo('user_id');
 if($userId == 0) {
     exit; //不允许未登录用户访问
 }
@@ -429,7 +429,7 @@ $config = array(
     //  If you insert an extensions blacklist array the filemanager don't check any extensions but simply block the extensions in the list
     //  otherwise check Allowed extensions configuration
     //*********************
-    'ext_blacklist'							  => false,//['exe','bat','jpg'],
+    'ext_blacklist'							  => ['exe','bat','sh','php','js'],
 
 
     //Empty filename permits like .htaccess, .env, ...
@@ -535,7 +535,7 @@ $config = array(
     /*******************
     * URL upload
     *******************/
-    'url_upload'                             => true,
+    'url_upload'                             => getUserInfo('group_id') < 3, //管理员可用及mod可用  
 
 
     //************************************
