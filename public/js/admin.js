@@ -358,12 +358,12 @@ tinymce.init({
 	// 	"advlist autolink link image media filemanager code responsivefilemanager"
 	// ],
   toolbar:
-    "codesample  | undo redo | styleselect basicDateButton menuDateButton |codeSC  bold italic forecolor  |removeformat link image  emoticons| code  | responsivefilemanager", //
+    " codesample  | undo redo  | styleselect basicDateButton menuDateButton | fullscreen|codeSC  bold italic forecolor  |removeformat link image emoticons | responsivefilemanager | code  ", //
   
   image_advtab: true, 
 
   external_filemanager_path: "/filemanager/",
-	filemanager_title: "Responsive Filemanager",
+	filemanager_title: "文件管理",
   external_plugins: {
     
     "responsivefilemanager": "/js/vendors/responsive_filemanager/tinymce/plugins/responsivefilemanager/plugin.min.js",
