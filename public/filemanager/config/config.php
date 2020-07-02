@@ -32,6 +32,9 @@ function getUserInfo () {
 }
 
 $userId = getUserInfo()['user_id'];
+if($userId == 0) {
+    exit; //不允许未登录用户访问
+}
 $settings = getSettins();
 
 
