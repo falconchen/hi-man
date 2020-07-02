@@ -148,6 +148,9 @@ label {
 #hi-admin-menu {
     font-weight: bold;
 }
+.fa{
+    font-family:  FontAwesome !important;
+}
 
   
 @media screen and (max-width: 475px) {
