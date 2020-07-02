@@ -71,6 +71,8 @@
 
 - [搜狗机器翻译API](https://deepi.sogou.com/)
 
+- [Prism选项](https://prismjs.com/download.html#themes=prism-okaidia&languages=markup+css+clike+javascript+c+go+java+markup-templating+perl+php+python+ruby+twig&plugins=line-highlight+line-numbers+toolbar+copy-to-clipboard)
+
 ## codes && tips
 
 ```迭代twig
