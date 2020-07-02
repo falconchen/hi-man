@@ -350,6 +350,18 @@ tinymce.init({
   
   //plugins: 'code',
   plugins: "image imagetools code link fullscreen autosave wordcount codesample emoticons",
+  toolbar:
+    "codesample  | undo redo | styleselect basicDateButton menuDateButton |codeSC  bold italic forecolor  |removeformat link image  emoticons| code  ", //
+  
+  images_upload_url: 'postAcceptor.php',
+  images_upload_credentials: true,
+
+  automatic_uploads: true,
+
+
+  // imagetools_cors_hosts: ['hi.cellmean.com', 'hi.local.cellmean.com'],
+
+  // imagetools_toolbar: "rotateleft rotateright | flipv fliph | editimage imageoptions",
 
   codesample_languages: [
     { text: 'Shell',value: 'bash'},
@@ -368,10 +380,6 @@ tinymce.init({
     
    
 	],
-
-  toolbar:
-    "codesample  | undo redo | styleselect basicDateButton menuDateButton |codeSC  bold italic forecolor  |removeformat link image  emoticons| code  ", //
-  
   codesample_global_prismjs: true,
   //content_css:"/css/prism.css",
 
