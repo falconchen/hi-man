@@ -7,3 +7,4 @@ log/*
 cache/*
 vendor/falconchen2/
 *.bak
+/public/test/
