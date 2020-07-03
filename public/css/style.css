@@ -1402,7 +1402,7 @@ h1, h2, h3, h4, h5, h6 {
 } */
 .hi-content :not(pre) > code{
   padding: 0.125rem 0.3125rem 0.0625rem !important;  
-  color: #e96900 !important;
+  /* color: #e96900 !important; */
   background-color: #f8f8f8 !important;
   border-radius: 4px !important;
 }
