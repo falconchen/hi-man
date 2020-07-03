@@ -52,7 +52,7 @@ class Acl
 		return Route::where('route',$route)->first();
 	}
 	
-	public function isLogged()
+	static public function isLogged()
 	{				
 		if(isset($_SESSION['user_id'])){
 			

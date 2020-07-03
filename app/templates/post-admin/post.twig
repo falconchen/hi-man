@@ -23,7 +23,7 @@
 
     
     
-    <div class="w3-col s3 w3-mobile w3-tiny" id="hi-metabox-wrapper">
+    <div class="w3-col s3 w3-mobile w3-small" id="hi-metabox-wrapper">
 
         {% if post.post_id %}
         <div class="w3-card-2 w3-section hi-metabox hi-links-metabox">
@@ -35,11 +35,11 @@
                     <div class="w3-section w3-row">
                         <div class="w3-col s6 ">
                         
-                        <a class="w3-grey w3-button w3-hover-blue w3-tiny w3-padding-small" target="_blank" href="{{ c.router.pathFor('post',{'name':post.post_name}) }}">在本站查看</a>
+                        <a class="w3-grey w3-button w3-hover-blue w3-small w3-padding-small" target="_blank" href="{{ c.router.pathFor('post',{'name':post.post_name}) }}">在本站查看</a>
                         </div>
                         {% if post.osc_link%}
                         <div class="w3-col s6">
-                        <a class="w3-grey  w3-button w3-hover-green w3-right w3-tiny w3-padding-small" target="_blank" href="{{post.osc_link}}">在osc查看</a>
+                        <a class="w3-grey  w3-button w3-hover-green w3-right w3-small w3-padding-small" target="_blank" href="{{post.osc_link}}">在osc查看</a>
                         </div> 
                         {% endif %}                                             
                     </div>

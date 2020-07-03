@@ -144,7 +144,7 @@ class Menu
                         $userItems[$key]['items'][$k]['current'] = true;
                     }
 
-                    if ($sub_item['hide']) {
+                    if (isset($sub_item['hide']) && $sub_item['hide'] ) {
                         unset($userItems[$key]['items'][$k]);
                     }
 
