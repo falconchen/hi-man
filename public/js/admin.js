@@ -416,15 +416,21 @@ tinymce.init({
   
   setup: function(editor) {
 
+    function toggleCode() {
+      //console.log("<code>"+editor.selection.getContent()+"</code>");
+      //editor.insertContent( "<code>"+editor.selection.getContent()+"</code>" );
+      editor.execCommand('mceToggleFormat', false, 'code'); //格式化
+    }
+
     editor.ui.registry.addButton("codeSC", {
-      text:"<i class='fa fa-file-code-o w3-large w3-text-grey'></i>",
+      text:"<i class='fa fa-file-code-o w3-large w3-text-grey'></i>", //工具栏的按钮图标
       tooltip: "insert code Element Here",
-      onAction: function(_) {
-        //console.log("<code>"+editor.selection.getContent()+"</code>");
-        //editor.insertContent( "<code>"+editor.selection.getContent()+"</code>" );
-        editor.execCommand('mceToggleFormat', false, 'code'); //格式化
-      }
+      shortcut: 'Ctrl+C',
+      onAction: toggleCode
     });
+
+    editor.addShortcut('Ctrl+C', '', toggleCode );
+
 
     /* Helper functions */
     var toTimeHtml = function(time) {

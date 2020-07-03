@@ -168,3 +168,13 @@ php public/index.php UpdateDongDanOldImages
 
 `12620768`
 
+### twig 不解析模板内容直接引入 ,相当于 `file_get_contents` 的效果
+
+Twig 1.15  以上可用
+
+```
+{{ source('imagely/item-tmpl-js.html') }} 
+```
+
+<https://twig.symfony.com/doc/3.x/functions/source.html>
+
