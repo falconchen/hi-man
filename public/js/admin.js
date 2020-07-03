@@ -358,7 +358,7 @@ tinymce.init({
 	// 	"advlist autolink link image media filemanager code responsivefilemanager"
 	// ],
   toolbar:
-    " codesample  | undo redo  | styleselect basicDateButton menuDateButton | fullscreen|codeSC  bold italic forecolor  |removeformat link image emoticons | responsivefilemanager | code  ", //
+    " codesample | responsivefilemanager | undo redo  | styleselect basicDateButton menuDateButton | fullscreen|codeSC  bold italic forecolor  |removeformat link image emoticons  | code  ", //
   
   image_advtab: true, 
 
