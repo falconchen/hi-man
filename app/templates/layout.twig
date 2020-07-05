@@ -123,7 +123,7 @@
 
 		{% endblock %}
 
-		<div id="layout" class="container">
+		<div id="layout" class="container w3-mobile">
 
 			{% if flash %}
 
@@ -152,26 +152,26 @@
 			{% block content %}{% endblock %}
 
 
-			<footer class="w3-container w3-padding-16 w3-center hi-text-dark">
-				
-				<strong>					
-				<a class="w3-padding-small hi-text-dark  w3-round w3-border" id="back2Top" title="{{ t.trans('Back to top')}}" href="javascript:;">				
-				{{ t.trans('Back to top')}} 
-				<i class="fa fa-angle-up" style="font-weight:bold" aria-hidden="true"></i> 
-				</a>
-					<p class="w3-margin-top">
-						<span class="w3-small  w3-padding-small ">
-							<i class="fa fa-heart"></i>
-							Powered by <a href="{{ base_url() }}"  class="w3-hover-opacity w3-border-bottom hi-text-light-dark" target="_blank" style="text-decoration:none;">HiCMS</a> &copy; 2019-{{"now"|date('Y',c.settings.timezone)}}</span>
-					</p>
-				</strong>
-                <div class="w3-tiny w3-opacity w3-margin-bottom">{{t.trans('Latest commit at')}} {{ git_latest().dateString }} 				
-				</div>
-				
-			</footer>
+			
 		</div>
 
-
+		<footer class="container w3-container w3-padding-16 w3-center hi-text-dark">
+				
+			<strong>					
+			<a class="w3-padding-small hi-text-dark  w3-round w3-border" id="back2Top" title="{{ t.trans('Back to top')}}" href="javascript:;">				
+			{{ t.trans('Back to top')}} 
+			<i class="fa fa-angle-up" style="font-weight:bold" aria-hidden="true"></i> 
+			</a>
+				<p class="w3-margin-top">
+					<span class="w3-small  w3-padding-small ">
+						<i class="fa fa-heart"></i>
+						Powered by <a href="{{ base_url() }}"  class="w3-hover-opacity w3-border-bottom hi-text-light-dark" target="_blank" style="text-decoration:none;">HiCMS</a> &copy; 2019-{{"now"|date('Y',c.settings.timezone)}}</span>
+				</p>
+			</strong>
+			<div class="w3-tiny w3-opacity w3-margin-bottom">{{t.trans('Latest commit at')}} {{ git_latest().dateString }} 				
+			</div>
+				
+		</footer>
 		<script type="text/javascript" src="https://lib.baomitu.com/jquery/1.11.3/jquery.min.js"></script>
 		<script type="text/javascript" src="{{ static_url() }}/js/bootstrap.min.js"></script>
 		<script type="text/javascript" src="{{ static_url() }}/js/prism.js?ver={{ git_latest().dateVer }}"></script>
