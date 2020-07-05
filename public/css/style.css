@@ -1573,6 +1573,20 @@ a.nickname,.hi-text-lighter-blue {
   
 }
 
+body{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 100vh;
+}
+.hi-content-wrap:after{
+    content: '';
+    height: 1px;
+    width: 100%;
+    background: #eee;
+    display: block;
+    margin: 15px auto 20px;
+}
 
 @media only screen and (max-device-width: 480px) {
   .responsive-meting {
