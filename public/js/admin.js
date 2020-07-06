@@ -400,7 +400,7 @@ tinymce.init({
    
 	],
   codesample_global_prismjs: true,
-  //content_css:"/css/prism.css",
+  content_css:"/css/editor.css",
 
   language_url: "/js/node_modules/tinymce/langs/zh_CN.js",
   //skin: 'oxide-dark'
@@ -409,9 +409,9 @@ tinymce.init({
   autosave_prefix: "hi-autosave-{path}{query}-{id}-",
   //autosave_restore_when_empty: true,
   autosave_retention: "30m",
-  content_style: [
-    'body{font-size:1em;font-family:"Helvetica Neue", "Luxi Sans", "DejaVu Sans", Tahoma, "Hiragino Sans GB", STHeiti !important; line-height:1.8;}h1{font-size:22px;}h2{font-size:20px;}p{margin:0}code[class*=language-], pre[class*=language-]{font-size:0.9em;}p{margin:0 0 10px;}'
-  ],
+  // content_style: [
+  //   'body{font-size:1em;font-family:"Helvetica Neue", "Luxi Sans", "DejaVu Sans", Tahoma, "Hiragino Sans GB", STHeiti !important; line-height:1.8;}h1{font-size:22px;}h2{font-size:20px;}p{margin:0}code[class*=language-], pre[class*=language-]{font-size:0.9em;}p{margin:0 0 10px;}'
+  // ],
 
   
   setup: function(editor) {
