@@ -492,6 +492,10 @@ class UploadHandler
         while(is_dir($this->get_upload_path($name))) {
             $name = $this->upcount_name($name);
         }
+        if(is_null($content_range)) {
+            $content_range = array();
+            $content_range[1] = 0;
+        }
         // Keep an existing filename if this is part of a chunked upload:
         $uploaded_bytes = $this->fix_integer_overflow((int)$content_range[1]);
         while (is_file($this->get_upload_path($name))) {
@@ -1424,10 +1428,14 @@ class UploadHandler
                 );
             }
         }
-        $response = array($this->options['param_name'] => $files);
+        $response = array(@$this->options['param_name'] => $files);
         $name = $file_name ? $file_name : $upload['name'][0];
         $res = $this->generate_response($response, $print_response);
         if(is_file($this->get_upload_path($name))){
+            if(is_null($content_range)) {
+                $content_range = array();
+                $content_range[1] = 0;
+            }
             $uploaded_bytes = $this->fix_integer_overflow((int)$content_range[1]);
             $totalSize = $this->get_file_size($this->get_upload_path($name));
             if ($totalSize - $uploaded_bytes - $this->options['readfile_chunk_size'] < 0) {

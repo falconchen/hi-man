@@ -1,10 +1,11 @@
 img {
   max-width: 100%;
 }
+
 body {
   font-size: 16px;
   font-family: "Helvetica Neue", "Luxi Sans", "DejaVu Sans", Tahoma,
-    "Hiragino Sans GB", STHeiti !important;
+    "Hiragino Sans GB", STHeiti ;
     
   line-height: 1.8;
 }
@@ -24,4 +25,62 @@ pre[class*="language-"] {
 }
 p {
   margin: 0 0 10px;
+}
+code{
+    padding: 0.125rem 0.3125rem 0.0625rem ;
+    color: #c7254e ;
+    background-color: #f8f8f8 ;
+    border-radius: 4px ;
+}
+
+blockquote {
+    background-color: #f6f6f6;
+    border-left: 4px solid #0073cc;
+    padding: 8px 16px;
+    margin: 0 0 10px;
+}
+
+ p,  blockquote{
+    font-size: 16px ;
+    line-height: 1.8em ;
+    word-break: normal ;
+}
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 600 ;
+    color:#203658;
+}
+ h1, h2, h3, h4, h5{
+
+    padding: 8px 0 ;
+    color: #333 ;
+    font-size:18px ;
+    margin-top: 40px;
+    margin-bottom: 30px;
+    border-bottom: 1px solid lightgrey;
+    line-height: 31.59px;
+}
+ h1{
+    font-size:22px ;
+
+}
+ h2{
+    font-size:20px ;
+
+}
+
+ a{
+    color: #0073cc ;
+
+}
+
+ a:hover{
+    text-decoration: underline ;
+}
+ ul {
+    padding-left: 1em;
+}
+
+ ul>li {
+    list-style-type: circle;
+    list-style-position: inside;
 }
