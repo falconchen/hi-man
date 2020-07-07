@@ -2,6 +2,7 @@
 /public/baidu_verify_*.html
 /public/.well-known/
 /public/media/
+/public/puller/
 /.idea/
 log/*
 cache/*
