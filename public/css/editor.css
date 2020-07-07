@@ -9,6 +9,10 @@ body {
     
   line-height: 1.8;
 }
+#tinymce>:first-child {
+  margin-top: 0;
+}
+
 h1 {
   font-size: 22px;
 }
