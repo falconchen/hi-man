@@ -178,4 +178,5 @@ Twig 1.15  以上可用
 
 <https://twig.symfony.com/doc/3.x/functions/source.html>
 
-### 今天用nodemon和git webhook做了一个监控到git push自动更新的小玩意
+### 自动部署
+今天用`nodemon`和`git webhook`做了一个监控`git push`后在服务器执行自动更新的小玩意，这样就简单实现自动部署了
