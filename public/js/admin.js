@@ -354,14 +354,17 @@ tinymce.init({
     filemanager_sort_by:'date',
     filemanager_descending:1,
 
-  plugins: ["image imagetools code link fullscreen autosave wordcount codesample emoticons filemanager responsivefilemanager advlist autolink "],
+  plugins: ["image imagetools code link fullscreen autosave wordcount codesample emoticons filemanager responsivefilemanager advlist autolink lists"],
 
   // plugins: [
 	// 	"advlist autolink link image media filemanager code responsivefilemanager"
-	// ],
+  // ],
+  //    " codesample | responsivefilemanager numlist bullist| undo redo  | styleselect basicDateButton menuDateButton | fullscreen|codeSC  bold italic forecolor  |removeformat link image emoticons  | code  ", //
+
   toolbar:
-    " codesample | responsivefilemanager | undo redo  | styleselect basicDateButton menuDateButton | fullscreen|codeSC  bold italic forecolor  |removeformat link image emoticons  | code  ", //
-  
+    " codesample | responsivefilemanager numlist bullist| undo redo  | styleselect  | fullscreen|codeSC bold |removeformat link image emoticons  | code  ", //
+    
+  lists_indent_on_tab: false,
   image_advtab: true, 
 
   external_filemanager_path: "/filemanager/",
