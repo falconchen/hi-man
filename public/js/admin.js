@@ -351,7 +351,9 @@ tinymce.init({
   remove_script_host : false,
   document_base_url : siteInfo.url,
   filemanager_access_key: currentUser.akey,
-  
+    filemanager_sort_by:'date',
+    filemanager_descending:1,
+
   plugins: ["image imagetools code link fullscreen autosave wordcount codesample emoticons filemanager responsivefilemanager advlist autolink "],
 
   // plugins: [
