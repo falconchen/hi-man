@@ -95,7 +95,7 @@ final class PostAction extends \App\Helper\BaseAction
 
 
         $post->post_author_name = User::where('id', $post->post_author)->first()->username;
-        if ($post->post_author_name == 'Falcon' || $post->post_author_name == '小小编辑') {
+        if ( in_array($post->post_author_name, ['Falcon' ,'小小编辑','HackerNews']) ) {
             $post->post_content_clean = $post->post_content;
         } else {
             $antiXss = new AntiXSS();
