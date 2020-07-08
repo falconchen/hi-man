@@ -1555,7 +1555,7 @@ a.nickname,.hi-text-lighter-blue {
   color:#888;
 }
 .hi-content div.code-toolbar {
-  /* font-size:0.96em; */
+  font-size:0.96em;
 }
 .hi-content div.code-toolbar:hover > .toolbar{
   opacity: 0;
