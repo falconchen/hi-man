@@ -1303,12 +1303,12 @@ hr[id^="ez-insert-after-placeholder"] {
 
 .hi-header{
   color:#555;
-  max-width: 750px;
+  max-width: 850px;
   
 }
 
-.hi-content-wrap{
-  max-width:750px;
+.hi-main{
+  max-width:850px;
   margin:0 auto ;
 }
 .hi-content-wrap:before{
@@ -1367,6 +1367,12 @@ h1, h2, h3, h4, h5, h6 {
   list-style-type: circle;
   list-style-position: inside;
 }
+.hi-content .hi-title{
+    display: inline-block;
+    margin: auto;
+    text-align: justify;
+}
+  
 
 /* .hi-content pre {
 
