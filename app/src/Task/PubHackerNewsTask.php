@@ -40,7 +40,7 @@ class PubHackerNewsTask extends BaseTaskAbstract
             $consumeTime = time() - $this->startTime;
             $contentHtml = $this->c->view->fetch('hacker-news/list.twig', [
                 'newsArr' => $newsArr,
-                'title' => sprintf('最后更新时间: %s ', date('Y-m-d H:i', $this->localTimestamp())),
+                'title' => sprintf('更新时间: %s ', date('Y-m-d H:i', $this->localTimestamp())),
                 'hackerNewsHomePageUrl' => $hackerNewsHomePageUrl,
                 'consumeTime' => $consumeTime,//获取和翻译消耗时间
             ]);
