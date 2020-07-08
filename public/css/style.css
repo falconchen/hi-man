@@ -9,6 +9,13 @@ body {
   padding-top: 70px;
 }
 
+@media (min-width: 1200px){
+  .container {
+    width: 980px; 
+  }
+}
+
+
 .navbar-brand { 
   animation: fadeInAnimation ease .5s;
   animation-iteration-count: 1; 
@@ -1594,6 +1601,13 @@ body{
     flex-direction: column;
     justify-content: space-between;
     min-height: 100vh;
+    background-color: #f9f9f9;
+}
+
+#layout{
+  background-color: #fff;
+  margin-bottom: 48px;
+  padding-bottom: 48px;
 }
 .hi-content-wrap:after{
     content: '';
@@ -1609,10 +1623,20 @@ body{
 }
 
 @media only screen and (max-device-width: 480px) {
+  body{background-color: #fff;}
+  #layout{    margin-bottom: 8px;
+    padding-bottom: 8px;}
   .responsive-meting {
     padding-bottom: 138.5%; 
   }
   .hi-navbar .w3-dropdown-hover, .hi-navbar  .w3-dropdown-content {
     width:100%;
+  }
+  .hi-content .hn-title{
+    flex-direction: column;
+    align-items: center !important;
+  }
+  .hi-content .hn-title >p{
+    padding-top: 8px !important;
   }
 }
