@@ -1377,7 +1377,7 @@ h1, h2, h3, h4, h5, h6 {
   list-style-type: circle;
   list-style-position: inside;
 }
-.hi-content .hi-title{
+.hi-header .hi-title{
     display: inline-block;
     margin: auto;
     text-align: justify;
