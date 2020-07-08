@@ -53,7 +53,7 @@ h1, h2, h3, h4, h5, h6 {
     font-weight: 600 ;
     color:#203658;
 }
- h1, h2, h3, h4, h5{
+ h1, h2, h3{
 
     padding: 8px 0 ;
     color: #333 ;
@@ -71,7 +71,15 @@ h1, h2, h3, h4, h5, h6 {
     font-size:20px ;
 
 }
-
+h3 {
+  font-size:18px;
+}
+h4{
+  font-size:16px;
+}
+h5{
+  font-size:14px;
+}
  a{
     color: #0073cc ;
 
