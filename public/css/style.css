@@ -1639,6 +1639,8 @@ body{
   }
   .hi-content .hn-title >p{
     padding-top: 8px !important;
+    background: #fff;
+    color: #111;
   }
   .hi-header .hi-title{
     margin-top:0px;
