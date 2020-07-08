@@ -1588,6 +1588,10 @@ body{
     margin: 15px auto 20px;
 }
 
+.hi-content >:first-child {
+  margin-top: 0 !important;
+}
+
 @media only screen and (max-device-width: 480px) {
   .responsive-meting {
     padding-bottom: 138.5%; 
