@@ -1602,7 +1602,8 @@ body{
     flex-direction: column;
     justify-content: space-between;
     min-height: 100vh;
-    background-color: #f9f9f9;
+    /* background-color: #f9f9f9; */
+    background-image: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
 }
 
 #layout{
@@ -1624,7 +1625,7 @@ body{
 }
 
 @media only screen and (max-device-width: 480px) {
-  body{background-color: #fff;}
+  body{ background-image:none;background-color: #fff;}
   #layout{    margin-bottom: 8px;
     padding-bottom: 8px;}
   .responsive-meting {
