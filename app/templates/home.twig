@@ -7,24 +7,8 @@
 
 {% block content %}
 
-	<!-- Header -->
-	<header class="w3-panel w3-center w3-opacity w3-hide" style="">
-		<h1 class="w3-xlarge">{{ title|upper }}</h1>
-		<h2>正在开发</h2>
-
-		<div class="w3-padding-32">
-			<div class="w3-bar w3-border">
-				<a href="#" class="w3-bar-item w3-button w3-light-grey">主页</a>
-				<a href="#" class="w3-bar-item w3-button ">文章</a>
-				<a href="#" class="w3-bar-item w3-button">动态</a>
-				<a href="#" class="w3-bar-item w3-button w3-hide-small">相册</a>
-			</div>
-		</div>
-	</header>
-
-
 	<main class="hi-main">
-		{% if posts %}
+		{% if posts.count() %}
 			{% include 'post-list.twig' with { posts: posts,c:c,t:t } only%}
 		{% else %}
 			{% include 'post-list-none.twig' %}

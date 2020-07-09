@@ -1535,9 +1535,11 @@ a.nickname,.hi-text-lighter-blue {
 .hi-navbar.navbar-collapse.in {
   overflow-y: visible;
 }
-.nav>li>a:focus, .nav>li>a:hover{
+.nav>li>a:focus, .nav>li>a:hover,.nav>li.on>a{
   background-color: #cef;
+  color:#23527c
 }
+
 
 .hi-dot::before {
   content: "\2022";
@@ -1622,6 +1624,67 @@ body{
 
 .hi-content >:first-child {
   margin-top: 0 !important;
+}
+
+
+/**search form**/
+.hi-search-form-wrap{
+  padding:0;
+}
+.hi-search-form {
+  width: 100%;
+  position: relative;
+  margin-bottom: 48px;
+  z-index: 2;
+  overflow-y: hidden;
+  max-height: 96px;
+  transition-property: margin,max-height;
+  transition-duration: .3s;
+  margin-top: 16px;
+  transition-timing-function: linear;
+}
+
+.hi-search-form.closed {
+  max-height: 0;
+  margin-bottom: 0;
+  margin-top: 0;
+}
+.hi-search-form.closed input {
+  display: none;
+}
+.hi-search-form input[type=text] {
+    width: 100%;
+    font: 18px/40px lato,helvetica neue,Helvetica,Arial,sans-serif;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    border: 2px solid #bbb;
+    border-radius: 4px;
+    padding-left: 14px;
+    padding-right: 110px;
+}
+.hi-search-form input[type=text]:focus {
+  border-color: #666;
+}
+
+
+
+.hi-search-form button {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    height: calc(40px + 4px - 6px);
+    width: 100px;
+    background: #5badf0;
+    color: #fff;
+    border: none;
+    padding: 0;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    border-radius: 4px;
+    cursor: pointer;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    font: 600 14px/1 lato,helvetica neue,Helvetica,Arial,sans-serif;
 }
 
 @media only screen and (max-device-width: 480px) {

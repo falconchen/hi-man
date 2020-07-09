@@ -5,13 +5,14 @@ $app->add(\adrianfalleiro\SlimCLIRunner::class); //Slim CLI Runner
 
 $app->add(function ($request, $response, $next) {
 	$path = $request->getUri()->getPath();
-
+	
 	switch ($path) {
 		case '/':
 		case '/login':
 		case '/register':
 		case '/logout':
 		case '/p/':
+		case '/search/':	
 		case '/testing':
 		case '/p/sync-osc':
 			break;

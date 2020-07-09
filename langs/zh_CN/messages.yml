@@ -81,3 +81,7 @@ Back to top: 回到顶部
 # 立即发布
 # 定时发布
 # 部分字段填写不正确，请修正后重新提交
+Search: 搜索
+#奇怪的翻译，total不用%%
+Search result for "%keyword%", %total% found: 搜索 “%keyword%” ,共找到 total 项结果
+e.g. Posts, Tweets...: 如 文章、动弹

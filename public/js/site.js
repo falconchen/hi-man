@@ -32,5 +32,43 @@ $(document).ready(function() {
         return false;
     });
 
+    $('.hi-nav-search-button').click(function () {
+        
+        var navBtn = $(this);
+        logEvent({
+            eventCategory: 'search',
+            eventAction: 'click'
+        });
+        var area = $('.hi-search-form');
+        if (area.length > 0) {
+            if (area.hasClass('non-close')) {
+                area.find('input[type="text"]').focus();
+                return false;
+            }
+            if (area.hasClass('closed')) {
+                area.removeClass('closed');
+                navBtn.addClass('on');
+                area.show().find('input[type="text"]').focus();
+            } else {
+                navBtn.removeClass('on');
+                area.addClass('closed');
+            }
+            return false;
+        }
+    });
 
 });
+
+function logEvent(opt) {
+    if (["localhost", "127.0.0.1", ""].includes(window.location.hostname)) {
+        console.log("Analytics ignored as it's localhost");
+        return;
+    }
+    if (navigator.doNotTrack) {
+        console.log("Analytics ignored as DNT is enabled for this user");
+        return;
+    }
+    if (typeof ga === 'function') {
+        ga('send', opt);
+    }
+}

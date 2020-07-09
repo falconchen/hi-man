@@ -104,7 +104,7 @@ $tweet = Post::where('post_name','6276890')->limit(1)->get();
 
 //先转成这样的形式,因为get()方法后得到的是Collection对象，所以必须在这之前截取出Buider对象，去除get
 $tweetBuider = Post::where('post_name','6276890')->limit(1);
-echo getSQL($tweetBuider);
+echo $this->getSQL($tweetBuider);
 
 //目前getSql作为HelperTrait的一个方法，在Action里可用
 echo $this->getSQL($tweetBuider);
@@ -182,4 +182,13 @@ Twig 1.15  以上可用
 
 - 2020.07.08
 今天用`nodemon`和`git webhook`做了一个监控`git push`后在服务器执行自动更新的小玩意，这样就简单实现自动部署了
-用了systemd自动运行失败，目前暂时使用screen后台运行.
+用了`systemd`自动运行失败，目前暂时使用`screen`后台运行.
+
+
+### 多级嵌套 `where` ，需要加 ( ) 的方法：
+
+<https://stackoverflow.com/questions/30434037/laravel-5-eloquent-where-and-or-in-clauses>
+
+可以参考 `SearchAction::index` 的实现
+
+
