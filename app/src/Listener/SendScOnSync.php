@@ -53,7 +53,9 @@ class SendScOnSync extends AbstractListener
         //$content = preg_replace('#<blockquote class="hn\-blockquote">.*</blockquote>#iUs','',$post->post_content); 
         $content = $post->post_content;       
         $notifyBody = $converter($notifyBody . $content);
-        $this->scNofify($notifyTitle, $notifyBody);
+        if ( $this->scNofify($notifyTitle, $notifyBody) ){            
+            $post->updatePostmeta('last_send_admin_sc',time()); 
+        }
         
 
     }

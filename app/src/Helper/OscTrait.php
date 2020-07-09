@@ -65,13 +65,13 @@ trait OscTrait {
         }
 
         //self::init( $request, $response , $args) ;
-        $postDbData = Post::where('post_id', $postId)->first();
-        $postArr['title'] = $postDbData->post_title;
-        $postArr['content'] = $postDbData->post_content;
+        $post = Post::where('post_id', $postId)->first();
+        $postArr['title'] = $post->post_title;
+        $postArr['content'] = $post->post_content;
 
 
         //$this->data = ['menu'=>$this->menu];
-        $oscer = UserMeta::where('user_id', $postDbData->post_author)->where('meta_key', 'osc_userinfo')->first();
+        $oscer = UserMeta::where('user_id', $post->post_author)->where('meta_key', 'osc_userinfo')->first();
         if (!$oscer) {
             throw new Exception("user did not connected to osc yet");
         }
@@ -80,7 +80,7 @@ trait OscTrait {
         $blogWriteUrl = $oscer['homepage'] . '/blog/write';
         $blogSaveUrl = $oscer['homepage'] . '/blog/save';
 
-        $client = $this->setUpClient($postDbData->post_author,['Referer'=> $blogWriteUrl]);
+        $client = $this->setUpClient($post->post_author,['Referer'=> $blogWriteUrl]);
         //确认分类字段是否存在，获取user_code
         //<input type="hidden" name="user_code" value="i17sGbMlA2FhAI5hwcVZCOlzoXkjZ5TT0hGJUN9z">
 
@@ -110,7 +110,7 @@ trait OscTrait {
         //当文章为更新时
         if ($oscId = getOscPostId($postId)) {
 
-            $oscOldlink = getOscPostLink($postId, $postDbData->post_author); //检测旧文章是否被移除
+            $oscOldlink = getOscPostLink($postId, $post->post_author); //检测旧文章是否被移除
             try {
                 $oscOldPostResponse = $client->request('HEAD', $oscOldlink);
 
@@ -140,9 +140,9 @@ trait OscTrait {
         $syncResult->meta_value = maybe_serialize($jData);
         $syncResult->save();
 
-        $postDbData->post_status = "publish";
-        $postDbData->save();
-
+        $post->post_status = "publish";
+        $post->save();
+        $post->updatePostMeta('last_sync_osc',time());
         //发布动弹
         //$this->c->logger->debug('jData',[var_export($jData,true)]);
 
@@ -158,8 +158,8 @@ trait OscTrait {
                 $tmplVars = [
                             ':当前日期:'=>date('Y/m/d',$localTimeStamp),
                             ':当前时间:'=>date('H:i:s',$localTimeStamp),
-                            ':文章标题:'=>$postDbData->post_title,
-                            ':OSC链接:'=>$postDbData->getOscLink()
+                            ':文章标题:'=>$post->post_title,
+                            ':OSC链接:'=>$post->getOscLink()
                             ];
                 
                 $tweetContent = str_replace(
@@ -183,12 +183,13 @@ trait OscTrait {
                 $this->c->logger->debug('pub tweet arg ',$tweetData);
                 $this->c->logger->info('pub tweet result ',[var_export($tweePubResult,true)]);
                 $jData->tweetPub = json_decode($tweePubResult,true);
+                $post->updatePostMeta('last_send_tweet',time());
             }
             
         }
 
         $this->c->logger->debug('start event post.sync2osc');
-        $this->c->get('eventManager')->emit('post.sync2osc', $this->c, $postDbData,$oscSyncOptions,$jData);
+        $this->c->get('eventManager')->emit('post.sync2osc', $this->c, $post,$oscSyncOptions,$jData);
 
         return $jData;
     }

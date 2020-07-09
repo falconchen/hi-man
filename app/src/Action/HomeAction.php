@@ -12,13 +12,7 @@ use App\Validation\Validator;
 use Carlosocarvalho\SimpleInput\Input\Input;
 use Psr\Http\Message\ResponseInterface as Response; // http://docs.guzzlephp.org/en/stable/index.html
 use Psr\Http\Message\ServerRequestInterface as Request;
-//use App\Helper\Paginator;
-// use Illuminate\Pagination;
 
-// use Illuminate\Pagination\Paginator;
-
-
-//use Illuminate\Support\Facades\DB;
 
 final class HomeAction extends \App\Helper\BaseAction
 {
@@ -63,7 +57,17 @@ final class HomeAction extends \App\Helper\BaseAction
     public function testing()
     {
 
-        var_dump($this->c->get('app'));
+        // $lastSend = Post::where('post_name','fd0e58e8e1c1')->first()->getPostMeta('last_send_tweet');
+        // $lastSend2 = Post::where('post_name','9d98f79afc19')->first()->getPostMeta('last_send_tweet');
+        // var_dump($lastSend,$lastSend2);exit;
+
+        // $update = Post::where('post_name','9d98f79afc19')->first()->updatePostMeta('hello','world2');
+
+
+        // var_dump($update );
+
+        //var_dump($this->c->get('app'));
+
         //echo $this->getPostLink('hello',true);exit;
         // var_dump($this->baiduTrans("New Mac ransomware spreading through piracy"));
         // sleep(1);
