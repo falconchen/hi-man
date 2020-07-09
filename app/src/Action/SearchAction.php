@@ -41,17 +41,17 @@ final class SearchAction extends \App\Helper\BaseAction
             
         $postsQuery = $postsQuery->where(function($query){
 
-            $query->where(['post_status' => 'publish','post_visibility' => 'public','post_status'=>'publish']);
+            $query->where(['post_status' => 'publish','post_visibility' => 'public','post_status'=>'publish','post_type'=>'post']);//非登录状态下不能搜索动弹
 
             if ($this->userId > 0) {                        
                 $query->orWhere(function($query){
-                    $query->where(['post_author' => $this->userId ])->where('post_status','<>','trash');
+                    $query->where(['post_author' => $this->userId ])->where('post_status','<>','trash')->whereIn('post_type',['post','tweet']);//登录后能搜索文章和自己的动弹，暂时不允许搜索他人动弹
                 });
             }
 
         });
 
-        $postsQuery = $postsQuery->whereIn('post_type',['post','tweet']);    
+        //$postsQuery = $postsQuery->whereIn('post_type',['post','tweet']);//全面开放搜索动弹和文章    
         //echo $this->getSQL($postsQuery);exit;
         $posts = $postsQuery->orderBy('post_date', 'DESC')->paginate(10);
         $posts->withPath(urldecode(remove_query_arg('page')));
