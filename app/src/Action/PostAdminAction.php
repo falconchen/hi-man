@@ -267,7 +267,7 @@ final class PostAdminAction extends \App\Helper\LoggedAction
             //@todo 校验日期有效性
 
             $future =  sprintf(
-                '%d-%d-%d %d:%d',
+                '%d-%02d-%02d %02d:%02d',
                 Input::post('y'),
                 Input::post('m'),
                 Input::post('d'),
