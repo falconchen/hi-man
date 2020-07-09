@@ -2,6 +2,10 @@
 {% set user = c.session.user ? c.session.user : null %}
 {% set user_id = user ? user.id : 0 %}
 {% set t = c.translator %}
+{% if c.request.getParam('s')|length > 0  %}
+	{% set isSearchPage = true %}
+{% endif %}
+
 <!DOCTYPE html>
 <html lang="{{c.get('settings').language.html|default('en')}}">
 	<head>
@@ -63,7 +67,9 @@
 						{# <ul class="nav navbar-nav"></ul> #}
 
 						<ul class="nav navbar-nav navbar-right">
-								
+							<li class="hi-nav-search-button ">
+								<a class="" href="{{path_for('search')}}"><i class="fa fa-pencil-square-o"></i> {{t.trans('Search')}}</a>									
+							</li>		
 							{% if container.session.user is not defined %}
 								<li>
 									<a class="" href="{{ base_url() }}"><i class="fa fa-home"></i>
@@ -80,7 +86,7 @@
 							{% else %}
                                 <li>
                                     
-                                    <a class="" href="{{path_for('post-admin.new')}}"><i class="fa fa-pencil-square-o"></i> {{t.trans('Go writing')}}</a>
+                                    <a class="" href="{{path_for('post-admin.new')}}"><i class="fa fa-pencil-square-o"></i> {{t.trans('Go writing')}}</a>									
                                 </li>
 								
 								<li class="w3-dropdown-hover w3-left">
@@ -110,6 +116,8 @@
 									</ul>
 								
 								</li>
+
+								
 								
 							{% endif %}
 
@@ -123,36 +131,55 @@
 
 		{% endblock %}
 
-		<div id="layout" class="container w3-mobile">
+		
+		<div id="layout-wrap">
+			{% block breadCrumbs %}
+			{% endblock %}
 
-			{% if flash %}
+			{% block searchForm %}
+				
+				<!--Search Form-->					
+				<section class="container hi-search-form-wrap">
+					<form action="{{path_for('search')}}" class="hi-search-form {{ isSearchPage ? 'non-close' : 'closed' }}">
+						<input type="text" id="search-query" name="s" placeholder="{{t.trans('e.g. Posts, Tweets...')}}" value="{{ c.request.getParam('s') }}">
+						<button>{{ t.trans('Search') }}</button>
+					</form>
+				</section/>
+				<!-- end of Search Form-->
+			{% endblock %}
 
-				{% for msg in flash %}
-					<div class="panel {{ msg|flash_fmt('class') }} w3-display-container">
-						<span onclick="this.parentElement.style.display='none'" class="w3-button w3-display-topright w3-text-red" style="top: 8px;right: 8px;">x</span>
-						<div class="w3-panel ">
-							{{ msg|flash_fmt('msg') }}
+			<div id="layout" class="container w3-mobile">
+
+				{% if flash %}
+
+					{% for msg in flash %}
+						<div class="panel {{ msg|flash_fmt('class') }} w3-display-container">
+							<span onclick="this.parentElement.style.display='none'" class="w3-button w3-display-topright w3-text-red" style="top: 8px;right: 8px;">x</span>
+							<div class="w3-panel ">
+								{{ msg|flash_fmt('msg') }}
+							</div>
+
 						</div>
+					{% else %}
+						{#非数组#}
+						<div class="panel {{ flash|flash_fmt('class') }} w3-display-container">
+							<span onclick="this.parentElement.style.display='none'" class="w3-button w3-display-topright w3-text-red" style="top: 8px;right: 8px;">x</span>
+							<div class="w3-panel">
+								{{ flash|flash_fmt('msg')  }}
+							</div>
 
-					</div>
-				{% else %}
-					{#非数组#}
-					<div class="panel {{ flash|flash_fmt('class') }} w3-display-container">
-						<span onclick="this.parentElement.style.display='none'" class="w3-button w3-display-topright w3-text-red" style="top: 8px;right: 8px;">x</span>
-						<div class="w3-panel">
-							{{ flash|flash_fmt('msg')  }}
 						</div>
-
-					</div>
-				{% endfor %}
+					{% endfor %}
 
 
-			{% endif %}
+				{% endif %}
+				
 
-			{% block content %}{% endblock %}
+				{% block content %}{% endblock %}
 
 
-			
+				
+			</div>
 		</div>
 
 		<footer class="container w3-container w3-padding-16 w3-center hi-text-dark">

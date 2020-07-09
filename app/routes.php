@@ -40,6 +40,8 @@ $app->group(
     }
 );
 
+$app->get('/search/','App\Action\SearchAction:index')->setName('search');
+
 $app->group(
     '/u',
     function () {

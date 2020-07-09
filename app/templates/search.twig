@@ -1,0 +1,23 @@
+{% extends 'layout.twig' %}
+
+
+{% block title %}
+	{{ t.trans('Search result for "%keyword%", %total% found',{'%keyword%' : c.request.getParam('s'),'total': posts.total()} ) }}
+{% endblock %}
+
+{% block breadCrumbs %}
+	<div class="container w3-padding-0 hi-breadcrumbs">{{ t.trans('Search result for "%keyword%", %total% found',{'%keyword%' : c.request.getParam('s'),'total': posts.total()} ) }}</div>
+{% endblock %}
+
+{% block content %}
+	
+	<main class="hi-main">
+		
+		{% if posts.count() %}			
+			{% include 'post-list.twig' with { posts: posts,c:c,t:t } only%}
+		{% else %}			
+			{% include 'post-list-none.twig' %}
+		{% endif %}
+		
+	</main>
+{% endblock %}
