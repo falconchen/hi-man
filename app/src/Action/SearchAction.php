@@ -25,7 +25,8 @@ final class SearchAction extends \App\Helper\BaseAction
     {
         
         $query = $request->getQueryParams();
-        $keyword = urldecode($query['s']);        
+        $keyword = trim($query['kw']);        
+        
         if(strlen($keyword) == 0){
             exit("No Query String");
         }
@@ -45,7 +46,7 @@ final class SearchAction extends \App\Helper\BaseAction
 
             if ($this->userId > 0) {                        
                 $query->orWhere(function($query){
-                    $query->where(['post_author' => $this->userId ])->where('post_status','<>','trash')->whereIn('post_type',['post','tweet']);//登录后能搜索文章和自己的动弹，暂时不允许搜索他人动弹
+                    $query->where(['post_author' => $this->userId ])->where('post_status','<>','trash')->whereIn('post_type',['post','tweet']);//登录后能搜索文章和 只能搜索自己的动弹，暂时不允许搜索他人动弹
                 });
             }
 
