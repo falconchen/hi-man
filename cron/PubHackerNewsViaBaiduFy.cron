@@ -11,7 +11,7 @@ fi
 cd $SHELL_FOLDER
 
 PHP_BIN=$(which php)
-$PHP_BIN ../public/index.php PubHackerNews "t=baidu"
+$PHP_BIN ../public/index.php PubHackerNews "t=baidu&p=1"
 
 exit 0
 

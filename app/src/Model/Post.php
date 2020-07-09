@@ -32,9 +32,24 @@ class Post extends Model
 	{
 
 		$metaKey = $type . '_sync_options';
-		$osc_sync_options = $this->metas()->where('meta_key', $metaKey)->first();
-		if (!is_null($osc_sync_options)) {
-			return maybe_unserialize($osc_sync_options->meta_value);
+		$oscSyncOptions = $this->metas()->where('meta_key', $metaKey)->first();
+		if (!is_null($oscSyncOptions)) {
+			return maybe_unserialize($oscSyncOptions->meta_value);
+		}
+		return null;
+	}
+
+	public function updatePostMeta($metaKey,$metaValue) {
+
+		$postMeta = $this->metas()->firstOrNew(['meta_key'=>$metaKey]);		
+		$postMeta->meta_value = maybe_serialize($metaValue);
+		return $postMeta->save();
+	}
+	public function getPostMeta($metaKey) {
+
+		$postMeta = $this->metas()->where(['meta_key'=>$metaKey])->first();		
+		if (!is_null( $postMeta )) {
+			return maybe_unserialize($postMeta->meta_value);
 		}
 		return null;
 	}

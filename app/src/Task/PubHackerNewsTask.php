@@ -124,6 +124,12 @@ class PubHackerNewsTask extends BaseTaskAbstract
         $post->post_content = $contentHtml;
 
         $post->save();
+        
+        $post->post_content = str_replace(
+            ['香港', '民主'],
+            ['HK' , '*主'],
+            $post->post_content 
+        );
 
         $hackerNewsOscSyncOptions = [
             'catalog' => 7027796, //Hacker News
@@ -133,7 +139,7 @@ class PubHackerNewsTask extends BaseTaskAbstract
             'privacy' => 0,
             'deny_comment' => 0,
             'downloadImg' => 1,
-            'send_tweet' =>$isCreate ? 1 : 0,
+            'send_tweet' =>is_null($post->getPostMeta('last_send_tweet')) ? 1 : 0,
             'email_me' =>$isCreate ? 1 : 0,
             'tweet_tmpl' => "看看老外在搞啥【:文章标题:】:OSC链接:"
         ];

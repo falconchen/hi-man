@@ -2,6 +2,7 @@
 namespace App\Listener;
 
 use App\Model\User;
+use App\Model\Post;
 use League\Event\AbstractListener;
 use League\Event\EventInterface;
 
@@ -69,7 +70,8 @@ class SendEmailOnSync extends AbstractListener
                 if (!$this->mailer->send()) {
                     $this->logger->info("failed to send mail to " . $user->email);
                 } else {
-                    $this->logger->info("success send mail to " . $user->email);
+                    $this->logger->info("success send mail to " . $user->email);  
+                    $post->updatePostmeta('last_send_email',time());                  
                 }
             }catch (\Exception $e) {
                 $this->logger->info("failed to send mail to " . $user->email);
