@@ -2,7 +2,7 @@
 {% set user = c.session.user ? c.session.user : null %}
 {% set user_id = user ? user.id : 0 %}
 {% set t = c.translator %}
-{% if c.request.getParam('s')|length > 0  %}
+{% if c.request.getParam('kw')|length > 0  %}
 	{% set isSearchPage = true %}
 {% endif %}
 
@@ -141,7 +141,7 @@
 				<!--Search Form-->					
 				<section class="container hi-search-form-wrap">
 					<form action="{{path_for('search')}}" class="hi-search-form {{ isSearchPage ? 'non-close' : 'closed' }}">
-						<input type="text" id="search-query" name="s" placeholder="{{t.trans('e.g. Posts, Tweets...')}}" value="{{ c.request.getParam('s') }}">
+						<input type="text" id="search-query" name="kw" placeholder="{{t.trans('e.g. Posts, Tweets...')}}" value="{{ c.request.getParam('kw') }}">
 						<button>{{ t.trans('Search') }}</button>
 					</form>
 				</section/>

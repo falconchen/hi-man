@@ -2,11 +2,11 @@
 
 
 {% block title %}
-	{{ t.trans('Search result for "%keyword%", %total% found',{'%keyword%' : c.request.getParam('s'),'total': posts.total()} ) }}
+	{{ t.trans('Search result for "%keyword%", %total% found',{'%keyword%' : c.request.getParam('kw'),'total': posts.total()} ) }}
 {% endblock %}
 
 {% block breadCrumbs %}
-	<div class="container w3-padding-0 hi-breadcrumbs">{{ t.trans('Search result for "%keyword%", %total% found',{'%keyword%' : c.request.getParam('s'),'total': posts.total()} ) }}</div>
+	<div class="container w3-padding-0 hi-breadcrumbs">{{ t.trans('Search result for "%keyword%", %total% found',{'%keyword%' : c.request.getParam('kw'),'total': posts.total()} ) }}</div>
 {% endblock %}
 
 {% block content %}
