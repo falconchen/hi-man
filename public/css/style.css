@@ -1709,5 +1709,7 @@ body{
   .hi-header .hi-title{
     margin-top:0px;
   }
-  
+  .hi-search-form-wrap,.hi-breadcrumbs{
+    padding:0 16px !important;
+  }
 }
