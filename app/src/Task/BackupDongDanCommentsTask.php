@@ -98,7 +98,7 @@ class BackupDongDanCommentsTask extends BackupDongDanAbstract
 
                 $items = $this->fetchItems($client, $urlTemplate, $tweetId);
                 if ($items === false) {
-                    $this->logger->info('skip fetching error for tweetId:%d', $tweetId);
+                    $this->logger->info('skip fetching error for :', ['tweetId'=>$tweetId]);
                     continue;
                 }
                 $total = count($items);
@@ -165,7 +165,8 @@ class BackupDongDanCommentsTask extends BackupDongDanAbstract
         } catch (\Exception $e) {
 
             $msg = $e->getMessage();
-            $this->logError($msg);
+            $this->logger->error($msg);
+            
             return false;
         }
     }

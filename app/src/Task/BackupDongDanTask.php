@@ -105,7 +105,7 @@ class BackupDongDanTask extends BackupDongDanAbstract{
         }catch (\Exception $e) {
             
             $msg = $e->getMessage();
-            $this->logError($msg);     
+            $this->logger->error($msg);     
         }
 
     }
