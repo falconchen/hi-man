@@ -597,7 +597,7 @@ blockquote{
   -moz-osx-font-smoothing: grayscale;
   transform: translate(0, 0);
 }
-
+/*
 .fa-2x {
   font-size: 2em;
 }
@@ -649,6 +649,7 @@ blockquote{
 .fa-adjust:before {
   content: '\e80b';
 }
+*/
 
 span.marked,
 span.deprecated {
@@ -1516,7 +1517,8 @@ a.nickname,.hi-text-lighter-blue {
   font-size: 14px !important;
 }
 .hi-excerpt .hi-meta.w3-small {  
-  text-align: right;
+  /* text-align: right; */
+  margin-top:16px;
   
 }
 .hi-content blockquote strong {
@@ -1713,4 +1715,63 @@ body{
   .hi-search-form-wrap,.hi-breadcrumbs{
     padding:0 16px !important;
   }
+}
+
+
+/** gallery **/
+
+.gallery-wrap{
+  width:60%;
+}
+div.gallery {
+  border: 1px solid #ccc;
+}
+
+div.gallery:hover {
+  border: 1px solid #777;
+}
+
+div.gallery img {
+  width: 100%;
+  height: auto;
+}
+
+div.desc {
+  padding: 15px;
+  text-align: center;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.responsive {
+  padding: 2px;
+  float: left;
+  width: 33.3333%;
+}
+
+@media only screen and (max-width: 700px) {
+  .gallery-wrap{
+    width:100%;
+  }
+  /* .responsive {
+    width: 49.99999%;
+    
+  }
+} */
+
+@media only screen and (max-width: 300px) {
+  .gallery-wrap{
+    width:100%;
+  }
+  .responsive {
+    width: 100%;
+  }
+}
+
+.clearfix:after {
+  content: "";
+  display: table;
+  clear: both;
 }

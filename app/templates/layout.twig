@@ -27,6 +27,8 @@
 		<link rel="stylesheet" href="{{ static_url() }}/css/bootstrap.min.css">
 		<link rel="stylesheet" href="{{ static_url() }}/css/bootstrap-theme.min.css">
 		<link rel="stylesheet" href="https://lib.baomitu.com/font-awesome/4.7.0/css/font-awesome.min.css">
+		{# <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> #}
+		
 		<link rel="stylesheet" href="{{ static_url() }}/css/w3.css?ver={{ git_latest().dateVer }}">
 		<link rel="stylesheet" href="{{ static_url() }}/css/prism.css?ver={{ git_latest().dateVer }}">
 		<link rel="stylesheet" href="{{ static_url() }}/css/style.css?ver={{ git_latest().dateVer }}">
@@ -68,7 +70,7 @@
 
 						<ul class="nav navbar-nav navbar-right">
 							<li class="hi-nav-search-button ">
-								<a class="" href="{{path_for('search')}}"><i class="fa fa-pencil-square-o"></i> {{t.trans('Search')}}</a>									
+								<a class="" href="{{path_for('search')}}"><i class="fa fa-search"></i> {{t.trans('Search')}}</a>									
 							</li>		
 							{% if container.session.user is not defined %}
 								<li>

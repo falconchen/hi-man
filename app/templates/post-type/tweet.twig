@@ -1,23 +1,38 @@
 
-<li id="note-{{ post.post_name }}" class="w3-border-0">
+<li id="post-{{ post.post_name }}" class="w3-border-0">
     <div class="w3-padding-bottom hi-excerpt">
 
-        <h5>
+       <code class=" w3-deep-orange">{{ t.trans(post.post_type|capitalize) }}</code>
+        
+        <span class="w3-large">
+            {{post.post_content|raw }}
+        </span>
+        
+        <!-- gallery -->
+        {% set tweetInfo = post.getPostMeta('tweet_info') %}
+        {# {{ dump(tweetInfo.images) }} #}
+        {% if tweetInfo.images is array %}
+        <div class="gallery-wrap w3-margin-top w3-margin-bottom">
+            {% for image in tweetInfo.images %}
+            <div class="responsive">
+                <div class="gallery">
+                    <a target="_blank" href="{{ image.href }}" title="{{ image.name }}">
+                    <img src="{{ image.thumb }}" alt="{{ image.name }}" width="400" height="400">
+                    </a>
+                    {# <div class="desc">Add a description of the image here</div> #}
+                </div>
+            </div>
+            {% endfor %}
             
-            
-            <a class="title w3-hover-text-blue" href="{{ c.router.pathFor('post',{'name':post.post_name}) }}">{{ post.post_title }} </a>
+            <div class="clearfix"></div>
+        </div><!-- /.gallery-wrap -->
+        {% endif %}
+        <!--gallery end-->
 
-            {% if post.post_visibility == 'private' or post.post_visibility == 'password' %}
-            <code class="w3-small">{{ t.trans(post.post_visibility) }} 🔒</code>
-            {% endif %}	
-        </h5>
 
-        <p class="w3-small">
-            {{post.post_content|striptags|truncate(180, false,"...\n")|raw }}
-        </p>
+        <div class="w3-small w3-clear w3-margin-right hi-meta">
+             
 
-        <div class="w3-small w3-margin-right hi-meta">
-            
 
                                             
             <span class="hi-date">	
