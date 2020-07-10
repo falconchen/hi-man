@@ -29,6 +29,14 @@ class ProjectTwigExtension extends AbstractExtension implements GlobalsInterface
         $this->container = $c;
         $this->uri = $c->get('request')->getUri();
         $this->translator = $c->translator;
+
+    }
+    public function getTests(){
+        return [
+            new \Twig_SimpleTest('array', function ($value) {
+                return is_array($value);
+            })
+        ];
     }
     //注入全局变量
     public function getGlobals()

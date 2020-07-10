@@ -1,22 +1,24 @@
 {% extends 'layout.twig' %}
 
 {% block title %}	
-	{{ space_user.username }}{{ t.trans("’ Space") }}
+	{{ spaceUser.username }}{{ t.trans("’ Space") }}
 {% endblock %}
 
-{% block content %}
-
+{% block content %}	
 	<!-- Header -->
 	<header class="w3-panel w3-center w3-opacity hi-text-dark" style="">
 		
-		<h2>{{ space_user.username }}{{ t.trans("’ Space") }}</h2>
+		<h2>{{ spaceUser.username }}{{ t.trans("’ Space") }}</h2>
 
 		<div class="w3-padding-32">
 			<div class="w3-bar w3-border">
-				<a href="{{ c.router.pathFor('user',{'uid':space_user.id}) }}" class="w3-bar-item w3-button w3-light-grey">{{ t.trans('Articles') }}</a>
-				{# <a href="" class="w3-bar-item w3-button ">主页</a> #}
-				<a href="#" class="w3-bar-item w3-button">{{ t.trans('Tweets') }}</a>
-				<a href="#" class="w3-bar-item w3-button">{{ t.trans('Photos') }}</a>
+
+				<a href="{{ c.router.pathFor('user',{'uid':spaceUser.id}) }}" class="w3-bar-item w3-button {% if currentPostType is null %}w3-light-grey{% endif %}">{{ t.trans('Homepage') }}</a>
+
+				{% for pt in allowPostTypes %}					
+					<a href="{{ c.router.pathFor('user.postType',{'uid':spaceUser.id,'postType':pt}) }}" class="w3-bar-item w3-button {% if currentPostType is sameas(pt) %}w3-light-grey{% endif %} ">{{ t.trans(pt|capitalize) }}</a>	
+				{% endfor %}
+				
 			</div>
 		</div>
 	</header>

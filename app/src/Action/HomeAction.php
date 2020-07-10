@@ -54,8 +54,22 @@ final class HomeAction extends \App\Helper\BaseAction
         return $response;
     }
 
-    public function testing()
+    public function testing(Request $request, Response $response, $args)
     {
+        
+
+            // $data['route'] = $request->getAttribute('route');
+            // $data['c'] = $this->container;
+            // //$route->getName();
+            // $this->view->render($response, 'testing.twig', $data);
+            $data = [
+                'a'=>[1,2,3],
+                'b'=>['x'=>1,'y'=>2],
+                'c'=>123
+            ];
+             $this->view->render($response, 'testing.twig', $data);
+            //var_dump($route);exit;
+            //$this->render($response,)
 
         // $lastSend = Post::where('post_name','fd0e58e8e1c1')->first()->getPostMeta('last_send_tweet');
         // $lastSend2 = Post::where('post_name','9d98f79afc19')->first()->getPostMeta('last_send_tweet');

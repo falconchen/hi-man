@@ -73,6 +73,7 @@
 
 - [Prism在线选项](https://prismjs.com/download.html#themes=prism-okaidia&languages=markup+css+clike+javascript+c+go+java+lua+markup-templating+perl+php+python+ruby+twig&plugins=line-highlight+line-numbers+toolbar+copy-to-clipboard)
 
+- [twig1.x文档 readthedocs](https://twig.readthedocs.io/en/1.x/advanced_legacy.html)
 ## codes && tips
 
 ```迭代twig
@@ -194,3 +195,48 @@ Twig 1.15  以上可用
 ### 搜索功能
 - 2020.07.09
 加入搜索功能，可以搜索文章和动弹，目前简单使用 `like` 模糊查询，之后可能使用全文索引。
+
+
+### 获取当前页面路由名称并传到模板
+
+```
+$args['route'] = $request->getAttribute('route')->getName();
+return $this->view->render($response,'test.twig', $args);
+```
+
+### `Twig` 扩展加入一个判断变量是否为数组的`Test`
+
+```
+public function getTests(){
+        return [
+            new \Twig_SimpleTest('array', function ($value) {
+                return is_array($value);
+            })
+        ];
+    }
+```    
+模板调用 
+```
+{% if myVar is array %}
+...
+{% endif %}
+```
+内置Test,判断空值
+
+```
+is null checks whether the value is null:
+
+{% if var is null %}
+    {# do something #}
+{% endif %}
+is defined checks whether the variable is defined:
+
+{% if var is not defined %}
+    {# do something #}
+{% endif %}
+Additionally the is sameas test, which does a type strict comparison of two values, might be of interest for checking values other than null (like false):
+
+{% if var is sameas(false) %}
+    {# do something %}
+{% endif %}
+```
