@@ -85,3 +85,7 @@ Search: 搜索
 #奇怪的翻译，total不用%%
 Search result for "%keyword%", %total% found: 搜索 “%keyword%” ,共找到 total 项结果
 e.g. Posts, Tweets...: 如 文章、动弹
+Galleries: 相册
+Post: 文章
+Tweet: 动弹
+Gallery: 相册

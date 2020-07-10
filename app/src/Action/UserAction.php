@@ -12,8 +12,11 @@ use App\Model\PostMeta;
 use App\Model\UserMeta;
 use App\Validation\Validator;
 use Carlosocarvalho\SimpleInput\Input\Input;
-use Psr\Http\Message\ResponseInterface as Response;
-use Psr\Http\Message\ServerRequestInterface as Request;
+
+use Slim\Http\Response;
+use Slim\Http\Request;
+
+
 use App\Helper\JsonRenderer;
 
 use App\Helper\Url;
@@ -40,26 +43,43 @@ final class UserAction extends \App\Helper\BaseAction
 
     public function index(Request $request, Response $response, $args)
     {        
-        $uid = isset($args['uid']) ? intval($args['uid']) : $this->userId;        
+ 
+        $uid = isset($args['uid']) ? intval($args['uid']) : $this->userId; 
+        $allowPostTypes = ['post','tweet','gallery'];
+        if(!isset($args['postType']) || empty($args['postType'])) {
+            $postType = $allowPostTypes;
+        }else{
+            $postType = [ $args['postType'] ];            
+        }
+        
+
         if( $uid === 0 ) {            
             return $response->withRedirect($this->router->pathFor('homepage')); // invalid request redirect to homepage
         }
 
         // check user exists
         $user = User::where('id', $uid)->first();
+
         if( is_null($user) ) {
             return $response->withRedirect($this->router->pathFor('homepage')); // invalid request redirect to homepage
         }
         
 
-        $postsQuery = Post::where(['post_status' => 'publish', 'post_visibility' => 'public', 'post_type'=>'post','post_author'=>$uid]);
+        $postsQuery = Post::where(
+            function($q) use ($uid){
+                $q->where(['post_status' => 'publish', 'post_visibility' => 'public', 'post_type'=>'post','post_author'=>$uid]);
+                if ( $this->userId === $uid ) {                    
+                    $q->orWhere(
+                        ['post_author'=>$this->userId, ]
+                    )->where('post_status','<>','trash');
+                }
+            }
+        );
 
-        if ( $this->userId === $uid ) {
-            //$postsQuery->orWhereRaw('post_author = ? and post_status <> ?', [$this->userId, 'trash']);
-            $postsQuery->orWhereRaw('post_author = ? and post_status <> "trash" and post_type="post"', [$this->userId]);
-            
-        }
-        $posts = $postsQuery->orderBy('post_date', 'DESC')->paginate(10);
+        
+        $posts = $postsQuery->whereIn(
+            'post_type',$postType
+        )->orderBy('post_date', 'DESC')->paginate(10);
 
         $posts->withPath(remove_query_arg('page'));
 
@@ -74,7 +94,15 @@ final class UserAction extends \App\Helper\BaseAction
             $this->view = $this->c->get('view');
         } 
         
-        $this->view->render($response, 'user/index.twig', ['posts' => $posts,'space_user'=>$user]);
+        $this->view->render($response, 'user/index.twig', 
+
+                        [
+                            'posts' => $posts,
+                            'spaceUser'=>$user,
+                            'currentPostType'=>(count($postType) == 1) ? $postType[0] : null,
+                            'allowPostTypes'=>$allowPostTypes
+                        ]
+                    );
         
 
 

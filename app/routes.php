@@ -46,8 +46,9 @@ $app->group(
     '/u',
     function () {
 
-        $this->get('/me', 'App\Action\UserAction:index')->setName('myspace');
-        $this->get('/{uid}', 'App\Action\UserAction:index')->setName('user');
+        $this->get('/me/', 'App\Action\UserAction:index')->setName('myspace');
+        $this->get('/{uid}/', 'App\Action\UserAction:index')->setName('user');
+        $this->get('/{uid}/{postType}/', 'App\Action\UserAction:index')->setName('user.postType');
     }
 );
 
