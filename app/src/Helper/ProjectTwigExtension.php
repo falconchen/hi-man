@@ -48,6 +48,8 @@ class ProjectTwigExtension extends AbstractExtension implements GlobalsInterface
             'REQUEST'=>$_REQUEST,
             'GET'=>$_GET,
             'POST'=>$_POST,
+            't'=>$this->container->translator,
+            'c'=>$this->container,
         );
     }
 

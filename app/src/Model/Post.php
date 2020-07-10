@@ -46,7 +46,7 @@ class Post extends Model
 		return $postMeta->save();
 	}
 	public function getPostMeta($metaKey) {
-
+		
 		$postMeta = $this->metas()->where(['meta_key'=>$metaKey])->first();		
 		if (!is_null( $postMeta )) {
 			return maybe_unserialize($postMeta->meta_value);
