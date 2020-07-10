@@ -67,7 +67,7 @@ final class UserAction extends \App\Helper\BaseAction
 
         $postsQuery = Post::where(
             function($q) use ($uid){
-                $q->where(['post_status' => 'publish', 'post_visibility' => 'public', 'post_type'=>'post','post_author'=>$uid]);
+                $q->where(['post_status' => 'publish', 'post_visibility' => 'public', 'post_author'=>$uid]);
                 if ( $this->userId === $uid ) {                    
                     $q->orWhere(
                         ['post_author'=>$this->userId, ]
