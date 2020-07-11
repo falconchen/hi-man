@@ -201,6 +201,13 @@
 			</div>
 				
 		</footer>
+		{% block modal %}
+			<div class="hi-modal">
+				<img src="" alt="" class="full-img">
+				<p class="caption">Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa, libero reiciendis qui debitis ducimus unde, cumque expedita doloremque itaque facilis officia aut inventore dolorum sequi, ipsum voluptate temporibus quisquam beatae.</p>
+			</div>
+		{% endblock %} 
+
 		<script type="text/javascript" src="https://lib.baomitu.com/jquery/1.11.3/jquery.min.js"></script>
 		<script type="text/javascript" src="{{ static_url() }}/js/bootstrap.min.js"></script>
 		<script type="text/javascript" src="{{ static_url() }}/js/prism.js?ver={{ git_latest().dateVer }}"></script>
@@ -211,6 +218,6 @@
 		
 
 
-
+	
 	</body>
 </html>
