@@ -17,7 +17,7 @@
             <div class="responsive">
                 <div class="gallery">
                     {# <a target="_blank" href="{{ image.href }}" title="{{ image.name }}"> #}
-                    <img src="{{ image.thumb }}" alt="{{ image.name }}" width="400" height="400" data-original="{{ image.href }}" alt="{{ image.name }}">
+                    <img src="{{ image.thumb | trim('http:','left') }}" alt="{{ image.name }}" width="400" height="400" data-original="{{ image.href | trim('http:','left') }}" alt="{{ image.name }}">
                     {# </a> #}
                     {# <div class="desc">Add a description of the image here</div> #}
                 </div>
