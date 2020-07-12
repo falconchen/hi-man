@@ -1766,17 +1766,9 @@ div.desc {
   .gallery-wrap{
     width:100%;
   }
-  /* .responsive {
-    width: 49.99999%;
-    
-  }
-   */
 }
 
-@media only screen and (max-width: 480px) {
-  .gallery-wrap{
-    width:100%;
-  }
+@media only screen and (max-width: 300px) {
   .responsive {
     width: 100%;
   }
