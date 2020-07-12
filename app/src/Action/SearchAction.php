@@ -25,7 +25,21 @@ final class SearchAction extends \App\Helper\BaseAction
     {
         
         $query = $request->getQueryParams();
-        $keyword = trim($query['kw']);        
+        $keyword = trim($query['kw']);
+
+        if(!isset($query['searchPostType']) || empty($query['searchPostType']) || !is_array($query['searchPostType'])) {
+            $searchPosType = ['tweet','post','gallery'];
+        }else{
+            $searchPosType = $query['searchPostType'];
+        }
+
+
+        if(!isset($query['searchUserId']) || empty($query['searchUserId']) ) {
+            $searchUserId = 0;
+        }else{
+            $searchUserId = intval($query['searchUserId']);
+        }
+
         
         if(strlen($keyword) == 0){
             exit("No Query String");
@@ -40,20 +54,26 @@ final class SearchAction extends \App\Helper\BaseAction
             }
         );
             
-        $postsQuery = $postsQuery->where(function($query){
+        $postsQuery = $postsQuery->where( function($query) use($searchUserId) {
 
-            $query->where(['post_status' => 'publish','post_visibility' => 'public','post_status'=>'publish','post_type'=>'post']);//非登录状态下不能搜索动弹
+            $query->where(['post_status' => 'publish','post_visibility' => 'public','post_status'=>'publish']);
 
-            if ($this->userId > 0) {                        
+            if ($this->userId > 0 && $searchUserId == 0) {
+
                 $query->orWhere(function($query){
-                    $query->where(['post_author' => $this->userId ])->where('post_status','<>','trash')->whereIn('post_type',['post','tweet']);//登录后能搜索文章和 只能搜索自己的动弹，暂时不允许搜索他人动弹
+                    $query->where(['post_author' => $this->userId ])->where('post_status','<>','trash');
                 });
             }
 
+
+
         });
 
-        //$postsQuery = $postsQuery->whereIn('post_type',['post','tweet']);//全面开放搜索动弹和文章    
-        //echo $this->getSQL($postsQuery);exit;
+        $postsQuery = $postsQuery->whereIn('post_type',$searchPosType); //全面开放搜索动弹和文章
+        if($searchUserId > 0) {
+            $postsQuery = $postsQuery->where('post_author',$searchUserId);
+        }
+//        echo $this->getSQL($postsQuery);exit;
         $posts = $postsQuery->orderBy('post_date', 'DESC')->paginate(10);
         $posts->withPath(urldecode(remove_query_arg('page')));
         
@@ -68,7 +88,8 @@ final class SearchAction extends \App\Helper\BaseAction
 
 
      
-        $data['posts'] = $posts;        
+        $data['posts'] = $posts;
+        $data['searchConditions'] = $query;
 
         $this->view->render($response, 'search.twig', $data);
         return $response;

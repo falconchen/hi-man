@@ -160,6 +160,7 @@ label {
     }
   }
 
-  .w3-text,p{
+.w3-text,p{
     word-break: break-all;
-  }
+}
+
