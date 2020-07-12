@@ -1,6 +1,6 @@
 html,
 body,.w3-text,p,h1,h2,h3,h4,h5,h6 {
-  min-height: 100%;  
+  /* min-height: 100%;   */
   /* font-family: Georgia, 'Times New Roman', Times, 'Songti SC', serif !important;   */
   font-family: "Helvetica Neue", "Luxi Sans", "DejaVu Sans", Tahoma, "Hiragino Sans GB", STHeiti !important;
 }
@@ -458,11 +458,17 @@ input.gsc-input,
   transition: margin-left 0s;
 }
 
+
 blockquote{
+  background: #fff3d4;
+  border-color: #f6b73c;
+}
+/* blockquote.hi-origin-info{
   background-color: #f6f6f6;
   border-left: 4px solid #0073cc;
   padding: 8px 16px;
-}
+} */
+
 .hi-blue,.hi-hover-blue:hover {
   color:#fff;
   background-color: #2157f3!important;
@@ -1795,8 +1801,32 @@ div.desc {
   height: 100%;
   width: 100%;
   z-index:1050;
-  display: none;
+  /* display: none; */
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.25 ease-out;
 }
-.hi-modal p {
+.hi-modal.open{
+  opacity: 1;
+  pointer-events: all;
+}
+.hi-modal .full-img {
+  position:absolute;
+  top:50%;
+  left:50%;
+  height:70%;
+  transform:translate(-50%,-50%) scale(0.5);
+  transition: all 0.25s ease-out;
+}
+.hi-modal .full-img.open {  
+  transform:translate(-50%,-50%) scale(1);
+}
+.hi-modal .caption {
   color: #fff;
+  font-size:.2rem;
+  /** 绝对定位下的一种水平居中的写法**/
+  position: absolute;
+  bottom:5%;
+  left:50%;
+  transform: translate(-50%,-5%); 
 }
