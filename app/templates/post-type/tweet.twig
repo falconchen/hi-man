@@ -16,9 +16,9 @@
             {% for image in tweetInfo.images %}
             <div class="responsive">
                 <div class="gallery">
-                    <a target="_blank" href="{{ image.href }}" title="{{ image.name }}">
-                    <img src="{{ image.thumb }}" alt="{{ image.name }}" width="400" height="400">
-                    </a>
+                    {# <a target="_blank" href="{{ image.href }}" title="{{ image.name }}"> #}
+                    <img src="{{ image.thumb }}" alt="{{ image.name }}" width="400" height="400" data-original="{{ image.href }}" alt="{{ image.name }}">
+                    {# </a> #}
                     {# <div class="desc">Add a description of the image here</div> #}
                 </div>
             </div>
