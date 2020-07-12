@@ -84,11 +84,17 @@ function ViewFullImage(images, showAlt) {
   const previews = document.querySelectorAll(images);
   const original = document.querySelector(".hi-modal .full-img");
   const caption = document.querySelector(".hi-modal .caption");
+  const imageOpener = document.querySelector('.hi-modal >a');
   const blankImgSrc = original.src;
   previews.forEach((preview) => {
     preview.style.cursor = "pointer";
 
     preview.addEventListener("click", () => {
+
+      if(preview.parentElement.tagName.toLowerCase() == 'a'){
+          return false;
+      }
+
       hiModal.classList.add("open");
       original.classList.add("open");
       let originalSrc = preview.getAttribute("data-original");
@@ -97,6 +103,7 @@ function ViewFullImage(images, showAlt) {
       }
       //console.log(originalSrc);
       original.src = `${originalSrc}`; //just for fun
+      imageOpener.href = originalSrc;
 
       if (showAlt) {
         const originCaption = preview.alt;
@@ -113,6 +120,7 @@ function ViewFullImage(images, showAlt) {
       original.classList.remove("open");
       original.src = blankImgSrc;
       original.alt = "";
+      imageOpener.href = 'javascript:;';
     }
   });
 }
