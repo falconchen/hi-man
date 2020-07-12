@@ -145,8 +145,35 @@
 					<form action="{{path_for('search')}}" class="hi-search-form {{ isSearchPage ? 'non-close' : 'closed' }}">
 						<input type="text" id="search-query" name="kw" placeholder="{{t.trans('e.g. Posts, Tweets...')}}" value="{{ c.request.getParam('kw') }}">
 						<button>{{ t.trans('Search') }}</button>
+                        <div class="w3-margin-top hi-search-form-options">
+
+
+
+                            <div class="hi-input-section">
+                                <input type="checkbox"
+                                       {%if 'post' in searchConditions.searchPostType %}checked{% endif %}
+                                       id="post-type-post" name="searchPostType[]" value="post">
+                                <label for="post-type">{{ t.trans('Post')}}</label>
+                            </div>
+
+                            <div class="hi-input-section">
+                                <input type="checkbox"
+                                       {%if 'tweet' in searchConditions.searchPostType %}checked{% endif %}
+                                       id="post-type-tweet" name="searchPostType[]" value="tweet">
+                                <label for="post-type-tweet">{{ t.trans('Tweet') }}</label>
+                            </div>
+
+                            {% if user_id > 0 %}
+                            <div class="hi-input-section">
+                                <input type="checkbox"
+                                       {%if searchConditions.searchUserId %}checked{% endif %}
+                                       id="only-mine" name="searchUserId" value="{{ user_id }}">
+                                <label for="only-mine">{{ t.trans('Only search my content') }}</label>
+                            </div>
+                            {% endif %}
+                        </div>
 					</form>
-				</section/>
+				</section>
 				<!-- end of Search Form-->
 			{% endblock %}
 
