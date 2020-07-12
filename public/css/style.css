@@ -1706,10 +1706,11 @@ body{
   }
   .hi-content .hn-title{
     flex-direction: column;
-    align-items: center !important;
+    /*align-items: center !important;*/
+      align-items: flex-start !important;
   }
   .hi-content .hn-title >p{
-    padding-top: 8px !important;
+    padding: 8px !important;
     background: #fff !important;
     color: #111 !important;
   }
