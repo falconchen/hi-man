@@ -1773,7 +1773,7 @@ div.desc {
    */
 }
 
-@media only screen and (max-width: 300px) {
+@media only screen and (max-width: 480px) {
   .gallery-wrap{
     width:100%;
   }
@@ -1829,4 +1829,10 @@ div.desc {
   bottom:5%;
   left:50%;
   transform: translate(-50%,-5%); 
+}
+@media only screen and (max-width: 480px) {
+    .hi-modal .full-img {
+        width: 90%;
+        height: auto;
+    }
 }
