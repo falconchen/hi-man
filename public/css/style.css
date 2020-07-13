@@ -1761,7 +1761,7 @@ div.desc {
 
 
 .responsive {
-  padding: 0px;
+  padding: 0;
   float: left;
   width: 32.333%;
   transition: all 0.3s ease-out;
@@ -1770,7 +1770,7 @@ div.desc {
   height: 0;
   overflow: hidden;
   position: relative;
-  margin-right: 1%;
+  margin: 0.5%;
 }
 
 @media only screen and (max-width: 700px) {
