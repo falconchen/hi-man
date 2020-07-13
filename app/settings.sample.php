@@ -18,7 +18,8 @@ return [
         'remember'  => 'user_r'
     ],
     'settings' => [
-
+        
+        'determineRouteBeforeAppMiddleware'=>true, // 必须，为注入路由名称r全局变量到模板
         'media'=>[
             
             'image'=>[

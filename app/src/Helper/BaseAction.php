@@ -16,6 +16,7 @@ class BaseAction
     protected $route;
     protected $user = null;
     protected $userId = 0;
+    protected $allowPostTypes = ['post','tweet','gallery'];
 
     protected function setupUser()
     {

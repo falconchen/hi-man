@@ -12,25 +12,43 @@ use App\Validation\Validator;
 use Carlosocarvalho\SimpleInput\Input\Input;
 use Psr\Http\Message\ResponseInterface as Response; // http://docs.guzzlephp.org/en/stable/index.html
 use Psr\Http\Message\ServerRequestInterface as Request;
-
+use RuntimeException;
 
 final class HomeAction extends \App\Helper\BaseAction
 {
 
-    public function dispatch(Request $request, Response $response, $args)
+    public function index(Request $request, Response $response, $args)
     {
+        //throw new RuntimeException('just fine');
+
+        $routeName = $request->getAttribute('route')->getName();
+        $routeNameArr = explode('.',$routeName);
+        
+        $postType = 'post';
+        if( isset($routeNameArr[1]) && in_array($routeNameArr[1],$this->allowPostTypes) ) {
+            $postType = $routeNameArr[1];
+        }
         
         $data = array();
 
-        $postsQuery = Post::where(['post_status' => 'publish', 'post_visibility' => 'public','post_type'=>'post']);
+        $postsQuery = Post::where(
+            function($q) {
+                $q->where(['post_status' => 'publish', 'post_visibility' => 'public']);
 
-        if ($this->userId > 0) {
-            //$postsQuery->orWhereRaw('post_author = ? and post_status <> ?', [$this->userId, 'trash']);
-            $postsQuery->orWhereRaw('post_author = ? and post_status <> "trash" and post_type="post"', [$this->userId]);
+                if ( $this->userId > 0 ) {                    
+                    $q->orWhere(
+                        ['post_author'=>$this->userId, ]
+                    )->where('post_status','<>','trash');
+                }
+
+            }
             
-        }
-        $posts = $postsQuery->orderBy('post_date', 'DESC')->paginate(10);
+        
+        );
 
+
+        $posts = $postsQuery->where('post_type',$postType)->orderBy('post_date', 'DESC')->paginate(10);
+        $posts->withPath(remove_query_arg('page'));
         
         if ($posts->count() > 0) {
             foreach ($posts as &$post) {
@@ -38,17 +56,10 @@ final class HomeAction extends \App\Helper\BaseAction
                 $post->post_author_name = User::where('id', $post->post_author)->first()->username;
             }
         }
-        //$posts->render();
-
-        //$pager = $data->render(); //如果路径在二级目录下 分页访问的url 会指向根目录
-        //exit;
-        //$pager = $posts->render(); //如果路径在二级目录下 分页访问的url 会指向根目录
-        //var_dump($list);
-        //exit;
 
         $data['posts'] = $posts;
 
-        //extract
+        
 
         $this->view->render($response, 'home.twig', $data);
         return $response;
