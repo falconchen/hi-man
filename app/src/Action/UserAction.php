@@ -15,6 +15,7 @@ use Carlosocarvalho\SimpleInput\Input\Input;
 
 use Slim\Http\Response;
 use Slim\Http\Request;
+use Slim\Http\StatusCode;
 
 
 use App\Helper\JsonRenderer;
@@ -45,25 +46,36 @@ final class UserAction extends \App\Helper\BaseAction
     {        
  
         $uid = isset($args['uid']) ? intval($args['uid']) : $this->userId; 
-        $allowPostTypes = ['post','tweet','gallery'];
-        if(!isset($args['postType']) || empty($args['postType'])) {
-            $postType = $allowPostTypes;
-        }else{
-            $postType = [ $args['postType'] ];            
-        }
         
 
         if( $uid === 0 ) {            
             return $response->withRedirect($this->router->pathFor('homepage')); // invalid request redirect to homepage
         }
 
+
+        
         // check user exists
         $user = User::where('id', $uid)->first();
 
         if( is_null($user) ) {
             return $response->withRedirect($this->router->pathFor('homepage')); // invalid request redirect to homepage
         }
+
+        if($request->getAttribute('route')->getName() == 'myspace') {
+            return $response->withRedirect(
+                $this->router->pathFor('user',['uid'=>$this->userId]),
+                StatusCode::HTTP_MOVED_PERMANENTLY
+            );             
+        }
+
         
+        $allowPostTypes = ['post','tweet','gallery'];
+
+        if(!isset($args['postType']) || empty($args['postType'])) {
+            $postType = $allowPostTypes;
+        }else{
+            $postType = [ $args['postType'] ];            
+        }
 
         $postsQuery = Post::where(
             function($q) use ($uid){

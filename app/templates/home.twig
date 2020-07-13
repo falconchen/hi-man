@@ -6,7 +6,7 @@
 {% endblock %}
 
 {% block content %}
-
+	
 	<main class="hi-main">
 		{% if posts.count() %}
 			{% include 'post-list.twig' with { posts: posts,c:c,t:t } only%}
