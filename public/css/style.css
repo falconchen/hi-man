@@ -1734,19 +1734,19 @@ body{
 div.gallery {
   /* border: 1px solid #ccc; */
   overflow: hidden;
+  position: absolute;
+    top: 0;
 }
 
-div.gallery:hover {
-  /* border: 1px solid #777; */
-  
-}
+
 
 div.gallery img {
+
+  cursor: pointer;
   width: 100%;
   height: 100%;
   object-fit: cover;
   transition: all 0.3s ease-out;
-  cursor: pointer;
 }
 
 div.gallery img:hover{
@@ -1761,9 +1761,16 @@ div.desc {
 
 
 .responsive {
-  padding: 2px;
+  padding: 0px;
   float: left;
-  width: 33.3333%;
+  width: 32.333%;
+  transition: all 0.3s ease-out;
+  cursor: pointer;
+  padding-top: 32.333%;
+  height: 0;
+  overflow: hidden;
+  position: relative;
+  margin-right: 1%;
 }
 
 @media only screen and (max-width: 700px) {
@@ -1772,11 +1779,6 @@ div.desc {
   }
 }
 
-@media only screen and (max-width: 300px) {
-  .responsive {
-    width: 100%;
-  }
-}
 
 .clearfix:after {
   content: "";
