@@ -146,7 +146,7 @@ trait OscTrait {
         //发布动弹
         //$this->c->logger->debug('jData',[var_export($jData,true)]);
 
-        if( $oscSyncOptions['send_tweet'] ) {
+        if( isset($oscSyncOptions['send_tweet']) && $oscSyncOptions['send_tweet'] ) {
 
             if( strpos($jData->message,'审核') !== false ) {
                 $this->c->logger->info('stop publish tweet as the aritecle is in review status',[$jData->message]);
