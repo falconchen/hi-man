@@ -9,7 +9,7 @@ use function GuzzleHttp\Psr7\build_query;
 class BackupDongDanTask extends BackupDongDanAbstract{
 
 
-    
+    protected $currentPageNum = 0;
     /**
      * BackupDongDan
      * php public/index.php BackupDongDan "userId=12&pageToken=DBA816934CD0AA59&forceUpdate=0"
@@ -26,7 +26,16 @@ class BackupDongDanTask extends BackupDongDanAbstract{
         $userId = isset($inputs['userId']) ? $inputs['userId'] : 12;
         $pageToken = isset($inputs['pageToken']) ? $inputs['pageToken'] : '';
         $forceUpdate = isset($inputs['forceUpdate']) ? boolval($inputs['forceUpdate']) : false;
-        
+        if($forceUpdate) {
+            $maxPage = isset($inputs['maxPageNum']) ? intval($inputs['maxPageNum']) : 0;
+            if($maxPage != 0 && $maxPage == $this->currentPageNum) {
+                $this->logger->info('reach the max page for forceUpdate',['maxPageNum'=>$maxPage]);
+                return ;
+            }
+        }
+
+        $this->currentPageNum++;        
+        $this->logger->info('currentPageNum: ',[$this->currentPageNum]);
 
         $client = $this->setupClient($userId);
 
@@ -34,6 +43,7 @@ class BackupDongDanTask extends BackupDongDanAbstract{
         $authorId = $oscUserInfoArr['userId'];
 
         $myTweetsUrl = sprintf('https://www.oschina.net/action/apiv2/tweets?authorId=%d&pageToken=%s',$authorId,$pageToken);
+        
 
         try{
 
@@ -96,8 +106,9 @@ class BackupDongDanTask extends BackupDongDanAbstract{
 
             }
 
-            
-            $argsNext = build_query( ['userId'=>$userId, 'pageToken'=>$tweetsArr['result']['nextPageToken'],'forceUpdate'=>$forceUpdate]);            
+            $argsNextInputs = $inputs;
+            $argsNextInputs['pageToken']=$tweetsArr['result']['nextPageToken']; 
+            $argsNext = build_query( $argsNextInputs );            
             $this->logger->info('start next page with args: '. $argsNext);
             return $this->command([$argsNext]); //注意参数取的是$args[0] ，需要传入数组并且第一个元素是查询参数
 
