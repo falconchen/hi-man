@@ -67,7 +67,9 @@
             <a href="javascript:;" class="hi-dot hi-text-lighter-blue hi-comment-count">
             {{ t.transChoice('Comment Count', tweetInfo.commentCount, {'%count%': tweetInfo.commentCount} )}}            
             </a>
+            {% if r == 'post' %}
             <a target="_blank" href="{{tweetInfo.href}}" class="hi-dot hi-text-lighter-blue hi-href">{{t.trans('View in OSC')}}</a>
+            {% endif %}
 
             {% if c.session.user.id == post.post_author %}	
                     
@@ -75,7 +77,7 @@
                     {{t.trans('Edit')}}</a>                                
             {% endif %}						
             {% if r !='post' %}
-            <a class="hi-dot  hi-text-lighter-blue"  href="{{ c.router.pathFor('post',{'name':post.post_name}) }}">{{ t.trans('Read') }}</a>
+            <a class="hi-dot  hi-text-lighter-blue"  href="{{ c.router.pathFor('post',{'name':post.post_name}) }}">{{ t.trans('View') }}</a>
             {% endif %}
 
         </div>
