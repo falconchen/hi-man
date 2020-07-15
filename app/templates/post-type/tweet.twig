@@ -29,12 +29,9 @@
         {% endif %}
         <!--gallery end-->
 
-
+        
         <div class="w3-small w3-clear w3-margin-right hi-meta">
-             
 
-
-                                            
             <span class="hi-date">	
                     
                 {# <i class="w3-small fa fa-paperclip"></i>							 #}
@@ -50,9 +47,15 @@
                 
             </span>
                 
-            <a class="hi-dot nickname" target="_blank" href="{{ c.router.pathFor('user',{'uid':post.post_author}) }}">{{post.post_author_name}}</a>                            
-                    
-                
+            <a class="hi-dot nickname" target="_blank" href="{{ c.router.pathFor('user',{'uid':post.post_author}) }}">{{post.post_author_name}}</a>                                               
+            <a href="javascript:;" class="hi-dot hi-text-lighter-blue hi-like-count">
+            {{ t.transChoice('Like Count', tweetInfo.likeCount, {'%count%': tweetInfo.likeCount} )}}
+            </a>
+            <a href="javascript:;" class="hi-dot hi-text-lighter-blue hi-comment-count">
+            {{ t.transChoice('Comment Count', tweetInfo.commentCount, {'%count%': tweetInfo.commentCount} )}}            
+            </a>
+            <a target="_blank" href="{{tweetInfo.href}}" class="hi-dot hi-text-lighter-blue hi-href">{{t.trans('View in OSC')}}</a>
+
             {% if c.session.user.id == post.post_author %}	
                     
                 <a class="hi-dot  hi-text-lighter-blue" href="{{ c.router.pathFor('post-admin.edit',{'name':post.post_name}) }}">
