@@ -105,7 +105,13 @@ final class PostAction extends \App\Helper\BaseAction
         
         $post->osc_link = getOscPostLink($post->post_id);
 
-        $this->view->render($response, 'post/index.twig', ['post' => $post]);
+
+        $tmpl = 'post/content-'.$post->post_type .'.twig';
+        if(!$this->view->getLoader()->exists($tmpl)) {
+            $tmpl = 'post/content-index.twig';
+        }
+        
+        $this->view->render($response, $tmpl, ['post' => $post]);
     }
     /**
      * 同步到osc
