@@ -1,8 +1,9 @@
 
-<li id="post-{{ post.post_name }}" class="w3-border-0">
-    <div class="w3-padding-bottom hi-excerpt">
 
+    <div class="w3-padding-bottom hi-excerpt">
+        {% if r !='post' %}
        <code class="w3-deep-orange">{{ t.trans(post.post_type|capitalize) }}</code>
+       {% endif %}
         
         <span class="w3-large hi-tweet-content">
             {{post.post_content|raw }}
@@ -73,9 +74,9 @@
                 <a class="hi-dot  hi-text-lighter-blue" href="{{ c.router.pathFor('post-admin.edit',{'name':post.post_name}) }}">
                     {{t.trans('Edit')}}</a>                                
             {% endif %}						
-                
+            {% if r !='post' %}
             <a class="hi-dot  hi-text-lighter-blue"  href="{{ c.router.pathFor('post',{'name':post.post_name}) }}">{{ t.trans('Read') }}</a>
+            {% endif %}
 
         </div>
     </div>
-</li>

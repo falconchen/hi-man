@@ -1,0 +1,76 @@
+{% extends 'layout.twig' %}
+
+{% block title %}
+	{{post.post_content|striptags|truncate(30, false,"...\n")|raw }}
+{% endblock %}
+
+{% block content %}
+	
+	<main class="hi-main  w3-mobile">
+		
+
+		<div class="w3-content hi-content hi-tweet-content-wrap">
+			
+			{% include "post-type/" ~ post.post_type ~".twig" %}
+						
+
+			<div class="hi-content-tail">
+
+			{% set syncOptions = post.getSyncOptions() %}	
+			
+			{% if  syncOptions.type == '0' and syncOptions.origin_url != 'https://' %}
+			<blockquote class="hi-origin-info">
+				<em>{{t.trans('Original Link')}}：
+				<a href="{{ syncOptions.origin_url }}" rel="noreferrer" target="_blank">
+				{{ syncOptions.origin_url }}
+				</a>
+				</em>
+			</blockquote>
+
+			{% endif %}
+
+			{% if not post.post_preview and post.osc_link %}
+				{% if (not syncOptions.privacy) or (syncOptions.privacy == '1' and  user_id == post.post_author) %}
+				<div class="w3-clear">
+				<a class="hi-view-in-osc-link  w3-margin-top hi-text-lighter-blue w3-padding-small w3-button-small w3-border w3-border-blue w3-hover-blue w3-round" href="{{ post.osc_link }}" target="_blank" rel="noreferrer">				
+				<i class="fa fa-paper-plane-o"></i>
+					{{t.trans('View in OSC')}} 
+				</a>
+				</div>
+				{% endif %}			
+
+			{% endif %}
+			</div>
+		</div>
+		{% set tweetComments = post.getPostMeta('tweet_comments') %}
+		{% if tweetComments %}
+		<h4>{{t.trans('Comments')}} ( {{ tweetComments|length }} )</h4>
+		<ul class="hi-comments hi-tweet-comments">
+				
+				{# {{dump(tweetComments)}} #}
+				{% for comment in tweetComments %}
+				{# {{dump(comment)}} #}
+				<li class="w3-card-2">
+					<div class="portrait"><img src="{{comment.author.portrait}}" ></div>
+					<div class="comment-head">
+						<div class="comment-author">{{comment.author.name}}</div>						
+						<div class="comment-pubdate">{{comment.pubDate}}</div>						
+						<div class="comment-content">{{comment.content}}</div>
+					</div>
+					<span class="w3-small hi-text-grey comment-footer comment-vote-count">
+						<i class="fa fa-heart-o"></i>
+						{{ comment.voteCount }}
+					</span>
+					
+				</li>
+				{% endfor %}
+		</ul>
+		{% else %}
+			<h4 class="no-comment">{{ t.trans('No Comment') }}</h4>
+		{% endif %}
+		
+		
+	</main>
+
+
+{% endblock %}

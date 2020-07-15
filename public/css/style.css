@@ -2047,3 +2047,60 @@ input[type=checkbox]:checked+label,input[type=radio]:checked+label{
   }
 }
 
+
+
+.hi-tweet-content-wrap{
+  margin-bottom:0
+}
+
+.hi-tweet-content .hi-excerpt{
+  /* border-bottom: none; */
+  
+}
+ul.hi-comments {
+  margin:0;
+  padding:0;
+  list-style:none;
+}
+ul.hi-comments >li {
+  display:grid;
+  grid-template-columns: 50px auto;
+  /* grid-template-rows: 50px auto; */
+  grid-column-gap: 8px;
+  grid-row-gap: 4px;
+
+  justify-items: start;
+  margin:16px 0;
+  padding:16px;
+}
+ul.hi-comments .portrait img {
+  border-radius: 50%;
+}
+
+
+ul.hi-comments >li .comment-footer {
+  grid-column-start: 2;
+  grid-column-end: 3;  
+}
+
+ul.hi-comments .comment-head {
+  display:grid;
+  grid-column-gap: 8px;
+  grid-template-columns: calc(100% - 150px) auto;
+  /* grid-template-rows: 1fr 1fr; */
+  width:100%;
+}
+
+.comment-author{
+  font-weight: 600;
+}
+
+
+ul.hi-comments  .comment-pubdate{
+  text-align:right;
+  color:#888;
+}
+ul.hi-comments .comment-head  .comment-content{
+  grid-column-start: 1;
+  grid-column-end: 3;  
+}

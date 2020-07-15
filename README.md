@@ -249,3 +249,7 @@ Additionally the is sameas test, which does a type strict comparison of two valu
 ## twig 核心扩展 ，filter 和 function
 
 `vendor/twig/twig/src/Extension/CoreExtension.php`
+
+### 加入展示动弹评论和部分元信息的详情页
+2020.07.18
+第一次使用`grid`布局
