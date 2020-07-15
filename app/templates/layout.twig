@@ -44,7 +44,7 @@
 								    <![endif]-->
 
 	</head>
-	<body>
+	<body class="{{r|replace(".","-") ~ '-body'}}">
 
 
 		{% block nav %}
@@ -96,11 +96,7 @@
 									{{t.trans('Search')}}</a>
 							</li>
 							{% if container.session.user is not defined %}
-								<li>
-									<a class="" href="{{ base_url() }}">
-										<i class="fa fa-home"></i>
-										{{t.trans('Homepage')}}</a>
-								</li>
+								
 								<li>
 									<a class="" href="{{ base_url() }}/login">
 										<i class="fa fa-sign-in"></i>
@@ -194,18 +190,18 @@
 {% if flash %}
 
 	{% for msg in flash %}
-		<div class="panel {{ msg|flash_fmt('class') }} w3-display-container">
+		<div class="w3-container {{ msg|flash_fmt('class') }} w3-display-container">
 			<span onclick="this.parentElement.style.display='none'" class="w3-button w3-display-topright w3-text-red" style="top: 8px;right: 8px;">x</span>
-			<div class="w3-panel ">
+			<div class="w3-panel  hi-flash-panel">
 				{{ msg|flash_fmt('msg') }}
 			</div>
 
 		</div>
 	{% else %}
 		{#非数组#}
-		<div class="panel {{ flash|flash_fmt('class') }} w3-display-container">
+		<div class="w3-container  {{ flash|flash_fmt('class') }} w3-display-container">
 			<span onclick="this.parentElement.style.display='none'" class="w3-button w3-display-topright w3-text-red" style="top: 8px;right: 8px;">x</span>
-			<div class="w3-panel">
+			<div class="w3-panel  hi-flash-panel">
 				{{ flash|flash_fmt('msg')  }}
 			</div>
 

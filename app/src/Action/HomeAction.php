@@ -208,7 +208,7 @@ final class HomeAction extends \App\Helper\BaseAction
                         return $response->withRedirect($this->router->pathFor('post-admin')); //普通用户转向
                     }
                 } else {
-                    $flash = ['[error] Sorry, you couldn\'t be logged in. <br/>Wrong Username/Email/Password Or account Inactive ? '];
+                    $flash = ['[error] <ul><li>Sorry, you cannot login . </li><li>Please check your account or user activation status.</li></ul>'];
                     $this->view->render($response, 'login.twig', ['errors' => $v->errors(), 'flash' => $flash, 'request' => $request]);
                 }
             } else {
@@ -296,7 +296,7 @@ final class HomeAction extends \App\Helper\BaseAction
             $this->flash->addMessage('flash', $flash);
             return $response->withRedirect($this->router->pathFor('login'));
         } else {
-            $flash = "registration failed.";
+            $flash = "[error] registration failed.";
         }
 
         $this->view->render($response, 'register.twig', ['errors' => $v->errors(), 'flash' => $flash, 'request' => $request->getParsedBody()]);
