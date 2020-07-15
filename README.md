@@ -244,3 +244,8 @@ Additionally the is sameas test, which does a type strict comparison of two valu
 ### 加入在`modal`中查看大图的功能
 2020.07.12
 @todo: 长图（高度超过一屏的图片查看会有问题) 
+
+
+## twig 核心扩展 ，filter 和 function
+
+`vendor/twig/twig/src/Extension/CoreExtension.php`

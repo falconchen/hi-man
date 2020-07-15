@@ -90,3 +90,6 @@ Post: 文章
 Tweet: 动弹
 Gallery: 相册
 Only search my content: 只搜索我的
+PostType.post: 文章
+PostType.tweet: 动弹
+PostType.gallery: 相册
