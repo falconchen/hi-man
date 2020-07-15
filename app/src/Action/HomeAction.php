@@ -59,7 +59,7 @@ final class HomeAction extends \App\Helper\BaseAction
 
         $data['posts'] = $posts;
 
-        
+        $data['postType'] = $postType;
 
         $this->view->render($response, 'home.twig', $data);
         return $response;

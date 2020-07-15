@@ -60,6 +60,8 @@ class ProjectTwigExtension extends AbstractExtension implements GlobalsInterface
             new TwigFilter('wordwrap', [$this, 'twig_wordwrap_filter'], ['needs_environment' => true]),
             new TwigFilter('flash_fmt', [$this, 'flash_fmt'], ['is_safe' => ['html'],]),
             new TwigFilter('time_diff', [$this, 'diff'], ['needs_environment' => true]),
+
+            new TwigFilter('ucfirst', 'twig_capitalize_string_filter', ['needs_environment' => true]),
             
         ];
     }
