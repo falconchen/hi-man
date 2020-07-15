@@ -2,15 +2,18 @@
 <li id="post-{{ post.post_name }}" class="w3-border-0">
     <div class="w3-padding-bottom hi-excerpt">
 
-       <code class=" w3-deep-orange">{{ t.trans(post.post_type|capitalize) }}</code>
+       <code class="w3-deep-orange">{{ t.trans(post.post_type|capitalize) }}</code>
         
-        <span class="w3-large">
+        <span class="w3-large hi-tweet-content">
             {{post.post_content|raw }}
         </span>
         
         <!-- gallery -->
         {% set tweetInfo = post.getPostMeta('tweet_info') %}
-        {# {{ dump(tweetInfo.images) }} #}
+        {# {{ dump(tweetInfo) }} #}
+        
+
+
         {% if tweetInfo.images is array %}
         <div class="gallery-wrap w3-margin-top w3-margin-bottom">
             {% for image in tweetInfo.images %}
@@ -28,6 +31,15 @@
         </div><!-- /.gallery-wrap -->
         {% endif %}
         <!--gallery end-->
+
+        {% if (tweetInfo.code) %}            
+            <div class="hi-content w3-margin-bottom-0">
+                <span class="w3-text-blue hi-tweet-code-title" style="font-style: italic;font-weight: 400;">
+                    <i class="fa fa-code"></i> {{tweetInfo.code.brush}} {{t.trans('CodeSnippet')}}
+                </span>
+                <pre class="language-{{tweetInfo.code.brush}}"><code>{{tweetInfo.code.content}}</code></pre>
+            </div>
+        {% endif %}
 
         
         <div class="w3-small w3-clear w3-margin-right hi-meta">

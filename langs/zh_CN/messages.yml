@@ -95,3 +95,4 @@ PostType.tweet: 动弹
 PostType.gallery: 相册
 Like Count: "%count% 赞"
 Comment Count: "{0}暂无评论|[1,Inf[ %count% 评论"
+CodeSnippet: 代码片断

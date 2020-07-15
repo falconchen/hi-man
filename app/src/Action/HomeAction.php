@@ -10,6 +10,7 @@ use App\Model\User;
 
 use App\Validation\Validator;
 use Carlosocarvalho\SimpleInput\Input\Input;
+use Exception;
 use Psr\Http\Message\ResponseInterface as Response; // http://docs.guzzlephp.org/en/stable/index.html
 use Psr\Http\Message\ServerRequestInterface as Request;
 use RuntimeException;
@@ -68,7 +69,8 @@ final class HomeAction extends \App\Helper\BaseAction
     public function testing(Request $request, Response $response, $args)
     {
         
-
+            throw new \Exception("hello exception");
+            //a();
             // $data['route'] = $request->getAttribute('route');
             // $data['c'] = $this->container;
             // //$route->getName();

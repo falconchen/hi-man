@@ -1,20 +1,14 @@
 <?php
+use Zeuxisoo\Whoops\Provider\Slim\WhoopsMiddleware;
+use App\Middleware\ViewRouteNameMiddleware;
+
+$app->add(new WhoopsMiddleware);
+
 $app->add($app->getContainer()->get('csrf'));
 $app->add(new App\Middleware\PaginationMiddleware);
 $app->add(\adrianfalleiro\SlimCLIRunner::class); //Slim CLI Runner
 
-$app->add(function ($request,$response ,$next) use ($app){ // 注入路由名称到模板
-
-	if($request->getAttribute('route')){
-		$routeName = $request->getAttribute('route')->getName();		
-		$view = $app->getContainer()->get('view');
-		$view->getEnvironment()->addGlobal('r', $routeName);
-	}
-	
-	$response = $next($request, $response);
-	return $response;
-
-});
+$app->add(ViewRouteNameMiddleware::class);
 
 $app->add(function ($request, $response, $next) {
 	$path = $request->getUri()->getPath();
@@ -58,7 +52,7 @@ $app->add(function ($request, $response, $next) {
 		default:
 			$allow = false;
 			$allowStartWith = [
-				'/p/', '/verify/','/u/',
+				'/p/', '/verify/','/u/','/tweets/'
 			];
 
 			foreach ($allowStartWith as $word) {

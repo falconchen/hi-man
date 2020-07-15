@@ -1999,3 +1999,13 @@ input[type=checkbox]:checked+label,input[type=radio]:checked+label{
         --s: 0.5;
     }
 }
+
+
+.hi-tweet-content {
+  word-break: break-all;
+
+}
+.hi-tweet-content a {
+  word-break: break-all;
+  text-decoration: underline;
+}
