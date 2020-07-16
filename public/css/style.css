@@ -2121,7 +2121,7 @@ input[type=checkbox]:checked+label,input[type=radio]:checked+label{
 }
 .tweet-likes-list-wrap{
     display: grid;
-    grid-template-columns: minmax(32px,48px) auto;
+    grid-template-columns: minmax(32px,40px) auto;
     grid-template-rows: 28px auto;
     /* line-height: 5.8; */
     column-gap: 4px;
