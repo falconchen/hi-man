@@ -1618,6 +1618,9 @@ body{
   /* margin-bottom: 48px; */
   padding-bottom: 48px;
 }
+.post-body #layout {
+  margin-bottom: 48px;
+}
 .hi-content-wrap:after{
     content: '';
     height: 1px;
