@@ -9,29 +9,30 @@
             {{post.post_content|raw }}
         </span>
         
-        <!-- gallery -->
-        {% set tweetInfo = post.getPostMeta('tweet_info') %}
-        {# {{ dump(tweetInfo) }} #}
         
+        {% set tweetInfo = post.getPostMeta('tweet_info') %}                
+        {% if tweetInfo.about %}
+        <ul class="hi-comments hi-tweet-comments hi-tweet-ref">				
+                <li class="w3-code w3-padding">
+                    <div class="portrait"><i class="fa fa-bold fa-quote-left"></i></div>
+                    <div class="comment-head">
+                        <div class="comment-author"> @{{tweetInfo.about.title}}</div>                					
+                        <div class="comment-content">{{tweetInfo.about.content|raw }}
+                        
+                        {% if tweetInfo.about.images is array %}
+                            {%include 'post-type/tweet-gallery.twig' with {images:tweetInfo.about.images} only%}
+                        {% endif %}
+                        
+                        </div>
+                    </div>            
+                </li>
 
+        </ul>                
+        {% endif %}
 
         {% if tweetInfo.images is array %}
-        <div class="gallery-wrap w3-margin-top w3-margin-bottom">
-            {% for image in tweetInfo.images %}
-            <div class="responsive">
-                <div class="gallery">
-                    {# <a target="_blank" href="{{ image.href }}" title="{{ image.name }}"> #}
-                    <img src="{{ image.thumb | trim('http:','left') }}" alt="{{ image.name }}" width="400" height="400" data-original="{{ image.href | trim('http:','left') }}" alt="{{ image.name }}">
-                    {# </a> #}
-                    {# <div class="desc">Add a description of the image here</div> #}
-                </div>
-            </div>
-            {% endfor %}
-            
-            <div class="clearfix"></div>
-        </div><!-- /.gallery-wrap -->
+            {%include 'post-type/tweet-gallery.twig' with {images:tweetInfo.images} only%}
         {% endif %}
-        <!--gallery end-->
 
         {% if (tweetInfo.code) %}            
             <div class="hi-content w3-margin-bottom-0">
@@ -42,7 +43,7 @@
             </div>
         {% endif %}
 
-        
+
         <div class="w3-small w3-clear w3-margin-right hi-meta">
 
             <span class="hi-date">	
