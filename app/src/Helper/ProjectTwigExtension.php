@@ -215,14 +215,23 @@ class ProjectTwigExtension extends AbstractExtension implements GlobalsInterface
                         
 
         $diff = $date0clock->diff($now);
-        
-        if($diff->d >= 3) {
-            $dateFormat = $corExt->getDateFormat()[0];    
-            return $date->format($dateFormat);
-        }else{
+        $dateFormat = $corExt->getDateFormat()[0];
+        if($now->format('Y') == $date->format("Y")){
+            $dateFormat = str_replace( "Y-", "", $dateFormat);                
+        }                
+        return $date->format($dateFormat);
+
+        // if($diff->d >= 3) {
+        //     $dateFormat = $corExt->getDateFormat()[0];
+        //     if($now->format('Y') == $date->format("Y")){
+        //         $dateFormat = str_replace( "Y-", "", $dateFormat);                
+        //     }                
+        //     return $date->format($dateFormat);
             
-            $diff = $date->diff($now);
-        }
+        // }else{
+            
+        //     $diff = $date->diff($now);
+        // }
         // Check for each interval if it appears in the $diff object.
         foreach (self::$units as $attribute => $unit) {
             $count = $diff->$attribute;

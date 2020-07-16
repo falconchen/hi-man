@@ -15,7 +15,6 @@ body {
   }
 }
 
-
 .navbar-brand { 
   animation: fadeInAnimation ease .5s;
   animation-iteration-count: 1; 
@@ -2073,7 +2072,7 @@ ul.hi-comments >li {
   margin:16px 0;
   padding:16px;
 }
-ul.hi-comments .portrait img {
+.portrait img {
   border-radius: 50%;
 }
 
@@ -2103,4 +2102,32 @@ ul.hi-comments  .comment-pubdate{
 ul.hi-comments .comment-head  .comment-content{
   grid-column-start: 1;
   grid-column-end: 3;  
+}
+
+.tweet-content-body #layout {
+  background:transparent;
+}
+.tweet-likes-list-wrap{
+    display: grid;
+    grid-template-columns: 32px auto;
+    grid-template-rows: 28px auto;
+    /* line-height: 5.8; */
+    column-gap: 4px;
+}
+.tweet-likes-list-wrap h4{
+  margin:0;
+  padding:0;
+  line-height: 1.6;
+}
+
+.tweet-likes-list {
+  
+  display: grid;
+  column-gap: 4px;
+  grid-template-columns: repeat(auto-fill, 24px);
+
+}
+
+.tweet-content-body .hi-excerpt {
+  padding:16px 0;
 }
