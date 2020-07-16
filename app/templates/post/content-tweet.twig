@@ -45,10 +45,10 @@
 						<div class="comment-pubdate">{{ comment.pubDate|time_diff }}</div>						
 						<div class="comment-content">{{comment.content}}</div>
 					</div>
-					<strong class="w3-small hi-text-grey comment-footer comment-vote-count">
+					<span class="w3-small hi-text-grey comment-footer comment-vote-count">
 						<i class="fa fa-bold fa-heart-o"></i>
 						{{ comment.voteCount }}
-					</strong>
+					</span>
 					
 				</li>
 				{% endfor %}
