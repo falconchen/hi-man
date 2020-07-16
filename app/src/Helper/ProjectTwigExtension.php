@@ -210,36 +210,51 @@ class ProjectTwigExtension extends AbstractExtension implements GlobalsInterface
         $date = twig_date_converter($env, $date);
         $now = twig_date_converter($env, $now);
         // Get the difference between the two DateTime objects.
-        $corExt = $env->getExtension(\Twig\Extension\CoreExtension::class);
-        $date0clock = new \DateTime($date->format('Y-m-d'),$corExt->getTimeZone());
-                        
+        
+        $diffFromNow = $now->diff($date);
+        //var_dump($diffFromNow->h );
+        if( $diffFromNow->d== 0 && $diffFromNow->h < 4 ){
 
-        $diff = $date0clock->diff($now);
-        $dateFormat = $corExt->getDateFormat()[0];
-        if($now->format('Y') == $date->format("Y")){
-            $dateFormat = str_replace( "Y-", "", $dateFormat);                
-        }                
-        return $date->format($dateFormat);
-
-        // if($diff->d >= 3) {
-        //     $dateFormat = $corExt->getDateFormat()[0];
-        //     if($now->format('Y') == $date->format("Y")){
-        //         $dateFormat = str_replace( "Y-", "", $dateFormat);                
-        //     }                
-        //     return $date->format($dateFormat);
-            
-        // }else{
-            
-        //     $diff = $date->diff($now);
-        // }
-        // Check for each interval if it appears in the $diff object.
-        foreach (self::$units as $attribute => $unit) {
-            $count = $diff->$attribute;
-            if (0 !== $count) {
-                return $this->getPluralizedInterval($count, $diff->invert, $unit);
+            foreach (self::$units as $attribute => $unit) {
+                $count = $diffFromNow->$attribute;
+                if (0 !== $count) {
+                    return $this->getPluralizedInterval($count, $diffFromNow->invert, $unit);
+                }
             }
+
+            
+        }else{
+
+            $corExt = $env->getExtension(\Twig\Extension\CoreExtension::class);
+            $date0clock = new \DateTime($date->format('Y-m-d'),$corExt->getTimeZone());
+            $diffFrom0 = $date0clock->diff($now);//从0点到现在的diff
+            
+            //@todo 
+            //先硬编码时间格式
+            $timeFormat = 'H:i';
+            
+            if($diffFrom0->d <= 2) {
+
+                return $this->translator->transChoice(
+                                                'Recent DayFormat',
+                                                intval($diffFrom0->d),
+                                                ['%timeStr%'=>$date->format($timeFormat)]
+                );
+
+            }else{
+
+                $dateFormat = $corExt->getDateFormat()[0];
+                if($now->format('Y') == $date->format("Y")){ // @todo,假设为Y-m-d H:is
+                    $dateFormat = str_replace( "Y-", "", $dateFormat);                
+                }                
+                return $date->format($dateFormat);
+            }        
+            
         }
+
         return '';
+        
+        
     }
     private function getPluralizedInterval($count, $invert, $unit)
     {
