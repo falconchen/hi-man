@@ -2111,6 +2111,7 @@ input[type=checkbox]:checked+label,input[type=radio]:checked+label{
 
 .comment-author{
   font-weight: 600;
+  color:#203658;
 }
 
 
