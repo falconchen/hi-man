@@ -1309,7 +1309,9 @@ hr[id^="ez-insert-after-placeholder"] {
 .hi-main .w3-ul li {
   padding: 0px 16px;
 }
-
+.homepage-tweet-body .hi-main .w3-ul li {
+  padding: 0px 24px;
+}
 
 .hi-header{
   color:#555;
@@ -2145,3 +2147,4 @@ input[type=checkbox]:checked+label,input[type=radio]:checked+label{
 .hi-tweet-content-wrap ul {
   padding-left:0;
 }
+
