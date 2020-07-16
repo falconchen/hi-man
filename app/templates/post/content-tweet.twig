@@ -16,7 +16,7 @@
 			{% include "post-type/" ~ post.post_type ~".twig" %}
 						
 
-			<div class="hi-content-tail w3-margin-top tweet-likes-list-wrap">
+			<div class="hi-content-tail tweet-likes-list-wrap">
 				{% set tweetLikes = post.getPostMeta('tweet_likes') %}
 				{# {{dump(tweetLikes) }} #}
 				<h4><i class="fa fa-thumbs-o-up"></i> {{tweetLikes|length}}</h4>
