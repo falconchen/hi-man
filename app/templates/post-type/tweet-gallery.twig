@@ -1,0 +1,16 @@
+<!-- gallery begin-->
+<div class="gallery-wrap w3-margin-top w3-margin-bottom"><!-- gallery -->
+    {% for image in images %}
+    <div class="responsive">
+        <div class="gallery">
+            {# <a target="_blank" href="{{ image.href }}" title="{{ image.name }}"> #}
+            <img src="{{ image.thumb | trim('http:','left') }}" alt="{{ image.name }}" width="400" height="400" data-original="{{ image.href | trim('http:','left') }}" alt="{{ image.name }}">
+            {# </a> #}
+            {# <div class="desc">Add a description of the image here</div> #}
+        </div>
+    </div>
+    {% endfor %}
+    
+    <div class="clearfix"></div>
+</div><!-- /.gallery-wrap -->
+<!--gallery end-->

@@ -2056,12 +2056,12 @@ input[type=checkbox]:checked+label,input[type=radio]:checked+label{
   /* border-bottom: none; */
   
 }
-ul.hi-comments {
+.hi-comments {
   margin:0;
   padding:0;
   list-style:none;
 }
-ul.hi-comments >li {
+.hi-comments >li {
   display:grid;
   grid-template-columns: 50px auto;
   /* grid-template-rows: 50px auto; */
@@ -2072,17 +2072,27 @@ ul.hi-comments >li {
   margin:16px 0;
   padding:16px;
 }
+
+.hi-tweet-ref  {
+  margin-left:16px;
+  
+}
+.hi-tweet-ref >li {
+  grid-template-columns: 16px auto;
+}
+
 .portrait img {
   border-radius: 50%;
 }
 
 
-ul.hi-comments >li .comment-footer {
+.hi-comments >li .comment-footer {
   grid-column-start: 2;
   grid-column-end: 3;  
 }
 
-ul.hi-comments .comment-head {
+
+.hi-comments .comment-head {
   display:grid;
   grid-column-gap: 8px;
   grid-template-columns: calc(100% - 150px) auto;
@@ -2095,16 +2105,16 @@ ul.hi-comments .comment-head {
 }
 
 
-ul.hi-comments  .comment-pubdate{
+.hi-comments  .comment-pubdate{
   text-align:right;
   color:#888;
 }
-ul.hi-comments .comment-head  .comment-content{
+.hi-comments .comment-head  .comment-content{
   grid-column-start: 1;
   grid-column-end: 3;  
 }
 
-.tweet-content-body #layout {
+.tweet-content-body #layout,.homepage-tweet-body #layout{
   background:transparent;
 }
 .tweet-likes-list-wrap{
@@ -2130,4 +2140,8 @@ ul.hi-comments .comment-head  .comment-content{
 
 .tweet-content-body .hi-excerpt {
   padding:16px 0;
+}
+
+.hi-tweet-content-wrap ul {
+  padding-left:0;
 }
