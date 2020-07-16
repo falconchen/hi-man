@@ -32,13 +32,13 @@
 
 		{% set tweetComments = post.getPostMeta('tweet_comments') %}
 		{% if tweetComments %}
-		<h4 class="w3-code"><i class="fa fa-comments-o"></i> {{t.trans('Comments')}} ( {{ tweetComments|length }} )</h4>
+		<h4 class="w3-code hi-lead-title"><i class="fa fa-comments-o"></i> {{t.trans('Comments')}} ( {{ tweetComments|length }} )</h4>
 		<ul class="hi-comments hi-tweet-comments">
 				
 				{# {{dump(tweetComments)}} #}
 				{% for comment in tweetComments %}
 				{# {{dump(comment)}} #}
-				<li class="w3-card-2">
+				<li class="">
 					<div class="portrait"><img src="{{comment.author.portrait| trim('http:','left')}}" ></div>
 					<div class="comment-head">
 						<div class="comment-author">{{comment.author.name}}</div>						

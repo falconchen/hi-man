@@ -2071,11 +2071,12 @@ input[type=checkbox]:checked+label,input[type=radio]:checked+label{
   grid-row-gap: 4px;
 
   justify-items: start;
-  margin:16px 0;
-  padding:16px;
+  /* margin:16px 0; */
+  padding:8px 24px;
 }
 
 .hi-tweet-ref  {
+  margin-top:16px;
   margin-left:16px;
   
 }
@@ -2148,3 +2149,31 @@ input[type=checkbox]:checked+label,input[type=radio]:checked+label{
   padding-left:0;
 }
 
+.hi-tweet-content-wrap,.tweet-content-body #layout-wrap li,.homepage-tweet-body #layout-wrap li {
+  background-color: #fff;
+}
+
+.hi-lead-title {
+  margin-top: 16px!important;
+  margin-bottom: 0 !important;
+  width: auto;
+  background-color: #fff;
+  padding: 8px 12px;
+  border:none;
+  /* border-bottom: 1px solid #ccc; */
+  word-wrap: break-word;
+}
+.hi-lead-title::after,.hi-comments:not(.hi-tweet-ref) li::after{
+  content: '';
+  height: 1px;
+  width: calc( 100% - 4px);
+  background: #eee;
+  display: block;
+  margin: 8px auto;
+  grid-column-start: 1;
+  grid-column-end: 3;  
+}
+
+.hi-comments li:last-child::after {
+  display: none;
+}
