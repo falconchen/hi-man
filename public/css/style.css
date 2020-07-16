@@ -1615,11 +1615,11 @@ body{
 
 #layout{
   background-color: #fff;
-  /* margin-bottom: 48px; */
+  margin-bottom: 48px;
   padding-bottom: 48px;
 }
-.post-body #layout {
-  margin-bottom: 48px;
+.homepage-tweet-body #layout {
+  margin-bottom: 0;
 }
 .hi-content-wrap:after{
     content: '';
