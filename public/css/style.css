@@ -1615,8 +1615,8 @@ body{
 
 #layout{
   background-color: #fff;
-  margin-bottom: 48px;
-  /* padding-bottom: 48px; */
+  /* margin-bottom: 48px; */
+  padding-bottom: 48px;
 }
 .hi-content-wrap:after{
     content: '';
