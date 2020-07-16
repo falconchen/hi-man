@@ -44,7 +44,7 @@
 								    <![endif]-->
 
 	</head>
-	<body class="{{r|replace(".","-") ~ '-body'}}">
+	<body class="{% block bodyClass %}{{r|replace(".","-") ~ '-body'}}{%endblock%}">
 
 
 		{% block nav %}
