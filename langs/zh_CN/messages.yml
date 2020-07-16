@@ -98,3 +98,4 @@ Comment Count: "{0}暂无评论|[1,Inf[ %count% 评论"
 CodeSnippet: 代码片断
 Comments: 评论
 No Comment: 暂无评论
+Recent DayFormat: "{0}今天 %timeStr%|{1}昨天 %timeStr%|{2}前天 %timeStr%"
