@@ -23,7 +23,7 @@
 				<dl class="tweet-likes-list">
 					{% for like in tweetLikes%}
 						<dt>
-							<a class="portrait" title="{{like.author.name}}"><img alt="{{like.author.name}}" src="{{like.author.portrait | trim('http:','left')}}" ></a>
+							<a class="portrait" title="{{like.author.name}}"><img alt="{{like.author.name}}" src="{{like.author.portrait | replace({'50x50':'200x200'}) | trim('http:','left')}}" ></a>
 						</dt>
 					{% endfor %}
 				</dl>
@@ -39,7 +39,7 @@
 				{% for comment in tweetComments %}
 				{# {{dump(comment)}} #}
 				<li class="">
-					<div class="portrait"><img src="{{comment.author.portrait| trim('http:','left')}}" ></div>
+					<div class="portrait"><img src="{{comment.author.portrait| replace({'50x50':'200x200'}) | trim('http:','left')}}" ></div>
 					<div class="comment-head">
 						<div class="comment-author">{{comment.author.name}}</div>						
 						<div class="comment-pubdate">{{ comment.pubDate|time_diff }}</div>						
