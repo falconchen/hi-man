@@ -64,10 +64,10 @@
             <a class="hi-dot nickname" target="_blank" href="{{ c.router.pathFor('user',{'uid':post.post_author}) }}">{{post.post_author_name}}</a>
 
             {% if r != 'post' %}
-            <a target="_blank" href="{{tweetInfo.href}}" class="hi-dot hi-text-lighter-blue hi-like-count">
+            <a target="_blank" href="{{ c.router.pathFor('post',{'name':post.post_name}) }}" class="hi-dot hi-text-lighter-blue hi-like-count">
             {{ t.transChoice('Like Count', tweetInfo.likeCount, {'%count%': tweetInfo.likeCount} )}}
             </a>
-            <a target="_blank" href="{{tweetInfo.href}}" class="hi-dot hi-text-lighter-blue hi-comment-count">
+            <a target="_blank" href="{{ c.router.pathFor('post',{'name':post.post_name}) }}" class="hi-dot hi-text-lighter-blue hi-comment-count">
             {{ t.transChoice('Comment Count', tweetInfo.commentCount, {'%count%': tweetInfo.commentCount} )}}            
             </a>
             {% endif %}
