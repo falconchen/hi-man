@@ -1431,10 +1431,13 @@ h1, h2, h3, h4, h5, h6 {
   display: block;
 } */
 .hi-content :not(pre) > code{
-  padding: 0.125rem 0.3125rem 0.0625rem !important;  
-  /* color: #e96900 !important; */
-  background-color: #f8f8f8 !important;
-  border-radius: 4px !important;
+    padding: 0.125rem 0.3125rem 0.0625rem !important;
+    /* rgb(9, 8, 84); */
+    color: #203658 !important;
+    background-color: rgba(255, 224, 224,0.8) !important;
+    border-radius: 2px !important;
+    margin: 0 2px;
+    font-family: Menlo,Monaco,Consolas,"Courier New",monospace;
 }
 .hi-content :not(pre) > code.hi {
   padding: 0.125rem 0.3125rem 0.0625rem !important;
