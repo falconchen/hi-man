@@ -13,7 +13,7 @@
             <div class="tweet-pubdate">{{tweetInfo.pubDate|time_diff }}</div>
 
             {% if r !='post' %}
-                <code class="w3-deep-orange w3-card-2 tweet-mark ">{{ t.trans(post.post_type|capitalize) }}</code>
+                <code class="w3-deep-orange w3-card-2 w3-tiny tweet-mark ">{{ t.trans(post.post_type|capitalize) }}</code>
             {% endif %}             
 
         </div>
