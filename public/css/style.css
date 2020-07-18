@@ -2086,7 +2086,9 @@ input[type=checkbox]:checked+label,input[type=radio]:checked+label{
   display: block;
   text-align: center;
   letter-spacing: 4px;
-  margin-top: 4px
+  margin-top: 4px;
+  opacity: .6;
+  font-weight: 600;
 }
 
 .hi-comments >li {
@@ -2151,6 +2153,7 @@ input[type=checkbox]:checked+label,input[type=radio]:checked+label{
 
 .comment-pubdate ,.tweet-pubdate{
   color:#888;
+  
 }
 .hi-comments  .comment-pubdate{
   text-align:right;  
