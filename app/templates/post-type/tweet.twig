@@ -1,7 +1,7 @@
 
-
+    {%if tweetInfo is not defined  %}
     {% set tweetInfo = post.getPostMeta('tweet_info') %}          
-     
+    {% endif %} 
     <div class="w3-padding-bottom hi-excerpt">
        
         <div class="hi-tweet-header-wrap">
@@ -22,9 +22,7 @@
             <div class="w3-large hi-tweet-content">
                 {{post.post_content|raw }}
             </div>
-            
-            
-            
+
             {% if tweetInfo.about %}
             <ul class="hi-comments hi-tweet-comments hi-tweet-ref">				
                     <li class="w3-code w3-padding tweet-about">
@@ -71,7 +69,7 @@
             {% endif %}
 
             {% if r == 'post' %}
-            <a target="_blank" href="{{tweetInfo.href}}" class="hi-dot hi-text-lighter-blue hi-href">{{t.trans('View in OSC')}}</a>
+            <a target="_blank" href="{{tweetInfo.href}}" class=" hi-text-lighter-blue hi-href">{{t.trans('View in OSC')}}</a>
             {% endif %}
 
             {% if c.session.user.id == post.post_author %}	

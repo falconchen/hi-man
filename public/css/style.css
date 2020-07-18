@@ -2075,9 +2075,19 @@ input[type=checkbox]:checked+label,input[type=radio]:checked+label{
 }
 .hi-comments {
   margin:0;
-  padding:0;
+  padding:16px 0;  
   list-style:none;
+  background:#fff;
 }
+.hi-comments:not(.hi-tweet-ref)::after {
+  content: 'EOF';
+  color: #ccc;
+  display: block;
+  text-align: center;
+  letter-spacing: 4px;
+  margin-top: 4px
+}
+
 .hi-comments >li {
   display:grid;
   grid-template-columns: 50px auto;
@@ -2093,13 +2103,14 @@ input[type=checkbox]:checked+label,input[type=radio]:checked+label{
 .hi-tweet-ref  {
   margin-top:16px;
   margin-left:16px;
-  
+  padding:0;
 }
 .hi-tweet-ref >li {
   grid-template-columns: 16px auto;
 }
-.hi-tweet-ref .tweet-about{
+#layout-wrap .hi-tweet-ref .tweet-about{
   background-color:#f4f4f4;
+  border:none;
 }
 
 .portrait img {
@@ -2154,7 +2165,7 @@ input[type=checkbox]:checked+label,input[type=radio]:checked+label{
     grid-template-rows: 28px auto;
     /* line-height: 5.8; */
     column-gap: 4px;
-    margin-top: 12px !important;
+    margin-top: 8px !important;
 }
 .tweet-likes-list-wrap h4{
   margin:0;
@@ -2171,7 +2182,11 @@ input[type=checkbox]:checked+label,input[type=radio]:checked+label{
 }
 
 .tweet-content-body .hi-excerpt {
-  padding:16px 0;
+  padding:16px 0;  
+}
+.homepage-tweet-body .hi-excerpt
+{
+  border:none;
 }
 
 .hi-tweet-content-wrap ul {
@@ -2191,8 +2206,9 @@ input[type=checkbox]:checked+label,input[type=radio]:checked+label{
   border:none;
   /* border-bottom: 1px solid #ccc; */
   word-wrap: break-word;
+  background: #f4f4f4;
 }
-.hi-lead-title::after,.hi-comments:not(.hi-tweet-ref) li::after{
+.hi-comments:not(.hi-tweet-ref) li::after{
   content: '';
   height: 1px;
   width: calc( 100% - 4px);

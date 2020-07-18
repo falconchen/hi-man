@@ -11,9 +11,9 @@
 	<main class="hi-main w3-mobile">
 		
 
-		<div class="w3-card-2 w3-padding-large  hi-content hi-tweet-content-wrap">
-			
-			{% include "post-type/" ~ post.post_type ~".twig" %}
+		<div class="w3-padding-large  hi-content hi-tweet-content-wrap">
+			{% set tweetInfo = post.getPostMeta('tweet_info') %}
+			{% include "post-type/" ~ post.post_type ~".twig" with {tweetInfo:tweetInfo}%}
 						
 
 			<div class="hi-content-tail tweet-likes-list-wrap">
@@ -41,7 +41,12 @@
 				<li class="">
 					<div class="portrait"><img src="{{comment.author.portrait| replace({'50x50':'200x200'}) | trim('http:','left')}}" ></div>
 					<div class="comment-head">
-						<div class="comment-author">{{comment.author.name}}</div>						
+						<div class="comment-author">
+							{{comment.author.name}}
+							{% if comment.author.id == tweetInfo.author.id %}
+							<span class="w3-text-orange w3-small"><i class="fa fa-bold fa-check-square "></i> 弹主</span>
+							{% endif %}
+						</div>						
 						<div class="comment-pubdate">{{ comment.pubDate|time_diff }}</div>						
 						<div class="comment-content">{{comment.content}}</div>
 					</div>
@@ -54,7 +59,7 @@
 				{% endfor %}
 		</ul>
 		{% else %}
-			<h4 class="w3-code no-comment"><i class="fa fa-comments-o"></i> {{ t.trans('No Comment') }}</h4>
+			<h4 class="w3-code hi-lead-title no-comment"><i class="fa fa-comments-o"></i> {{ t.trans('No Comment') }}</h4>
 		{% endif %}
 		
 		
