@@ -5,8 +5,15 @@ body,.w3-text,p,h1,h2,h3,h4,h5,h6 {
   font-family: "Helvetica Neue", "Luxi Sans", "DejaVu Sans", Tahoma, "Hiragino Sans GB", STHeiti !important;
 }
 
+
 body {
   padding-top: 70px;
+}
+
+@media (max-width: 600px){
+.w3-large {
+    font-size: 16px!important;
+}
 }
 
 @media (min-width: 1200px){
@@ -1287,9 +1294,11 @@ hr[id^="ez-insert-after-placeholder"] {
     max-width: 100%;
     height: auto !important;
   }
-  .w3-ul li:first-of-type .hi-excerpt{
+  
+  .homepage-body .w3-ul li:first-of-type .hi-excerpt{
     padding-top:0;
   }
+
   .hi-content * {
     max-width: 100%;
   }
@@ -2182,10 +2191,10 @@ input[type=checkbox]:checked+label,input[type=radio]:checked+label{
   background: #eee;
   display: block;
   margin: 8px auto;
-  grid-column-start: 1;
+  grid-column-start: 2;
   grid-column-end: 3;  
 }
-
+/* 
 .hi-comments li:last-child::after {
   display: none;
-}
+} */
