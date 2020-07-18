@@ -11,9 +11,9 @@ body {
 }
 
 @media (max-width: 600px){
-.w3-large {
-    font-size: 16px!important;
-}
+  .w3-large {
+      font-size: 16px!important;
+  }
 }
 
 @media (min-width: 1200px){
@@ -1706,7 +1706,9 @@ body{
 }
 
 @media only screen and (max-device-width: 480px) {
-  body{ background-image:none;background-color: #fff;}
+
+  /* body{ background-image:none;background-color: #fff;} */
+  
   #layout{    margin-bottom: 8px;
     padding-bottom: 8px;}
   .responsive-meting {
@@ -2096,6 +2098,9 @@ input[type=checkbox]:checked+label,input[type=radio]:checked+label{
 .hi-tweet-ref >li {
   grid-template-columns: 16px auto;
 }
+.hi-tweet-ref .tweet-about{
+  background-color:#f4f4f4;
+}
 
 .portrait img {
   border-radius: 50%;
@@ -2122,15 +2127,18 @@ input[type=checkbox]:checked+label,input[type=radio]:checked+label{
   width:100%;
 }
 
-.comment-author{
+.comment-author,.tweet-author, .hi-tweet-header-wrap .tweet-author{
   font-weight: 600;
-  color:#203658;
+  color:#203658 !important;
 }
 
 
-.hi-comments  .comment-pubdate{
-  text-align:right;
+
+.comment-pubdate ,.tweet-pubdate{
   color:#888;
+}
+.hi-comments  .comment-pubdate{
+  text-align:right;  
 }
 .hi-comments .comment-head  .comment-content{
   grid-column-start: 1;
@@ -2198,3 +2206,17 @@ input[type=checkbox]:checked+label,input[type=radio]:checked+label{
 .hi-comments li:last-child::after {
   display: none;
 } */
+.hi-tweet-header-wrap{
+    display: grid;
+    grid-template-columns: 50px auto 40px;    
+    grid-column-gap: 12px;    
+    justify-items: start;    
+}
+.hi-tweet-header-wrap .portrait{
+  grid-row-start:1 ;
+  grid-row-end:3;
+}
+.hi-tweet-header-wrap .tweet-pubdate{
+  grid-row-start: 2;
+  grid-row-end: 4;
+}
