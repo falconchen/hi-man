@@ -78,6 +78,9 @@ final class PostAction extends \App\Helper\BaseAction
             //     exit("bad request");
             // }
             $post = Post::where('post_name', $post_name)->first();
+            if(is_null($post)){
+                exit("Post Not Found");
+            }
 
             if (($post->post_status !== 'publish'
                 || $post->post_visibility !== 'public')) {
