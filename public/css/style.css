@@ -2208,6 +2208,9 @@ input[type=checkbox]:checked+label,input[type=radio]:checked+label{
   word-wrap: break-word;
   background: #f4f4f4;
 }
+.hi-no-comment{
+  background: #fff;
+}
 .hi-comments:not(.hi-tweet-ref) li::after{
   content: '';
   height: 1px;
