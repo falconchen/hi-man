@@ -2227,9 +2227,9 @@ input[type=checkbox]:checked+label,input[type=radio]:checked+label{
 } */
 .hi-tweet-header-wrap{
     display: grid;
-    grid-template-columns: 50px auto 32px;    
+    grid-template-columns: 50px auto 40px;    
     grid-column-gap: 12px;    
-    justify-items: start;    
+    /* justify-items: start;     */
 }
 .hi-tweet-header-wrap .portrait{
   grid-row-start:1 ;
@@ -2241,4 +2241,5 @@ input[type=checkbox]:checked+label,input[type=radio]:checked+label{
 }
 .tweet-mark {
   font-size:12px;
+  text-align: center;
 }
