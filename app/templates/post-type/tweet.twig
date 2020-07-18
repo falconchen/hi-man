@@ -31,7 +31,7 @@
                             <div class="comment-author"> @{{tweetInfo.about.title}}</div>                					
                             <div class="comment-content">{{tweetInfo.about.content|raw }}
                             
-                            {% if tweetInfo.about.images is array %}
+                            {% if tweetInfo.about.images is array  and (tweetInfo.about.images|first)%}
                                 {%include 'post-type/tweet-gallery.twig' with {images:tweetInfo.about.images} only%}
                             {% endif %}
                             
