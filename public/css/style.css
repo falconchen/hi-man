@@ -2141,6 +2141,7 @@ input[type=checkbox]:checked+label,input[type=radio]:checked+label{
     width: 100%;
     /* justify-content: center; */
     /* justify-items: center; */
+    grid-row-gap: 4px;
     align-items: center;
 }
 
