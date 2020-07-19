@@ -12,9 +12,13 @@
             <a class="tweet-author" href="{{ c.router.pathFor('user',{'uid':post.post_author}) }}">{{tweetInfo.author.name }}</a>
             <div class="tweet-pubdate">{{tweetInfo.pubDate|time_diff }}</div>
 
-            {% if r !='post' %}
-                <code class=" w3-card-2 tweet-mark ">{{ t.trans(post.post_type|capitalize) }}</code>
-            {% endif %}             
+            
+            <code class=" w3-card-2 tweet-mark ">
+            <a href="{{c.router.pathFor('homepage.tweet')}}">
+            
+            {{ t.trans(post.post_type|capitalize) }}</a>
+            </code>
+            
 
         </div>
 
