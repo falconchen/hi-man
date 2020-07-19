@@ -62,7 +62,7 @@ class ProjectTwigExtension extends AbstractExtension implements GlobalsInterface
             new TwigFilter('time_diff', [$this, 'diff'], ['needs_environment' => true]),
 
             new TwigFilter('ucfirst', 'twig_capitalize_string_filter', ['needs_environment' => true]),
-            
+            new TwigFilter('makeLinks','makeLinks',['is_safe' => ['html'],]),
         ];
     }
 
