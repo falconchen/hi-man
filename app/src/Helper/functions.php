@@ -669,3 +669,26 @@ function getOscPostId($postId)
     $oscSyncResult = getPostMeta($postId, 'osc_sync_result');
     return isset($oscSyncResult['result']['id']) ? intval($oscSyncResult['result']['id']) : 0;
 }
+
+/**
+ * replace url text to archor elment
+ *
+ * @param string $text
+ * @return string
+ */
+function makeLinks($text,$target="_blank")
+{     
+  if( preg_match_all('|<a[^>]+href=(.*?)[^>]*>(.*?)</a>|is',$text,$matches) ){
+      $find = $matches[0];
+      $tmpKeys = array_map(function($str){ return base64_encode($str);},$find);
+      $text = str_replace($find,$tmpKeys,$text);
+  }
+
+  $text =strip_tags($text);  
+  $text = App\Helper\Utils::make_links_blank($text);
+  if(isset($find)) {
+      return str_replace($tmpKeys,$find,$text);
+  }
+  return $text;
+
+}
