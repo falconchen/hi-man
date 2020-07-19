@@ -2256,4 +2256,5 @@ input[type=checkbox]:checked+label,input[type=radio]:checked+label{
   font-weight: bold;
   background: #fff;  
   color: #0073cc;
+  border-radius: 2px;
 }
