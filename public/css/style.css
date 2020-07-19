@@ -2083,7 +2083,7 @@ input[type=checkbox]:checked+label,input[type=radio]:checked+label{
 }
 .hi-comments:not(.hi-tweet-ref)::after {
   content: 'EOF';
-  color: rgba(32, 54, 88,0.8);
+  color: rgba(32, 54, 88,0.6);
   display: block;
   text-align: center;
   letter-spacing: 4px;
@@ -2254,7 +2254,7 @@ input[type=checkbox]:checked+label,input[type=radio]:checked+label{
   font-size: 12px;
   text-align: center;
   font-weight: bold;
-  background: rgba(32, 54, 88,0.6);
+  background: rgba(32, 54, 88,0.8);
   color: #fff;
   padding: 2px 4px;  
 }
