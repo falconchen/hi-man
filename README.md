@@ -246,10 +246,18 @@ Additionally the is sameas test, which does a type strict comparison of two valu
 @todo: 长图（高度超过一屏的图片查看会有问题) 
 
 
-## twig 核心扩展 ，filter 和 function
+### twig 核心扩展 ，filter 和 function
 
 `vendor/twig/twig/src/Extension/CoreExtension.php`
 
 ### 加入展示动弹评论和部分元信息的详情页
 2020.07.18
 第一次使用`grid`布局
+
+
+### 将动弹内的 url字符串转换成可以在新窗口打开的 `a`标签，同时保留动弹原有链接。
+2020.07.21
+
+问题：<https://stackoverflow.com/questions/1188129/replace-urls-in-text-with-html-links>
+最终采用的答案：<https://stackoverflow.com/posts/40039631/revisions>
+做了一个函数`makeLinks`和一个同名`twig filter`。
