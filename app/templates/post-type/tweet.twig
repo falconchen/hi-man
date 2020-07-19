@@ -13,11 +13,11 @@
             <div class="tweet-pubdate">{{tweetInfo.pubDate|time_diff }}</div>
 
             
-            <code class=" w3-card-2 tweet-mark ">
+            <div class="tweet-mark ">
             <a href="{{c.router.pathFor('homepage.tweet')}}">
             
             {{ t.trans(post.post_type|capitalize) }}</a>
-            </code>
+            </div>
             
 
         </div>
