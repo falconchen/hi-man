@@ -18,7 +18,10 @@ body {
     padding-top:50px;
   }
 
-}
+
+  .w3-margin-top-32 {
+    margin-top: 32px !important;
+  }
 
 @media (min-width: 1200px){
   .container {
