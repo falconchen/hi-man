@@ -2083,7 +2083,7 @@ input[type=checkbox]:checked+label,input[type=radio]:checked+label{
   width: 100%;
   margin-bottom: 48px;  
   margin-top:0;  
-  padding-bottom: 0;
+  padding: 0 24px;
 
 }
 .hi-form-title{
