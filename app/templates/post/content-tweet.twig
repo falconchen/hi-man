@@ -11,7 +11,7 @@
 	<main class="hi-main w3-mobile">
 		
 
-		<div class="w3-padding-large  hi-content hi-tweet-content-wrap">
+		<div class="w3-padding-24  hi-content hi-tweet-content-wrap">
 			{% set tweetInfo = post.getPostMeta('tweet_info') %}
 			{% include "post-type/" ~ post.post_type ~".twig" with {tweetInfo:tweetInfo}%}
 						
