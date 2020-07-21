@@ -149,12 +149,10 @@ i.fa-caret-down,
 i.fa-caret-up {
   width: 10px
 }
-.hi-hover-blue:hover,.hi-hover-blue:focus{
-  background-color: #cef;
-  color: #23527c;  
-}
+.hi-hover-blue:hover,.hi-hover-blue:focus,
 .hi-nav-search-button a:active,.hi-nav-search-button a:hover,.hi-nav-search-button a:focus {
-  color:#fff;
+  background-color: #cef;
+  color: #23527c;
 }
 .hi-no-underline{
   text-decoration:none !important;
