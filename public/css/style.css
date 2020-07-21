@@ -9,6 +9,9 @@ body,.w3-text,p,h1,h2,h3,h4,h5,h6 {
 body {
   padding-top: 70px;
 }
+.w3-margin-top-32 {
+  margin-top: 32px !important;
+}
 
 @media (max-width: 600px){
   .w3-large {
@@ -17,12 +20,8 @@ body {
   body {
     padding-top:50px;
   }
-
-
-  .w3-margin-top-32 {
-    margin-top: 32px !important;
-  }
-
+}
+  
 @media (min-width: 1200px){
   .container {
     width: 980px; 
