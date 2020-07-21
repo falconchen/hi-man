@@ -1,7 +1,7 @@
 {% set c = container %}
 {% set user = c.session.user ? c.session.user : null %}
 {% set user_id = user ? user.id : 0 %}
-{% set t = c.translator %}
+
 {% if c.request.getParam('kw')|length > 0  %}
 	{% set isSearchPage = true %}
 {% endif %}
