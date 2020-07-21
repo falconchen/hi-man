@@ -1325,7 +1325,9 @@ hr[id^="ez-insert-after-placeholder"] {
     height: auto ;
   }
   
-  .user-body .w3-ul li:first-of-type .hi-excerpt{
+  .user-body .w3-ul li:first-of-type .hi-excerpt
+  
+  {
     padding-top:0;
   } 
 
