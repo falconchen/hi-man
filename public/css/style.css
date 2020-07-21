@@ -1567,6 +1567,7 @@ a.nickname,.hi-text-lighter-blue {
 }
 .hi-excerpt .w3-small {
   font-size: 16px !important;
+  color:#888;
 }
 .hi-excerpt .hi-meta.w3-small {  
   /* text-align: right; */
