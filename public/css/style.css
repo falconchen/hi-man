@@ -153,6 +153,9 @@ i.fa-caret-up {
   background-color: #cef;
   color: #23527c;  
 }
+.hi-nav-search-button a:active {
+  color:#fff;
+}
 .hi-no-underline{
   text-decoration:none !important;
 }
