@@ -149,6 +149,14 @@ i.fa-caret-down,
 i.fa-caret-up {
   width: 10px
 }
+.hi-hover-blue:hover,.hi-hover-blue:focus{
+  background-color: #cef;
+  color: #23527c;  
+}
+.hi-no-underline{
+  text-decoration:none !important;
+}
+
 .hi-navbar-header .navbar-brand {  
   font-family: Verdana,sans-serif !important;
 }
@@ -481,7 +489,7 @@ blockquote{
   padding: 8px 16px;
 } */
 
-.hi-blue,.hi-hover-blue:hover {
+.hi-blue {
   color:#fff;
   background-color: #2157f3!important;
 }
