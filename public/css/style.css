@@ -1322,7 +1322,7 @@ hr[id^="ez-insert-after-placeholder"] {
   }
   .hi-content img{
     max-width: 100%;
-    height: auto !important;
+    height: auto ;
   }
   
   .user-body .w3-ul li:first-of-type .hi-excerpt{
