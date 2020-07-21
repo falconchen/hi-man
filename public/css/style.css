@@ -2122,9 +2122,11 @@ input[type=checkbox]:checked+label,input[type=radio]:checked+label{
 }
 .hi-comments {
   margin:0;
-  padding:16px 0;  
+  
   list-style:none;
   background:#fff;
+  padding-top: 16px;
+  padding-bottom: 16px;
 }
 .hi-comments:not(.hi-tweet-ref)::after {
   content: 'EOF';
@@ -2146,7 +2148,7 @@ input[type=checkbox]:checked+label,input[type=radio]:checked+label{
 
   justify-items: start;
   /* margin:16px 0; */
-  padding:8px 24px;
+  padding:8px 0;
 }
 
 .hi-tweet-ref  {
