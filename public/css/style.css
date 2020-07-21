@@ -1763,7 +1763,8 @@ body{
         margin-top:16px;
     }
   .hi-header .hi-title{
-    margin-top:0px;
+    padding: 0 24px;
+    margin-top: 24px;
   }
   .hi-search-form-wrap,.hi-breadcrumbs{
     padding:0 16px !important;
