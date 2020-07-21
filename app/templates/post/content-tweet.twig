@@ -23,7 +23,7 @@
 				<dl class="tweet-likes-list">
 					{% for like in tweetLikes%}
 						<dt>
-							<a class="portrait" title="{{like.author.name}}"><img alt="{{like.author.name}}" src="{{like.author.portrait | replace({'50x50':'200x200'}) | trim('http:','left')}}" ></a>
+							<div class="portrait" title="{{like.author.name}}"><img alt="{{like.author.name}}" src="{{like.author.portrait | replace({'50x50':'200x200'}) | trim('http:','left')}}" ></div>
 						</dt>
 					{% endfor %}
 				</dl>
