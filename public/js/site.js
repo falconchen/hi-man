@@ -57,7 +57,7 @@ $(document).ready(function () {
   //     document.querySelectorAll
   // }
 
-  ViewFullImage(".hi-content img,.gallery img", false);
+  ViewFullImage(".hi-content img,.gallery img,.portrait img", false);
 });
 
 function logEvent(opt) {
