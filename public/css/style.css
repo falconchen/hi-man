@@ -1124,8 +1124,8 @@ a.btnsmall:hover {
 .hi-main > *{
   padding: 0 50px;
 }
-@media (max-width: 600px){
-  .hi-main > *{ padding: 0 16px;}
+@media (max-width: 480px){
+  .hi-main > *{ padding: 0 24px;}
 }
 
 .hi-header,.hi-main{
@@ -1775,7 +1775,7 @@ body{
         margin-top:16px;
     }
   .hi-header .hi-title{
-    padding: 0 16px ;
+    padding: 0 24px ;
     margin-top: 24px;
   }
   .hi-search-form-wrap,.hi-breadcrumbs{
@@ -2085,7 +2085,7 @@ input[type=checkbox]:checked+label,input[type=radio]:checked+label{
   width: 100%;
   margin-bottom: 48px;  
   margin-top:0;  
-  padding: 0 16px;
+  padding: 0 24px;
 
 }
 .hi-form-title{
