@@ -1690,7 +1690,7 @@ body{
 
 
 /**search form**/
-.hi-search-form-wrap{
+body:not(.search-body) .hi-search-form-wrap{
   
   position: fixed;
   background-color: #cef;  
