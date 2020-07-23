@@ -1,19 +1,21 @@
-<h2 class="hn-title" style="margin-top: 0;">
-<div style="box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16), 0 2px 10px 0 rgba(0,0,0,0.12);margin-bottom: 16px;">
-    <img src="https://oscimg.oschina.net/oscnet/up-3b137e2e6620f7a63f11a96485b1fb3b.png" style="margin:0;padding:0"/>
-</div>
-<p style="font-size: 14px !important">{{title}}</p>
-</h2>
+<div class="hn-wrap" style="display:flex;flex-direction: column;">
+    <h2 class="hn-title" style="margin-top: 0;order:2;">
+    <div style="box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16), 0 2px 10px 0 rgba(0,0,0,0.12);margin-bottom: 16px;">
+        <img src="https://oscimg.oschina.net/oscnet/up-3b137e2e6620f7a63f11a96485b1fb3b.png" style="margin:0;padding:0"/>
+    </div>
+    <p style="font-size: 14px !important">{{title}}</p>
+    </h2>
 
-<ol>
-{% for news in newsArr %}
-    <li class="hn-item" style="margin-bottom:16px;font-size:16px;">
-    <a rel="nofollow noreferrer" style="color:#FF6600 !important;" target="_blank" href="{{news.href}}"><strong>{{news.title}}</strong></a>
-     <cite>{%if news.site %}{{ ' - (' ~ news.site ~ ')'}}{% endif %}</cite>
-    <p style="margin:4px 0;"><code class="hi">{{news.titleCN}}</code> <ul class="w3-padding-left-0"><li>得分:{{news.score}} | <a rel="nofollow noreferrer"  target="_blank" href="{{hackerNewsHomePageUrl}}{{news.commentsLink}}">评论:{{news.comments}}</a></li></ul></p>
-    </li> 
-{% endfor %}
-</ol>
-<blockquote class="hn-blockquote">
-<p><a href="https://news.ycombinator.com/" target="_blank">Hacker News&nbsp;</a>是一家关于计算机<a title="黑客" href="https://zh.wikipedia.org/wiki/%E9%BB%91%E5%AE%A2">黑客</a>和<a title="创业公司" href="https://zh.wikipedia.org/wiki/%E5%88%9B%E4%B8%9A%E5%85%AC%E5%8F%B8">创业公司</a>的<a title="社会化新闻（页面不存在）" href="https://zh.wikipedia.org/w/index.php?title=%E7%A4%BE%E4%BC%9A%E5%8C%96%E6%96%B0%E9%97%BB&amp;action=edit&amp;redlink=1">社会化新闻</a>网站，由<a title="保罗&middot;格雷厄姆" href="https://zh.wikipedia.org/wiki/%E4%BF%9D%E7%BD%97%C2%B7%E6%A0%BC%E9%9B%B7%E5%8E%84%E5%A7%86">保罗&middot;格雷厄姆</a>的创业孵化器&nbsp;<a title="Y Combinator (公司)" href="https://zh.wikipedia.org/wiki/Y_Combinator_(%E5%85%AC%E5%8F%B8)">Y Combinator</a> 创建。与其它社会化新闻网站不同的是 Hacker News 没有踩或反对一条提交新闻的选项（不过评论还是可以被有足够 Karma 的用户投反对票）；只可以赞或是完全不投票。简而言之，Hacker News 允许提交任何可以被理解为&ldquo;任何满足人们求知欲&rdquo;的新闻 &mdash;&mdash;wikipedia</p>
-</blockquote>
+    <ol style="order:3;">
+    {% for news in newsArr %}
+        <li class="hn-item" style="margin-bottom:16px;font-size:16px;">
+        <a rel="nofollow noreferrer" style="color:#FF6600 !important;" target="_blank" href="{{news.href}}"><strong>{{news.title}}</strong></a>
+        <cite>{%if news.site %}{{ ' - (' ~ news.site ~ ')'}}{% endif %}</cite>
+        <p style="margin:4px 0;"><code class="hi">{{news.titleCN}}</code> <ul class="w3-padding-left-0"><li>得分:{{news.score}} | <a rel="nofollow noreferrer"  target="_blank" href="{{hackerNewsHomePageUrl}}{{news.commentsLink}}">评论:{{news.comments}}</a></li></ul></p>
+        </li> 
+    {% endfor %}
+    </ol>
+    <blockquote class="hn-blockquote" style="order: 1;">
+    <p><a href="https://news.ycombinator.com/" target="_blank">Hacker News&nbsp;</a>是一家关于计算机<a title="黑客" href="https://zh.wikipedia.org/wiki/%E9%BB%91%E5%AE%A2">黑客</a>和<a title="创业公司" href="https://zh.wikipedia.org/wiki/%E5%88%9B%E4%B8%9A%E5%85%AC%E5%8F%B8">创业公司</a>的<a title="社会化新闻（页面不存在）" href="https://zh.wikipedia.org/w/index.php?title=%E7%A4%BE%E4%BC%9A%E5%8C%96%E6%96%B0%E9%97%BB&amp;action=edit&amp;redlink=1">社会化新闻</a>网站，由<a title="保罗&middot;格雷厄姆" href="https://zh.wikipedia.org/wiki/%E4%BF%9D%E7%BD%97%C2%B7%E6%A0%BC%E9%9B%B7%E5%8E%84%E5%A7%86">保罗&middot;格雷厄姆</a>的创业孵化器&nbsp;<a title="Y Combinator (公司)" href="https://zh.wikipedia.org/wiki/Y_Combinator_(%E5%85%AC%E5%8F%B8)">Y Combinator</a> 创建。与其它社会化新闻网站不同的是 Hacker News 没有踩或反对一条提交新闻的选项（不过评论还是可以被有足够 Karma 的用户投反对票）；只可以赞或是完全不投票。简而言之，Hacker News 允许提交任何可以被理解为&ldquo;任何满足人们求知欲&rdquo;的新闻 &mdash;&mdash;wikipedia</p>
+    </blockquote>
+</div>    

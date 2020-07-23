@@ -25,7 +25,7 @@ class PubHackerNewsTask extends BaseTaskAbstract
             $inputs = $this->initInputs($args);            
             $defaultInputs = [
                 't'=>'sogou',// 翻译器 sogou/baidu
-                'p'=>2,//hackerNews 页数
+                'p'=>1,//hackerNews 页数
             ];
             $this->inputs = array_merge($defaultInputs,$inputs);
 

@@ -1625,6 +1625,12 @@ a.nickname,.hi-text-lighter-blue {
   display: block;
   overflow-x: auto;
 }
+.hi-content li {
+  line-height: 1.8em;
+}
+.hn-wrap {
+  display: block !important;
+}
 .hn-item ul>li {
   list-style-position: outside;
 }
