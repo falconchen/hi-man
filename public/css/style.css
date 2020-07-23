@@ -1745,8 +1745,9 @@ body:not(.search-body) .hi-search-form-wrap{
     -moz-appearance: none;
     border: 2px solid #bbb;
     border-radius: 4px;
-    padding-left: 14px;
-    padding-right: 110px;
+    
+    padding-top: 1px;
+    padding-bottom: 1px;
 }
 .hi-search-form input[type=text]:focus {
   border-color: #666;
