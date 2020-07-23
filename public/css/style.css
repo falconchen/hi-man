@@ -1702,7 +1702,7 @@ body{
 body:not(.search-body) .hi-search-form-wrap{
   
   position: fixed;
-  background-color: #cef;  
+  
   padding: 0 16px;
   z-index: 1024;
   top: 130px;
@@ -1710,17 +1710,23 @@ body:not(.search-body) .hi-search-form-wrap{
   
   margin: 0 auto;
   transform: translate(-50%,-50%);
+  
+}
+.hi-search-form-wrap{
+  margin-bottom: 16px;
+  margin-top: 16px;
+  background-color: rgba(255,255,255,0.9);
 }
 .hi-search-form {
   width: 100%;
   position: relative;
-  margin-bottom: 48px;
+  margin-bottom: 32px;
   z-index: 2;
   overflow-y: hidden;
   max-height: 96px;
   transition-property: margin,max-height;
   transition-duration: .3s;
-  margin-top: 16px;
+  margin-top: 24px;
   transition-timing-function: linear;
 }
 
@@ -1798,6 +1804,7 @@ body:not(.search-body) .hi-search-form-wrap{
   }
   .hi-search-form-wrap,.hi-breadcrumbs{
     padding:0 16px !important;
+    margin-top:8px;
   }
 
 }
