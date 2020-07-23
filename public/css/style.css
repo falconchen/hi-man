@@ -1691,7 +1691,16 @@ body{
 
 /**search form**/
 .hi-search-form-wrap{
-  padding:0;
+  
+  position: fixed;
+  background-color: #cef;  
+  padding: 0 16px;
+  z-index: 1024;
+  top: 130px;
+  left: 50%;
+  
+  margin: 0 auto;
+  transform: translate(-50%,-50%);
 }
 .hi-search-form {
   width: 100%;
