@@ -1430,7 +1430,7 @@ h1, h2, h3, h4, h5, h6 {
 .hi-content a:hover{
   text-decoration: underline !important;
 }
-.hi-content ul,hi-content ol {
+.hi-content ul,.hi-content ol {
   padding-left: 1em;
   padding-inline-start: 8px;
   list-style-position: inside;
