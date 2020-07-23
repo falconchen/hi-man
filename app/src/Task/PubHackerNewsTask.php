@@ -64,8 +64,7 @@ class PubHackerNewsTask extends BaseTaskAbstract
             $dom = new Dom;
             $dom->load($body, ['whitespaceTextNode' => false]);
 
-            $storyLinkNodes = $dom->find('.storylink');
-            $siteStrNodes = $dom->find('.sitestr');
+            $storyLinkNodes = $dom->find('.storylink');            
             $scoreNodes = $dom->find('.score');
             $ageNodes = $dom->find('.age');
             $subTextNodes = $dom->find('.subtext');
@@ -84,9 +83,14 @@ class PubHackerNewsTask extends BaseTaskAbstract
             $newsArr = [];
             foreach ($storyLinkNodes as $k => $node) {
 
+                $siteText = "";
+                if($node->hasNextSibling()){
+                    $siteText = trim(strip_tags($node->nextSibling()->innerHtml)," ()");
+                }
+
                 $newsArr[]  = [
                     'title' => $node->innerHtml,
-                    'site' => isset($siteStrNodes[$k]) ? $siteStrNodes[$k]->innerHtml : '',
+                    'site' => $siteText,
                     'titleCN' => $storyTextCNArr[$k],
                     'href' => $node->getAttribute('href'),
                     'score' =>  isset($scoreNodes[$k]) ? intval($scoreNodes[$k]->innerHtml) : 0,
