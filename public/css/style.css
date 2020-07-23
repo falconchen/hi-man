@@ -1745,7 +1745,7 @@ body:not(.search-body) .hi-search-form-wrap{
     -moz-appearance: none;
     border: 2px solid #bbb;
     border-radius: 4px;
-    
+    padding-left: 8px;
     padding-top: 1px;
     padding-bottom: 1px;
 }
