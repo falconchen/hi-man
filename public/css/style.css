@@ -2151,7 +2151,7 @@ input[type=checkbox]:checked+label,input[type=radio]:checked+label{
   
   list-style:none;
   background:#fff;
-  padding-top: 16px;
+  padding-top: 24px;
   padding-bottom: 16px;
 }
 .hi-comments:not(.hi-tweet-ref)::after {
