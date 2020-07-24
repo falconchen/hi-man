@@ -1125,7 +1125,7 @@ a.btnsmall:hover {
   padding: 0 50px;
 }
 @media (max-width: 480px){
-  .hi-main > *{ padding: 0 24px;}
+  .hi-main > *{ padding: 0 16px;}
 }
 
 .hi-header,.hi-main{
@@ -1367,7 +1367,7 @@ hr[id^="ez-insert-after-placeholder"] {
 }
 @media screen and (max-width: 475px) {
   .homepage-tweet-body .hi-main .w3-ul li {
-    padding: 0px 24px ;
+    padding: 0px 16px;
   }
 }
 
@@ -1798,7 +1798,7 @@ body:not(.search-body) .hi-search-form-wrap{
         margin-top:16px;
     }
   .hi-header .hi-title{
-    padding: 0 24px ;
+    padding: 0 16px ;
     margin-top: 24px;
   }
   .hi-search-form-wrap,.hi-breadcrumbs{
@@ -2109,7 +2109,7 @@ input[type=checkbox]:checked+label,input[type=radio]:checked+label{
   width: 100%;
   margin-bottom: 48px;  
   margin-top:0;  
-  padding: 0 24px;
+  padding: 0 16px;
 
 }
 .hi-form-title{
