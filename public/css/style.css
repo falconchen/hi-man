@@ -1634,9 +1634,7 @@ a.nickname,.hi-text-lighter-blue {
 .hn-wrap {
   display: block !important;
 }
-.hn-item ul>li {
-  list-style-position: outside;
-}
+
 .hn-item cite{
   color:#888;
 }
