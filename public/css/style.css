@@ -1570,7 +1570,7 @@ a.nickname,.hi-text-lighter-blue {
 .hi-lighter-blue{
   background-color: #4183c4 ;
 }
-.hi-excerpt .w3-small {
+.hi-excerpt *:not(code).w3-small {
   font-size: 16px !important;
   color:#888;
 }
