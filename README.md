@@ -74,6 +74,10 @@
 - [Prism在线选项](https://prismjs.com/download.html#themes=prism-okaidia&languages=markup+css+clike+javascript+c+go+java+lua+markup-templating+perl+php+python+ruby+twig&plugins=line-highlight+line-numbers+toolbar+copy-to-clipboard)
 
 - [twig1.x文档 readthedocs](https://twig.readthedocs.io/en/1.x/advanced_legacy.html)
+
+- [w3css年度流行配色](https://www.w3schools.com/w3css/w3css_color_libraries.asp)
+
+
 ## codes && tips
 
 ```迭代twig

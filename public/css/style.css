@@ -3,8 +3,13 @@ body,.w3-text,p,h1,h2,h3,h4,h5,h6 {
   /* min-height: 100%;   */
   /* font-family: Georgia, 'Times New Roman', Times, 'Songti SC', serif !important;   */
   font-family: "Helvetica Neue", "Luxi Sans", "DejaVu Sans", Tahoma, "Hiragino Sans GB", STHeiti !important;
-}
+  
+  word-break: break-all;
+    /* font-family: Georgia, 'Times New Roman', Times, 'Songti SC', serif  !important; */
+    
+  line-height:1.8em;
 
+}
 
 body {
   padding-top: 70px;
@@ -511,6 +516,7 @@ blockquote{
 }
 .hi-text-light-dark{
   color:#4183c4 !important;
+  
 }
 
 /*"nullstilling" slutt*/
@@ -1523,12 +1529,7 @@ h1, h2, h3, h4, h5, h6 {
   text-decoration: underline dotted;
 }
 
-.w3-text,p,h1,h2,h3,h4,h5,h6{  
-    word-break: break-all;
-    /* font-family: Georgia, 'Times New Roman', Times, 'Songti SC', serif  !important; */
-    
-    line-height:2em;
-}
+
 .hi-text-grey{
   color:#888;
 }
@@ -1567,7 +1568,9 @@ a.nickname,.hi-excerpt .hi-meta.w3-small{
   font-weight: normal;
 }
 a.nickname,.hi-text-lighter-blue {
-  color: #4183c4 ;
+  /* color: #4183c4 ; */
+  color: #203658;
+  opacity: .75;
 }
 .hi-lighter-blue{
   background-color: #4183c4 ;
@@ -1575,10 +1578,11 @@ a.nickname,.hi-text-lighter-blue {
 .hi-excerpt *:not(code).w3-small {
   font-size: 16px !important;
   color:#888;
+  margin-bottom: 0px;
 }
 .hi-excerpt .hi-meta.w3-small {  
   /* text-align: right; */
-  margin-top:16px;
+  margin-top:4px;
   
 }
 .hi-content blockquote strong {
