@@ -1657,6 +1657,12 @@ li.hn-item {
 .hn-item >p ,.hn-item >ul{
   display:inline-block;
 }
+@media (max-width: 480px) {
+  .hn-item >p {  
+    display: block;    
+  }
+}
+
 
 .hn-item >cite{
   color:#888;
