@@ -1556,7 +1556,7 @@ a.nickname,.hi-excerpt .hi-meta.w3-small{
   font-size: 90%;
   color: #888;
   /* background-color: #4183c4; */  
-  font-weight: bold;
+  /* font-weight: bold; */
 }
 .hi-excerpt .hi-meta.w3-small .hi-date{
   font-weight: normal;
