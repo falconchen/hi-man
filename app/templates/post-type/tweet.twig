@@ -24,7 +24,7 @@
 
         <section class="hi-tweet-content-wrap">
             <div class="w3-large hi-tweet-content">
-                {{post.post_content|raw|makeLinks }}
+                {{post.post_content|raw|makeLinks|replaceTweetTopic(c.router.pathFor('search',{},{kw:'#'})) }}
             </div>
 
             {% if tweetInfo.about %}
