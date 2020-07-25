@@ -1658,6 +1658,7 @@ li.hn-item {
 }
 .hn-item >p ,.hn-item >ul{
   display:inline-block;
+  
 }
 
 @media (max-width: 480px) {
@@ -1667,7 +1668,7 @@ li.hn-item {
 }
 
 
-.hn-item >cite{
+.hn-item >cite,.hn-item >ul{
   color:#888;
 }
 .hn-item >cite::after{
