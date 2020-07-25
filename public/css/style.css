@@ -1649,7 +1649,8 @@ li.hn-item {
 
 
 .hn-item >a {
-  font-size:18px;
+  /* font-size:18px; */
+  font-family: "Open Sans","Microsoft YaHei","Hiragino Sans GB","Hiragino Sans GB W3","微软雅黑","Helvetica Neue",Arial,sans-serif;
 }
 .hn-item >p {  
 
