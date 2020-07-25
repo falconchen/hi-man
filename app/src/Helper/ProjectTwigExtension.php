@@ -63,6 +63,8 @@ class ProjectTwigExtension extends AbstractExtension implements GlobalsInterface
 
             new TwigFilter('ucfirst', 'twig_capitalize_string_filter', ['needs_environment' => true]),
             new TwigFilter('makeLinks','makeLinks',['is_safe' => ['html'],]),
+            new TwigFilter('replaceTweetTopic','replaceTweetTopic',['is_safe' => ['html'],]),
+
         ];
     }
 
