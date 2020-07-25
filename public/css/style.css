@@ -1491,6 +1491,7 @@ h1, h2, h3, h4, h5, h6 {
   background-color: #f1f1fc!important;
   margin: 0 2px;
 }
+/*
 .hi-content :not(pre) > code.hi {
   padding: 0.125rem 0.3125rem 0.0625rem !important;
   color: #666 !important;
@@ -1498,6 +1499,7 @@ h1, h2, h3, h4, h5, h6 {
   border-radius: 4px !important;
   border: 1px solid #e5e8ec;
 }
+*/
 .hi-content img{
   max-width: 100%;
   height: auto;
@@ -1657,6 +1659,7 @@ li.hn-item {
 .hn-item >p ,.hn-item >ul{
   display:inline-block;
 }
+
 @media (max-width: 480px) {
   .hn-item >p {  
     display: block;    
