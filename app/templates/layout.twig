@@ -163,8 +163,8 @@
 <!--Search Form-->
 <section class="container w3-mobile w3-card-2 hi-search-form-wrap">
 	<form action="{{path_for('search')}}" class="hi-search-form {{ isSearchPage ? 'non-close' : 'closed' }}">
-		<input type="text" id="search-query" name="kw" placeholder="{{t.trans('e.g. Posts, Tweets...')}}" value="{{ c.request.getParam('kw') }}">
-		<button>{{ t.trans('Search') }}</button>
+		<input class="form-control" type="text" id="search-query" name="kw" placeholder="{{t.trans('e.g. Posts, Tweets...')}}" value="{{ c.request.getParam('kw') }}">
+		<button class="w3-hover-blue">{{ t.trans('Search') }}</button>
 		<div class="w3-margin-top hi-search-form-options">
 
 
