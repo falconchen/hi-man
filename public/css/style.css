@@ -1792,7 +1792,7 @@ body:not(.search-body) .hi-search-form-wrap{
     padding-bottom: 1px;
     height: 42px;
 }
-.hi-search-form input[type=text]:focus {
+.hi-search-form input[type=text]:focus,.search-body .hi-search-form input[type=text]{
   border-color: #4183c4;
 }
 
