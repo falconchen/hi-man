@@ -1497,15 +1497,9 @@ h1, h2, h3, h4, h5, h6 {
   background-color: #f1f1fc!important;
   margin: 0 2px;
 }
-/*
-.hi-content :not(pre) > code.hi {
-  padding: 0.125rem 0.3125rem 0.0625rem !important;
-  color: #666 !important;
-  background-color: #fafafa !important;
-  border-radius: 4px !important;
-  border: 1px solid #e5e8ec;
-}
-*/
+
+
+
 .hi-content img{
   max-width: 100%;
   height: auto;
@@ -1657,9 +1651,10 @@ li.hn-item {
   font-family: "Open Sans","Microsoft YaHei","Hiragino Sans GB","Hiragino Sans GB W3","微软雅黑","Helvetica Neue",Arial,sans-serif;
 }
 .hn-item >p {  
-
-  margin:0 4px 0 0 !important;
-  
+  margin:0 4px 0 0 !important;  
+}
+.hn-item >p code.hi {
+  background-color: transparent!important;
 }
 .hn-item >p ,.hn-item >ul{
   display:inline-block;
