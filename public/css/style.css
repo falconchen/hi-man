@@ -1747,9 +1747,10 @@ body:not(.search-body) .hi-search-form-wrap{
     padding-left: 8px;
     padding-top: 1px;
     padding-bottom: 1px;
+    height: 42px;
 }
 .hi-search-form input[type=text]:focus {
-  border-color: #666;
+  border-color: #4183c4;
 }
 
 
@@ -1758,7 +1759,7 @@ body:not(.search-body) .hi-search-form-wrap{
     position: absolute;
     top: 4px;
     right: 4px;
-    height: calc(40px + 4px - 6px);
+    height: 34px;
     width: 100px;
     background: #5badf0;
     color: #fff;
