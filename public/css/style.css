@@ -1644,7 +1644,9 @@ a.nickname,.hi-text-lighter-blue {
 li.hn-item {
   list-style-position: outside;
 }
-
+.hn-title img {
+  padding-right: 16px !important;
+}
 
 .hn-item >a {
   /* font-size:18px; */
