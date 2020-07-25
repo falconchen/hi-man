@@ -1632,13 +1632,45 @@ a.nickname,.hi-text-lighter-blue {
 .hi-content li {
   line-height: 2em;
 }
+
+
 .hn-wrap {
   display: block !important;
 }
 
-.hn-item cite{
+.hn-wrap >ol {
+  padding-inline-start: 16px;
+}
+li.hn-item {
+  list-style-position: outside;
+}
+
+
+.hn-item >a {
+  font-size:18px;
+}
+.hn-item >p {  
+
+  margin:0 16px 0 0 !important;
+  
+}
+.hn-item >p ,.hn-item >ul{
+  display:inline-block;
+}
+
+.hn-item >cite{
   color:#888;
 }
+.hn-item >cite::after{
+  content:" ";
+  display:block;
+}
+.hn-item ul>li{
+  list-style-type: none;      
+  font-size: 14px;
+}
+
+
 .hi-content div.code-toolbar {
   font-size:0.96em;
 }
