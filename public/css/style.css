@@ -2291,7 +2291,7 @@ input[type=checkbox]:checked+label,input[type=radio]:checked+label{
     /* justify-content: center; */
     /* justify-items: center; */
     grid-row-gap: 4px;
-    align-items: center;
+    align-items: top;
 }
 
 .comment-author,.tweet-author, .hi-tweet-header-wrap .tweet-author{
