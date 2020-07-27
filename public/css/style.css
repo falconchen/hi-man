@@ -1572,6 +1572,10 @@ a.nickname,.hi-text-lighter-blue {
   color: #203658;
   opacity: .75;
 }
+.hi-content .hi-text-lighter-blue {
+  color: #203658 !important;
+}
+
 .hi-lighter-blue{
   background-color: #4183c4 ;
 }
