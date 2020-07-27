@@ -74,7 +74,7 @@
 			{% if not post.post_preview and post.osc_link %}
 				{% if (not syncOptions.privacy) or (syncOptions.privacy == '1' and  user_id == post.post_author) %}
 				<div class="w3-clear">
-				<a class="hi-view-in-osc-link  w3-margin-top hi-text-lighter-blue w3-padding-small w3-button-small w3-border w3-border-blue w3-hover-blue w3-round" href="{{ post.osc_link }}" target="_blank" rel="noreferrer">				
+				<a class="hi-view-in-osc-link  w3-margin-top  w3-padding-small w3-button-small w3-border w3-border-blue w3-hover-blue w3-round" href="{{ post.osc_link }}" target="_blank" rel="noreferrer">				
 				<i class="fa fa-paper-plane-o"></i>
 					{{t.trans('View in OSC')}} 
 				</a>
