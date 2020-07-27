@@ -1152,7 +1152,9 @@ a.btnsmall:hover {
 .hi-excerpt h1 {
   font-size:18px;
 }
-
+.hi-content .hn-title + ol {
+  margin-left:8px;
+}
 @media only screen and (max-device-width: 600px) {
 
   .hi-excerpt h1 {
@@ -1758,7 +1760,8 @@ body{
     height: 1px;
     width: 100%;
     background: #eee;
-    display: block;
+    /* display: block; */
+    display: none;
     margin: 15px auto 20px;
 }
 
