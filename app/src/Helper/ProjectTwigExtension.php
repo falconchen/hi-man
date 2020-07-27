@@ -214,8 +214,14 @@ class ProjectTwigExtension extends AbstractExtension implements GlobalsInterface
         // Get the difference between the two DateTime objects.
         
         $diffFromNow = $now->diff($date);
-        //var_dump($diffFromNow->h );
-        if( $diffFromNow->d== 0 && $diffFromNow->h < 4 ){
+        
+
+        if( 
+            $diffFromNow->y == 0 &&
+            $diffFromNow->m == 0 &&
+            $diffFromNow->d == 0 &&
+            $diffFromNow->h < 4 
+        ) {
 
             foreach (self::$units as $attribute => $unit) {
                 $count = $diffFromNow->$attribute;
@@ -230,12 +236,12 @@ class ProjectTwigExtension extends AbstractExtension implements GlobalsInterface
             $corExt = $env->getExtension(\Twig\Extension\CoreExtension::class);
             $date0clock = new \DateTime($date->format('Y-m-d'),$corExt->getTimeZone());
             $diffFrom0 = $date0clock->diff($now);//从0点到现在的diff
-            
+            //var_dump($diffFrom0);
             //@todo 
             //先硬编码时间格式
             $timeFormat = 'H:i';
             
-            if($diffFrom0->d <= 2) {
+            if( $diffFrom0->y == 0 && $diffFrom0->m == 0 && $diffFrom0->d <= 2 ) {
 
                 return $this->translator->transChoice(
                                                 'Recent DayFormat',
