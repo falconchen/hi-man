@@ -1336,6 +1336,7 @@ hr[id^="ez-insert-after-placeholder"] {
   display: none;
 }
 
+
 @media screen and (max-width: 475px) {
   .phonebr {
     display: initial;
@@ -1460,7 +1461,7 @@ h1, h2, h3, h4, h5, h6 {
     text-align: justify;
     margin-top:16px;
     margin-bottom: 8px;
-    padding: 0 50px;
+    padding: 0 16px;
 }
   
 
