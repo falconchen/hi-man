@@ -82,7 +82,7 @@
                     {{t.trans('Edit')}}</a>                                
             {% endif %}						
             {% if r !='post' %}
-            <a target="_blank" class="hi-dot  hi-text-lighter-blue"  href="{{ c.router.pathFor('post',{'name':post.post_name}) }}">{{ t.trans('View') }}</a>
+            <a  class="hi-dot  hi-text-lighter-blue"  href="{{ c.router.pathFor('post',{'name':post.post_name}) }}">{{ t.trans('View') }}</a>
             {% endif %}
 
         </div>
