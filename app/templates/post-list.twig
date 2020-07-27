@@ -1,7 +1,7 @@
 <ul class="w3-ul  w3-mobile ">
         {%for post in posts %}            
             
-            <li id="post-{{ post.post_name }}" class="w3-border-0 {% if r == 'homepage.tweet' %} w3-margin-bottom{% endif %}">
+            <li id="post-{{ post.post_name }}" class="hi-post-type-{{post.post_type}} w3-border-0 {% if r == 'homepage.tweet' %} w3-margin-bottom{% endif %}">
             {% block postTypeItem %}             
                 {% include "post-type/" ~ post.post_type ~".twig" %}                
             {% endblock %} 
