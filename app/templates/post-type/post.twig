@@ -12,7 +12,7 @@
             {% endif %}	
         </h5>
 
-        <p class="w3-small">
+        <p class="w3-small hi-excerpt-text">
             {{post.post_content|striptags|truncate(180, false,"...\n")|raw }}            
         </p>
 
@@ -27,15 +27,15 @@
 
                     {{post.post_date_local|time_diff}}
                 {% elseif post.post_status == 'future'%}
-                    {{post.post_date_local}} <code class="w3-text-red">{{t.trans('Future status')}}</code>
+                    {{post.post_date_local}} <code class="w3-text-red ">{{t.trans('Future status')}}</code>
                 {% elseif post.post_status == 'draft' %}		
-                    <code class="w3-text-blue">{{ t.trans('Draft status')}}</code>
+                    <code class="w3-text-blue ">{{ t.trans('Draft status')}}</code>
                 {% endif %}
 
                 
             </span>
                 
-            <a class="hi-dot nickname" target="_blank" href="{{ c.router.pathFor('user',{'uid':post.post_author}) }}">{{post.post_author_name}}</a>                            
+            <a class="hi-dot hi-text-lighter-blue" target="_blank" href="{{ c.router.pathFor('user',{'uid':post.post_author}) }}">{{post.post_author_name}}</a>                            
                     
                 
             {% if c.session.user.id == post.post_author %}	
