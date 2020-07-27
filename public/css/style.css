@@ -28,6 +28,9 @@ body {
   body {
     padding-top:50px;
   }
+  .hi-breadcrumbs{
+    margin-top:16px;
+  }
 }
   
 @media (min-width: 1200px){
