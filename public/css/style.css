@@ -1137,7 +1137,7 @@ a.btnsmall:hover {
 .hi-main > *{
   padding: 0 50px;
 }
-@media (max-width: 480px){
+@media (max-width: 600px){
   .hi-main > *{ padding: 0 16px;}
 }
 
