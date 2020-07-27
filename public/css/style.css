@@ -2398,3 +2398,6 @@ input[type=checkbox]:checked+label,input[type=radio]:checked+label{
 #layout .tweet-mark a{
   color: #fff !important;
 }
+dt.hi-text-grey{
+  font-weight: normal;
+}
