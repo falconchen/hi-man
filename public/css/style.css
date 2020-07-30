@@ -1651,9 +1651,10 @@ a.nickname,.hi-text-lighter-blue {
 }
 
 .hi-content blockquote em {
-  font-size: 10px !important;
+    font-size: 14px !important;
     line-height: 1.2em;
     word-break: break-word;
+    font-style: normal;
 }
 
 .hi-content figure {
