@@ -11,7 +11,9 @@
         <li class="hn-item" style="margin-bottom:16px;font-size:16px;">
         <a rel="nofollow noreferrer" style="color:#FF6600 !important;" target="_blank" href="{{news.href}}"><strong>{{news.title}}</strong></a>
         <cite>{%if news.site %}{{ ' - (' ~ news.site ~ ')'}}{% endif %}</cite>
-        <p style="margin:4px 0;"><code class="hi">{{news.titleCN}}</code> <ul class="w3-padding-left-0"><li>得分:{{news.score}} | <a rel="nofollow noreferrer"  target="_blank" href="{{hackerNewsHomePageUrl}}{{news.commentsLink}}">评论:{{news.comments}}</a></li></ul></p>
+        <p style="margin:4px 0;">
+        <h2 style="font-size: 16px !important;margin: 0;padding-left: 0 !important;border: none;line-height: 1.2em;"><code class="hi">{{news.titleCN}}</code></h2>
+         <ul class="w3-padding-left-0"><li>得分:{{news.score}} | <a rel="nofollow noreferrer"  target="_blank" href="{{hackerNewsHomePageUrl}}{{news.commentsLink}}">评论:{{news.comments}}</a></li></ul></p>
         </li> 
     {% endfor %}
     </ol>
