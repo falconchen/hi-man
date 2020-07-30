@@ -1588,8 +1588,11 @@ a.nickname,.hi-excerpt .hi-meta.w3-small{
   /* background-color: #4183c4; */  
   /* font-weight: bold; */
 }
-.hi-excerpt .hi-meta.w3-small .hi-date{
-  font-weight: normal;
+.hi-excerpt .hi-meta.w3-small .hi-date{  
+  font-weight: 400;
+  background: #f4f4f4;
+  padding: 2px 4px;
+  border-radius: 4px;
 }
 a.nickname,.hi-text-lighter-blue {
   /* color: #4183c4 ; */
