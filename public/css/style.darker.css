@@ -510,17 +510,13 @@ blockquote{
   color:#2157f3 !important;
 }
 .hi-dark {
-  /* background-color:#203658 !important; */
-  background-color:#3367d6!important;
-  
+  background-color:#203658 !important;
+  /* background-color:#043448 !important; */
   color:#fff !important;
 }
-
 .hi-text-dark{
   color:#203658 !important;
 }
-
-
 .hi-light-dark {
   background-color:#4183c4 !important;
   color:#fff !important;
@@ -529,7 +525,6 @@ blockquote{
   color:#4183c4 !important;
   
 }
-
 
 /*"nullstilling" slutt*/
 @media (min-width:1675px) {
@@ -2408,8 +2403,7 @@ input[type=checkbox]:checked+label,input[type=radio]:checked+label{
   font-size: 12px;
   text-align: center;
   font-weight: bold;
-  /* background: rgba(32, 54, 88,0.8); */
-  background: #3367d6;
+  background: rgba(32, 54, 88,0.8);
   color: #fff;
   padding: 2px 4px;  
 }
