@@ -1687,14 +1687,14 @@ li.hn-item {
   /* font-size:18px; */
   font-family: "Open Sans","Microsoft YaHei","Hiragino Sans GB","Hiragino Sans GB W3","微软雅黑","Helvetica Neue",Arial,sans-serif;
 }
-.hn-item h2 {  
+.hn-item >div h2 {  
   margin:0 4px 0 0 !important;  
 }
-.hn-item h2 code.hi {
+.hn-item >div h2 code.hi {
   background-color: transparent!important;
   padding-left: 0 !important;
 }
-.hn-item h2 ,.hn-item >ul{
+.hn-item >div h2 ,.hn-item >div ul{
   display:inline-block;
   
 }
@@ -1706,7 +1706,7 @@ li.hn-item {
 }
 
 
-.hn-item >cite,.hn-item >ul{
+.hn-item >cite,.hn-item >div ul{
   color:#888;
 }
 .hn-item >cite::after{
