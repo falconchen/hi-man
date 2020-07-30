@@ -1593,6 +1593,7 @@ a.nickname,.hi-excerpt .hi-meta.w3-small{
   background: #f4f4f4;
   padding: 2px 4px;
   border-radius: 4px;
+  padding-left: 8px;
 }
 a.nickname,.hi-text-lighter-blue {
   /* color: #4183c4 ; */
