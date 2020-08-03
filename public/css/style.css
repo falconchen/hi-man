@@ -1868,6 +1868,7 @@ body:not(.search-body) .hi-search-form-wrap{
   .responsive-meting {
     padding-bottom: 138.5%; 
   }
+
   .hi-navbar .w3-dropdown-hover, .hi-navbar  .w3-dropdown-content {
     width:100%;
   }
@@ -2006,6 +2007,10 @@ div.desc {
         max-width: 90%;
         height: auto;
     }
+    .navbar-toggle{
+      margin-right: 6px;
+    }
+    
 }
 
 /**input checkbox radio switch etc**/
@@ -2426,4 +2431,9 @@ input[type=checkbox]:checked+label,input[type=radio]:checked+label{
 }
 dt.hi-text-grey{
   font-weight: normal;
+}
+
+.hi-logo {
+  font-weight: 600;
+  box-shadow: inset -1px 0px 0px rgba( 0, 0, 0, 0.1), 1px 0px 0px rgba( 255, 255, 255, 0.1), inset 1px 0px 0px rgba( 0, 0, 0, 0.1), -1px 0px 0px rgba( 255, 255, 255, 0.1);
 }
