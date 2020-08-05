@@ -317,10 +317,11 @@ class ProjectTwigExtension extends AbstractExtension implements GlobalsInterface
         $url = $settings['media']['image']['uri'].$img->local_path;
 
         if( $settings['media']['image']['images.weserv.nl'] ){            
-            $args = ['url'=>$url];
+            $args = [];
             !is_null($width) && $args['w'] = $width;
             !is_null($height) && $args['h'] = $height;
-            $url = 'https://images.weserv.nl/'.http_build_query($args);
+            $tails = !empty($args) ? '&'.http_build_query($args) :'';
+            $url = 'https://images.weserv.nl/?url='.$url .$tails;
         }
         return $url;
 
