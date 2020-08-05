@@ -6,7 +6,8 @@
        
         <div class="hi-tweet-header-wrap">
             <div class="portrait">
-                <img src="{{tweetInfo.author.portrait | replace({'50x50':'200x200'}) | trim('http:','left')}}">
+                {# <img src="{{tweetInfo.author.portrait | replace({'50x50':'200x200'}) | trim('http:','left')}}"> #}
+                <img src="{{tweetInfo.author.portrait | imgMap }}">
             </div>
                         
             <a class="tweet-author" href="{{ c.router.pathFor('user',{'uid':post.post_author}) }}">{{tweetInfo.author.name }}</a>
