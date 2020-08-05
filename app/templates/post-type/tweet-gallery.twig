@@ -1,7 +1,7 @@
 <!-- gallery begin-->
 <div class="gallery-wrap w3-margin-top w3-margin-bottom"><!-- gallery -->
     {% for image in images %}
-    <div class="responsive">
+    <div class="responsive w3-border w3-round">
         <div class="gallery">
             {# <a target="_blank" href="{{ image.href }}" title="{{ image.name }}"> #}
             <img src="{{ image.thumb | trim('http:','left') }}" alt="{{ image.name }}" width="200" height="200" data-original="{{ image.href | trim('http:','left') }}" alt="{{ image.name }}">
