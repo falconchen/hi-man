@@ -306,13 +306,24 @@ class ProjectTwigExtension extends AbstractExtension implements GlobalsInterface
         return Git::latestLog();
     }
 
-    public function imgMap(Environment $env,$origin_url){
-        $img = MediaMap::where('origin_url', $origin_url)->first();
+    public function imgMap(Environment $env,$originUrl,$width=null,$height=null){
+        $img = MediaMap::where('origin_url', $originUrl)->first();
         if( is_null($img) ) {
-            return $origin_url;
+            return $originUrl;
         }
+        
         $settings = $this->container->get('settings');        
-        return $settings['media']['image']['uri'].$img->local_path;
+        
+        $url = $settings['media']['image']['uri'].$img->local_path;
+
+        if( $settings['media']['image']['images.weserv.nl'] ){            
+            $args = ['url'=>$url];
+            !is_null($width) && $args['w'] = $width;
+            !is_null($height) && $args['h'] = $height;
+            $url = 'https://images.weserv.nl/'.http_build_query($args);
+        }
+        return $url;
+
     }
 
 }

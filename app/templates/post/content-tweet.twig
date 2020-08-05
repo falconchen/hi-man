@@ -39,7 +39,7 @@
 				{% for comment in tweetComments %}
 				{# {{dump(comment)}} #}
 				<li class="">
-					<div class="portrait"><img src="{{comment.author.portrait | imgMap}}" ></div>
+					<div class="portrait"><img src="{{comment.author.portrait | imgMap(200,200)}}" ></div>
 					<div class="comment-head">
 						<div class="comment-author">
 							
