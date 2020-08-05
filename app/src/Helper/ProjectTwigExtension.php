@@ -8,7 +8,8 @@ use Twig\Extension\GlobalsInterface;
 use Twig\TwigFilter;
 use Twig\TwigFunction;
 use App\Helper\Git;
-
+use App\Model\MediaMap;
+use MediaMap as GlobalMediaMap;
 
 class ProjectTwigExtension extends AbstractExtension implements GlobalsInterface
 {
@@ -62,8 +63,10 @@ class ProjectTwigExtension extends AbstractExtension implements GlobalsInterface
             new TwigFilter('time_diff', [$this, 'diff'], ['needs_environment' => true]),
 
             new TwigFilter('ucfirst', 'twig_capitalize_string_filter', ['needs_environment' => true]),
+            
             new TwigFilter('makeLinks','makeLinks',['is_safe' => ['html'],]),
             new TwigFilter('replaceTweetTopic','replaceTweetTopic',['is_safe' => ['html'],]),
+            new TwigFilter('imgMap', [$this,'imgMap'], ['needs_environment' => true]),
 
         ];
     }
@@ -302,4 +305,14 @@ class ProjectTwigExtension extends AbstractExtension implements GlobalsInterface
     {
         return Git::latestLog();
     }
+
+    public function imgMap(Environment $env,$origin_url){
+        $img = MediaMap::where('origin_url', $origin_url)->first();
+        if( is_null($img) ) {
+            return $origin_url;
+        }
+        $settings = $this->container->get('settings');        
+        return $settings['media']['image']['uri'].$img->local_path;
+    }
+
 }
