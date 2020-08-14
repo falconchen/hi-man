@@ -149,7 +149,7 @@ final class PostAdminAction extends \App\Helper\LoggedAction
                 $this->logger->log(Psr7\str($e->getRequest()));
                 $this->logger->log(Psr7\str($e->getResponse()));
             } catch (Exception $e) { //others
-
+                
             }
         }
         $this->data['publishDate'] = $this->localTimeArr();
@@ -395,27 +395,36 @@ final class PostAdminAction extends \App\Helper\LoggedAction
 
         $oscResponse = $client->request('GET', $blogWriteUrl);
         $body = (string) $oscResponse->getBody();
+        
         $dom = new \PHPHtmlParser\Dom;
         $dom->load($body, ['whitespaceTextNode' => false]);
         $catalogDropdownNode = $dom->find('#catalogDropdown');
-        $classificationNode = $dom->find('[name=classification]');
+        //$classificationNode = $dom->find('[name=classification]');// 被废弃
+
+        // 专区
+        
+        
 
         $html = new stdClass;
 
         $html->catalogDropdown = $catalogDropdownNode[0]->innerHtml;
-        $html->classification = $classificationNode[0]->innerHtml;
+        //$html->classification = $classificationNode[0]->innerHtml;
 
         $catalogDropdownNodes = $dom->find('#catalogDropdown option');
-        $classificationNodes = $dom->find('[name=classification] option');
+        //$classificationNodes = $dom->find('[name=classification] option');
         $html->catalogDropdowns = [];
-        $html->classifications = [];
+        //$html->classifications = [];
         foreach ($catalogDropdownNodes as $node) {
             $html->catalogDropdowns[] = ['text' => $node->text, 'value' => $node->getAttribute('value')];
         }
-        foreach ($classificationNodes as $node) {
-            $html->classifications[] = ['text' => $node->text, 'value' => $node->getAttribute('value')];
+        // foreach ($classificationNodes as $node) {
+        //     $html->classifications[] = ['text' => $node->text, 'value' => $node->getAttribute('value')];
+        // }
+        $groupItemNodes = $dom->find('.field-groups .menu .item');
+        foreach($groupItemNodes as $node) {
+            $html->groups[] = ['text' => $node->text, 'value' => $node->getAttribute('data-value')];
         }
-
+        
         return $html;
     }
 
@@ -423,8 +432,7 @@ final class PostAdminAction extends \App\Helper\LoggedAction
     private function getStoreSyncOptions($postId = null, $userId = null)
     {
 
-        $options = null;
-
+        $default = self::getDefaultSyncOptions();
         if ($postId) {
             $options = PostMeta::where('post_id', $postId)->where('meta_key', 'osc_sync_options')->first();
         }
@@ -436,16 +444,10 @@ final class PostAdminAction extends \App\Helper\LoggedAction
 
         if (!is_null($options)) {
             $options = unserialize($options->meta_value);
+            return array_merge($default,$options);            
         } else {
-            return [
-                "catalog" => "304044",
-                "classification" => "430381",
-                "type" => "1"
-            ];
+            return $default;
         }
-
-
-
 
         return $options;
     }

@@ -217,4 +217,18 @@ trait OscTrait {
         return new Client($guzzleConf);  
     }
 
+    /**
+     * 默认同步到osc的文章设置,分类，分区，可见性
+     *
+     * @return array
+     */
+    public static function getDefaultSyncOptions()
+    {
+        return [
+            "catalog" => "304044",
+            //"classification" => "430381",
+            "groups"=>14, // 14 程序人生
+            "type" => "1"
+        ];
+    }
 }
