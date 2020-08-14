@@ -156,6 +156,7 @@ final class PostAction extends \App\Helper\BaseAction
                         throw new Exception('No OSC Sync Options');
                     }
                     $oscSyncOptions = unserialize($syncOptions->meta_value);
+                    $oscSyncOptions = array_merge(self::getDefaultSyncOptions(),$oscSyncOptions);
 
                     $lock = $this->fileLock('sync_post_' . $postDbData->post_id, false);
                     $lock->acquire();
