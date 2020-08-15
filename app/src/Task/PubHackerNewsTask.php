@@ -130,7 +130,7 @@ class PubHackerNewsTask extends BaseTaskAbstract
 
         $post->save();
         
-        
+        /*
         $post->post_content = str_replace(
             ['香港', '民主'],
             ['HK' , '*主'],
@@ -139,12 +139,13 @@ class PubHackerNewsTask extends BaseTaskAbstract
         
         $postLink = rtrim(hiGetSettings('app')['url'],'/'). $this->c->router->pathFor('post',['name'=>$post->post_name]);
         $post->post_content .= sprintf('<p>由<a href="" target="_blank">HiCMS</a>自动编译</p>',$postLink);
+        */
         
         $default = self::getDefaultSyncOptions();
         $hackerNewsOscSyncOptions = [
             'catalog' => 7027796, //Hacker News
             'classification' => 430381, //其他类型
-            'type' => 0,
+            'type' => 1,
             'as_top' => 1,
             'privacy' => 0,
             'deny_comment' => 0,
