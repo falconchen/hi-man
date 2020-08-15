@@ -19,7 +19,7 @@ class PubHackerNewsTask extends BaseTaskAbstract
     public function command($args)
     {
 
-        
+        $this->updateTime = date('Y-m-d H:i', $this->localTimestamp());
 
         try {
             
@@ -39,9 +39,10 @@ class PubHackerNewsTask extends BaseTaskAbstract
                 $newsArr = array_merge_recursive($newsArr,$this->fetchNews($url));                
             }
             $consumeTime = time() - $this->startTime;
+            
             $contentHtml = $this->c->view->fetch('hacker-news/list.twig', [
                 'newsArr' => $newsArr,
-                'title' => sprintf('最后更新时间: %s ', date('Y-m-d H:i', $this->localTimestamp())),
+                'title' => sprintf('最后更新时间: %s ', $this->updateTime),
                 'hackerNewsHomePageUrl' => $hackerNewsHomePageUrl,
                 'consumeTime' => $consumeTime,//获取和翻译消耗时间
             ]);
@@ -128,18 +129,19 @@ class PubHackerNewsTask extends BaseTaskAbstract
         $post->post_modified = date('Y-m-d H:i:s', $currentTimestamp);
         $post->post_content = $contentHtml;
 
-        $post->save();
-        
-        /*
-        $post->post_content = str_replace(
-            ['香港', '民主'],
-            ['HK' , '*主'],
-            $post->post_content 
-        );
+        // $post->post_content = str_replace(
+        //     ['香港', '民主'],
+        //     ['HK' , '*主'],
+        //     $post->post_content 
+        // );
         
         $postLink = rtrim(hiGetSettings('app')['url'],'/'). $this->c->router->pathFor('post',['name'=>$post->post_name]);
-        $post->post_content .= sprintf('<p>由<a href="" target="_blank">HiCMS</a>自动编译</p>',$postLink);
-        */
+        $post->post_content .= sprintf('<p class="w3-hide">本文由 <a href="%s" target="_blank">HiCMS</a> 自动编译,最后更新时间: %s </p>',$postLink,$this->updateTime);
+        
+        $post->save();
+        
+        
+        
         
         $default = self::getDefaultSyncOptions();
         $hackerNewsOscSyncOptions = [
