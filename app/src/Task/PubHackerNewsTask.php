@@ -13,6 +13,7 @@ use App\Model\PostMeta;
 class PubHackerNewsTask extends BaseTaskAbstract
 {
 
+    use \App\Helper\HelperTrait;
     use \App\Helper\OscTrait;
 
     public function command($args)
@@ -129,17 +130,20 @@ class PubHackerNewsTask extends BaseTaskAbstract
 
         $post->save();
         
+        
         $post->post_content = str_replace(
             ['香港', '民主'],
             ['HK' , '*主'],
             $post->post_content 
         );
         
+        $post->post_content .= sprintf('<p>由<a href="" target="_blank">HiCMS</a>自动编译</p>',$this->getPostLink($post->post_name,true));
+        
         $default = self::getDefaultSyncOptions();
         $hackerNewsOscSyncOptions = [
             'catalog' => 7027796, //Hacker News
             'classification' => 430381, //其他类型
-            'type' => 1,
+            'type' => 0,
             'as_top' => 1,
             'privacy' => 0,
             'deny_comment' => 0,
@@ -147,6 +151,7 @@ class PubHackerNewsTask extends BaseTaskAbstract
             'send_tweet' =>is_null($post->getPostMeta('last_send_tweet')) ? 1 : 0,
             'email_me' =>$isCreate ? 1 : 0,
             'tweet_tmpl' => "看看老外在搞啥【:文章标题:】:OSC链接:"
+
         ];
         $hackerNewsOscSyncOptions  = array_merge($default,$hackerNewsOscSyncOptions);
         $this->syncOsc($post, $hackerNewsOscSyncOptions);
