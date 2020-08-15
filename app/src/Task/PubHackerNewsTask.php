@@ -13,7 +13,7 @@ use App\Model\PostMeta;
 class PubHackerNewsTask extends BaseTaskAbstract
 {
 
-    use \App\Helper\HelperTrait;
+    //use \App\Helper\HelperTrait;
     use \App\Helper\OscTrait;
 
     public function command($args)
@@ -137,7 +137,8 @@ class PubHackerNewsTask extends BaseTaskAbstract
             $post->post_content 
         );
         
-        $post->post_content .= sprintf('<p>由<a href="" target="_blank">HiCMS</a>自动编译</p>',$this->getPostLink($post->post_name,true));
+        $postLink = rtrim(hiGetSettings('app')['url'],'/'). $this->c->router->pathFor('post',['name'=>$post->post_name]);
+        $post->post_content .= sprintf('<p>由<a href="" target="_blank">HiCMS</a>自动编译</p>',$postLink);
         
         $default = self::getDefaultSyncOptions();
         $hackerNewsOscSyncOptions = [
