@@ -297,6 +297,18 @@ $(document).ready(function() {
       return false;
     }
 
+    var pubBtnText = $('.hi-publish-btn').text();
+    var pubBtnLoadingText = '正在提交...';
+
+    $('.hi-publish-btn').parent().addClass('w3-disabled');
+    $('.hi-publish-btn').text(pubBtnLoadingText).prepend('<i class="fa fa-spinner fa-spin"></i>');
+    setTimeout(function () {
+      $('.hi-publish-btn ').parent().removeClass('w3-disabled');
+      $('.hi-publish-btn').text(pubBtnText);
+      $('.hi-publish-btn > .fa-spinner').remove();
+    }, 6000);
+
+    //return false;
     return true;
   });
 });
