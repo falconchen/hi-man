@@ -1,22 +1,16 @@
 <?php
-use \Slim\App;
-use \Slim\Http\Environment;
-use \Slim\Http\Uri;
-use \Slim\Http\Body;
-use \Slim\Http\Headers;
-use \Slim\Http\Request;
-use \Slim\Http\Response;
+use Slim\App;
+use Slim\Http\Environment;
+use Slim\Http\Uri;
+use Slim\Http\Body;
+use Slim\Http\Headers;
+use Slim\Http\Request;
+use Slim\Http\Response;
+
 use Zeuxisoo\Whoops\Provider\Slim\WhoopsMiddleware;
 
-class Stackable {
-    use \Slim\MiddlewareAwareTrait;
+class WhoopsMiddlewareDICompatibilityTest extends PHPUnit_Framework_TestCase {
 
-    public function __invoke(ServerRequestInterface $request, ResponseInterface $response) {
-        return $res->write('Center');
-    }
-}
-
-class MessageTest extends PHPUnit_Framework_TestCase {
     public function setUp() {
         ob_start();
     }
@@ -25,9 +19,9 @@ class MessageTest extends PHPUnit_Framework_TestCase {
         ob_end_clean();
     }
 
-    public function testLoadNormal() {
+    public function testLoadNormalDICompatibility() {
         $app = new App();
-        $app->add(new WhoopsMiddleware);
+        $app->add(new WhoopsMiddleware($app));
         $app->get('/foo', function ($req, $res) {
             $res->write('It is work');
             return $res;
@@ -53,9 +47,9 @@ class MessageTest extends PHPUnit_Framework_TestCase {
         $this->assertEquals('It is work', (string)$res->getBody());
     }
 
-    public function testException() {
+    public function testExceptionDICompatibility() {
         $app = new App();
-        $app->add(new WhoopsMiddleware);
+        $app->add(new WhoopsMiddleware($app));
         $app->get('/foo', function ($req, $res) use ($app) {
             return $this->router->pathFor('index');
         });
@@ -79,11 +73,12 @@ class MessageTest extends PHPUnit_Framework_TestCase {
         $app($req, $res);
     }
 
-    public function testMiddlewareIsWorkingAndEditorIsSet() {
+    public function testMiddlewareIsWorkingAndEditorIsSetDICompatibility() {
         $app = new App([
             'settings' => [
                 'debug' => true,
                 'whoops.editor' => 'sublime',
+                'whoops.page_title' => 'Custom Page Title',
             ]
         ]);
         $container = $app->getContainer();
@@ -99,15 +94,18 @@ class MessageTest extends PHPUnit_Framework_TestCase {
             return $res;
         });
 
-        $app->add(new WhoopsMiddleware);
+        $app->add(new WhoopsMiddleware($app));
 
         // Invoke app
         $response = $app->run();
 
         // Get added whoops handlers
-        $handlers = $container['whoops']->getHandlers();
+        $handlers = $container->get('whoops')->getHandlers();
 
-        $this->assertEquals(2, count($handlers));
+        // Only 1 will got because the JSON handler will not added if it is not ajax request
+        $this->assertEquals(1, count($handlers));
         $this->assertEquals('subl://open?url=file://test_path&line=169', $handlers[0]->getEditorHref('test_path', 169));
+        $this->assertEquals('Custom Page Title', $handlers[0]->getPageTitle());
     }
+
 }
