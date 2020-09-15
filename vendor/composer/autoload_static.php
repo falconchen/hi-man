@@ -35,6 +35,10 @@ class ComposerStaticInitc3765e25676b2cbb624df054aef313e2
         array (
             'adrianfalleiro\\' => 15,
         ),
+        'W' => 
+        array (
+            'Whoops\\' => 7,
+        ),
         'V' => 
         array (
             'Violin\\' => 7,
@@ -141,6 +145,10 @@ class ComposerStaticInitc3765e25676b2cbb624df054aef313e2
         'adrianfalleiro\\' => 
         array (
             0 => __DIR__ . '/..' . '/adrianfalleiro/slim-cli-runner/src',
+        ),
+        'Whoops\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/filp/whoops/src/Whoops',
         ),
         'Violin\\' => 
         array (
@@ -359,13 +367,6 @@ class ComposerStaticInitc3765e25676b2cbb624df054aef313e2
                 0 => __DIR__ . '/..' . '/zeuxisoo/slim-whoops/src',
             ),
         ),
-        'W' => 
-        array (
-            'Whoops' => 
-            array (
-                0 => __DIR__ . '/..' . '/filp/whoops/src',
-            ),
-        ),
         'T' => 
         array (
             'Twig_' => 
@@ -396,9 +397,6 @@ class ComposerStaticInitc3765e25676b2cbb624df054aef313e2
     public static $classMap = array (
         'JsonException' => __DIR__ . '/..' . '/symfony/polyfill-php73/Resources/stubs/JsonException.php',
         'Normalizer' => __DIR__ . '/..' . '/symfony/polyfill-intl-normalizer/Resources/stubs/Normalizer.php',
-        'Whoops\\Module' => __DIR__ . '/..' . '/filp/whoops/src/deprecated/Zend/Module.php',
-        'Whoops\\Provider\\Zend\\ExceptionStrategy' => __DIR__ . '/..' . '/filp/whoops/src/deprecated/Zend/ExceptionStrategy.php',
-        'Whoops\\Provider\\Zend\\RouteNotFoundStrategy' => __DIR__ . '/..' . '/filp/whoops/src/deprecated/Zend/RouteNotFoundStrategy.php',
     );
 
     public static function getInitializer(ClassLoader $loader)
