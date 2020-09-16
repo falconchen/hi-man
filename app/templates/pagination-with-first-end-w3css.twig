@@ -5,8 +5,10 @@
 {% set num_visible_pages = 5 %}
 
 <div class="w3-white w3-bar  w3-small w3-border-0 w3-round pagination">
-    
-  <a href="{{ data.url(data.currentPage -1) }}" class="w3-bar-item w3-button {{ (data.currentPage -1) < 1 ? 'w3-disabled':'' }}"><i class="fa fa-step-backward"></i></a>
+  
+  <a class="w3-bar-item w3-button {{ (data.currentPage == 1) ? 'w3-disabled' : '' }} page-link" href="{{ data.url(1) }}" title="{{ t.trans('First page') }}"><i class="fa fa-step-backward"></i></a>
+  
+  <a href="{{ data.url(data.currentPage -1) }}" class="w3-bar-item w3-button {{ (data.currentPage -1) < 1 ? 'w3-disabled':'' }}"><i class="fa  fa-angle-left"></i></a>
   
 
   {% for page_number in 1..(data.lastPage) %}
@@ -35,8 +37,9 @@
   {% endfor %}
 
     
-    <a href="{{ data.url(data.currentPage + 1 ) }}" class="w3-bar-item w3-button {{(data.currentPage + 1) > data.lastPage ?'w3-disabled':'' }}"><i class="fa fa-step-forward"></i></a>
-        
+    <a href="{{ data.url(data.currentPage + 1 ) }}" class="w3-bar-item w3-button {{(data.currentPage + 1) > data.lastPage ?'w3-disabled':'' }}"><i class="fa fa-angle-right"></i></a>
+    
+    <a class="w3-bar-item w3-button {{ (data.currentPage == data.lastPage) ? 'w3-disabled' : '' }} page-link" href="{{ data.url(data.lastPage) }}" title="{{ t.trans('Last page') }}"><i class="fa  fa-step-forward "></i></a>
 </div>
 
 {% endif %}
