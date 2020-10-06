@@ -268,7 +268,7 @@ Additionally the is sameas test, which does a type strict comparison of two valu
 
 做了一个函数`makeLinks`和一个同名`twig filter`。
 
-### 迁移到coding 私密仓库,github的webhook失败率太高，导致服务器经常更新失败
+### 迁移到coding 私密仓库,github的webhook失败率太高， 导致服务器经常更新失败
 2020.07.23
 测试一下 webhook 同步
 
