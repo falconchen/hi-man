@@ -1,11 +1,9 @@
 {% set c = container %}
 {% set user = c.session.user ? c.session.user : null %}
 {% set user_id = user ? user.id : 0 %}
-
 {% if c.request.getParam('kw')|length > 0  %}
 	{% set isSearchPage = true %}
 {% endif %}
-
 <!DOCTYPE html>
 <html lang="{{c.get('settings').language.html|default('en')}}">
 	<head>
