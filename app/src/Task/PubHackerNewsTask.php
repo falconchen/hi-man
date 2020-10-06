@@ -36,7 +36,7 @@ class PubHackerNewsTask extends BaseTaskAbstract
             
             for ($i=1;$i<=$this->inputs['p'];$i++) {
                 $url = rtrim($hackerNewsHomePageUrl,'/') . '/news?p='.$i;
-                $newsArr = array_merge_recursive($newsArr,$this->fetchNews($url));                
+                $newsArr = array_merge_recursive($newsArr,$this->fetchNews($url,$hackerNewsHomePageUrl));                
             }
             $consumeTime = time() - $this->startTime;
             
@@ -56,7 +56,9 @@ class PubHackerNewsTask extends BaseTaskAbstract
         }
     }
 
-    function fetchNews($url) {
+    function fetchNews($url,$hackerNewsHomePageUrl) {
+
+            $hackerNewsHomePageUrl = rtrim($hackerNewsHomePageUrl,'/') . '/';
             
             $this->logger->info('start clawer url ' . $url);
             $hnResponse = $this->c->guzzle->request('GET', $url);
@@ -90,11 +92,13 @@ class PubHackerNewsTask extends BaseTaskAbstract
                     $siteText = trim(strip_tags($node->nextSibling()->innerHtml)," ()");
                 }
 
+                $href = $node->getAttribute('href');
+                $href = ( strpos($href,'item') === 0 ) ? $hackerNewsHomePageUrl . $href : $href;
                 $newsArr[]  = [
                     'title' => $node->innerHtml,
                     'site' => $siteText,
                     'titleCN' => $storyTextCNArr[$k],
-                    'href' => $node->getAttribute('href'),
+                    'href' => $href,
                     'score' =>  isset($scoreNodes[$k]) ? intval($scoreNodes[$k]->innerHtml) : 0,
                     'age' => strip_tags($ageNodes[$k]->innerHtml),
                     'comments' => intval($subTextNodes[$k]->lastChild()->innerHtml),
