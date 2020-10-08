@@ -2438,7 +2438,7 @@ dt.hi-text-grey{
 .hi-logo {
   font-weight: 600;
   box-shadow: inset -1px 0px 0px rgba( 0, 0, 0, 0.1), 1px 0px 0px rgba( 255, 255, 255, 0.1), inset 1px 0px 0px rgba( 0, 0, 0, 0.1), -1px 0px 0px rgba( 255, 255, 255, 0.1);
-  background-color:#44000e;
+  /* background-color:#44000e; */
 }
 
 ::selection {
