@@ -9,3 +9,4 @@ cache/*
 vendor/falconchen2/
 *.bak
 /public/test/
+/public/pu/
