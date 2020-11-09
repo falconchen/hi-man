@@ -2445,5 +2445,6 @@ dt.hi-text-grey{
 }
 
 ::selection {
-  background: #fef4ad;
+  /* background: #fef4ad; */
+  background:#cef;
 }

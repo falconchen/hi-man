@@ -65,12 +65,14 @@ final class OscerAction extends \App\Helper\LoggedAction
             return JsonRenderer::render($response,200,['success'=>false, 'msg'=>implode(' | ', $v->errors()->all() ),'data'=>$v->errors()]);
         }
 
-        $loginUrl = 'https://www.oschina.net/action/user/hash_login?from=';
-        //$args = $this->settings['guzzle'];
-        $client = new Client($this->settings['guzzle']);
+        
 
 
         try {
+            
+            $loginUrl = 'https://www.oschina.net/action/user/hash_login?from=';
+            //$args = $this->settings['guzzle'];
+            $client = new Client($this->settings['guzzle']);
             $oscResponse = $client->request('POST', $loginUrl,[
                 'form_params' => [
                     'email' => $userMail,
