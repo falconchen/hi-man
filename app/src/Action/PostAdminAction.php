@@ -12,8 +12,8 @@ use App\Model\PostMeta;
 use App\Model\UserMeta;
 use App\Validation\Validator;
 use Carlosocarvalho\SimpleInput\Input\Input;
-use Psr\Http\Message\ResponseInterface as Response;
-use Psr\Http\Message\ServerRequestInterface as Request;
+use Slim\Http\Response as Response;
+use Slim\Http\Request as Request;
 use App\Helper\JsonRenderer;
 
 use App\Helper\Url;
@@ -135,7 +135,7 @@ final class PostAdminAction extends \App\Helper\LoggedAction
     {
 
         $this->init($request, $response, $args);
-
+        
         if (isset($this->data['oscer'])) {
 
             try {
@@ -432,6 +432,7 @@ final class PostAdminAction extends \App\Helper\LoggedAction
     private function getStoreSyncOptions($postId = null, $userId = null)
     {
 
+        $options = null;
         $default = self::getDefaultSyncOptions();
         if ($postId) {
             $options = PostMeta::where('post_id', $postId)->where('meta_key', 'osc_sync_options')->first();

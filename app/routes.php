@@ -25,6 +25,8 @@ $app->group('/note/', function () {
 
 $app->get('/oscer', 'App\Action\OscerAction:index')->setName('oscer');
 $app->post('/oscer/bind-oscer', 'App\Action\OscerAction:bindOscerPost')->setName('bind-oscer.post');
+$app->post('/oscer/unbind-oscer', 'App\Action\OscerAction:unbindOscerPost')->setName('unbind-oscer.post');
+
 
 $app->get('/post-admin', 'App\Action\PostAdminAction:index')->setName('post-admin');
 

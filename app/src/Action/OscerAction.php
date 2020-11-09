@@ -8,8 +8,8 @@ use App\Model\User;
 use App\Model\UserMeta;
 use App\Validation\Validator;
 use Carlosocarvalho\SimpleInput\Input\Input;
-use Psr\Http\Message\ResponseInterface as Response;
-use Psr\Http\Message\ServerRequestInterface as Request;
+use Slim\Http\Response as Response;
+use Slim\Http\Request as Request;
 use App\Helper\JsonRenderer;
 
 use GuzzleHttp\Psr7;
@@ -45,13 +45,16 @@ final class OscerAction extends \App\Helper\LoggedAction
 
         //JsonRenderer::render($response,200,['data'=>'abc']);
 
-        $userMail = Input::post('userMail');
-        $userPassword = Input::post('userPassword');
+        
 
 
         if ($request->getAttribute('csrf_status') === false){
             return JsonRenderer::render($response,200,['success'=>false, 'msg'=>'csrf error','data'=>'']);
         }
+
+
+        $userMail = Input::post('userMail');
+        $userPassword = Input::post('userPassword');
         $v = new Validator(new User);
         $v->validate([
             'userMail' => [$userMail, 'required|emailOrTel'],
@@ -82,14 +85,16 @@ final class OscerAction extends \App\Helper\LoggedAction
                 //带cookie去获取osc用户名和头像
                 $oscResponse = $client->request('GET', 'https://my.oschina.net/');
                 $body = (string) $oscResponse->getBody();
+                
 
                 $dom = new \PHPHtmlParser\Dom;
                 $dom->load($body,['whitespaceTextNode' => false]);
                 $imgNode = $dom->find('.osc-avatar img');
-                $homepageNode = $dom->find('a.avatar');
+                $homepageNode = $dom->find('.avatar-image__inner');
                 $userIdNode = $dom->find('.current-user-avatar');
                 $oscer = [];
-                
+
+
                 if( count($imgNode) && count($homepageNode) && count($userIdNode))  {
                     $oscer['userName'] = $imgNode[0]->getAttribute('title');
                     $oscer['avatar'] = $imgNode[0]->getAttribute('src');
@@ -188,6 +193,23 @@ final class OscerAction extends \App\Helper\LoggedAction
         var_dump($body);
 
 
+    }
+
+    public function unbindOscerPost(Request $request, Response $response, $args)
+    {
+
+        if ($request->getAttribute('csrf_status') === false){
+            return JsonRenderer::render($response,200,['success'=>false, 'msg'=>'csrf error','data'=>'']);
+        }
+        $userId = $this->userId;        
+        $deletedRows = UserMeta::where('user_id', $userId)->delete();
+        
+
+        $redirectUrl = is_null(Input::post('currentPath')) ? 
+                        $this->router->pathFor('post-admin') : 
+                        Input::post('currentPath');
+                                
+        return $response->withRedirect($redirectUrl);
     }
 
 
