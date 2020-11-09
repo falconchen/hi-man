@@ -12,9 +12,9 @@
         <a rel="nofollow noreferrer" style="color:#FF6600 !important;" target="_blank" href="{{news.href}}"><strong>{{news.title}}</strong></a>
         <cite>{%if news.site %}{{ ' - (' ~ news.site ~ ')'}}{% endif %}</cite>
         <div style="margin:4px 0;">
-            <div style="font-size: 16px !important;margin:0;padding-left: 0 !important;border: none;line-height: 1.6em;font-weight:bold;"><code class="hi" style="background: transparent;color:#476582;">{{news.titleCN}}</code>
+            <div style="font-size: 16px !important;margin:0;padding-left: 0 !important;border: none;line-height: 1.6em;font-weight:bold;"><code class="hi" style="background: transparent;color:#476582;padding-left: 0 !important;margin-left: 0;">{{news.titleCN}}</code>
             </div>
-            <ul class="w3-padding-left-0" style="list-style-type: none;padding-left: 5px;font-size: 14px;"><li>得分:{{news.score}} | <a rel="nofollow noreferrer"  target="_blank" href="{{hackerNewsHomePageUrl}}{{news.commentsLink}}">评论:{{news.comments}}</a></li>
+            <ul class="w3-padding-left-0" style="list-style-type: none;padding-left: 0px;font-size: 14px;"><li>得分:{{news.score}} | <a rel="nofollow noreferrer"  target="_blank" href="{{hackerNewsHomePageUrl}}{{news.commentsLink}}">评论:{{news.comments}}</a></li>
             </ul>
         </div>
         </li> 
