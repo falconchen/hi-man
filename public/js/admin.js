@@ -50,7 +50,7 @@ $(document).ready(function() {
 
   //bind oscer
 
-  $(".hi-oscer-info .hi-close-btn,.hi-oscer-info .hi-cancel-btn").click(
+  $(".bind-osc-form-wrapper .hi-close-btn,.bind-osc-form-wrapper.hi-cancel-btn").click(
     function() {
       $(".bind-osc-form-wrapper").hide();
     }
