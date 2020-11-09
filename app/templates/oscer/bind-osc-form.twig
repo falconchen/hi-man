@@ -40,8 +40,14 @@
             <button type="button" class="w3-button w3-red hi-cancel-btn">取消</button>            
             <span class="w3-right w3-padding  w3-small  hi-oscer-msg">请输入你在 oschina 的登录信息，仅用于发布文章或动弹到osc</span>
             {% else %}
-                <button type="button" class="w3-button w3-green hi-cancel-btn">连接成功</button>
+                <form class="w3-container hi-unbind-osc-form" action="{{ c.router.pathFor('unbind-oscer.post') }}" method="post"
+              autocomplete="off">
+                <input type="hidden" name="currentPath" value="{{currentPath}}" />
+                <a type="button" class="w3-button w3-green hi-cancel-btn" href="javascrip:;">连接成功</a>
+                <input type="submit" class="w3-button w3-red hi-cancel-btn" value="断开连接" />
                 <span class="w3-right w3-padding  w3-small hi-oscer-msg">现在可以同步文章或动弹到osc了 </span>
+                {{ csrf_inputs() }}
+                </form>
             {% endif %}
         </div>
 
