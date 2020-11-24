@@ -25,14 +25,17 @@ class SendScOnSync extends AbstractListener
      */
     public function handle(EventInterface $event, $c = null, $post = null, $oscSyncOptions = null, $syncResult = null)
     {
-        if ($c->get('settings')['sync']['sc.notify']) {
+
+        $this->logger = $c->get('logger');
+
+        if ($c->get('settings')['sync']['sc.notify']) {            
 
             if( in_array($post->post_author,$c->get('settings')['sync']['sc.notify.skip'])){
                 $this->logger->info('skip sc notification for user id ' . $post->post_author .' according to system settings');
                 return;
             }
 
-            $this->logger = $c->get('logger');
+            
             $this->logger->info('now send sync sc post_id ' . $post->post_id);
             $this->setContainer($c);
 
