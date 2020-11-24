@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Listener;
 
 use App\Model\User;
@@ -20,32 +21,35 @@ class SendEmailOnSync extends AbstractListener
      * 
      * @return void
      */
-    public function handle(EventInterface $event, $c = null ,$post = null,$oscSyncOptions=null,$syncResult=null)
-    { 
+    public function handle(EventInterface $event, $c = null, $post = null, $oscSyncOptions = null, $syncResult = null)
+    {
         // Handle the event.
-        
-        $this->logger = $c->get('logger');        
-        $this->mailer = $c->get('mailer');
 
-        if( isset($oscSyncOptions['email_me']) &&  $oscSyncOptions['email_me'] == '0'){
-            $this->logger->info('syncOptions',$oscSyncOptions);
-            $this->logger->info('skip send email');
-            return ;
-        }
-        
-        if ( $c->get('settings')['sync']['email.notify']) {
-            
-            $this->logger->info('now send sync post email for post_id '.$post->post_id);
+        $this->logger = $c->get('logger');
+        $this->mailer = $c->get('mailer');
+        if ($c->get('settings')['sync']['email.notify']) {
+
+            if (in_array($post->post_author, $c->get('settings')['sync']['email.notify.skip'])) {
+                $this->logger->info('skip email notification for user id ' . $post->post_author . ' according to system settings');
+                return;
+            }
+
+            if (isset($oscSyncOptions['email_me']) &&  $oscSyncOptions['email_me'] == '0') {
+                $this->logger->info('syncOptions', $oscSyncOptions);
+                $this->logger->info('skip sending email to user by user settings');
+                return;
+            }
+
+            $this->logger->info('now send sync post email for post_id ' . $post->post_id);
             $notifyTitle =  '文章 《' . $post->post_title . '》 同步到osc: ' . $syncResult->message;
             $tweetSyncResultText  = '';
 
             if ($syncResult->code == 1) {
-    
-                if( property_exists($syncResult,'tweetPub') && $syncResult->tweetPub['code'] == 1 ) {
-                    
-                    $tweetUrl = getOscTweetLink($post->post_author,$syncResult->tweetPub['result']['log']);
-                    $tweetSyncResultText = sprintf(" ;动弹发送成功, 查看动弹 %s",$tweetUrl);
-                    
+
+                if (property_exists($syncResult, 'tweetPub') && $syncResult->tweetPub['code'] == 1) {
+
+                    $tweetUrl = getOscTweetLink($post->post_author, $syncResult->tweetPub['result']['log']);
+                    $tweetSyncResultText = sprintf(" ;动弹发送成功, 查看动弹 %s", $tweetUrl);
                 }
             }
             $notifyBody = sprintf(
@@ -56,9 +60,9 @@ class SendEmailOnSync extends AbstractListener
                 $tweetSyncResultText
             );
 
-            $notifyBody .= "<hr />".$post->post_content;
+            $notifyBody .= "<hr />" . $post->post_content;
 
-            try {            
+            try {
 
                 $user = User::find($post->post_author);
                 $this->logger->info("sending mail to " . $user->email);
@@ -70,14 +74,13 @@ class SendEmailOnSync extends AbstractListener
                 if (!$this->mailer->send()) {
                     $this->logger->info("failed to send mail to " . $user->email);
                 } else {
-                    $this->logger->info("success send mail to " . $user->email);  
-                    $post->updatePostmeta('last_send_email',time());                  
+                    $this->logger->info("success send mail to " . $user->email);
+                    $post->updatePostmeta('last_send_email', time());
                 }
-            }catch (\Exception $e) {
+            } catch (\Exception $e) {
                 $this->logger->info("failed to send mail to " . $user->email);
-                $this->logger->error( $this->mailer->ErrorInfo );                        
+                $this->logger->error($this->mailer->ErrorInfo);
             }
         }
-
     }
-} 
+}
