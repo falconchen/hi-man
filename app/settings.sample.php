@@ -32,7 +32,11 @@ return [
         'email.verify' => false, //关闭用户邮箱验证
         'locked_dir' => __DIR__ . '/../cache/locked', // 判断队列锁定的文件
         'sync' => [
-            'email.notify' => false, //同步到osc时是否发送用户邮件通知
+            'email.notify' => true, //同步到osc时是否给管理员发送邮件通知
+            'email.notify.skip'=>[],//对特定用户id的文章，不给管理员发邮件通知，比如 hacknews
+
+            'sc.notify' => true, //同步到osc时是否给管理员发送Server酱通知            
+            'sc.notify.skip'=>[],//对特定用户id的文章，不给管理员发sc通知，如hacknews
         ],
 
         'admin' => [ //管理员信息设置
