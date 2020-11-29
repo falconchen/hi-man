@@ -40,7 +40,7 @@ final class PostAdminAction extends \App\Helper\LoggedAction
     private function init(Request $request, Response $response, $args)
     {
         
-        $this->updateOscCookie( 21 );      
+        //$this->updateOscCookie( 21 );      
         
         $userId = $this->userId;
         
