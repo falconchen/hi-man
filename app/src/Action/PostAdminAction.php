@@ -47,7 +47,7 @@ final class PostAdminAction extends \App\Helper\LoggedAction
         //$this->data = ['menu'=>$this->menu];
 
         $oscCookieKeepAliveDays = isset( $this->settings['osc']['cookie_keep_alive_days'] ) ?  
-                                $this->settings['osc']['cookie_keep_alive_days']: 7; // 7天更新一次
+                                $this->settings['osc']['cookie_keep_alive_days']: 7; 
                                 
         
         $oscer = UserMeta::where('user_id', $userId)->where('meta_key', 'osc_userinfo')->first();
