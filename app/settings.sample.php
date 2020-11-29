@@ -125,9 +125,13 @@ return [
             'key'=>'xxxxxxxxxx',
             'salt'=>'xxxxxxxxx',
         ],
-        
+        'osc'=>[
+            'cookie_keep_alive_days'=>30, //osc cookie有效时间天数
+        ],
 
     ],
+    
+
     'commands' => [       
         /**
          * php public/index.php BackupDongDan "userId=12&pageToken=DBA816934CD0AA59&forceUpdate=0"
@@ -158,4 +162,8 @@ return [
          */
         'PubHackerNews'=>App\Task\PubHackerNewsTask::class,
     ],
+
+
+
+    
 ];
