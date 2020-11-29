@@ -39,12 +39,39 @@ final class PostAdminAction extends \App\Helper\LoggedAction
 
     private function init(Request $request, Response $response, $args)
     {
+        
+        $this->updateOscCookie( 21 );      
+        
         $userId = $this->userId;
+        
         //$this->data = ['menu'=>$this->menu];
+
+        $cookieKeepDays = 7; // 7天更新一次
+        
         $oscer = UserMeta::where('user_id', $userId)->where('meta_key', 'osc_userinfo')->first();
         if ($oscer) {
             $this->data['oscer'] = unserialize($oscer->meta_value);
             $this->data['avatar'] = $this->data['oscer']['avatar'];
+
+            //$oscer = UserMeta::where('user_id', $userId)->where('meta_key', 'osc_userinfo')->first();
+            $cookieSafeTime = date('Y-m-d H:i:s' ,strtotime("-".$cookieKeepDays." days"));
+
+            $oscCookie= UserMeta::where('user_id', $userId)
+                        ->where('meta_key', 'osc_cookie')                        
+                        ->where('updated_at','<=',$cookieSafeTime)
+                        ->first();
+
+            if($oscCookie != NULL) { // 更新过期的cookie
+                
+                try {
+                    $this->updateOscCookie( $this->userId );      
+                    $this->logger->info( 'updated osc cookie ', ['userId'=>$this->userId] );              
+                }catch(Exception $e) {
+                    $this->logger->error( 'failed to update osc cookie ', ['userId'=>$this->userId] );
+                }                
+
+            }
+                        
         }
         $this->data['flash'] = $this->flash->getMessage('flash');
 
@@ -392,13 +419,15 @@ final class PostAdminAction extends \App\Helper\LoggedAction
         }
 
         $client = new Client($conf);
-
+        
         $oscResponse = $client->request('GET', $blogWriteUrl);
+        
         $body = (string) $oscResponse->getBody();
         
         $dom = new \PHPHtmlParser\Dom;
         $dom->load($body, ['whitespaceTextNode' => false]);
         $catalogDropdownNode = $dom->find('#catalogDropdown');
+        
         //$classificationNode = $dom->find('[name=classification]');// 被废弃
 
         // 专区

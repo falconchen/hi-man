@@ -231,4 +231,107 @@ trait OscTrait {
             "type" => "1"
         ];
     }
+
+
+    protected  function updateOscCookie($userId) {
+
+        $oscLoginData = UserMeta::where('user_id', $userId)
+                        ->where('meta_key', 'osc_login')                                                
+                        ->first();
+
+        $oscLogin = unserialize($oscLoginData->meta_value);                        
+        
+
+        $userMail = $oscLogin['userMail'];
+        $userPassword = $oscLogin['userPassword'];
+
+        $loginUrl = 'https://www.oschina.net/action/user/hash_login?from=';
+            //$args = $this->settings['guzzle'];
+            
+            $client = new Client( $this->c->settings['guzzle'] );
+            $oscResponse = $client->request('POST', $loginUrl,[
+                'form_params' => [
+                    'email' => $userMail,
+                    'pwd' => $userPassword,
+                    'verifyCode'=>'',
+                    'save_login'=>1,
+                ]
+            ]);
+            $body = (string) $oscResponse->getBody();
+            if($body == ''){ //登录成功返回空值
+
+                //带cookie去获取osc用户名和头像
+                $oscResponse = $client->request('GET', 'https://my.oschina.net/');
+                $body = (string) $oscResponse->getBody();
+                
+
+                $dom = new \PHPHtmlParser\Dom;
+                $dom->load($body,['whitespaceTextNode' => false]);
+                $imgNode = $dom->find('.osc-avatar img');
+                $homepageNode = $dom->find('.avatar-image__inner');
+                $userIdNode = $dom->find('.current-user-avatar');
+                $oscer = [];
+
+
+                if( count($imgNode) && count($homepageNode) && count($userIdNode))  {
+                    $oscer['userName'] = $imgNode[0]->getAttribute('title');
+                    $oscer['avatar'] = $imgNode[0]->getAttribute('src');
+                    $oscer['userId'] = $userIdNode[0]->getAttribute('data-user-id');
+                    $oscer['homepage'] = $homepageNode[0]->getAttribute('href');
+                    $oscer['signature'] = '';
+                    $signature_node = $dom->find('.user-signature');
+                    if( count($signature_node) ){
+                        $oscer['signature'] = $signature_node[0]->text;
+                    }
+                    var_dump($oscer);
+                    //保存用户名密码
+                    // $userId = $this->userId;
+
+                    // $userMail = Input::post('userMail');
+                    // $userPassword = Input::post('userPassword');
+                    // $userMeta = new UserMeta();
+                    // $userMeta->user_id = $userId;
+                    // $userMeta->meta_key = 'osc_login';
+                    // $userMeta->meta_value = maybe_serialize(
+                    //     ['userMail'=>$userMail,'userPassword'=>$userPassword]
+                    // );
+                    
+                    // $userMeta->save();
+
+
+                    //获取cookie,保存到DB
+                    $cookieJar = $client->getConfig('cookies');
+                    //$cookieJar->toArray();
+                    $userMeta = UserMeta::firstOrCreate(['user_id'=>$userId,'meta_key'=>'osc_cookie']);
+                                        
+                    $userMeta->meta_value = maybe_serialize(
+                        $cookieJar
+                    );
+                    
+                    $userMeta->save();
+
+                    //保存osc用户信息
+                    
+                    $userMeta = UserMeta::firstOrCreate(['user_id'=>$userId,'meta_key'=>'osc_userinfo']);                                        
+                    $userMeta->meta_value = maybe_serialize(
+                        $oscer
+                    );
+                    $userMeta->save();
+
+
+
+                }else{
+                    throw new \Exception('fail to get OSCer info');
+                }
+
+                $this->c->logger->debug('updated user osc cookie ',['userId'=>$userId]);
+                return true;
+
+
+
+            }else{
+                throw new \Exception('fail to update OSCer info');
+            }
+    }
+
 }
