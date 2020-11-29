@@ -46,7 +46,9 @@ final class PostAdminAction extends \App\Helper\LoggedAction
         
         //$this->data = ['menu'=>$this->menu];
 
-        $cookieKeepDays = 7; // 7天更新一次
+        $oscCookieKeepAliveDays = isset( $this->settings['osc']['cookie_keep_alive_days'] ) ?  
+                                $this->settings['osc']['cookie_keep_alive_days']: 7; // 7天更新一次
+                                
         
         $oscer = UserMeta::where('user_id', $userId)->where('meta_key', 'osc_userinfo')->first();
         if ($oscer) {
@@ -54,7 +56,7 @@ final class PostAdminAction extends \App\Helper\LoggedAction
             $this->data['avatar'] = $this->data['oscer']['avatar'];
 
             //$oscer = UserMeta::where('user_id', $userId)->where('meta_key', 'osc_userinfo')->first();
-            $cookieSafeTime = date('Y-m-d H:i:s' ,strtotime("-".$cookieKeepDays." days"));
+            $cookieSafeTime = date('Y-m-d H:i:s' ,strtotime("-".$oscCookieKeepAliveDays." days"));
 
             $oscCookie= UserMeta::where('user_id', $userId)
                         ->where('meta_key', 'osc_cookie')                        
