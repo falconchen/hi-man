@@ -2195,6 +2195,10 @@ input[type=checkbox]:checked+label,input[type=radio]:checked+label{
 
 
 /**登录注册**/
+.register-body,.login-body{
+  background-image: url(https://oscimg.oschina.net/oscnet/up-6d0fcd96bdffbc27b358e529e60c695f778.JPEG);
+  background-size: cover;
+}
 .hi-form {
   width: 100%;
 }
