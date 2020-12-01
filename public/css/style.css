@@ -2473,6 +2473,7 @@ dt.hi-text-grey{
 }
 
 ::selection {
-  /* background: #fef4ad; */
-  background:#cef;
+  background: #fef4ad;
+  /* background:#cef; */
+  /* background-color: #E0D978; */
 }
