@@ -1762,12 +1762,19 @@ body{
     min-height: 100vh;
     /* background-color: #f9f9f9; */
     /* background-image: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); */
+    
     background-image: url(https://oscimg.oschina.net/oscnet/up-6d0fcd96bdffbc27b358e529e60c695f778.JPEG);
     background-size: cover;
 }
 
+.hi-bg-blue,.hi-author-bg-21 {
+  background-image: none;
+  background-color: #0599D2;
+}
+
 .hi-bg-linear{
-  background-image: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  /* background-image: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); */
+  background-image: linear-gradient(180deg, #0599D2 5%, #C28698 100%);
 }
 .hi-bg-translucent {
   background-color: rgba(255,255,255,0.25);
