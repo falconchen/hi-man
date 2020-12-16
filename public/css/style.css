@@ -1768,8 +1768,13 @@ body{
 }
 
 .hi-bg-blue,.hi-author-bg-21 {
-  background-image: url(https://oscimg.oschina.net/oscnet/up-38b5fb9be09aa162a46151e00d95de8a.jpg);
+  background-image: none;
   background-color: #0599D2;
+}
+
+.hi-author-bg-19 {
+  background-image: url(https://oscimg.oschina.net/oscnet/up-38b5fb9be09aa162a46151e00d95de8a.jpg);
+  background-color:#767b96;
 }
 
 .hi-bg-linear{
