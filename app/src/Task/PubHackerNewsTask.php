@@ -32,7 +32,7 @@ class PubHackerNewsTask extends BaseTaskAbstract
 
             
             $newsArr = [];
-            $hackerNewsHomePageUrl = 'https://hk.phpfun.xyz/hn/';
+            $hackerNewsHomePageUrl = 'https://hk64.my.to/hn/';
             
             for ($i=1;$i<=$this->inputs['p'];$i++) {
                 $url = rtrim($hackerNewsHomePageUrl,'/') . '/news?p='.$i;
