@@ -2490,3 +2490,9 @@ dt.hi-text-grey{
   /* background:#cef; */
   /* background-color: #E0D978; */
 }
+
+.btn-form-tail {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}

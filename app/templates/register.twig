@@ -40,9 +40,12 @@
                 
             </div>
 
-            <div class="form-group">
+            <div class="form-group btn-form-tail">
                 {{ csrf_inputs() }}                
                 <input class="btn btn-primary" type="submit" value="{{t.trans('Register')}}">
+                <div class="">{{t.trans('Already has an account?')}}
+                    <a class="hi-text-blue" href="{{path_for('login')}}">{{t.trans('Login')}}</a>
+                </div>
             </div>
         
     </form>
