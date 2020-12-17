@@ -31,8 +31,11 @@
             {# {% if errors.first('password') %}{{ errors.first('password') }}{% endif %} #}
         </div>
         {{ csrf_inputs() }}
-        <div class="form-group">
+        <div class="form-group btn-form-tail">
             <input class="btn btn-primary" type="submit" value="{{t.trans('Login')}}">
+            <div class="">{{t.trans('Don\'t have an account?')}}
+                <a class="hi-text-blue" href="{{path_for('register')}}">{{t.trans('Register')}}</a>
+            </div>
         </div>
     </form>
 {% endblock %}
