@@ -2,17 +2,19 @@
 
 
 {% block title %}
-	{{ t.trans('Homepage') }} &middot; {{ t.trans('PostType.' ~ postType) }}
+    {{ t.trans('Homepage') }}
+    &middot;
+    {{ t.trans('PostType.' ~ postType) }}
 {% endblock %}
 
 {% block content %}
-	
-	<main class="hi-main">
-		{% if posts.count() %}
-			{% include 'post-list.twig' with { posts: posts,c:c,t:t } only%}
-		{% else %}
-			{% include 'post-list-none.twig' %}
-		{% endif %}
-		
-	</main>
+
+    <main class="hi-main">
+        {% if posts.count() %}
+            {% include 'post-list.twig' with { posts: posts,c:c,t:t } only %}
+        {% else %}
+            {% include 'post-list-none.twig' %}
+        {% endif %}
+
+    </main>
 {% endblock %}

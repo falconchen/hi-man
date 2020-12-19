@@ -1,40 +1,43 @@
 {% extends 'layout.twig' %}
 
 
-{% block title %}{{ t.trans('Login') }}{% endblock %}
+{% block title %}
+    {{ t.trans('Login') }}
+{% endblock %}
 
 {% block content %}
-    <h1 class="hi-form-title w3-pannel w3-xlarge w3-margin-bottom">{{ t.trans('Login') }}</h1>
+<h1 class="hi-form-title w3-pannel w3-xlarge w3-margin-bottom">{{ t.trans('Login') }}</h1>
 
 
-    <form class="w3-container w3-padding-large w3-card-4 hi-form w3-mobile" action="login" method="post"
-          autocomplete="off">
+<form class="w3-container w3-padding-large w3-card-4 hi-form w3-mobile" action="login" method="post" autocomplete="off">
 
-          {% if  errors.all() %}
-                <ul class="w3-panel w3-note w3-padding hi-error-panel">
-                {% for error in errors.all() %}
-                    <li>{{ error }}</li>
-                {% endfor %}
-                </ul>
-            {% endif %}
+    {% if  errors.all() %}
+        <ul class="w3-panel w3-note w3-padding hi-error-panel">
+            {% for error in errors.all() %}
+                <li>{{ error }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
 
 
-        <div class="form-group {% if errors.get('identifier') %}has-error{% endif %}">
-            <label for="identifier">{{t.trans('Username/Email')}}</label>
-            <input class="form-control" type="text" name="identifier" id="identifier">
-            {# {% if errors.first('identifier') %}{{ errors.first('identifier') }}{% endif %} #}
-        </div>
+    <div class="form-group {% if errors.get('identifier') %}has-error{% endif %}">
+        <label for="identifier">{{ t.trans('Username/Email') }}</label>
+        <input
+        class="form-control" type="text" name="identifier" id="identifier"/>
+    {# {% if errors.first('identifier') %}{{ errors.first('identifier') }}{% endif %} #}
+    </div>
 
-        <div class="form-group {% if errors.get('password') %}has-error{% endif %}">
-            <label for="password">{{t.trans('Password')}}</label>
-            <input class="form-control" type="password" name="password" id="password">
-            {# {% if errors.first('password') %}{{ errors.first('password') }}{% endif %} #}
-        </div>
-        {{ csrf_inputs() }}
-        <div class="form-group btn-form-tail">
-            <input class="btn btn-primary" type="submit" value="{{t.trans('Login')}}">
-            <div class="">{{t.trans('Don\'t have an account?')}}
-                <a class="hi-text-blue" href="{{path_for('register')}}">{{t.trans('Register')}}</a>
+    <div class="form-group {% if errors.get('password') %}has-error{% endif %}">
+        <label for="password">{{ t.trans('Password') }}</label>
+        <input
+        class="form-control" type="password" name="password" id="password"/>
+    {# {% if errors.first('password') %}{{ errors.first('password') }}{% endif %} #}
+    </div>
+    {{ csrf_inputs() }}
+    <div class="form-group btn-form-tail">
+        <input class="btn btn-primary" type="submit" value="{{ t.trans('Login') }}"/>
+        <div>{{ t.trans('Don\'t have an account?') }}
+                <a class="hi-text-blue" href="{{ path_for('register') }}">{{ t.trans('Register') }}</a>
             </div>
         </div>
     </form>
