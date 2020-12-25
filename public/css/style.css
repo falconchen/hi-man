@@ -1523,10 +1523,10 @@ h1, h2, h3, h4, h5, h6 {
 } */
 .hi-content :not(pre) > code{
   padding: 0.125rem 0.3125rem 0.0625rem !important;
-  color: #476582 !important;
+  
   /* background-color: rgba(255, 224, 224,0.8) !important; */
   border-radius: 2px !important;
-  background-color: #f1f1fc!important;
+  
   margin: 0 2px;
 }
 
