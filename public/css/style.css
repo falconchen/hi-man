@@ -2499,3 +2499,6 @@ dt.hi-text-grey{
   justify-content: space-between;
   align-items: flex-end;
 }
+.hi-content .token.operator {
+  background-color: transparent;
+}
