@@ -30,7 +30,7 @@
     {% endif %}
 
     {# only print pages between "from" and "to" #}
-    {% if from < page_number and page_number < to %}      
+    {% if from < page_number and page_number <= to %}      
       <a class="w3-bar-item w3-button {{ (data.currentPage == page_number) ? 'w3-green hi-light-dark' : '' }} page-link" href="{{ data.url(page_number) }}">{{ page_number }}</a>
 
     {% endif %}
