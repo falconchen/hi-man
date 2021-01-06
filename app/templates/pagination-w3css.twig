@@ -20,7 +20,7 @@
       {# we can be sloppy because the loop iteration constrains-out-of-bounds values #}
       {% set to = (half_visible_links - data.currentPage) + to %}
     {% endif %}
-
+    
     {# if near end of pages, extend beginning to ensure num_visible_pages are shown #}
     {% if (data.lastPage - data.currentPage) < half_visible_links %}
       {# we can be sloppy because the loop iteration constrains-out-of-bounds values #}
@@ -28,7 +28,7 @@
     {% endif %}
 
     {# only print pages between "from" and "to" #}
-    {% if from < page_number and page_number < to %}      
+    {% if from < page_number and page_number <= to %}      
       <a class="w3-bar-item w3-button {{ (data.currentPage == page_number) ? 'w3-green hi-light-dark' : '' }} page-link" href="{{ data.url(page_number) }}">{{ page_number }}</a>
 
     {% endif %}
