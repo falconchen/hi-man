@@ -1770,7 +1770,7 @@ body{
     background-size: cover;
 }
 
-.hi-bg-blue,.hi-author-bg-21 {
+.hi-bg-blue,.hi-author-bg {
   background-image: none;
   background-color: #0599D2;
 }
