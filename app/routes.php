@@ -1,8 +1,8 @@
 <?php
 // Routes
 $app->get('/', 'App\Action\HomeAction:index')->setName('homepage');
-$app->get('/tweets/', 'App\Action\HomeAction:index')->setName('homepage.tweet');
-$app->get('/galleries/', 'App\Action\HomeAction:index')->setName('homepage.gallery');
+$app->get('/tweets', 'App\Action\HomeAction:index')->setName('homepage.tweet');
+$app->get('/galleries', 'App\Action\HomeAction:index')->setName('homepage.gallery');
 
 
 $app->get('/login', 'App\Action\HomeAction:login')->setName('login');
@@ -52,9 +52,9 @@ $app->group(
     '/u',
     function () {
 
-        $this->get('/me/', 'App\Action\UserAction:index')->setName('myspace');
-        $this->get('/{uid:[0-9]+}/', 'App\Action\UserAction:index')->setName('user');
-        $this->get('/{uid:[0-9]+}/{postType}/', 'App\Action\UserAction:index')->setName('user.postType');
+        $this->get('/me', 'App\Action\UserAction:index')->setName('myspace');
+        $this->get('/{uid:[0-9]+}', 'App\Action\UserAction:index')->setName('user');
+        $this->get('/{uid:[0-9]+}/{postType}', 'App\Action\UserAction:index')->setName('user.postType');
     }
 );
 
