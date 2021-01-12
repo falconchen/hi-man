@@ -169,3 +169,55 @@ label {
     word-break: break-all;
 }
 
+.collection-list {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: flex-start;    
+    
+}
+
+.collection-list > div {
+    flex-basis: 21%;
+    padding-top: 28%;
+    cursor: pointer;
+    position: relative;
+    border:1px solid #9e9e9e;
+    margin: 2%;
+    background-color: #fff;
+    
+}
+.collection-list > .add {
+    border:1px dashed #9e9e9e;
+    
+}
+.collection-list .inner{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.collection-body{
+    display:flex;
+    flex-direction: row;
+
+}
+.collection-body .cover {
+    flex:1;    
+    background-color: #f6f6f6;
+    margin-right: 3%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+.collection-body .inputs {
+    flex:2;
+}

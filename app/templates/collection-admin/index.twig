@@ -1,0 +1,92 @@
+{% extends 'admin/layout.twig' %}
+{% block title %}
+    {{ t.trans('Collections') }}
+{% endblock %}
+
+{% block main %}
+
+
+    <div
+        class="w3-container w3-padding-large" id="app" >
+        
+        {# <h2>{{ t.trans('Collections') }}</h2> #}
+        <div class="w3-modal" :style="modalDisplayObj">
+            <form class="w3-modal-content w3-animate-top w3-card-4" style="max-width: 600px;">
+                <header class="w3-container hi-dark">
+                    <span @click="closeModal" class="w3-button w3-display-topright">&times;</span>
+                    <h2>${headerTitle}</h2>
+                </header>
+                <div class="w3-container collection-body">
+
+                    <p class="cover w3-bg-grey">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="12" y1="5" x2="12" y2="19"></line>
+                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                        </svg>
+                        <span>封面</span>
+                    </p>
+
+                    <div class="inputs">
+                        <p>
+                            
+                            <label class="w3-text-black">标题 <span class="w3-text-red">*</span></label>
+                              
+                            <input v-model.trim="title" name="title" class="w3-input w3-border" type="text" required="true" placeholder="文集标题名" /></p>
+
+                        <p>
+                            <label class="w3-text-black">Slug</label>
+                            <input v-model.trim="slug"  name="slug" class="w3-input w3-border" type="text"  required="false" placeholder="URL中显示的文集名，非必填，尽量使用英文和数字" />
+                        </p>
+
+                        <p>
+                            <label class="w3-text-black">描述</label>
+                            <textarea v-model.trim="description" name="description" class="w3-input w3-border" style="resize:none" placeholder="关于文集内容的大概描述，非必填"></textarea>
+                        </p>
+                        
+                    </div>
+                </div>
+
+                <footer class="w3-container hi-dark">
+                    <p class="w3-right">
+                        <button type="button" class="w3-btn w3-padding w3-white" style="width:120px">创建 &nbsp; ❯</button>
+                    </p>
+                </footer>
+            </form>
+        </div>
+
+
+        <div class="w3-responsive collection-list">
+
+            <div class="collection-item add" @click="createCollection">
+                <div class="inner">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="12" y1="5" x2="12" y2="19"></line>
+                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                    </svg>
+                    <span>创建文集</span>
+                </div>
+            </div>
+
+            <div class="collection-item" @click="clickMe" v-for="(book,index) in books">
+                <div class="inner">
+                    <strong v-text="book.title"></strong>
+                    <span v-text="book.author"></span>
+                </div>
+            </div>
+
+        </div>
+        <!-- .w3-responsive-->
+
+        <div class=" w3-center w3-margin-top">
+            {% include 'pagination-w3css.twig' with {data: postsCurrentPage} only %}
+        </div>
+
+    </div>
+    <!-- .hi-posts-list-->
+
+{% endblock %}
+
+{% block additionalJsOnfooter %}
+    <script type="text/javascript" src="{{ static_url() }}/js/vue3/vue.global.prod.js?v=3.0.2"></script>
+    <script src="{{ static_url() }}/js/vue3/collection-admin.js"></script>
+{% endblock %}

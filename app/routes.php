@@ -37,6 +37,9 @@ $app->post('/post-admin/save', 'App\Action\PostAdminAction:save')->setName('post
 $app->get('/post-admin/sync-osc', 'App\Action\PostAdminAction:syncOsc')->setName('post-admin.syncOsc');
 $app->post('/post-admin/save-preivew', 'App\Action\PostAdminAction:savePreview')->setName('post-admin.savePreview');
 
+
+$app->get('/collection-admin', 'App\Action\CollectionAdminAction:index')->setName('collection-admin');
+
 $app->group(
     '/p',
     function () {
