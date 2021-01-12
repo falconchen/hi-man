@@ -92,9 +92,19 @@ class Menu
                         'hide' => true, //不显示在菜单里
                     ],
 
+                    [
+                        'label' => '我的文集',
+                        'route' => 'collection-admin',
+                        'skip' => true,
+                        
+                    ],
+
+                    
+                    
 
                 ] //items
             ]
+            
 
 
         ];

@@ -333,5 +333,44 @@ trait OscTrait {
                 throw new \Exception('fail to update OSCer info');
             }
     }
+    /**
+     * 取出存在数据库的Osc用户信息
+     */
+
+    protected function initOscerMenuData($userId) {
+
+        $data = [];
+        $oscer = UserMeta::where('user_id', $userId)->where('meta_key', 'osc_userinfo')->first();
+
+        $oscCookieKeepAliveDays = isset( $this->settings['osc']['cookie_keep_alive_days'] ) ?  
+        $this->settings['osc']['cookie_keep_alive_days']: 7; 
+        
+
+        if ($oscer) {
+            $data['oscer'] = unserialize($oscer->meta_value);
+            $data['avatar'] = $data['oscer']['avatar'];
+
+            //$oscer = UserMeta::where('user_id', $userId)->where('meta_key', 'osc_userinfo')->first();
+            $cookieSafeTime = date('Y-m-d H:i:s' ,strtotime("-".abs($oscCookieKeepAliveDays)." days"));
+
+            $oscCookie= UserMeta::where('user_id', $userId)
+                        ->where('meta_key', 'osc_cookie')                        
+                        ->where('updated_at','<=',$cookieSafeTime)
+                        ->first();
+
+            if($oscCookie != NULL) { // 更新过期的cookie
+                
+                try {
+                    $this->updateOscCookie( $this->userId );      
+                    $this->logger->info( 'updated osc cookie ', ['userId'=>$this->userId] );              
+                }catch(Exception $e) {
+                    $this->logger->error( 'failed to update osc cookie ', ['userId'=>$this->userId] );
+                }                
+
+            }
+                        
+        }
+        return $data;
+    }
 
 }
