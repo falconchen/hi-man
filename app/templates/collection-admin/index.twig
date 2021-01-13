@@ -1,78 +1,35 @@
 {% extends 'admin/layout.twig' %}
+
+
 {% block title %}
     {{ t.trans('Collections') }}
+{% endblock %}
+
+{% block endOfHead %}
+<script id="serverJson" type="application/json">
+    {{ arr|json_encode()|raw }}
+</script>
 {% endblock %}
 
 {% block main %}
 
 
     <div
-        class="w3-container w3-padding-large" id="app" >
-        
-        {# <h2>{{ t.trans('Collections') }}</h2> #}
-        <div class="w3-modal" :style="modalDisplayObj">
-            <form class="w3-modal-content w3-animate-top w3-card-4" style="max-width: 600px;">
-                <header class="w3-container hi-dark">
-                    <span @click="closeModal" class="w3-button w3-display-topright">&times;</span>
-                    <h2>${headerTitle}</h2>
-                </header>
-                <div class="w3-container collection-body">
+        class="w3-container w3-padding-large" id="app">
 
-                    <p class="cover w3-bg-grey">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <line x1="12" y1="5" x2="12" y2="19"></line>
-                            <line x1="5" y1="12" x2="19" y2="12"></line>
-                        </svg>
-                        <span>封面</span>
-                    </p>
-
-                    <div class="inputs">
-                        <p>
-                            
-                            <label class="w3-text-black">标题 <span class="w3-text-red">*</span></label>
-                              
-                            <input v-model.trim="title" name="title" class="w3-input w3-border" type="text" required="true" placeholder="文集标题名" /></p>
-
-                        <p>
-                            <label class="w3-text-black">Slug</label>
-                            <input v-model.trim="slug"  name="slug" class="w3-input w3-border" type="text"  required="false" placeholder="URL中显示的文集名，非必填，尽量使用英文和数字" />
-                        </p>
-
-                        <p>
-                            <label class="w3-text-black">描述</label>
-                            <textarea v-model.trim="description" name="description" class="w3-input w3-border" style="resize:none" placeholder="关于文集内容的大概描述，非必填"></textarea>
-                        </p>
-                        
-                    </div>
-                </div>
-
-                <footer class="w3-container hi-dark">
-                    <p class="w3-right">
-                        <button type="button" class="w3-btn w3-padding w3-white" style="width:120px">创建 &nbsp; ❯</button>
-                    </p>
-                </footer>
-            </form>
-        </div>
+        {# 使用v-show = "modalIsShown" 时， 当使 currentCollection 变化后，子组件里collection-modal绑定的值不会变， 而 v-if ="modalIsShown" 写法，currentCollection变化后， 子组件collection-modal的props会变，
+                我明白 v-show 是，但是改变currentCollection, 子组件的数据不改变就很奇怪。
+                 #}
+        <collection-modal v-bind="currentCollection" @submit-collection="log" @close-modal="hideCollectionModal" v-show="true" v-if="modalIsShown"></collection-modal>
 
 
-        <div class="w3-responsive collection-list">
+        <div class="w3-responsive collection-list" attr="{{ arr | json_encode | e('html_attr') }}">
 
-            <div class="collection-item add" @click="createCollection">
-                <div class="inner">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <line x1="12" y1="5" x2="12" y2="19"></line>
-                        <line x1="5" y1="12" x2="19" y2="12"></line>
-                    </svg>
-                    <span>创建文集</span>
-                </div>
-            </div>
+            <create-collection-item label="创建新文集" @create-collection="showCollectionModal()"></create-collection-item>
 
-            <div class="collection-item" @click="clickMe" v-for="(book,index) in books">
-                <div class="inner">
-                    <strong v-text="book.title"></strong>
-                    <span v-text="book.author"></span>
-                </div>
-            </div>
+            {# 传入一个对象的所有 property,https://v3.cn.vuejs.org/guide/component-props.html#%E4%BC%A0%E5%85%A5%E4%B8%80%E4%B8%AA%E5%AF%B9%E8%B1%A1 #}
+
+            <collection-item v-for="collection in collections" v-bind="collection" @edit-collection="showCollectionModal(collection)"></collection-item>
 
         </div>
         <!-- .w3-responsive-->
@@ -86,8 +43,9 @@
 
 {% endblock %}
 
-{% block additionalJsOnfooter %}
-    <script src="{{ static_url() }}/js/node_modules/axios/dist/axios.min.js?v=0.21.1"></script>
-    <script src="{{ static_url() }}/js/vue3/vue.global.prod.js?v=3.0.2"></script>
-    <script src="{{ static_url() }}/js/vue3/collection-admin.js"></script>
+{% block endOfBody %}
+    <script src="{{ static_url() }}/js/node_modules/axios/dist/axios.min.js?ver=0.21.1"></script>
+    {# <script src="{{ static_url() }}/js/vue3/vue.global.prod.js?ver=3.0.2"></script> #}
+    <script src="{{ static_url() }}/js/vue3/vue@3.0.2.js?ver=3.0.2"></script>
+    <script src="{{ static_url() }}/js/vue3/collection-admin.js?ver={{ git_latest().dateVer }}"></script>
 {% endblock %}

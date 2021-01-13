@@ -57,7 +57,7 @@ final class CollectionAdminAction extends \App\Helper\LoggedAction
 
 
         //$postAuthor = $this->userId;
-       
+       $this->data['arr'] = ['a'=>1,'b'=>2];
 
         $this->view->render($response, 'collection-admin/index.twig', $this->data);
     }
