@@ -1768,6 +1768,9 @@ body{
     background-image: url(https://oscimg.oschina.net/oscnet/up-6d0fcd96bdffbc27b358e529e60c695f778.JPEG);
     background-size: cover;
 }
+body.night{
+  background-image: url(https://oscimg.oschina.net/oscnet/up-a1c40b19546bd884ec669a7550bb12a609a.JPEG);
+}
 
 .hi-bg-blue,.hi-author-bg {
   background-image: none;

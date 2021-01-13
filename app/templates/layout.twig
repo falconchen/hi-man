@@ -4,6 +4,8 @@
 {% if c.request.getParam('kw')|length > 0 %}
     {% set isSearchPage = true %}
 {% endif %}
+
+
 <!DOCTYPE html>
 <html lang="{{ c.get('settings').language.html|default('en') }}">
     <head>
@@ -40,9 +42,13 @@
         								    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
         								    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
         								    <![endif]-->
+{# https://oscimg.oschina.net/oscnet/up-a1c40b19546bd884ec669a7550bb12a609a.JPEG #}
 
     </head>
-    <body class="{% block bodyClass %}{{ r|replace(".","-") ~ '-body' }}{% endblock %}">
+    <body class="{% block bodyClass %}
+    {{ now|date("H") < 7 or now|date("H") > 17  ? 'night' : 'day'}} 
+    {{ r|replace(".","-") ~ '-body' }}
+    {% endblock %}">
 
 
         {% block nav %}
@@ -60,7 +66,7 @@
                         <a
                             class="navbar-brand w3-hover  w3-text-white hi-logo" href="{{ base_url() }}">
                             {# <i class="fa fa-fw fa-smile-o"></i> #}
-                            Hi
+                            Hi，
 
                         </a>
                         <ul class="navbar-brand hi-hover-blue" style="font-size:1rem;margin: 0;font-weight: 600;display: inline-block;list-style:none;">
