@@ -3,6 +3,7 @@
 {% set currentPath = container.request.getUri.getPath|replace({'/hi-admin/': ''}) %}
 <!DOCTYPE html>
 <html lang="{{c.get('settings').language.html|default('en')}}">
+<head>
 <title>{% block title %}{{t.trans('Dashbard')}}{% endblock %} 
             {%if  c.request.getParam('page') %}
 			&middot;
@@ -19,7 +20,8 @@
 <link rel="stylesheet" href="{{ static_url() }}/css/prism.css">
 <link rel="stylesheet" href="{{ static_url() }}/css/admin.css?ver={{ git_latest().dateVer }}">
 
-
+{% block endOfHead %}{% endblock %}
+</head>
 
 <body class="w3-light-grey">
 
@@ -194,7 +196,7 @@
 <script src='{{ static_url() }}/js/node_modules/tinymce/tinymce.min.js?v={{ git_latest().dateVer }}'></script>
 <script src='{{ static_url() }}/js/admin.js?ver={{ git_latest().dateVer }}'></script>
 
-{% block additionalJsOnfooter %}    
+{% block endOfBody %}    
 {% endblock %}
 
 </body>
