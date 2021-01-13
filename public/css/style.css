@@ -1522,12 +1522,11 @@ h1, h2, h3, h4, h5, h6 {
   display: block;
 } */
 .hi-content :not(pre) > code{
-  padding: 0.125rem 0.3125rem 0.0625rem !important;
-  
-  /* background-color: rgba(255, 224, 224,0.8) !important; */
-  border-radius: 2px !important;
-  
-  margin: 0 2px;
+  padding: .3rem .6rem!important;
+    border-radius: .2rem!important;
+    margin: 0 .2rem;
+    background: #e7eef1;
+    color: #042735;
 }
 
 .hi-content .hn-wrap :not(pre)>code {
@@ -1768,6 +1767,9 @@ body{
     
     background-image: url(https://oscimg.oschina.net/oscnet/up-6d0fcd96bdffbc27b358e529e60c695f778.JPEG);
     background-size: cover;
+}
+body.night{
+  background-image: url(https://oscimg.oschina.net/oscnet/up-a1c40b19546bd884ec669a7550bb12a609a.JPEG);
 }
 
 .hi-bg-blue,.hi-author-bg {
