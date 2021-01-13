@@ -45,8 +45,9 @@
 {# https://oscimg.oschina.net/oscnet/up-a1c40b19546bd884ec669a7550bb12a609a.JPEG #}
 
     </head>
-    <body class="{% block bodyClass %}
-    {{ now|date("H") < 7 or now|date("H") > 17  ? 'night' : 'day'}} 
+    <body class="
+    {% block dayNightClass%}{{ now|date("H") < 7 or now|date("H") > 17  ? 'night' : 'day'}}{% endblock %}
+    {% block bodyClass %}     
     {{ r|replace(".","-") ~ '-body' }}
     {% endblock %}">
 
