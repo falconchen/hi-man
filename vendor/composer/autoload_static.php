@@ -108,6 +108,7 @@ class ComposerStaticInitc3765e25676b2cbb624df054aef313e2
         array (
             'FastRoute\\' => 10,
             'FalconChen\\Slim\\Views\\TwigExtension\\' => 36,
+            'FalconChen\\SlimCsrf\\' => 20,
         ),
         'D' => 
         array (
@@ -321,6 +322,10 @@ class ComposerStaticInitc3765e25676b2cbb624df054aef313e2
         'FalconChen\\Slim\\Views\\TwigExtension\\' => 
         array (
             0 => __DIR__ . '/..' . '/falconchen/slim-twig-csrf-inputs/src',
+        ),
+        'FalconChen\\SlimCsrf\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/packages/slim-csrf/src',
         ),
         'Doctrine\\DBAL\\' => 
         array (

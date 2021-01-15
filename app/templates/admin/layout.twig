@@ -11,8 +11,9 @@
 			{{ t.transChoice('Current Paginate', currentPageNum,{'%count%':currentPageNum} ) }}
 			{% endif %}
 &ndash; HiCMS Admin</title>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+{{ csrf_metas() }}
 <link rel="icon" href="{{ static_url() }}/images/hi-logo-v20200703-200.png" sizes="32x32" />
 {#<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">#}
 <link rel="stylesheet" href="https://lib.baomitu.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -177,6 +178,8 @@
 </div>
     <!-- End page content -->
 </div>
+
+
 <script>
     var savePreviewUrl = "{{c.router.pathFor('post-admin.savePreview')}}";
     var currentUser = {
@@ -185,8 +188,11 @@
         akey:"{{c.hash.akeyGen(c.session.user.id)}}"                
     };
     var siteInfo= {
-        url : "{{c.get('app').url}}"
+        url : "{{c.get('app').url}}"        
     };
+{%if c.csrf %}
+    var csrf = {{ csrf_json() }}
+{% endif %}
 </script>
 
 <script type="text/javascript" src="https://lib.baomitu.com/jquery/1.11.3/jquery.min.js"></script>
