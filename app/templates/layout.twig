@@ -4,8 +4,6 @@
 {% if c.request.getParam('kw')|length > 0 %}
     {% set isSearchPage = true %}
 {% endif %}
-
-
 <!DOCTYPE html>
 <html lang="{{ c.get('settings').language.html|default('en') }}">
     <head>
