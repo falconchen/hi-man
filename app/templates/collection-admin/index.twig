@@ -19,7 +19,7 @@
 
         {# 使用v-show = "modalIsShown" 时， 当使 currentCollection 变化后，子组件里collection-modal绑定的值不会变， 而 v-if ="modalIsShown" 写法，currentCollection变化后， 子组件collection-modal的props会变，
                 我明白 v-show 是，但是改变currentCollection, 子组件的数据不改变就很奇怪。
-                 #}
+        #}
         <collection-modal v-bind="currentCollection" @submit-collection="log" @close-modal="hideCollectionModal" v-show="true" v-if="modalIsShown"></collection-modal>
 
 
