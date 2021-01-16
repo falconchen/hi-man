@@ -28,7 +28,7 @@ class Guard extends \Slim\Csrf\Guard
     {
         // Validate POST, PUT, DELETE, PATCH requests
         if (in_array($request->getMethod(), ['POST', 'PUT', 'DELETE', 'PATCH'])) {
-            //$request->getHeaders();
+            //var_dump($request->getHeaders());exit;
             $body = $request->getParsedBody();
             $body = $body ? (array)$body : [];
             $name = isset($body[$this->prefix . '_name']) ? $body[$this->prefix . '_name'] : false;
