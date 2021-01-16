@@ -71,6 +71,16 @@ $app->group(
     }
 );
 
+$app->group(
+    '/api',
+    function () {
+        $this->get('/collections[/{id}]', 'App\Api\Collection:read')->setName('collections.read');        
+        $this->post('/collections', 'App\Api\Collection:create')->setName('collections.create');        
+        $this->put('/collections', 'App\Api\Collection:update')->setName('collections.update');        
+        $this->delete('/collections', 'App\Api\Collection:delete')->setName('collections.delete');        
+    }
+);
+
 
 $route = App\Model\Route::all();
 $app->get('/hi-admin/', 'App\Action\Admin:index');
