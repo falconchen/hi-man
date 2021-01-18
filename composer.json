@@ -45,7 +45,8 @@
         "aneek/slim-event-dispatcher": "^1.0",
         "league/html-to-markdown": "^4.9",
         "zeuxisoo/slim-whoops": "^0.6",
-        "ramsey/uuid": "^4.1"
+        "ramsey/uuid": "^4.1",
+        "tuupola/slim-jwt-auth": "^3.5"
     },
 
     "scripts": {
