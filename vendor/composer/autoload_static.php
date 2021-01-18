@@ -8,26 +8,30 @@ class ComposerStaticInitc3765e25676b2cbb624df054aef313e2
 {
     public static $files = array (
         '320cde22f66dd4f5d3fd621d3e88b98f' => __DIR__ . '/..' . '/symfony/polyfill-ctype/bootstrap.php',
+        'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
+        '6e3fae29631ef280660b3cdad06f25a8' => __DIR__ . '/..' . '/symfony/deprecation-contracts/function.php',
         '0d59ee240a4cd96ddbb4ff164fccea4d' => __DIR__ . '/..' . '/symfony/polyfill-php73/bootstrap.php',
-        '253c157292f75eb38082b5acb06f3f01' => __DIR__ . '/..' . '/nikic/fast-route/src/functions.php',
+        'a1105708a18b76903365ca1c4aa61b02' => __DIR__ . '/..' . '/symfony/translation/Resources/functions.php',
         '72579e7bd17821bb1321b87411366eae' => __DIR__ . '/..' . '/illuminate/support/helpers.php',
+        '253c157292f75eb38082b5acb06f3f01' => __DIR__ . '/..' . '/nikic/fast-route/src/functions.php',
+        'e69f7f6ee287b969198c3c9d6777bd38' => __DIR__ . '/..' . '/symfony/polyfill-intl-normalizer/bootstrap.php',
+        '25072dd6e2470089de65ae7bf11d3109' => __DIR__ . '/..' . '/symfony/polyfill-php72/bootstrap.php',
         '7b11c4dc42b3b3023073cb14e519683c' => __DIR__ . '/..' . '/ralouphie/getallheaders/src/getallheaders.php',
         'def43f6c87e4f8dfd0c9e1b1bab14fe8' => __DIR__ . '/..' . '/symfony/polyfill-iconv/bootstrap.php',
         '8825ede83f2f289127722d4e842cf7e8' => __DIR__ . '/..' . '/symfony/polyfill-intl-grapheme/bootstrap.php',
-        'e69f7f6ee287b969198c3c9d6777bd38' => __DIR__ . '/..' . '/symfony/polyfill-intl-normalizer/bootstrap.php',
-        '25072dd6e2470089de65ae7bf11d3109' => __DIR__ . '/..' . '/symfony/polyfill-php72/bootstrap.php',
         'c964ee0ededf28c96ebd9db5099ef910' => __DIR__ . '/..' . '/guzzlehttp/promises/src/functions_include.php',
         'a0edc8309cc5e1d60e3047b5df6b7052' => __DIR__ . '/..' . '/guzzlehttp/psr7/src/functions_include.php',
+        'f598d06aa772fa33d905e87be6398fb1' => __DIR__ . '/..' . '/symfony/polyfill-intl-idn/bootstrap.php',
         'b46ad4fe52f4d1899a2951c7e6ea56b0' => __DIR__ . '/..' . '/voku/portable-utf8/bootstrap.php',
         '37a3dc5111fe8f707ab4c132ef1dbc62' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/functions_include.php',
+        'e39a8b23c42d4e1452234d762b03835a' => __DIR__ . '/..' . '/ramsey/uuid/src/functions.php',
         '0c59818147c5dcbcdd5bcbc666bbb325' => __DIR__ . '/../..' . '/app/src/Helper/functions.php',
     );
 
     public static $prefixLengthsPsr4 = array (
         'v' => 
         array (
-            'voku\\tests\\' => 11,
             'voku\\helper\\' => 12,
             'voku\\' => 5,
         ),
@@ -50,10 +54,12 @@ class ComposerStaticInitc3765e25676b2cbb624df054aef313e2
         ),
         'S' => 
         array (
+            'Symfony\\Polyfill\\Php80\\' => 23,
             'Symfony\\Polyfill\\Php73\\' => 23,
             'Symfony\\Polyfill\\Php72\\' => 23,
             'Symfony\\Polyfill\\Mbstring\\' => 26,
             'Symfony\\Polyfill\\Intl\\Normalizer\\' => 33,
+            'Symfony\\Polyfill\\Intl\\Idn\\' => 26,
             'Symfony\\Polyfill\\Intl\\Grapheme\\' => 31,
             'Symfony\\Polyfill\\Iconv\\' => 23,
             'Symfony\\Polyfill\\Ctype\\' => 23,
@@ -70,6 +76,11 @@ class ComposerStaticInitc3765e25676b2cbb624df054aef313e2
             'Slim\\Event\\' => 11,
             'Slim\\Csrf\\' => 10,
             'Slim\\' => 5,
+        ),
+        'R' => 
+        array (
+            'Ramsey\\Uuid\\' => 12,
+            'Ramsey\\Collection\\' => 18,
         ),
         'P' => 
         array (
@@ -107,11 +118,11 @@ class ComposerStaticInitc3765e25676b2cbb624df054aef313e2
         'F' => 
         array (
             'FastRoute\\' => 10,
-            'FalconChen\\Slim\\Views\\TwigExtension\\' => 36,
             'FalconChen\\SlimCsrf\\' => 20,
         ),
         'D' => 
         array (
+            'Doctrine\\Inflector\\' => 19,
             'Doctrine\\DBAL\\' => 14,
             'Doctrine\\Common\\Inflector\\' => 26,
             'Doctrine\\Common\\Cache\\' => 22,
@@ -122,6 +133,10 @@ class ComposerStaticInitc3765e25676b2cbb624df054aef313e2
             'Carlosocarvalho\\SimpleInput\\Input\\' => 34,
             'Carbon\\' => 7,
         ),
+        'B' => 
+        array (
+            'Brick\\Math\\' => 11,
+        ),
         'A' => 
         array (
             'App\\' => 4,
@@ -129,11 +144,6 @@ class ComposerStaticInitc3765e25676b2cbb624df054aef313e2
     );
 
     public static $prefixDirsPsr4 = array (
-        'voku\\tests\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/voku/portable-ascii/tests',
-            1 => __DIR__ . '/..' . '/voku/portable-utf8/tests',
-        ),
         'voku\\helper\\' => 
         array (
             0 => __DIR__ . '/..' . '/voku/anti-xss/src/voku/helper',
@@ -163,6 +173,10 @@ class ComposerStaticInitc3765e25676b2cbb624df054aef313e2
         array (
             0 => __DIR__ . '/..' . '/texthtml/php-lock/src',
         ),
+        'Symfony\\Polyfill\\Php80\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/polyfill-php80',
+        ),
         'Symfony\\Polyfill\\Php73\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-php73',
@@ -178,6 +192,10 @@ class ComposerStaticInitc3765e25676b2cbb624df054aef313e2
         'Symfony\\Polyfill\\Intl\\Normalizer\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-intl-normalizer',
+        ),
+        'Symfony\\Polyfill\\Intl\\Idn\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/polyfill-intl-idn',
         ),
         'Symfony\\Polyfill\\Intl\\Grapheme\\' => 
         array (
@@ -242,6 +260,14 @@ class ComposerStaticInitc3765e25676b2cbb624df054aef313e2
         'Slim\\' => 
         array (
             0 => __DIR__ . '/..' . '/slim/slim/Slim',
+        ),
+        'Ramsey\\Uuid\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/ramsey/uuid/src',
+        ),
+        'Ramsey\\Collection\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/ramsey/collection/src',
         ),
         'Psr\\SimpleCache\\' => 
         array (
@@ -319,13 +345,13 @@ class ComposerStaticInitc3765e25676b2cbb624df054aef313e2
         array (
             0 => __DIR__ . '/..' . '/nikic/fast-route/src',
         ),
-        'FalconChen\\Slim\\Views\\TwigExtension\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/falconchen/slim-twig-csrf-inputs/src',
-        ),
         'FalconChen\\SlimCsrf\\' => 
         array (
             0 => __DIR__ . '/../..' . '/packages/slim-csrf/src',
+        ),
+        'Doctrine\\Inflector\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/doctrine/inflector/lib/Doctrine/Inflector',
         ),
         'Doctrine\\DBAL\\' => 
         array (
@@ -350,6 +376,10 @@ class ComposerStaticInitc3765e25676b2cbb624df054aef313e2
         'Carbon\\' => 
         array (
             0 => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon',
+        ),
+        'Brick\\Math\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/brick/math/src',
         ),
         'App\\' => 
         array (
@@ -400,8 +430,12 @@ class ComposerStaticInitc3765e25676b2cbb624df054aef313e2
     );
 
     public static $classMap = array (
+        'Attribute' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Attribute.php',
         'JsonException' => __DIR__ . '/..' . '/symfony/polyfill-php73/Resources/stubs/JsonException.php',
         'Normalizer' => __DIR__ . '/..' . '/symfony/polyfill-intl-normalizer/Resources/stubs/Normalizer.php',
+        'Stringable' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Stringable.php',
+        'UnhandledMatchError' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/UnhandledMatchError.php',
+        'ValueError' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/ValueError.php',
     );
 
     public static function getInitializer(ClassLoader $loader)

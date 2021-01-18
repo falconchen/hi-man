@@ -66,11 +66,9 @@ class ArrayNodeDefinition extends NodeDefinition implements ParentNodeDefinition
     /**
      * Sets a prototype for child nodes.
      *
-     * @param string $type The type of node
-     *
      * @return NodeDefinition
      */
-    public function prototype($type)
+    public function prototype(string $type)
     {
         return $this->prototype = $this->getNodeBuilder()->node(null, $type)->setParent($this);
     }
@@ -194,12 +192,12 @@ class ArrayNodeDefinition extends NodeDefinition implements ParentNodeDefinition
     /**
      * Sets a normalization rule for XML configurations.
      *
-     * @param string $singular The key to remap
-     * @param string $plural   The plural of the key for irregular plurals
+     * @param string      $singular The key to remap
+     * @param string|null $plural   The plural of the key for irregular plurals
      *
      * @return $this
      */
-    public function fixXmlConfig($singular, $plural = null)
+    public function fixXmlConfig(string $singular, string $plural = null)
     {
         $this->normalization()->remap($singular, $plural);
 
@@ -234,7 +232,7 @@ class ArrayNodeDefinition extends NodeDefinition implements ParentNodeDefinition
      *
      * @return $this
      */
-    public function useAttributeAsKey($name, $removeKeyItem = true)
+    public function useAttributeAsKey(string $name, bool $removeKeyItem = true)
     {
         $this->key = $name;
         $this->removeKeyItem = $removeKeyItem;
@@ -245,11 +243,9 @@ class ArrayNodeDefinition extends NodeDefinition implements ParentNodeDefinition
     /**
      * Sets whether the node can be unset.
      *
-     * @param bool $allow
-     *
      * @return $this
      */
-    public function canBeUnset($allow = true)
+    public function canBeUnset(bool $allow = true)
     {
         $this->merge()->allowUnset($allow);
 
@@ -341,7 +337,7 @@ class ArrayNodeDefinition extends NodeDefinition implements ParentNodeDefinition
      *
      * @return $this
      */
-    public function ignoreExtraKeys($remove = true)
+    public function ignoreExtraKeys(bool $remove = true)
     {
         $this->ignoreExtraKeys = true;
         $this->removeExtraKeys = $remove;
@@ -350,15 +346,13 @@ class ArrayNodeDefinition extends NodeDefinition implements ParentNodeDefinition
     }
 
     /**
-     * Sets key normalization.
-     *
-     * @param bool $bool Whether to enable key normalization
+     * Sets whether to enable key normalization.
      *
      * @return $this
      */
-    public function normalizeKeys($bool)
+    public function normalizeKeys(bool $bool)
     {
-        $this->normalizeKeys = (bool) $bool;
+        $this->normalizeKeys = $bool;
 
         return $this;
     }
@@ -417,6 +411,10 @@ class ArrayNodeDefinition extends NodeDefinition implements ParentNodeDefinition
             }
 
             if ($this->default) {
+                if (!\is_array($this->defaultValue)) {
+                    throw new \InvalidArgumentException(sprintf('%s: the default value of an array node has to be an array.', $node->getPath()));
+                }
+
                 $node->setDefaultValue($this->defaultValue);
             }
 
@@ -437,9 +435,12 @@ class ArrayNodeDefinition extends NodeDefinition implements ParentNodeDefinition
         $node->addEquivalentValue(false, $this->falseEquivalent);
         $node->setPerformDeepMerging($this->performDeepMerging);
         $node->setRequired($this->required);
-        $node->setDeprecated($this->deprecationMessage);
         $node->setIgnoreExtraKeys($this->ignoreExtraKeys, $this->removeExtraKeys);
         $node->setNormalizeKeys($this->normalizeKeys);
+
+        if ($this->deprecation) {
+            $node->setDeprecated($this->deprecation['package'], $this->deprecation['version'], $this->deprecation['message']);
+        }
 
         if (null !== $this->normalization) {
             $node->setNormalizationClosures($this->normalization->before);
@@ -468,23 +469,23 @@ class ArrayNodeDefinition extends NodeDefinition implements ParentNodeDefinition
         $path = $node->getPath();
 
         if (null !== $this->key) {
-            throw new InvalidDefinitionException(sprintf('->useAttributeAsKey() is not applicable to concrete nodes at path "%s"', $path));
+            throw new InvalidDefinitionException(sprintf('->useAttributeAsKey() is not applicable to concrete nodes at path "%s".', $path));
         }
 
         if (false === $this->allowEmptyValue) {
-            throw new InvalidDefinitionException(sprintf('->cannotBeEmpty() is not applicable to concrete nodes at path "%s"', $path));
+            throw new InvalidDefinitionException(sprintf('->cannotBeEmpty() is not applicable to concrete nodes at path "%s".', $path));
         }
 
         if (true === $this->atLeastOne) {
-            throw new InvalidDefinitionException(sprintf('->requiresAtLeastOneElement() is not applicable to concrete nodes at path "%s"', $path));
+            throw new InvalidDefinitionException(sprintf('->requiresAtLeastOneElement() is not applicable to concrete nodes at path "%s".', $path));
         }
 
         if ($this->default) {
-            throw new InvalidDefinitionException(sprintf('->defaultValue() is not applicable to concrete nodes at path "%s"', $path));
+            throw new InvalidDefinitionException(sprintf('->defaultValue() is not applicable to concrete nodes at path "%s".', $path));
         }
 
         if (false !== $this->addDefaultChildren) {
-            throw new InvalidDefinitionException(sprintf('->addDefaultChildrenIfNoneSet() is not applicable to concrete nodes at path "%s"', $path));
+            throw new InvalidDefinitionException(sprintf('->addDefaultChildrenIfNoneSet() is not applicable to concrete nodes at path "%s".', $path));
         }
     }
 
@@ -498,20 +499,20 @@ class ArrayNodeDefinition extends NodeDefinition implements ParentNodeDefinition
         $path = $node->getPath();
 
         if ($this->addDefaults) {
-            throw new InvalidDefinitionException(sprintf('->addDefaultsIfNotSet() is not applicable to prototype nodes at path "%s"', $path));
+            throw new InvalidDefinitionException(sprintf('->addDefaultsIfNotSet() is not applicable to prototype nodes at path "%s".', $path));
         }
 
         if (false !== $this->addDefaultChildren) {
             if ($this->default) {
-                throw new InvalidDefinitionException(sprintf('A default value and default children might not be used together at path "%s"', $path));
+                throw new InvalidDefinitionException(sprintf('A default value and default children might not be used together at path "%s".', $path));
             }
 
             if (null !== $this->key && (null === $this->addDefaultChildren || \is_int($this->addDefaultChildren) && $this->addDefaultChildren > 0)) {
-                throw new InvalidDefinitionException(sprintf('->addDefaultChildrenIfNoneSet() should set default children names as ->useAttributeAsKey() is used at path "%s"', $path));
+                throw new InvalidDefinitionException(sprintf('->addDefaultChildrenIfNoneSet() should set default children names as ->useAttributeAsKey() is used at path "%s".', $path));
             }
 
             if (null === $this->key && (\is_string($this->addDefaultChildren) || \is_array($this->addDefaultChildren))) {
-                throw new InvalidDefinitionException(sprintf('->addDefaultChildrenIfNoneSet() might not set default children names as ->useAttributeAsKey() is not used at path "%s"', $path));
+                throw new InvalidDefinitionException(sprintf('->addDefaultChildrenIfNoneSet() might not set default children names as ->useAttributeAsKey() is not used at path "%s".', $path));
             }
         }
     }
