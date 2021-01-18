@@ -50,6 +50,9 @@ class ComposerStaticInitc3765e25676b2cbb624df054aef313e2
         'T' => 
         array (
             'Twig\\' => 5,
+            'Tuupola\\Middleware\\' => 19,
+            'Tuupola\\Http\\Factory\\' => 21,
+            'Tuupola\\' => 8,
             'TH\\Lock\\' => 8,
         ),
         'S' => 
@@ -86,6 +89,7 @@ class ComposerStaticInitc3765e25676b2cbb624df054aef313e2
         array (
             'Psr\\SimpleCache\\' => 16,
             'Psr\\Log\\' => 8,
+            'Psr\\Http\\Server\\' => 16,
             'Psr\\Http\\Message\\' => 17,
             'Psr\\Container\\' => 14,
             'Pheanstalk\\' => 11,
@@ -117,6 +121,7 @@ class ComposerStaticInitc3765e25676b2cbb624df054aef313e2
         ),
         'F' => 
         array (
+            'Firebase\\JWT\\' => 13,
             'FastRoute\\' => 10,
             'FalconChen\\SlimCsrf\\' => 20,
         ),
@@ -168,6 +173,19 @@ class ComposerStaticInitc3765e25676b2cbb624df054aef313e2
         'Twig\\' => 
         array (
             0 => __DIR__ . '/..' . '/twig/twig/src',
+        ),
+        'Tuupola\\Middleware\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/tuupola/callable-handler/src',
+            1 => __DIR__ . '/..' . '/tuupola/slim-jwt-auth/src',
+        ),
+        'Tuupola\\Http\\Factory\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/tuupola/http-factory/src',
+        ),
+        'Tuupola\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/tuupola/base62/src',
         ),
         'TH\\Lock\\' => 
         array (
@@ -277,9 +295,15 @@ class ComposerStaticInitc3765e25676b2cbb624df054aef313e2
         array (
             0 => __DIR__ . '/..' . '/psr/log/Psr/Log',
         ),
+        'Psr\\Http\\Server\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/psr/http-server-handler/src',
+            1 => __DIR__ . '/..' . '/psr/http-server-middleware/src',
+        ),
         'Psr\\Http\\Message\\' => 
         array (
-            0 => __DIR__ . '/..' . '/psr/http-message/src',
+            0 => __DIR__ . '/..' . '/psr/http-factory/src',
+            1 => __DIR__ . '/..' . '/psr/http-message/src',
         ),
         'Psr\\Container\\' => 
         array (
@@ -340,6 +364,10 @@ class ComposerStaticInitc3765e25676b2cbb624df054aef313e2
         'GuzzleHttp\\' => 
         array (
             0 => __DIR__ . '/..' . '/guzzlehttp/guzzle/src',
+        ),
+        'Firebase\\JWT\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/firebase/php-jwt/src',
         ),
         'FastRoute\\' => 
         array (

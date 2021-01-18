@@ -13,6 +13,7 @@ class BaseAction
     
     protected $container;
     protected $c;//别名
+    protected $t;//别名
     protected $route;
     protected $user = null;
     protected $userId = 0;
@@ -33,8 +34,12 @@ class BaseAction
         $this->JsonRender = new JsonRenderer();
         $this->setContainer($c);
         $this->route = $this->c->get('router'); //alias
-        
+        $this->t= $this->c->get('translator');
         $this->setupUser();
+    }
+
+    public function trans($string) {//shorthand method
+        return $this->t->trans($string);
     }
 
     public function __get($arg)

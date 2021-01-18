@@ -18,6 +18,11 @@ return [
         'remember'  => 'user_r'
     ],
     'settings' => [
+
+        'jwt'=>[
+            'secret'=>'hicms',
+            'timeout'=>'+2 hours', //strtotime 时间格式
+        ],
         
         'determineRouteBeforeAppMiddleware'=>true, // 必须，为注入路由名称r全局变量到模板
         'media'=>[

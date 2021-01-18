@@ -102,3 +102,8 @@ Recent DayFormat: "{0}今天 %timeStr%|{1}昨天 %timeStr%|{2}前天 %timeStr%"
 Tweet author: 弹主
 Don't have an account?: 没有账号？
 Already has an account?: 已有账号？
+Access deny: 禁止访问
+Empty fields: 空字段
+Identify failed or user inactived: 用户名密码错误或用户已失效。
+Unauthorized: 未授权
+No Permission: 无权限

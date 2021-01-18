@@ -1,12 +1,14 @@
 <?php
 // DIC configuration
 
+use App\Helper\JsonRenderer;
 use Symfony\Component\Translation\Loader\YamlFileLoader;
 use Symfony\Component\Translation\Translator;
 use PHPMailer\PHPMailer\PHPMailer;
 // database
 use Illuminate\Database\Capsule\Manager as Capsule;
 use Slim\Event\SlimEventManager;
+use Tuupola\Middleware\JwtAuthentication;
 
 
 
@@ -34,7 +36,7 @@ $container['view'] = function ($c) {
     return $view;
 };
 
-$container['jsonRender'] = function ($c) {
+$container['jsonRender'] = function ()  {
     $view = new App\Helper\JsonRenderer();
 
     return $view;
@@ -261,4 +263,30 @@ $container['eventManager'] = function ($c) {
     ];
     $emitter = new SlimEventManager($events);
     return $emitter;
+};
+
+$container["JwtAuthentication"] = function ($c) {
+    $settings = $c->get('settings');
+    return new JwtAuthentication([
+        "header" => "Hi-Token",
+        "regexp" => "/(.*)/",
+        "path" => "/api",
+        "ignore" => ["/api/tokens", "/api/info"],
+        "secret" => $settings["jwt"]['secret'],
+        "logger" => $c->get('logger'),        
+        "attribute" => "token",
+        "relaxed" => [ "127.0.0.1", "localhost","hi.local.cellmean.com"],
+        "error" => function ($response, $arguments) use ($c){
+            return JsonRenderer::error($response, 401,$c->translator->trans('Unauthorized'));
+        }
+
+        // "before" => function ($request, $arguments) use ($c) {
+        //     //$c["token"]->populate($arguments["decoded"]);            
+        //     //
+        //     //return $request->withAttribute("decoded",$arguments["decoded"]);
+        // },
+        // "after" => function ($response, $arguments) {
+        //     return $response->withHeader("X-Brawndo", "plants crave");
+        // }
+    ]);
 };
