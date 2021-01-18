@@ -74,6 +74,10 @@ $app->group(
 $app->group(
     '/api',
     function () {
+        $this->get('/tokens','App\Api\Tokens:read')->setName('tokens.read');        
+        $this->post('/tokens','App\Api\Tokens:create')->setName('tokens.create');        
+        
+
         $this->get('/collections[/{id}]', 'App\Api\Collection:read')->setName('collections.read');        
         $this->post('/collections', 'App\Api\Collection:create')->setName('collections.create');        
         $this->put('/collections', 'App\Api\Collection:update')->setName('collections.update');        
