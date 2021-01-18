@@ -116,7 +116,10 @@ $container['errorHandler'] = $errorExceptionHandlerFunc;
 $container['csrf'] = function ($c) {
     //$guard = new \Slim\Csrf\Guard();
     $guard = new \FalconChen\SlimCsrf\Guard();
-    $guard->setFailureCallable(function ($request, $response, $next) {
+    $guard->setFailureCallable(function ($request, $response, $next) use ($c) {
+
+        //return $c->view->render($response->withStatus(400), 'csrf_error.twig');
+
         $request = $request->withAttribute("csrf_status", false);
         return $next($request, $response);
     });
