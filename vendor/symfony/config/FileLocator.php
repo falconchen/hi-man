@@ -33,9 +33,9 @@ class FileLocator implements FileLocatorInterface
     /**
      * {@inheritdoc}
      */
-    public function locate($name, $currentPath = null, $first = true)
+    public function locate(string $name, string $currentPath = null, bool $first = true)
     {
-        if ('' == $name) {
+        if ('' === $name) {
             throw new \InvalidArgumentException('An empty file name is not valid to be located.');
         }
 
@@ -68,7 +68,7 @@ class FileLocator implements FileLocatorInterface
         }
 
         if (!$filepaths) {
-            throw new FileLocatorFileNotFoundException(sprintf('The file "%s" does not exist (in: %s).', $name, implode(', ', $paths)), 0, null, $notfound);
+            throw new FileLocatorFileNotFoundException(sprintf('The file "%s" does not exist (in: "%s").', $name, implode('", "', $paths)), 0, null, $notfound);
         }
 
         return $filepaths;
@@ -84,7 +84,7 @@ class FileLocator implements FileLocatorInterface
                 && ':' === $file[1]
                 && ('\\' === $file[2] || '/' === $file[2])
             )
-            || null !== parse_url($file, PHP_URL_SCHEME)
+            || null !== parse_url($file, \PHP_URL_SCHEME)
         ) {
             return true;
         }

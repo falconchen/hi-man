@@ -1,5 +1,71 @@
 # Changelog
 
+### 4.1.31 (2020-12-02)
+
+- optimize performance (thx @staabm)
+- update vendor lib (Portable UTF-8)
+
+
+### 4.1.30 (2020-11-12)
+
+- update vendor lib (Portable UTF-8)
+
+
+### 4.1.29 (2020-11-09)
+
+- allow e.g. "<35%" (issue #62)
+- allow to skip some html tags from auto closing (issue #63)
+- run tests with PHP 8.0 rc3
+
+
+### 4.1.28 (2020-08-28)
+
+- fix allow base64 encoded images in <img>-tags (issue #61)
+- fix performance issue of regex with "preg_match_all"
+
+
+### 4.1.27 (2020-08-23)
+
+- allow e.g. "< $2.20" (issue #60)
+- optimize protection against HTML "script" tag stripping evasion
+- auto-generate the api documentation into the README
+
+
+### 4.1.26 (2020-08-08)
+
+- allow base64 encoded images in <img>-tags (issue #59)
+
+
+### 4.1.25 (2020-06-12)
+
+- fix false-positive (issue #58)
+
+
+### 4.1.24 (2020-03-08)
+
+- allow to change the "_never_allowed_str_afterwards" (issue #56)
+- fix false-positive (issue #55)
+
+
+### 4.1.23 (2020-03-06)
+
+- use some more bad strings from "https://github.com/s0md3v/AwesomeXSS"
+- optimize some regex (use strpos before the regex)
+
+
+### 4.1.22 (2020-02-06)
+
+- fix false-positive (issue #54)
+- optimize internal caching of strings
+
+
+### 4.1.21 (2019-12-30)
+
+- fix false-positive (issue #53)
+- fix for "server-sent events"
+- optimize regex for encoded script-tags (%3C && %3E)
+
+
 ### 4.1.20 (2019-12-07)
 
 - fix additional false positives in string (issue #52)

@@ -18,13 +18,13 @@ final class Tokens extends \App\Helper\ApiAction
 
         
 
-        $uuid = Uuid::uuid4();
+        // $uuid = Uuid::uuid4();
 
-        printf(
-            "UUID: %s\nVersion: %d\n",
-            $uuid->toString(),
-            $uuid->getFields()->getVersion()
-        );
+        // printf(
+        //     "UUID: %s\nVersion: %d\n",
+        //     $uuid->toString(),
+        //     $uuid->getFields()->getVersion()
+        // );
         
     }
 }

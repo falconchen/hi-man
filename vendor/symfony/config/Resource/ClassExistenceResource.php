@@ -19,7 +19,7 @@ namespace Symfony\Component\Config\Resource;
  *
  * @author Fabien Potencier <fabien@symfony.com>
  *
- * @final since Symfony 4.3
+ * @final
  */
 class ClassExistenceResource implements SelfCheckingResourceInterface
 {
@@ -37,13 +37,15 @@ class ClassExistenceResource implements SelfCheckingResourceInterface
     public function __construct(string $resource, bool $exists = null)
     {
         $this->resource = $resource;
-        $this->exists = $exists;
+        if (null !== $exists) {
+            $this->exists = [(bool) $exists, null];
+        }
     }
 
     /**
      * {@inheritdoc}
      */
-    public function __toString()
+    public function __toString(): string
     {
         return $this->resource;
     }
@@ -51,7 +53,7 @@ class ClassExistenceResource implements SelfCheckingResourceInterface
     /**
      * @return string The file path to the resource
      */
-    public function getResource()
+    public function getResource(): string
     {
         return $this->resource;
     }
@@ -61,13 +63,17 @@ class ClassExistenceResource implements SelfCheckingResourceInterface
      *
      * @throws \ReflectionException when a parent class/interface/trait is not found
      */
-    public function isFresh($timestamp)
+    public function isFresh(int $timestamp): bool
     {
         $loaded = class_exists($this->resource, false) || interface_exists($this->resource, false) || trait_exists($this->resource, false);
 
-        if (null !== $exists = &self::$existsCache[(int) (0 >= $timestamp)][$this->resource]) {
-            $exists = $exists || $loaded;
-        } elseif (!$exists = $loaded) {
+        if (null !== $exists = &self::$existsCache[$this->resource]) {
+            if ($loaded) {
+                $exists = [true, null];
+            } elseif (0 >= $timestamp && !$exists[0] && null !== $exists[1]) {
+                throw new \ReflectionException($exists[1]);
+            }
+        } elseif ([false, null] === $exists = [$loaded, null]) {
             if (!self::$autoloadLevel++) {
                 spl_autoload_register(__CLASS__.'::throwOnRequiredClass');
             }
@@ -75,16 +81,21 @@ class ClassExistenceResource implements SelfCheckingResourceInterface
             self::$autoloadedClass = ltrim($this->resource, '\\');
 
             try {
-                $exists = class_exists($this->resource) || interface_exists($this->resource, false) || trait_exists($this->resource, false);
+                $exists[0] = class_exists($this->resource) || interface_exists($this->resource, false) || trait_exists($this->resource, false);
             } catch (\Exception $e) {
+                $exists[1] = $e->getMessage();
+
                 try {
                     self::throwOnRequiredClass($this->resource, $e);
                 } catch (\ReflectionException $e) {
                     if (0 >= $timestamp) {
-                        unset(self::$existsCache[1][$this->resource]);
                         throw $e;
                     }
                 }
+            } catch (\Throwable $e) {
+                $exists[1] = $e->getMessage();
+
+                throw $e;
             } finally {
                 self::$autoloadedClass = $autoloadedClass;
                 if (!--self::$autoloadLevel) {
@@ -97,7 +108,7 @@ class ClassExistenceResource implements SelfCheckingResourceInterface
             $this->exists = $exists;
         }
 
-        return $this->exists xor !$exists;
+        return $this->exists[0] xor !$exists[0];
     }
 
     /**
@@ -110,6 +121,16 @@ class ClassExistenceResource implements SelfCheckingResourceInterface
         }
 
         return ['resource', 'exists'];
+    }
+
+    /**
+     * @internal
+     */
+    public function __wakeup()
+    {
+        if (\is_bool($this->exists)) {
+            $this->exists = [$this->exists, null];
+        }
     }
 
     /**
@@ -128,7 +149,7 @@ class ClassExistenceResource implements SelfCheckingResourceInterface
      *
      * @internal
      */
-    public static function throwOnRequiredClass($class, \Exception $previous = null)
+    public static function throwOnRequiredClass(string $class, \Exception $previous = null)
     {
         // If the passed class is the resource being checked, we shouldn't throw.
         if (null === $previous && self::$autoloadedClass === $class) {
@@ -147,7 +168,17 @@ class ClassExistenceResource implements SelfCheckingResourceInterface
             throw $previous;
         }
 
-        $e = new \ReflectionException(sprintf('Class "%s" not found while loading "%s".', $class, self::$autoloadedClass), 0, $previous);
+        $message = sprintf('Class "%s" not found.', $class);
+
+        if (self::$autoloadedClass !== $class) {
+            $message = substr_replace($message, sprintf(' while loading "%s"', self::$autoloadedClass), -1, 0);
+        }
+
+        if (null !== $previous) {
+            $message = $previous->getMessage();
+        }
+
+        $e = new \ReflectionException($message, 0, $previous);
 
         if (null !== $previous) {
             throw $e;
@@ -159,12 +190,17 @@ class ClassExistenceResource implements SelfCheckingResourceInterface
             'args' => [$class],
         ];
 
-        if (false === $i = array_search($autoloadFrame, $trace, true)) {
+        if (\PHP_VERSION_ID >= 80000 && isset($trace[1])) {
+            $callerFrame = $trace[1];
+            $i = 2;
+        } elseif (false !== $i = array_search($autoloadFrame, $trace, true)) {
+            $callerFrame = $trace[++$i];
+        } else {
             throw $e;
         }
 
-        if (isset($trace[++$i]['function']) && !isset($trace[$i]['class'])) {
-            switch ($trace[$i]['function']) {
+        if (isset($callerFrame['function']) && !isset($callerFrame['class'])) {
+            switch ($callerFrame['function']) {
                 case 'get_class_methods':
                 case 'get_class_vars':
                 case 'get_parent_class':
@@ -183,8 +219,8 @@ class ClassExistenceResource implements SelfCheckingResourceInterface
             }
 
             $props = [
-                'file' => isset($trace[$i]['file']) ? $trace[$i]['file'] : null,
-                'line' => isset($trace[$i]['line']) ? $trace[$i]['line'] : null,
+                'file' => isset($callerFrame['file']) ? $callerFrame['file'] : null,
+                'line' => isset($callerFrame['line']) ? $callerFrame['line'] : null,
                 'trace' => \array_slice($trace, 1 + $i),
             ];
 

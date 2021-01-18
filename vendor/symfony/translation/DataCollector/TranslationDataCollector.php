@@ -16,11 +16,12 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\DataCollector\DataCollector;
 use Symfony\Component\HttpKernel\DataCollector\LateDataCollectorInterface;
 use Symfony\Component\Translation\DataCollectorTranslator;
+use Symfony\Component\VarDumper\Cloner\Data;
 
 /**
  * @author Abdellatif Ait boudad <a.aitboudad@gmail.com>
  *
- * @final since Symfony 4.4
+ * @final
  */
 class TranslationDataCollector extends DataCollector implements LateDataCollectorInterface
 {
@@ -46,10 +47,8 @@ class TranslationDataCollector extends DataCollector implements LateDataCollecto
 
     /**
      * {@inheritdoc}
-     *
-     * @param \Throwable|null $exception
      */
-    public function collect(Request $request, Response $response/*, \Throwable $exception = null*/)
+    public function collect(Request $request, Response $response, \Throwable $exception = null)
     {
         $this->data['locale'] = $this->translator->getLocale();
         $this->data['fallback_locales'] = $this->translator->getFallbackLocales();
@@ -101,7 +100,7 @@ class TranslationDataCollector extends DataCollector implements LateDataCollecto
     }
 
     /**
-     * @internal since Symfony 4.2
+     * @internal
      */
     public function getFallbackLocales()
     {
