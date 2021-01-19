@@ -1,4 +1,5 @@
 #vendor/
+/app/settings.php
 /public/baidu_verify_*.html
 /public/.well-known/
 /public/media/
