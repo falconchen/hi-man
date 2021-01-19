@@ -1,4 +1,18 @@
-# Hi Man
+# HiCMS
+
+
+## 配置
+
+ 将 `app/settings.sample.php` 复制到 `app/settings.php` ，修改相应的选项
+
+以下目录需要开启 *写入* 权限
+
+- log/
+- cache/
+- media/
+
+
+
 
 ## 相关项目
 
