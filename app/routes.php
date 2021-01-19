@@ -82,6 +82,8 @@ $app->group(
         $this->post('/collections', 'App\Api\Collection:create')->setName('collections.create');        
         $this->put('/collections', 'App\Api\Collection:update')->setName('collections.update');        
         $this->delete('/collections', 'App\Api\Collection:delete')->setName('collections.delete');        
+
+        $this->get('/info','App\Api\Info:read')->setName('info.read');        
     }
 );
 

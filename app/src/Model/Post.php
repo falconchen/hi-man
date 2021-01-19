@@ -63,4 +63,12 @@ class Post extends Model
 	{
 		return $this->hasMany('App\Model\PostMeta', 'post_id');
 	}
+
+	    /**
+     * Collections
+     */
+    public function collections()
+    {
+        return $this->belongsToMany('App\Models\Collection','post_collection','post_id','collection_id');
+    }
 }
