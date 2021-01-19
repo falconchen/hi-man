@@ -316,7 +316,8 @@ class ProjectTwigExtension extends AbstractExtension implements GlobalsInterface
         $settings = $this->container->get('settings');        
         if( $app['cdn']['allow'] == false &&
          !file_exists($settings['media']['image']['dir'] . $img->local_path)) {
-             return $originUrl;
+             
+             return preg_replace('#^http\://#','//',$originUrl);
          }
                 
         $url = $settings['media']['image']['uri'].$img->local_path;
