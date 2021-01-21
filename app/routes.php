@@ -78,10 +78,10 @@ $app->group(
         $this->post('/tokens','App\Api\Tokens:create')->setName('tokens.create');        
         
 
-        $this->get('/collections[/{id}]', 'App\Api\Collection:read')->setName('collections.read');        
-        $this->post('/collections', 'App\Api\Collection:create')->setName('collections.create');        
-        $this->put('/collections', 'App\Api\Collection:update')->setName('collections.update');        
-        $this->delete('/collections', 'App\Api\Collection:delete')->setName('collections.delete');        
+        $this->get('/collections[/{id}]', 'App\Api\Collections:read')->setName('collections.read');        
+        $this->post('/collections', 'App\Api\Collections:create')->setName('collections.create');        
+        $this->put('/collections', 'App\Api\Collections:update')->setName('collections.update');        
+        $this->delete('/collections', 'App\Api\Collections:delete')->setName('collections.delete');        
 
         $this->get('/info','App\Api\Info:read')->setName('info.read');        
     }

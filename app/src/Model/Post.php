@@ -65,10 +65,12 @@ class Post extends Model
 	}
 
 	    /**
-     * Collections
+     * Collections，多对多
      */
     public function collections()
     {
-        return $this->belongsToMany('App\Models\Collection','post_collection','post_id','collection_id');
+		return $this->belongsToMany('App\Model\Collection','post_collection','post_id','collection_id')
+		->withPivot('order') //中间表加入额外字段
+    	->withTimestamps();//中间表加入时间字段
     }
 }

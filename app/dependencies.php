@@ -278,9 +278,10 @@ $container["JwtAuthentication"] = function ($c) {
         "relaxed" => [ "127.0.0.1", "localhost","hi.local.cellmean.com"],
         "error" => function ($response, $arguments) use ($c){
             return JsonRenderer::error($response, 401,$c->translator->trans('Unauthorized'));
-        }
+        },
 
         // "before" => function ($request, $arguments) use ($c) {
+            
         //     //$c["token"]->populate($arguments["decoded"]);            
         //     //
         //     //return $request->withAttribute("decoded",$arguments["decoded"]);

@@ -19,6 +19,12 @@ function hi($name = 'name')
     echo "hi {$name}";
 }
 
+function trimSlug($slug) {
+    $slug = strtolower(urlencode(str_replace('/','',trim($slug))));
+    return trim(preg_replace('#[^a-z0-9\-]#','-',$slug),'-');
+
+
+}
 
 
 function update_user_meta($user_id, $meta_key, $meta_value, $prev_value = '')

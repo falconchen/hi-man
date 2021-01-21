@@ -91,6 +91,7 @@
 
 - [w3css年度流行配色](https://www.w3schools.com/w3css/w3css_color_libraries.asp)
 
+- [Eloquent 一对一，一对多，多对多关系](https://learnku.com/docs/laravel/5.5/eloquent-relationships/1333#one-to-many)
 
 ## codes && tips
 
