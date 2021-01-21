@@ -11,8 +11,10 @@ use App\Model\User;
 use App\Validation\Validator;
 use Carlosocarvalho\SimpleInput\Input\Input;
 use Exception;
-use Psr\Http\Message\ResponseInterface as Response; // http://docs.guzzlephp.org/en/stable/index.html
-use Psr\Http\Message\ServerRequestInterface as Request;
+// use Psr\Http\Message\ResponseInterface as Response; // http://docs.guzzlephp.org/en/stable/index.html
+// use Psr\Http\Message\ServerRequestInterface as Request;
+use Slim\Http\Response;
+use Slim\Http\Request;
 use RuntimeException;
 
 final class HomeAction extends \App\Helper\BaseAction
@@ -200,7 +202,7 @@ final class HomeAction extends \App\Helper\BaseAction
                     $this->session->set('user', $user);
                     //$this->addPannelMessage("Welcome back ,".$user->username,"success","Hi ");
 
-                    $this->flash->addMessage('flash', "[success] Welcome back ," . $user->username);
+                    //$this->flash->addMessage('flash', "[success] Welcome back ," . $user->username);
 
                     if ($user->group_id <= 2) {
                         return $response->withRedirect($this->router->pathFor('admin')); //admin和mod转向管理页
