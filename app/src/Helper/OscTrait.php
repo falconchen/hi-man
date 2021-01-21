@@ -283,7 +283,7 @@ trait OscTrait {
                     if( count($signature_node) ){
                         $oscer['signature'] = $signature_node[0]->text;
                     }
-                    var_dump($oscer);
+                    //var_dump($oscer);
                     //保存用户名密码
                     // $userId = $this->userId;
 
