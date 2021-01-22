@@ -202,6 +202,7 @@ label {
     position: absolute;
     top: 0;
     left: 0;
+    padding:.5rem 1rem;
 }
 .collection-list .inner >h1{
     font-size: 1.2rem;
