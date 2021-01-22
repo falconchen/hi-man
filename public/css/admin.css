@@ -173,7 +173,7 @@ label {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    justify-content: space-between;
+    /* justify-content: space-between; */
     align-items: flex-start;    
     
 }
@@ -203,6 +203,14 @@ label {
     top: 0;
     left: 0;
 }
+.collection-list .inner >h1{
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 4px;
+}
+/* .collection-list .inner > span{
+    color:#757575;
+} */
 
 .collection-body{
     display:flex;
@@ -217,7 +225,12 @@ label {
     align-items: center;
     justify-content: center;
     flex-direction: column;
+    cursor:pointer;
 }
+.collection-body .cover.not-allowed{
+    cursor: not-allowed;
+}
+
 .collection-body .inputs {
     flex:2;
 }

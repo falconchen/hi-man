@@ -18,6 +18,7 @@ return [
         'remember'  => 'user_r'
     ],
     'settings' => [
+        'env'=>'development', //production | test
 
         'jwt'=>[
             'secret'=>'hicms',

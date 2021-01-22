@@ -39,7 +39,7 @@ final class Collections extends \App\Helper\ApiAction
         $token = $request->getAttribute("token");
         $userId = $token['uid'];
         $data = $request->getParsedBody();
-        if (!isset($data['title']) || empty($data['title'])) {
+        if (!isset($data['title']) || empty($data['title']) || strlen($data['title']) < 2) {
             return JsonRenderer::error($response, 400, $this->trans('invalid title'));
         }
 

@@ -14,38 +14,63 @@
 {% block main %}
 
 
-    <div
-        class="w3-container w3-padding-large" id="app">
+    <div id="app">
+
+        <div class="w3-container w3-padding-large w3-hide" :class="{'w3-show':isMounted}">
 
         {# 使用v-show = "modalIsShown" 时， 当使 currentCollection 变化后，子组件里collection-modal绑定的值不会变， 而 v-if ="modalIsShown" 写法，currentCollection变化后， 子组件collection-modal的props会变，
                 我明白 v-show 是，但是改变currentCollection, 子组件的数据不改变就很奇怪。
         #}
-        <collection-modal v-bind="currentCollection" @submit-collection="log" @close-modal="hideCollectionModal" v-show="true" v-if="modalIsShown"></collection-modal>
+        <collection-modal 
+        v-bind="currentCollection" :message="message" :hasError="hasError" 
+        
+        @submit-collection="submitCollection" @close-modal="hideCollectionModal" v-show="true" v-if="modalIsShown">
+
+            <template v-slot:cover-label-slot>
+                <label class="cover-label">{{t.trans('Cover')}}</label>
+                <small class="w3-text-grey">{{t.trans('Not support uploading yet')}}</small>
+            </template>
+
+            <template v-slot:title-label-slot>
+                <label class="w3-text-black">{{t.trans('Title')}}
+                    <span class="w3-text-red">*</span>
+                </label>
+            </template>
+
+            <template v-slot:button-text-slot>
+                <span v-if="!currentCollection.collection_id">{{t.trans('Create')}} &nbsp; ❯</span>
+                <span v-else>{{t.trans('Update')}} &nbsp; ❯</span>  
+            </template>
+
+        </collection-modal>
 
 
         <div class="w3-responsive collection-list" attr="{{ arr | json_encode | e('html_attr') }}">
 
-            <create-collection-item label="创建新文集" @create-collection="showCollectionModal()"></create-collection-item>
+            <create-collection-item  @create-collection="showCollectionModal()">{{t.trans('New Collection')}}</create-collection-item>
 
             {# 传入一个对象的所有 property,https://v3.cn.vuejs.org/guide/component-props.html#%E4%BC%A0%E5%85%A5%E4%B8%80%E4%B8%AA%E5%AF%B9%E8%B1%A1 #}
 
-            <collection-item v-for="collection in collections" v-bind="collection" @edit-collection="showCollectionModal(collection)"></collection-item>
+            <collection-item v-for="collection in collections" v-bind="collection" @edit-collection="showCollectionModal(collection)" :class="{ 'w3-blue': currentCollection.collection_id == collection.collection_id }" 
+            
+            ></collection-item>
 
         </div>
         <!-- .w3-responsive-->
 
-        <div class=" w3-center w3-margin-top">
-            {% include 'pagination-w3css.twig' with {data: postsCurrentPage} only %}
-        </div>
+        </div><!-- .w3-container -->
+        
 
-    </div>
-    <!-- .hi-posts-list-->
+    </div> <!-- #app-->
 
 {% endblock %}
 
 {% block endOfBody %}
-    <script src="{{ static_url() }}/js/node_modules/axios/dist/axios.min.js?ver=0.21.1"></script>
-    {# <script src="{{ static_url() }}/js/vue3/vue.global.prod.js?ver=3.0.2"></script> #}
-    <script src="{{ static_url() }}/js/vue3/vue@3.0.2.js?ver=3.0.2"></script>
+    {# <script src="{{ static_url() }}/js/node_modules/axios/dist/axios.min.js?ver=0.21.1"></script> #}
+    {%if c.get('settings').env|default('production') == 'production' %}
+        <script src="{{ static_url() }}/js/vue3/vue.global.prod.js?ver=3.0.2"></script>
+    {% else %}
+        <script src="{{ static_url() }}/js/vue3/vue@3.0.2.js?ver=3.0.2"></script>
+    {% endif %}    
     <script src="{{ static_url() }}/js/vue3/collection-admin.js?ver={{ git_latest().dateVer }}"></script>
 {% endblock %}
