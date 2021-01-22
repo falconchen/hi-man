@@ -87,7 +87,7 @@ final class Collections extends \App\Helper\ApiAction
             return JsonRenderer::error($response, 403, $this->trans('no permission to delete to update'));
         }
 
-        $data['slug'] = $data['slug'] ?? '';
+        $data['slug'] = $data['slug'] ?? hi_random();
         $data['slug'] = trimSlug($data['slug']);
         if (strlen($data['slug']) == 0) {
             return JsonRenderer::error($response, 400, $this->trans('invalid slug'));
