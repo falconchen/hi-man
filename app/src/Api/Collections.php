@@ -87,9 +87,11 @@ final class Collections extends \App\Helper\ApiAction
             return JsonRenderer::error($response, 403, $this->trans('no permission to delete to update'));
         }
 
-        $data['slug'] = $data['slug'] ?? hi_random();
+        if( !isset($data['slug']) || strlen($data['slug']) == 0 ){
+            $data['slug'] = hi_random();
+        } 
         $data['slug'] = trimSlug($data['slug']);
-        if (strlen($data['slug']) == 0) {
+        if (strlen($data['slug']) == 0) { //trim 掉非法字符后slug为0即非法
             return JsonRenderer::error($response, 400, $this->trans('invalid slug'));
         }
 
