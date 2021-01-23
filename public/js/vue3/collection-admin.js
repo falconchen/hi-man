@@ -280,7 +280,7 @@ const app = Vue.createApp({
                 </div>
 
                 <footer class="w3-container hi-dark">
-                    <p class="w3-left" :class="{'w3-text-red':hasError , 'w3-text-green':!hasError}" v-if="message">
+                    <p class="w3-left" :class="{'w3-text-red':hasError}" v-if="message">
                       {{message}}
                     </p>
                     <p class="w3-right">
