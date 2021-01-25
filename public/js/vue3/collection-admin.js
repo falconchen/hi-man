@@ -392,7 +392,7 @@ const app = Vue.createApp({
     // },
     emits: ['create-collection'],
     template: `
-    <div class="collection-item w3-hover-green add" @click="$emit('create-collection')">
+    <div class="collection-item w3-hover-blue add" @click="$emit('create-collection')">
                 <div class="inner">
                     <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <line x1="12" y1="5" x2="12" y2="19"></line>
@@ -418,7 +418,7 @@ const app = Vue.createApp({
       }
     },
     template: `
-    <div class="collection-item w3-hover-green" 
+    <div class="collection-item w3-hover-blue" 
     :style="{backgroundImage:'url('+ coverUrl ? coverUrl: +')'}" 
     @click="$emit('edit-collection')">
       <div class="inner">
