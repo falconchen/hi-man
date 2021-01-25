@@ -18,9 +18,9 @@ const app = Vue.createApp({
     methods: {
       
       showCollectionModal(collection){
-        console.log(collection)
+        
         //console.log(this.token)
-        this.currentCollection = collection ? collection :{}                
+        this.currentCollection = (collection != undefined) ? collection :{'collection_id':0}                
         this.modalIsShown = true
         this.hasError = false
         this.message = ''
@@ -31,7 +31,8 @@ const app = Vue.createApp({
         this.currentCollection = {}
       },
       submitCollection(collection){
-        //console.log(data);
+        
+        
         fetch('/api/collections',{
           method: collection.collection_id == 0 ? 'POST' : 'PUT',
           headers:{

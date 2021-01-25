@@ -47,7 +47,7 @@
 
         <div class="w3-responsive collection-list" attr="{{ arr | json_encode | e('html_attr') }}">
 
-            <create-collection-item :class="{ 'w3-blue': JSON.stringify(data) === '{}'}"  @create-collection="showCollectionModal()">{{t.trans('New Collection')}}</create-collection-item>
+            <create-collection-item :class="{ 'hi-dark': currentCollection.collection_id === 0}"   @create-collection="showCollectionModal()">{{t.trans('New Collection')}}</create-collection-item>
 
             {# 传入一个对象的所有 property,https://v3.cn.vuejs.org/guide/component-props.html#%E4%BC%A0%E5%85%A5%E4%B8%80%E4%B8%AA%E5%AF%B9%E8%B1%A1 #}
 

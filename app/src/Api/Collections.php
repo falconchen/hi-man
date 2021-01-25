@@ -43,12 +43,14 @@ final class Collections extends \App\Helper\ApiAction
             return JsonRenderer::error($response, 400, $this->trans('invalid title'));
         }
 
-
-        $data['slug'] = $data['slug'] ?? '';
+        if( !isset($data['slug']) || strlen($data['slug']) == 0 ){
+            $data['slug'] = hi_random();
+        } 
         $data['slug'] = trimSlug($data['slug']);
-        if (strlen($data['slug']) == 0) {
+        if (strlen($data['slug']) == 0) { //trim 掉非法字符后slug为0即非法
             return JsonRenderer::error($response, 400, $this->trans('invalid slug'));
         }
+        
 
         $i = 1;
         $raw = $data['slug'];
