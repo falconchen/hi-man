@@ -3,6 +3,7 @@
 namespace App\Action;
 
 use App\Helper\Hash;
+
 use App\Helper\Menu;
 use App\Helper\Session;
 use App\Model\Group;
@@ -10,6 +11,8 @@ use App\Model\User;
 use App\Model\Post;
 use App\Model\PostMeta;
 use App\Model\UserMeta;
+use App\Model\Collection;
+
 use App\Validation\Validator;
 use Carlosocarvalho\SimpleInput\Input\Input;
 use Slim\Http\Response as Response;
@@ -181,6 +184,8 @@ final class PostAdminAction extends \App\Helper\LoggedAction
         }
         $this->data['publishDate'] = $this->localTimeArr();
 
+        $this->data['collections'] = Collection::where('author', $this->userId)->orderBy('updated_at','desc')->get();    
+
         $this->view->render($response, 'post-admin/post.twig', $this->data);
     }
 
@@ -223,6 +228,7 @@ final class PostAdminAction extends \App\Helper\LoggedAction
 
 
         $this->data['publishDate'] = $this->localTimeArr(strtotime($post->post_date_local));
+        $this->data['collections'] = Collection::where('author', $this->userId)->orderBy('updated_at','desc')->get();    
         $this->view->render($response, 'post-admin/post.twig', $this->data);
     }
 
@@ -331,6 +337,20 @@ final class PostAdminAction extends \App\Helper\LoggedAction
 
             //$post->refresh();
             $postId = $post->post_id;
+            if( intval(Input::post('collection')) > 0 ) {
+                $collectionId = intval(Input::post('collection'));
+                $collection = Collection::where('collection_id',$collectionId)->first();
+                if(!is_null($collection) 
+                    && ($collection->author == 0 || $collection->author == $this->userId) ) 
+                {
+                    $collection->touch();
+                    $post->collections()->sync($collectionId);
+
+                }
+
+            }
+            
+
             if ($post->post_status == 'trash') {
                 $message = '文章已放入回收站';
             } elseif($post->post_status == 'future'){
