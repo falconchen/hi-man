@@ -110,6 +110,59 @@ const app = Vue.createApp({
         .catch(error=>console.log(error)) //注意此处只对网络无法连接或者服务器响应超时报错，如果状态码返回404或其他状态码此处不会报错
 
       },
+     
+
+      deleteCollection(collection){
+        
+        fetch('/api/collections',{
+          method: 'DELETE',
+          headers:{
+            'Content-Type':'application/json',
+            'Hi-Token':this.token
+          },//注意在body发送json时需要正确设置请求头的 Content-Type
+
+          body: JSON.stringify(collection) 
+
+        }).then(res=> {
+
+          // 此处加入响应状态码判断                             
+            
+            if(res.ok) {
+              this.hideCollectionModal()              
+            }
+            this.hasError = !res.ok 
+            return res.json()
+            
+        }).then(res =>{
+
+          
+            fetch('/api/collections?limit=100',{
+              method: 'GET',
+              headers:{
+                // 'Content-Type':'application/json',
+                'Hi-Token':this.token
+              },//注意在body发送json时需要正确设置请求头的 Content-Type                  
+    
+            }).then(res=> {
+    
+              // 此处加入响应状态码判断                             
+                this.hasError = !res.ok 
+                return res.json()
+                
+            })
+            .then(response=>{
+              // this.message = response.message
+              // console.log(response.message)
+              
+              this.collections = response.data
+            })            
+          
+
+        }).catch(error=>console.log(error))
+
+
+
+      },
       // editCollectionModal(collection){
       //   console.log(collection)
       // },
@@ -182,6 +235,9 @@ const app = Vue.createApp({
   
   });
 
+
+
+
   app.component('collection-modal',{
     props:{ //props是只读的，不要试图改变props,要修改有两种方式
       //https://v3.cn.vuejs.org/guide/component-props.html#%E5%8D%95%E5%90%91%E6%95%B0%E6%8D%AE%E6%B5%81
@@ -214,6 +270,7 @@ const app = Vue.createApp({
         type:Boolean,
         defalt:false
       }
+      
     },          
     data() {
       return {
@@ -226,7 +283,7 @@ const app = Vue.createApp({
         }
       }
     },
-    emits:['submit-collection','close-modal'],
+    emits:['submit-collection','close-modal','delete-collection'],
     computed: {      
       headerTitle(){
         return this.collection.title == '' ? '新文集' : this.collection.title
@@ -234,7 +291,7 @@ const app = Vue.createApp({
     },
     template:`
     <div class="w3-modal" style="display:block">
-          
+            
             <form class="w3-modal-content w3-animate-top w3-card-4" style="max-width: 600px;" @submit.prevent="submitCollection" action="" >
                 <input type="hidden" name="collection_id" v-model="collection.collection_id">
                 <header class="w3-container hi-dark">
@@ -285,6 +342,15 @@ const app = Vue.createApp({
                       {{message}}
                     </p>
                     <p class="w3-right">
+
+                    
+                      <button type="button" class="w3-btn w3-padding  w3-margin-right w3-red" style="width:120px" @click.stop="$emit('delete-collection',collection)" v-if="collection.collection_id >0 ">                    
+                        <slot name="button-del-text-slot">
+                          <span>Delete &nbsp; ❯</span>                                               
+                        </slot>
+                      </button>
+                     
+
                         <button type="submit" class="w3-btn w3-padding w3-white" style="width:120px">
                         <slot name="button-text-slot">
                           <span>Submit &nbsp; ❯</span>                          
@@ -302,6 +368,8 @@ const app = Vue.createApp({
         // this.isShown = false
         this.$emit("close-modal");
       },
+
+      
 
       submitCollection() {        
         //console.log(this.collection)        
@@ -343,7 +411,7 @@ const app = Vue.createApp({
   app.component('collection-item', { 
 
     props: ['title','description','cover'],
-    emits: ['edit-collection'],
+    emits: ['edit-collection','delete-collection'],
     data(){
       return {
         'coverUrl': typeof(this.cover) != undefined ? this.cover :''
@@ -357,6 +425,8 @@ const app = Vue.createApp({
           <h1>{{title}}</h1>
           <span>{{description}}</span>
       </div>
+      <span class="w3-button w3-display-topright" @click.stop="$emit('delete-collection')">&times</span>
+
     </div>
       `
   })
