@@ -1,0 +1,40 @@
+{% extends 'layout.twig' %}
+
+{% block title %}
+    {{collection.title}} {{ author.username }}{{ t.trans("’ Collection") }}
+{% endblock %}
+
+{% block bodyClass %}
+    user-body colletion-detail-body
+{% endblock %}
+
+{% block content %}
+    {# <!-- Header -->
+    {% include 'space-header.twig' with {spaceUser: spaceUser,collections:collections,currentPostType:currentPostType,allowPostTypes:allowPostTypes, c:c,t:t} only %} #}
+    <header class="collection-{{collection.collection_id}}">
+    
+        <div class="hi-bg-blue w3-card-4 collection-cover" style="background-image:url({{collection.media.origin_url}})">
+
+        </div>
+
+        <div class="w3-margin-left detail" >
+            <h2>{{collection.title}}
+            <small class="w3-text-grey">{{posts.total}} 篇作品</small>
+            </h2>
+            
+            <cite>by <a class="hi-text-dark" href="{{c.router.pathFor('user',{'username':author.username}) }}">@{{get_username_by_id(collection.author)}}</a>
+            
+            </cite>
+            
+            <p class="w3-text-grey">{{ collection.description}}</p>
+        </div>
+    </header>
+    
+    <main class="hi-main post-list">
+        {% if posts.count() %}
+            {% include 'post-list.twig' with {posts: posts,c:c,t:t} only %}
+        {% else %}
+            {% include 'post-list-none.twig' %}
+        {% endif %}
+    </main>
+{% endblock %}

@@ -37,56 +37,67 @@ use Symfony\Component\Translation\Translator;
 
 use voku\helper\AntiXSS;
 
-final class CollectionAction extends \App\Helper\BaseAction 
+final class CollectionAction extends \App\Helper\BaseAction
 {
 
-        
+
+
+
 
     public function index(Request $request, Response $response, $args)
-    
-    {       
-        
-        
- 
-        $uid = isset($args['uid']) ? intval($args['uid']) : $this->userId; 
-        
 
-        if( $uid === 0 ) {            
-            return $response->withRedirect($this->router->pathFor('homepage')); // invalid request redirect to homepage
-        }
+    {
+
+        $user = $this->getAuthorFromArgs($request, $response, $args);
+        $uid = $user->id;
 
 
-        
-        // check user exists
-        $user = User::where('id', $uid)->first();
+        $allowPostTypes = ['post', 'tweet',];
 
-        if( is_null($user) ) {
-            return $response->withRedirect($this->router->pathFor('homepage')); // invalid request redirect to homepage
-        }
-
-        
-        
-        $allowPostTypes = ['post','tweet',];
-
-        $collections = Collection::where('author',$uid)->orderBy('updated_at', 'desc')->paginate(10);
+        $collections = Collection::where('author', $uid)->orderBy('updated_at', 'desc')->paginate(9);
         $collections->withPath(remove_query_arg('page'));
-        
-        
-        $this->view->render($response, 'collection/index.twig', 
 
-                        [                            
-                            'collections'=>$collections,
-                            'spaceUser'=>$user,
-                            'currentPostType'=>'collection',
-                            'allowPostTypes'=>$allowPostTypes
-                        ]
-                    );        
 
+        $this->view->render(
+            $response,
+            'collection/index.twig',
+
+            [
+                'collections' => $collections,
+                'spaceUser' => $user,
+                'currentPostType' => 'collection',
+                'allowPostTypes' => $allowPostTypes
+            ]
+        );
     }
 
-    public function detail(Request $request, Response $response, $args){
-        exit("here is the detail");
+    public function detail(Request $request, Response $response, $args)
+    {
+        $user = $this->getAuthorFromArgs($request, $response, $args);
+        $collection = Collection::where(['author' => $user->id, 'slug' => $args['slug']])->first();
+        
+        $posts = array();
+        if (!is_null($collection)) {
+            
+            $posts = $collection->posts()->paginate(10);
+            $posts->withPath(remove_query_arg('page'));            
+        }
+        $this->view->render($response,'collection/detail.twig',[
+            'collection'=>$collection,
+            'posts'=>$posts,
+            'author'=>$user,
+        ]);
     }
 
+    private function getAuthorFromArgs(Request $request, Response $response, $args)
+    {
 
+        $username = isset($args['username']) ? strval($args['username']) : $this->user->username;
+
+        $user = User::where('username', $username)->first();
+        if (is_null($user)) {
+            return $response->withRedirect($this->router->pathFor('homepage')); // invalid request redirect to homepage
+        }
+        return $user;
+    }
 }
