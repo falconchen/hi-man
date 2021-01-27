@@ -84,6 +84,9 @@ class ProjectTwigExtension extends AbstractExtension implements GlobalsInterface
 
             new TwigFunction('get_user_by_id', [$this, 'getUserByID']),
             new TwigFunction('get_username_by_id', [$this, 'getUserNameByID']),
+            new TwigFunction('trim_http', [$this, 'trimHttp']),
+
+
 
         ];
     }
@@ -321,7 +324,7 @@ class ProjectTwigExtension extends AbstractExtension implements GlobalsInterface
         if( $app['cdn']['allow'] == false &&
          !file_exists($settings['media']['image']['dir'] . $img->local_path)) {
              
-             return preg_replace('#^http\://#','//',$originUrl);
+             return $this->trimHttp($originUrl);
          }
                 
         $url = $settings['media']['image']['uri'].$img->local_path;
@@ -347,4 +350,7 @@ class ProjectTwigExtension extends AbstractExtension implements GlobalsInterface
         return !is_null($user) ? $user->username : null;
     }
 
+    public function trimHttp($val) {
+        return preg_replace('#^http\://#','//',$val);
+    }
 }
