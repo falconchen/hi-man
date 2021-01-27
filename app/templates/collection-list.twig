@@ -1,21 +1,25 @@
-
 <div class="w3-row-padding">
-  {% for collection in collections %}
-    <a href="{{ c.router.pathFor('collection.detail',{'author':get_user_by_id(collection.author).username,'slug':collection.slug}) }}" class="w3-col l3 s6 collection-item">
-        <div class="w3-card-2 w3-round">
-        <img class="" style="width:100%" src="https://oscimg.oschina.net/oscnet/up-6dfbe98e0bf08adcc4fbb0699671513cc73.JPEG!/sq/200">
+    {% for collection in collections %}
+        <a href="{{ c.router.pathFor('collection.detail',{'author':get_user_by_id(collection.author).username,'slug':collection.slug}) }}" class="w3-col l3 s6 collection-item">
+            <div class="w3-card-2 w3-round">
+                <img class="" style="width:100%" src="https://oscimg.oschina.net/oscnet/up-6dfbe98e0bf08adcc4fbb0699671513cc73.JPEG!/sq/200">
 
-        <div class="w3-container">
-         <h5 class=" w3-opacity">{{collection.title}} ({{collection.posts.count()}})</h5>
-         <p class="hi-text-dark w3-opacity">{{collection.description}}</p>
-        </div>
-        
-        </div>
-    </a>
-  {% endfor %}  
-</div>
+                    <div class="w3-container">
+                        <h5 class=" w3-opacity">{{ collection.title }}
+                        </h5>
+                        <small class="w3-pdding w3-opacity">{{ collection.posts.count() }} 篇文章</small>
+                        <p class="hi-text-dark w3-opacity">{{ collection.description }}</p>
+                        
+
+                        
+                    </div>
+
+                </div>
+            </a>
+        {% endfor %}
+    </div>
 
 
-<div class=" w3-center w3-margin-top">
-    {% include 'pagination-w3css.twig' with {data: collections} only %}
-</div>
+    <div class=" w3-center w3-margin-top">
+        {% include 'pagination-w3css.twig' with {data: collections} only %}
+    </div>
