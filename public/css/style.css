@@ -2539,7 +2539,7 @@ a.collection-item:focus .w3-opacity, a.collection-item:hover .w3-opacity {
   width:100%;
   /* padding-top: 133.3%; */
   padding-top: 100%;
-  
+  background-color: #0599D2;
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
