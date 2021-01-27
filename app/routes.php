@@ -70,7 +70,7 @@ $app->group(
 $app->group ( //collections
     '/c',
     function() {
-        $this->get('/@{author}/{slug}', 'App\Action\CollectionAction:detail')->setName('collection.detail');
+        $this->get('/@{username}/{slug}', 'App\Action\CollectionAction:detail')->setName('collection.detail');
 
     }
     

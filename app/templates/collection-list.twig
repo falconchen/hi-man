@@ -1,6 +1,6 @@
 <div class="w3-row-padding">
     {% for collection in collections %}
-        <a href="{{ c.router.pathFor('collection.detail',{'author':get_user_by_id(collection.author).username,'slug':collection.slug}) }}" class="w3-col l4 s6 collection-item">
+        <a href="{{ c.router.pathFor('collection.detail',{'username':get_user_by_id(collection.author).username,'slug':collection.slug}) }}" class="w3-col l4 s6 collection-item">
             <div class="w3-card-4 w3-round">
                 <div class="collection-cover" style="background-image:url({{ collection.media.origin_url }})"></div>
 
