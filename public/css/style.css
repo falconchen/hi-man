@@ -493,8 +493,22 @@ input.gsc-input,
 
 
 blockquote{
-  background: #fff3d4;
-  border-color: #f6b73c;
+  /* background: #fff3d4;
+  border-color: #f6b73c; */
+
+  -webkit-tap-highlight-color: transparent;
+  outline: 0px;
+  overflow-wrap: break-word;
+  margin-right: 0px;
+  margin-bottom: 20px;
+  margin-left: 0px;
+  padding: 6px 16px;
+  border: 0px;
+  background: #f7f7f7;
+  line-height: 29px;
+  color: #939393;
+  border-radius: 4px;
+  font-family: PingFangSC-Regular, 'Microsoft Yahei', sans-serif;
 }
 /* blockquote.hi-origin-info{
   background-color: #f6f6f6;
