@@ -44,27 +44,22 @@ final class UserAction extends \App\Helper\BaseAction
     private $logger;
 
     public function index(Request $request, Response $response, $args)
-    {        
- 
-        $uid = isset($args['uid']) ? intval($args['uid']) : $this->userId; 
+    {   
         
-
-        if( $uid === 0 ) {            
-            return $response->withRedirect($this->router->pathFor('homepage')); // invalid request redirect to homepage
-        }
-
+        $username = isset($args['username']) ? strval($args['username']) : $this->user->username; 
+        
+        $user = User::where('username', $username)->first();
 
         
-        // check user exists
-        $user = User::where('id', $uid)->first();
-
+                
         if( is_null($user) ) {
             return $response->withRedirect($this->router->pathFor('homepage')); // invalid request redirect to homepage
         }
-
+        $uid = $user->id ;
+        
         if($request->getAttribute('route')->getName() == 'myspace') {
             return $response->withRedirect(
-                $this->router->pathFor('user',['uid'=>$this->userId]),
+                $this->router->pathFor('user',['username'=>$this->user->username]),
                 StatusCode::HTTP_MOVED_PERMANENTLY
             );             
         }

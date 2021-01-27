@@ -44,7 +44,7 @@
 						<div class="comment-author">
 							
 							{% if comment.author.id == tweetInfo.author.id %}
-							<a class="tweet-author" href="{{ c.router.pathFor('user',{'uid':post.post_author}) }}">{{tweetInfo.author.name }}</a>
+							<a class="tweet-author" href="{{ c.router.pathFor('user',{'username':get_username_by_id(post.post_author)}) }}">{{tweetInfo.author.name }}</a>
 							<span class="w3-text-orange w3-small"><i class="fa fa-bold fa-check-square "></i> {{t.trans('Tweet author')}}</span>
 							{% else %}
 							{{comment.author.name}}

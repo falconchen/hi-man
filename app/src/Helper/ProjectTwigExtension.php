@@ -83,6 +83,7 @@ class ProjectTwigExtension extends AbstractExtension implements GlobalsInterface
             new TwigFunction('git_latest', [$this, 'gitLatest']),
 
             new TwigFunction('get_user_by_id', [$this, 'getUserByID']),
+            new TwigFunction('get_username_by_id', [$this, 'getUserNameByID']),
 
         ];
     }
@@ -339,6 +340,11 @@ class ProjectTwigExtension extends AbstractExtension implements GlobalsInterface
 
     public function getUserByID($uid){
         return $uid>0 ? User::find($uid) :null;
+    }
+
+    public function getUserNameByID($uid){
+        $user = $this->getUserByID($uid);
+        return !is_null($user) ? $user->username : null;
     }
 
 }

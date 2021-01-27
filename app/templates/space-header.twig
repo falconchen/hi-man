@@ -4,15 +4,15 @@
 
         <div class="w3-padding-32 w3-opacity ">
             <div class="w3-bar w3-border">
-
-                <a href="{{ c.router.pathFor('user',{'uid':spaceUser.id}) }}" class="w3-bar-item w3-button {% if currentPostType is null %}w3-light-grey{% endif %}">{{ t.trans('Homepage') }}</a>
+                
+                <a href="{{ c.router.pathFor('user',{'username': spaceUser.username}) }}" class="w3-bar-item w3-button {% if currentPostType is null %}w3-light-grey{% endif %}">{{ t.trans('Homepage') }}</a>
 
                 {% for pt in allowPostTypes %}
-                    <a href="{{ c.router.pathFor('user.postType',{'uid':spaceUser.id,'postType':pt}) }}" class="w3-bar-item w3-button {% if currentPostType is sameas(pt) %}w3-light-grey{% endif %} ">{{ t.trans(pt|capitalize) }}</a>
+                    <a href="{{ c.router.pathFor('user.postType',{'username': spaceUser.username,'postType':pt}) }}" class="w3-bar-item w3-button {% if currentPostType is sameas(pt) %}w3-light-grey{% endif %} ">{{ t.trans(pt|capitalize) }}</a>
                 {% endfor %}
 
                 {%if collections.count() %}
-                    <a href="{{ c.router.pathFor('user.collections',{'uid':spaceUser.id}) }}" class="w3-bar-item w3-button {% if currentPostType == 'collection' %}w3-light-grey{% endif %}">{{ t.trans('Collections') }}</a>
+                    <a href="{{ c.router.pathFor('user.collections',{'username':spaceUser.username}) }}" class="w3-bar-item w3-button {% if currentPostType == 'collection' %}w3-light-grey{% endif %}">{{ t.trans('Collections') }}</a>
                 {% endif %}
 
             </div>

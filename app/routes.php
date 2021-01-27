@@ -51,14 +51,16 @@ $app->group(
 
 $app->get('/search/','App\Action\SearchAction:index')->setName('search');
 
+$app->get('/me', 'App\Action\UserAction:index')->setName('myspace');
+
 $app->group(
-    '/u',
+    '/@',
     function () {
 
-        $this->get('/me', 'App\Action\UserAction:index')->setName('myspace');
-        $this->get('/{uid:[0-9]+}', 'App\Action\UserAction:index')->setName('user');
-        $this->get('/{uid:[0-9]+}/collections', 'App\Action\CollectionAction:index')->setName('user.collections');
-        $this->get('/{uid:[0-9]+}/{postType}', 'App\Action\UserAction:index')->setName('user.postType');
+        
+        $this->get('{username}', 'App\Action\UserAction:index')->setName('user');
+        $this->get('{username}/collections', 'App\Action\CollectionAction:index')->setName('user.collections');
+        $this->get('{username}/{postType}', 'App\Action\UserAction:index')->setName('user.postType');
 
         
     }
