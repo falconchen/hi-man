@@ -10,6 +10,7 @@ use Twig\TwigFunction;
 use App\Helper\Git;
 use App\Model\MediaMap;
 use MediaMap as GlobalMediaMap;
+use App\Model\User;
 
 class ProjectTwigExtension extends AbstractExtension implements GlobalsInterface
 {
@@ -80,6 +81,8 @@ class ProjectTwigExtension extends AbstractExtension implements GlobalsInterface
             new TwigFunction('is_null', [$this, 'is_null']),
             new TwigFunction('static_url', [$this, 'staticUrl']),
             new TwigFunction('git_latest', [$this, 'gitLatest']),
+
+            new TwigFunction('get_user_by_id', [$this, 'getUserByID']),
 
         ];
     }
@@ -332,6 +335,10 @@ class ProjectTwigExtension extends AbstractExtension implements GlobalsInterface
         }
         return $url;
 
+    }
+
+    public function getUserByID($uid){
+        return $uid>0 ? User::find($uid) :null;
     }
 
 }

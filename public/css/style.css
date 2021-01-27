@@ -2511,3 +2511,24 @@ dt.hi-text-grey{
 .hi-content .token.operator {
   background-color: transparent;
 }
+
+.collection-item  h5{
+  opacity: .6;
+}
+.collection-item  p {
+  /* text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden; */
+  min-height: 64px;
+  
+} 
+.collection-item {
+  margin-bottom:16px;
+}
+a.collection-item:focus, a.collection-item:hover{
+  text-decoration: none;
+}
+
+a.collection-item:focus .w3-opacity, a.collection-item:hover .w3-opacity {
+  opacity: 1;
+}

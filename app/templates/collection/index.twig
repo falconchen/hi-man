@@ -5,17 +5,17 @@
 {% endblock %}
 
 {% block bodyClass %}
-    user-body
+    user-body colletions
 {% endblock %}
 
 {% block content %}
     <!-- Header -->
     {% include 'space-header.twig' with {spaceUser: spaceUser,collections:collections,currentPostType:currentPostType,allowPostTypes:allowPostTypes, c:c,t:t} only %}
 
-
+    
     <main class="hi-main post-list">
-        {% if posts.count() %}
-            {% include 'post-list.twig' with {posts: posts,c:c,t:t} only %}
+        {% if collections.count() %}
+            {% include 'collection-list.twig' with {collections: collections,c:c,t:t} only %}
         {% else %}
             {% include 'post-list-none.twig' %}
         {% endif %}

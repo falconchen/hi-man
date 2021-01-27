@@ -57,8 +57,21 @@ $app->group(
 
         $this->get('/me', 'App\Action\UserAction:index')->setName('myspace');
         $this->get('/{uid:[0-9]+}', 'App\Action\UserAction:index')->setName('user');
+        $this->get('/{uid:[0-9]+}/collections', 'App\Action\CollectionAction:index')->setName('user.collections');
         $this->get('/{uid:[0-9]+}/{postType}', 'App\Action\UserAction:index')->setName('user.postType');
+
+        
     }
+);
+
+
+$app->group ( //collections
+    '/c',
+    function() {
+        $this->get('/@{author}/{slug}', 'App\Action\CollectionAction:detail')->setName('collection.detail');
+
+    }
+    
 );
 
 
@@ -70,6 +83,9 @@ $app->group(
         $this->get('/worker', 'App\Action\TaskAction:worker')->setName('task.worker');
     }
 );
+
+
+
 
 $app->group(
     '/api',

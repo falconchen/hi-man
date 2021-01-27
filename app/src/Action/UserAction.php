@@ -8,6 +8,7 @@ use App\Helper\Session;
 use App\Model\Group;
 use App\Model\User;
 use App\Model\Post;
+use App\Model\Collection;
 use App\Model\PostMeta;
 use App\Model\UserMeta;
 use App\Validation\Validator;
@@ -69,7 +70,8 @@ final class UserAction extends \App\Helper\BaseAction
         }
 
         
-        $allowPostTypes = ['post','tweet','gallery'];
+        // $allowPostTypes = ['post','tweet','gallery'];
+        $allowPostTypes = ['post','tweet',];
 
         if(!isset($args['postType']) || empty($args['postType'])) {
             $postType = $allowPostTypes;
@@ -100,16 +102,25 @@ final class UserAction extends \App\Helper\BaseAction
                 $post->post_author_name = User::where('id', $post->post_author)->first()->username;
             }
         }
+
+
+        $collections = Collection::where('author',$uid)->get();
+        
+
+
         
         
         if(is_null($this->view)){
             $this->view = $this->c->get('view');
         } 
+
+
         
         $this->view->render($response, 'user/index.twig', 
 
                         [
                             'posts' => $posts,
+                            'collections'=>$collections,
                             'spaceUser'=>$user,
                             'currentPostType'=>(count($postType) == 1) ? $postType[0] : null,
                             'allowPostTypes'=>$allowPostTypes
