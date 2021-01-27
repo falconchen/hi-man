@@ -2512,9 +2512,7 @@ dt.hi-text-grey{
   background-color: transparent;
 }
 
-.collection-item  h5{
-  opacity: .6;
-}
+
 .collection-item  p {
   /* text-overflow: ellipsis;
   white-space: nowrap;
