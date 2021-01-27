@@ -68,7 +68,7 @@ final class CollectionAction extends \App\Helper\BaseAction
         
         $allowPostTypes = ['post','tweet',];
 
-        $collections = Collection::where('author',$uid)->paginate(10);
+        $collections = Collection::where('author',$uid)->orderBy('updated_at', 'desc')->paginate(10);
         $collections->withPath(remove_query_arg('page'));
         
         

@@ -19,7 +19,7 @@ final class Collections extends \App\Helper\ApiAction
         $operateDefalut = [
             'offset' => 0,
             'limit' => 6,
-            'order' => 'created_at',
+            'order' => 'updated_at',
             'by' => 'desc',
         ];
         $params = $request->getQueryParams() ?? [];
