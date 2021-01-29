@@ -22,6 +22,12 @@ body {
 }
 
 @media (max-width: 600px){
+  #layout-wrap {
+    margin:16px 8px !important;
+  }
+  /* #layout{
+    box-shadow: 0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,.12);
+  } */
   .w3-large {
       font-size: 16px!important;
   }
@@ -1807,6 +1813,10 @@ body.night{
   background-color: #777;
 }
 
+.hi-bg-lines #layout,.hi-author-bg-12 #layout{
+  /* box-shadow: 0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,.12); */
+}
+
 .hi-bg-linear{
   /* background-image: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); */
   background-image: linear-gradient(180deg, #0599D2 5%, #C28698 100%);
@@ -2353,6 +2363,7 @@ input[type=checkbox]:checked+label,input[type=radio]:checked+label{
 .hi-tweet-ref >li {
   grid-template-columns: 16px auto;
 }
+
 #layout-wrap .hi-tweet-ref .tweet-about{
   background-color:#f4f4f4;
   border:none;
