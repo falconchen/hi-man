@@ -2562,7 +2562,7 @@ a.collection-item:focus .w3-opacity, a.collection-item:hover .w3-opacity {
 
 .colletion-detail-body header{
   display: flex;
-  margin:48px;
+  margin:3rem;
 }
 .collection-cover{
   width:100%;
@@ -2576,11 +2576,21 @@ a.collection-item:focus .w3-opacity, a.collection-item:hover .w3-opacity {
 .colletion-detail-body .collection-cover {
   width:21%;
   padding-top: 28%;
-  margin-right:32px;
+  margin-right:2rem;
 }
 
 
 .colletion-detail-body .detail p{
-  margin-top:4px;
+  margin-top:.25rem;
   
+}
+@media (max-width: 600px){
+  .colletion-detail-body header{
+    display: block;
+    
+  }
+  .colletion-detail-body .collection-cover {
+    width:100%;
+    padding-top: 133.3%;
+  }
 }
