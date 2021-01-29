@@ -139,6 +139,12 @@
                                                 <i class="fa fa-file-text-o fa-fw"></i>
                                                 {{ t.trans('Dashboard') }}</a>
                                         </li>
+                                        <li>
+                                            <a href="{{ c.router.pathFor('user.collections',{'username':user.username}) }}">
+                                                <i class="fa fa-file-text-o fa-fw"></i>
+                                                {{ t.trans('My Collections') }}</a>
+                                        </li>
+                                        
                                     </a>
                                 </li>
 
