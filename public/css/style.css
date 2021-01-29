@@ -2584,6 +2584,9 @@ a.collection-item:focus .w3-opacity, a.collection-item:hover .w3-opacity {
   margin-top:.25rem;
   
 }
+img.not-found{
+  max-width:50%;
+}
 @media (max-width: 600px){
   .colletion-detail-body header{
     display: block;
@@ -2592,5 +2595,8 @@ a.collection-item:focus .w3-opacity, a.collection-item:hover .w3-opacity {
   .colletion-detail-body .collection-cover {
     width:100%;
     padding-top: 133.3%;
+  }
+  img.not-found{
+    max-width:90%;
   }
 }
