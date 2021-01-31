@@ -2573,15 +2573,24 @@ a.collection-item:focus .w3-opacity, a.collection-item:hover .w3-opacity {
   background-repeat: no-repeat;
   background-position: center;
 }
-.colletion-detail-body .collection-cover {
-  width:21%;
-  padding-top: 28%;
+
+.collection .collection-cover-wrap {
+  flex:1; 
   margin-right:2rem;
+}
+.collection .detail{
+  flex:3;
 }
 
 
+.collection-cover-wrap .collection-cover {
+  padding-top: 133.3%;
+}
+
+
+
 .colletion-detail-body .detail p{
-  margin-top:.25rem;
+  margin-top:.5rem;
   
 }
 
@@ -2598,9 +2607,12 @@ img.not-found{
     display: block;
     
   }
-  .colletion-detail-body .collection-cover {
+  /* .colletion-detail-body .collection-cover {
     width:100%;
     padding-top: 133.3%;
+  } */
+  .collection .collection-cover-wrap{
+    margin-right:0;
   }
   img.not-found{
     max-width:90%;
