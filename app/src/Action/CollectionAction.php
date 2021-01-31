@@ -79,7 +79,7 @@ final class CollectionAction extends \App\Helper\BaseAction
         $posts = array();
         if (!is_null($collection)) {
             
-            $posts = $collection->posts()->paginate(10);
+            $posts = $collection->posts()->orderBy('post_date','DESC')->paginate(10);
             $posts->withPath(remove_query_arg('page'));            
         }
         $this->view->render($response,'collection/detail.twig',[
