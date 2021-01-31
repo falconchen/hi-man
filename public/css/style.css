@@ -2584,6 +2584,12 @@ a.collection-item:focus .w3-opacity, a.collection-item:hover .w3-opacity {
   margin-top:.25rem;
   
 }
+
+.collections-wrap {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
 img.not-found{
   max-width:50%;
 }

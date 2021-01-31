@@ -1,4 +1,4 @@
-<div class="w3-row-padding">
+<div class="w3-row-padding collections-wrap">
     {% for collection in collections %}
         <a href="{{ c.router.pathFor('collection.detail',{'username':get_user_by_id(collection.author).username,'slug':collection.slug}) }}" class="w3-col l4  collection-item">
             <div class="w3-card-4 w3-round">
