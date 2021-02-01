@@ -31,7 +31,8 @@
 
 - [eloquent](https://laravel.com/docs/5.8/eloquent)
 
-- [eloquent6.x](https://laravel.com/docs/6.x/eloquent)
+- [eloquent6.x](https://learnku.com/docs/laravel/6.x/eloquent/5176)
+
 
 - [Laravel Tips ](https://github.com/seekerliu/laravel-tips) 虽然是针对 laravel, 也对很多组件有解释
 
@@ -92,6 +93,10 @@
 - [w3css年度流行配色](https://www.w3schools.com/w3css/w3css_color_libraries.asp)
 
 - [Eloquent 一对一，一对多，多对多关系](https://learnku.com/docs/laravel/5.5/eloquent-relationships/1333#one-to-many)
+
+- [基于 Laravel + Vue 组件实现文件异步上传](https://laravelacademy.org/post/9677)
+
+- [PHP图像处理类，非常强大](http://image.intervention.io/)
 
 ## codes && tips
 
@@ -291,3 +296,5 @@ Additionally the is sameas test, which does a type strict comparison of two valu
 ### todo
 
 [拖拽上传文件](https://css-tricks.com/drag-and-drop-file-uploading/)
+
+

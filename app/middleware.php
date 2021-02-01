@@ -11,19 +11,19 @@ $app->add(\adrianfalleiro\SlimCLIRunner::class); //Slim CLI Runner
 
 $app->add(ViewRouteNameMiddleware::class);
 
-
-$app->add( function ($request,$response,$next) use ($app){ //很奇怪，这个要放JwtAuthentication前面
+//按jwt的scope字段确认访问的权限
+// $app->add( function ($request,$response,$next) use ($app){ //很奇怪，这个要放JwtAuthentication前面
 	
-	if( $request->getAttribute("token") && $request->getAttribute('route')){      
+// 	if( $request->getAttribute("token") && $request->getAttribute('route')){      
 		
-		$routeName = $request->getAttribute('route')->getName();
-		$token = $request->getAttribute("token")	;
-		if(!in_array($routeName,$token['scopes'])){			
-			return JsonRenderer::error($response, 401, $app->getContainer()->translator->trans('No Permission'));
-		}
-	}
-	return $next($request, $response);
-}) ;
+// 		$routeName = $request->getAttribute('route')->getName();
+// 		$token = $request->getAttribute("token")	;
+// 		if(!in_array($routeName,$token['scopes'])){			
+// 			return JsonRenderer::error($response, 401, $app->getContainer()->translator->trans('No Permission'));
+// 		}
+// 	}
+// 	return $next($request, $response);
+// }) ;
 
 
 $app->add( $app->getContainer()->get("JwtAuthentication"));

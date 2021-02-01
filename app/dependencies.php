@@ -9,8 +9,9 @@ use PHPMailer\PHPMailer\PHPMailer;
 use Illuminate\Database\Capsule\Manager as Capsule;
 use Slim\Event\SlimEventManager;
 use Tuupola\Middleware\JwtAuthentication;
-
-
+use Tuupola\Middleware\JwtAuthentication\RequestPathRule;
+use Tuupola\Middleware\JwtAuthentication\RequestMethodRule;
+use App\Helper\Jwt\RequestPathAndMethodRule;
 
 $container = $app->getContainer();
 
@@ -270,8 +271,22 @@ $container["JwtAuthentication"] = function ($c) {
     return new JwtAuthentication([
         "header" => "Hi-Token",
         "regexp" => "/(.*)/",
-        "path" => "/api",
-        "ignore" => ["/api/tokens", "/api/info"],
+        // "path" => "/api",
+        // "ignore" => ["/api/tokens", "/api/info"],
+        "rules" => [
+            new RequestPathRule([
+                "path" => "/api",
+                "ignore" => ["/api/tokens", "/api/info"]
+            ]),            
+            new RequestMethodRule([
+                "ignore" => ["OPTIONS"]
+            ]),
+            new RequestPathAndMethodRule([
+                "path" => "/api/images",
+                "ignore" => ["GET","POST"]
+            ])
+        ],
+        
         "secret" => $settings["jwt"]['secret'],
         "logger" => $c->get('logger'),        
         "attribute" => "token",

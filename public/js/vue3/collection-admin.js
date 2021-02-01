@@ -163,6 +163,33 @@ const app = Vue.createApp({
 
 
       },
+
+      uploadFile(file) {
+
+
+        let formData = new FormData();
+        formData.append('image', file);
+        console.log(formData);                
+        fetch('/api/images',{
+          method: 'POST',
+          headers:{
+            // 'Content-Type': 'multipart/form-data',
+            'Hi-Token':this.token
+          },//注意在body发送json时需要正确设置请求头的 Content-Type
+          body: formData,
+        }).then(res=> {
+            console.log(res)
+            // if(res.ok) { // 此处加入响应状态码判断                 
+            //     return res.json()
+            // }else{
+            //     window.location.href='/login'                                
+            // }
+            
+        }).catch(error=>console.log(error)) 
+
+
+    },
+
       // editCollectionModal(collection){
       //   console.log(collection)
       // },
@@ -254,6 +281,10 @@ const app = Vue.createApp({
         type:String,
         default:''
       },
+      media_id:{
+        type:Number,
+        default:0
+      },
       slug:{
         type:String,
         default:''
@@ -279,11 +310,14 @@ const app = Vue.createApp({
           title:this.title,
           cover:this.cover,
           slug:this.slug,
-          description:this.description
-        }
+          description:this.description,
+          media_id:this.media_id
+        },
+        file: null,
+        f: null
       }
     },
-    emits:['submit-collection','close-modal','delete-collection'],
+    emits:['submit-collection','close-modal','delete-collection','upload-file'],
     computed: {      
       headerTitle(){
         return this.collection.title == '' ? '新文集' : this.collection.title
@@ -300,16 +334,24 @@ const app = Vue.createApp({
                 </header>
                 <div class="w3-container collection-body">
                 
-                    <p class="cover w3-grey not-allowed" :style="{backgroundImage:'url('+ collection.cover +')'}">
-                        <input type="hidden" name="cover" v-model="collection.cover">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <line x1="12" y1="5" x2="12" y2="19"></line>
-                            <line x1="5" y1="12" x2="19" y2="12"></line>
-                        </svg>
+                    <p class="cover cover-bg w3-grey" :style="{backgroundImage:'url('+ collection.cover +')'}">
+
+                        <input class="" style="display:none" type="file" ref="file" accept="image/*" multiple="multiple" @change="getFile($event)" />
+
+                        <div class="cover-inner" @click="addImage">
+                        <input type="hidden" name="media_id" v-model="collection.media_id">
                         
+                        <div class="add-icon" v-show="collection.cover ==''">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                              <line x1="12" y1="5" x2="12" y2="19"></line>
+                              <line x1="5" y1="12" x2="19" y2="12"></line>
+                          </svg>
+                          
                           <slot name="cover-label-slot">
                             <span class="cover-label">Cover</span>
                           </slot>
+                        </div>
+                        </div>  
                         
                     </p>
 
@@ -363,6 +405,39 @@ const app = Vue.createApp({
         </div>
     `,
     methods: {
+
+      addImage() {
+        this.$refs.file.click()
+      },
+
+      getFile (event) {
+        this.file = event.target.files[0]                
+        const item = {
+          name: this.file.name,
+          size: this.file.size,
+          file: this.file
+        }
+        this.html5Reader(this.file, item)
+        this.f = item        
+        console.log(this.file)
+
+        //this.uploadFile(event.target.files[0])
+        this.$emit('upload-file',this.file)
+      },
+
+      // 将图片文件转成BASE64格式
+      html5Reader (file, item) {
+        const reader = new FileReader()
+        reader.onload = (e) => {
+          //this.$set(item, 'src', e.target.result)
+          item.src = e.target.result
+          this.collection.cover = e.target.result
+        }
+        reader.readAsDataURL(file)
+      },
+
+      
+      
 
       closeModal(){
         // this.isShown = false
@@ -418,12 +493,15 @@ const app = Vue.createApp({
       }
     },
     template: `
-    <div class="collection-item w3-hover-opacity" 
-    :style="{backgroundImage:'url('+ coverUrl ? coverUrl: +')'}" 
+    <div class="collection-item w3-hover-opacity cover-bg" 
+    :style="{backgroundImage:'url('+ cover +')'}" 
     @click="$emit('edit-collection')">
-      <div class="inner">
+      
+      <div class="inner hi-transparent">
+        
           <h1>{{title}}</h1>
           <span>{{description}}</span>
+        
       </div>
       <span class="w3-button w3-display-topright" @click.stop="$emit('delete-collection')">&times</span>
 

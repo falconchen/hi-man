@@ -92,6 +92,8 @@ $app->group(
 $app->group(
     '/api',
     function () {
+        $this->get('/info','App\Api\Info:read')->setName('info.read');    
+
         $this->get('/tokens','App\Api\Tokens:read')->setName('tokens.read');        
         $this->post('/tokens','App\Api\Tokens:create')->setName('tokens.create');        
         
@@ -101,7 +103,11 @@ $app->group(
         $this->put('/collections', 'App\Api\Collections:update')->setName('collections.update');        
         $this->delete('/collections', 'App\Api\Collections:delete')->setName('collections.delete');        
 
-        $this->get('/info','App\Api\Info:read')->setName('info.read');        
+        $this->get('/images[/{id}]', 'App\Api\Images:read')->setName('images.read');        
+        $this->post('/images', 'App\Api\Images:create')->setName('images.create');        
+
+
+            
     }
 );
 

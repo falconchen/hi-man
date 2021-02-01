@@ -22,15 +22,16 @@
                 我明白 v-show 是，但是改变currentCollection, 子组件的数据不改变就很奇怪。
         #}
         <collection-modal 
-        v-bind="currentCollection" :message="message" :hasError="hasError" 
-        
-        @submit-collection="submitCollection" @close-modal="hideCollectionModal" 
+        v-bind="currentCollection" :message="message" :hasError="hasError"         
+        @submit-collection="submitCollection" 
+        @close-modal="hideCollectionModal" 
         @delete-collection="deleteCollection"
+        @upload-file="uploadFile"
         v-show="true" v-if="modalIsShown">
 
             <template v-slot:cover-label-slot>
                 <label class="cover-label">{{t.trans('Cover')}}</label>
-                <small class="w3-text-grey">{{t.trans('Not support uploading yet')}}</small>
+                {# <small class="w3-text-grey">{{t.trans('Not support uploading yet')}}</small> #}
             </template>
 
             <template v-slot:title-label-slot>

@@ -24,12 +24,20 @@ final class Collections extends \App\Helper\ApiAction
         ];
         $params = $request->getQueryParams() ?? [];
         $operators = array_merge($operateDefalut, $params);
-        $collections = Collection::where('author', $userId)
+        $collections = Collection::
+        addSelect(['cover' => function ($query) {
+            $query->select('origin_url')
+                ->from('media_map')
+                ->whereColumn('media_id', 'media_map.media_id')                
+                ->orderBy('media_id', 'desc')
+                ->limit(1);
+        }])
+            ->where('author', $userId)
             ->offset($operators['offset'])
             ->limit($operators['limit'])
             ->orderBy($operators['order'], $operators['by'])
             //->orderBy('collection_id','desc')
-            ->get()->toArray();
+            ->get()->makeHidden('media')->makeHidden('article')->toArray();
         return JsonRenderer::success($response, 200, null, $collections);
     }
     public function create(Request $request, Response $response, $args)
@@ -37,6 +45,7 @@ final class Collections extends \App\Helper\ApiAction
 
 
         $token = $request->getAttribute("token");
+        
         $userId = $token['uid'];
         $data = $request->getParsedBody();
         if (!isset($data['title']) || empty($data['title']) || strlen($data['title']) < 2) {

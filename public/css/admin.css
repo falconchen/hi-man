@@ -216,17 +216,29 @@ label {
 .collection-body{
     display:flex;
     flex-direction: row;
-
+    align-items: flex-start;
 }
 .collection-body .cover {
-    flex:1;    
+    flex-basis: 30%;
+    padding-top: 38%;
+    position: relative;
     background-color: #f6f6f6;
     margin-right: 3%;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    cursor:pointer;
+    cursor:pointer;    
+}
+.collection-body  .cover-inner{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
 }
 .collection-body .cover.not-allowed{
     cursor: not-allowed;
@@ -234,4 +246,19 @@ label {
 
 .collection-body .inputs {
     flex:2;
+}
+
+.collection-body .add-icon{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.cover-bg{
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+.hi-transparent{
+    background-color: rgba(255,255,255,.5);
 }
