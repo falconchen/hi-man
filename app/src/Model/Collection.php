@@ -12,7 +12,7 @@ class Collection extends Model
 
     protected $table = 'collections';
     protected $primaryKey = 'collection_id';
-    protected $fillable = ['title', 'slug', 'description'];
+    protected $fillable = ['title', 'slug', 'description','media_id'];
 
     //protected $hidden = ['media'];
     

@@ -283,7 +283,7 @@ $container["JwtAuthentication"] = function ($c) {
             ]),
             new RequestPathAndMethodRule([
                 "path" => "/api/images",
-                "ignore" => ["GET","POST"]
+                "ignore" => ["GET"]
             ])
         ],
         

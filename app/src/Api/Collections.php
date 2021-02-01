@@ -5,6 +5,7 @@ namespace App\Api;
 
 use App\Helper\JsonRenderer;
 use App\Model\Collection;
+use App\Model\MediaMap;
 use Psr\Http\Message\ResponseInterface as Response; 
 use Psr\Http\Message\ServerRequestInterface as Request;
 
@@ -48,6 +49,14 @@ final class Collections extends \App\Helper\ApiAction
         
         $userId = $token['uid'];
         $data = $request->getParsedBody();
+        if( isset($data['media_id']) && !empty($data['media_id']) ) {
+            $data['media_id'] = intval($data['media_id']);
+            $media = MediaMap::find($data['media_id']) ;
+            if(is_null($media) || !in_array($media->media_author,[0,$userId])) {
+                $data['media_id'] = 0;
+            }
+        }
+
         if (!isset($data['title']) || empty($data['title']) || strlen($data['title']) < 2) {
             return JsonRenderer::error($response, 400, $this->trans('invalid title'));
         }
@@ -87,6 +96,14 @@ final class Collections extends \App\Helper\ApiAction
 
         if (!isset($data['collection_id']) || empty($data['collection_id'])) {
             return JsonRenderer::error($response, 400, $this->trans('invalid collection_id'));
+        }
+
+        if( isset($data['media_id']) && !empty($data['media_id']) ) {
+            $data['media_id'] = intval($data['media_id']);
+            $media = MediaMap::find($data['media_id']) ;
+            if(is_null($media) || !in_array($media->media_author,[0,$userId])) {
+                $data['media_id'] = 0;
+            }
         }
 
         if (!isset($data['title']) || empty($data['title'])) {

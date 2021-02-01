@@ -3,6 +3,7 @@
 namespace App\Api;
 
 use App\Helper\Hash;
+use App\Model\MediaMap;
 use App\Helper\JsonRenderer;
 use App\Helper\Session;
 use App\Model\Group;
@@ -39,12 +40,12 @@ final class Info extends \App\Helper\ApiAction
         // $post->collections()->attach(1,['order'=>888]);
 
         // Collection::find(1)->posts()->attach(1024,['order'=>8848]); //post_id=1024 ，collection_id=1, order=8848
-        var_dump(Collection::find(1)->posts()->get());
+        //var_dump(Collection::find(1)->posts()->get());
 
         
         //return JsonRenderer::success($response,200,null,['date'=>date('Y-m-d')]);
 
-
+        var_dump(MediaMap::find(1)->media_author);
         
     }
     public function create(Request $request, Response $response, $args)

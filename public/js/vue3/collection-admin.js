@@ -33,6 +33,9 @@ const app = Vue.createApp({
       submitCollection(collection){
         
         
+        let newCollection = JSON.parse(JSON.stringify(collection))
+        newCollection.cover ='';//不提交此属性，减少传输量
+
         fetch('/api/collections',{
           method: collection.collection_id == 0 ? 'POST' : 'PUT',
           headers:{
@@ -40,7 +43,7 @@ const app = Vue.createApp({
             'Hi-Token':this.token
           },//注意在body发送json时需要正确设置请求头的 Content-Type
 
-          body: JSON.stringify(collection) 
+          body: JSON.stringify(newCollection) 
 
         }).then(res=> {
 
@@ -167,25 +170,38 @@ const app = Vue.createApp({
       uploadFile(file) {
 
 
-        let formData = new FormData();
-        formData.append('image', file);
-        console.log(formData);                
-        fetch('/api/images',{
-          method: 'POST',
+        let formData = new FormData()
+        formData.append('image', file)
+        // console.log(formData);   
+        fetch('/api/images', {
+          method: 'post',
           headers:{
             // 'Content-Type': 'multipart/form-data',
             'Hi-Token':this.token
-          },//注意在body发送json时需要正确设置请求头的 Content-Type
+          },
           body: formData,
-        }).then(res=> {
-            console.log(res)
-            // if(res.ok) { // 此处加入响应状态码判断                 
-            //     return res.json()
-            // }else{
-            //     window.location.href='/login'                                
-            // }
+          }).then(res => res.json())
+          .then((response) => {               
+               this.currentCollection.media_id = response.data.media_id;                             
+          }).catch(error=>console.log(error))
+   
+        
+        // fetch('/api/images',{
+        //   method: 'POST',
+        //   headers:{
+        //     // 'Content-Type': 'multipart/form-data',
+        //     'Hi-Token':this.token
+        //   },
+        //   body: formData,
+        // }).then(res=> {
+        //     console.log(res)
+        //     // if(res.ok) { // 此处加入响应状态码判断                 
+        //     //     return res.json()
+        //     // }else{
+        //     //     window.location.href='/login'                                
+        //     // }
             
-        }).catch(error=>console.log(error)) 
+        // }).catch(error=>console.log(error)) 
 
 
     },
@@ -323,23 +339,31 @@ const app = Vue.createApp({
         return this.collection.title == '' ? '新文集' : this.collection.title
       }
     },
+
+    watch:{
+      media_id(newVal,oldVal){ //newVal为新值,oldVal为旧值; //上传封面后，父元素修改 media_id，需要监听prop. href: 
+        this.collection.media_id = newVal;
+      }
+    },
+  
     template:`
     <div class="w3-modal" style="display:block">
             
             <form class="w3-modal-content w3-animate-top w3-card-4" style="max-width: 600px;" @submit.prevent="submitCollection" action="" >
                 <input type="hidden" name="collection_id" v-model="collection.collection_id">
+                <input type="hidden" name="media_id" v-model="collection.media_id">
                 <header class="w3-container hi-dark">
                     <span @click="closeModal" class="w3-button w3-display-topright">&times;</span>
                     <h2>{{ headerTitle }}</h2>
                 </header>
                 <div class="w3-container collection-body">
-                
+
                     <p class="cover cover-bg w3-grey" :style="{backgroundImage:'url('+ collection.cover +')'}">
 
-                        <input class="" style="display:none" type="file" ref="file" accept="image/*" multiple="multiple" @change="getFile($event)" />
+                        <input class="" style="display:none" type="file" ref="file" accept="image/*" @change="getFile($event)" />
 
                         <div class="cover-inner" @click="addImage">
-                        <input type="hidden" name="media_id" v-model="collection.media_id">
+                        
                         
                         <div class="add-icon" v-show="collection.cover ==''">
                           <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
