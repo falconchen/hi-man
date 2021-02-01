@@ -69,6 +69,8 @@ class ProjectTwigExtension extends AbstractExtension implements GlobalsInterface
             new TwigFilter('replaceTweetTopic','replaceTweetTopic',['is_safe' => ['html'],]),
             new TwigFilter('imgMap', [$this,'imgMap'], ['needs_environment' => true]),
 
+            new TwigFilter('pageTranslateUrl',[$this,'pageTranslateUrl'],['is_safe' => ['html'],]),
+
         ];
     }
 
@@ -352,5 +354,12 @@ class ProjectTwigExtension extends AbstractExtension implements GlobalsInterface
 
     public function trimHttp($val) {
         return preg_replace('#^http\://#','//',$val);
+    }
+
+    public function pageTranslateUrl($url,$to='zh-Hans',$from="en") {
+        return sprintf('https://www.translatetheweb.com/?from=%s&to=%s&dl=%s&ref=trb&a=%s',
+                        $from,$to,$from,urlencode($url)
+        );
+        
     }
 }
