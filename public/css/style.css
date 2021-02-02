@@ -1543,10 +1543,10 @@ h1, h2, h3, h4, h5, h6 {
 } */
 .hi-content :not(pre) > code{
   padding: .3rem .6rem!important;
-    border-radius: .2rem!important;
-    margin: 0 .2rem;
-    background: #e7eef1;
-    color: #042735;
+  border-radius: .2rem!important;
+  margin: 0 .2rem;
+  background: rgba(212, 53, 159, 0.03);
+  color: rgb(179, 37, 133);
 }
 
 .hi-content .hn-wrap :not(pre)>code {
