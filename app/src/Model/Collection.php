@@ -39,7 +39,7 @@ class Collection extends Model
         return $this->belongsTo(MediaMap::class, 'media_id');
     }
 
-    public function owner(){
+    public function user(){
         return $this->belongsTo(User::class, 'author');
     }
 

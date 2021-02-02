@@ -86,9 +86,43 @@
 			{% endif %}
 			</div>
 		</div>
+		{%  set collection = post.collections().first() %}
+		{% if collection %}	
+			
+			<h5 class="w3-text-grey">本文收录于:</h5>	
+			<div class="w3-margin-top">	
+				
+				
+				{# <div class="w3-card">
+					<img width="100px" src="{{collection.media.origin_url}}" />
+					<div class="metas">
+					<a href="{{ c.router.pathFor('collection.detail',{'username':collection.user.username,'slug':collection.slug }) }}">{{collection.title}}</a>
+					@{{collection.user.username}}
+					</div>
+				</div> #}
 
-		{% if post.collections %}
+				<a href="{{ c.router.pathFor('collection.detail',{'username':collection.user.username,'slug':collection.slug }) }}" class="w3-col l5  collection-item">
+					<div class="w3-card-2 w3-round" style="display: flex;">
+						<div class="hi-dark collection-cover" style="padding-top:0;flex:1;background-image:url({{collection.media.origin_url}})"></div>
 
+						<div class="w3-container w3-padding " style="flex:2;">
+
+
+							<h5 class="w3-text-black">{{collection.title}}
+
+							</h5>
+
+							<p class="hi-text-dark w3-opacity">{{collection.description}}</p>
+							<small class="hi-text-dark w3-opacity w3-left">@{{collection.user.username}}</small>
+							<small class="hi-text-dark w3-opacity w3-right">{{collection.posts.count()}}
+								篇文章</small>
+
+						</div>
+
+					</div>
+        		</a>
+			</div>
+		{% endif %}
 		
 		
 	</main>

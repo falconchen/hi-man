@@ -72,5 +72,9 @@ class Post extends Model
 		return $this->belongsToMany('App\Model\Collection','post_collection','post_id','collection_id')
 		->withPivot('order') //中间表加入额外字段
     	->withTimestamps();//中间表加入时间字段
-    }
+	}
+	
+	public function user() {
+		return $this->belongsTo(User::class, 'post_author'); //第二个参数表示外键，此处默认应该是user_id,需要改成实际的字段 post_author
+	}
 }

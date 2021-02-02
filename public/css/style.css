@@ -2626,3 +2626,7 @@ img.not-found{
 a.w3-button:hover,a.w3-button:focus {
   text-decoration: none;
 }
+.hi-main  .hi-collection-bar {
+  background: #eee;
+  padding: 2rem 0;
+}
