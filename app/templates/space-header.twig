@@ -10,6 +10,10 @@
                 <a href="{{c.router.pathFor('post-admin')}}" target="_blank" class="w3-button">
                 <i class="fa fa-gear" aria-hidden="true"></i>
                 {{t.trans('Manage Posts')}}</a>
+             {% else %}    
+                <a href="{{c.router.pathFor('post-admin')}}" target="_blank" class="w3-button">
+                <i class="fa fa-gear" aria-hidden="true"></i>
+                {{t.trans('Manage Posts')}}</a>
             {% endif %}
         {% endif %}   
         </div>
