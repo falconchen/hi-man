@@ -101,11 +101,11 @@
 					</div>
 				</div> #}
 
-				<a href="{{ c.router.pathFor('collection.detail',{'username':collection.user.username,'slug':collection.slug }) }}" class="w3-col l5  collection-item">
+				<a href="{{ c.router.pathFor('collection.detail',{'username':collection.user.username,'slug':collection.slug }) }}" class="w3-col l6  collection-item">
 					<div class="w3-card-2 w3-round" style="display: flex;">
-						<div class="hi-dark collection-cover" style="padding-top:0;flex:1;background-image:url({{collection.media.origin_url}})"></div>
+						<div class="hi-dark collection-cover" style="padding-top:0;flex:2;background-image:url({{collection.media.origin_url}})"></div>
 
-						<div class="w3-container w3-padding " style="flex:2;">
+						<div class="w3-container w3-padding " style="flex:3;">
 
 
 							<h5 class="w3-text-black">{{collection.title}}
