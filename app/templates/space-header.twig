@@ -1,14 +1,17 @@
 <header class="w3-panel w3-center hi-text-dark" style="">
         <div class="w3-clear hi-toolkit">
-        {% if currentPostType == 'collection' %}
-            <a href="{{c.router.pathFor('collection-admin')}}" target="_blank" class="w3-button">
-            <i class="fa fa-gear" aria-hidden="true"></i>
-            {{t.trans('Manage Collections')}}</a>
-        {% elseif currentPostType == 'post' %}    
-            <a href="{{c.router.pathFor('post-admin')}}" target="_blank" class="w3-button">
-            <i class="fa fa-gear" aria-hidden="true"></i>
-            {{t.trans('Manage Posts')}}</a>
-        {% endif %}
+        
+        {% if c.session.user.id == spaceUser.id %}
+            {% if currentPostType == 'collection' %}
+                <a href="{{c.router.pathFor('collection-admin')}}" target="_blank" class="w3-button">
+                <i class="fa fa-gear" aria-hidden="true"></i>
+                {{t.trans('Manage Collections')}}</a>
+            {% elseif currentPostType == 'post' %}    
+                <a href="{{c.router.pathFor('post-admin')}}" target="_blank" class="w3-button">
+                <i class="fa fa-gear" aria-hidden="true"></i>
+                {{t.trans('Manage Posts')}}</a>
+            {% endif %}
+        {% endif %}   
         </div>
 
         <h2 class="w3-margin-top-32">
