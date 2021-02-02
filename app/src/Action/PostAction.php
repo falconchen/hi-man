@@ -114,6 +114,7 @@ final class PostAction extends \App\Helper\BaseAction
             $tmpl = 'post/content-index.twig';
         }
         
+        
         $this->view->render($response, $tmpl, ['post' => $post]);
     }
     /**

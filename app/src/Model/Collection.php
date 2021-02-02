@@ -39,6 +39,10 @@ class Collection extends Model
         return $this->belongsTo(MediaMap::class, 'media_id');
     }
 
+    public function owner(){
+        return $this->belongsTo(User::class, 'author');
+    }
+
     public function getCoverAttribute()
     {
         return !is_null($this->media)
@@ -47,5 +51,7 @@ class Collection extends Model
     }
 
     
-    
+    // public function getAuthorNameAtrribute(){
+
+    // }
 }

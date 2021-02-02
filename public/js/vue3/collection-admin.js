@@ -509,25 +509,35 @@ const app = Vue.createApp({
 
   app.component('collection-item', { 
 
-    props: ['title','description','cover'],
+    props: ['title','description','cover','link'],
     emits: ['edit-collection','delete-collection'],
     data(){
       return {
         'coverUrl': typeof(this.cover) != undefined ? this.cover :''
       }
     },
+    methods: {
+    },
     template: `
-    <div class="collection-item w3-hover-opacity cover-bg" 
+    <div class="collection-item  cover-bg" 
     :style="{backgroundImage:'url('+ cover +')'}" 
     @click="$emit('edit-collection')">
       
-      <div class="inner hi-transparent">
+      <div class="inner hi-transparent ">
         
           <h1>{{title}}</h1>
           <span>{{description}}</span>
-        
+          <div class="w3-button edit-btn">
+            <slot name="edit-text-slot">
+                Edit
+            </slot>
+          </div>
+          <a @click.stop="" class="w3-button w3-display-bottom w3-opacity view-collection-posts" target="_blank" :href="link">
+          <slot name="view-posts-text-slot">View Collection Posts</slot>
+          </a>  
       </div>
-      <span class="w3-button w3-display-topright" @click.stop="$emit('delete-collection')">&times</span>
+      <span class="w3-button w3-display-topright"  style="background: transparent;" @click.stop="$emit('delete-collection')">&times</span>
+      
 
     </div>
       `

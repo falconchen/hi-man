@@ -9,6 +9,7 @@ use App\Helper\Session;
 use App\Model\Group;
 use App\Model\Post;
 use App\Model\Collection;
+use App\Model\User;
 
 
 use Psr\Http\Message\ResponseInterface as Response; // http://docs.guzzlephp.org/en/stable/index.html
@@ -35,6 +36,8 @@ final class Info extends \App\Helper\ApiAction
         //$collection->posts()->toggle(10);
 
         //echo Collection::find(1)->media->origin_url;
+
+        var_dump(Collection::find(16)->owner);
         
         // $post = Post::find(1);
         // $post->collections()->attach(1,['order'=>888]);
@@ -47,6 +50,25 @@ final class Info extends \App\Helper\ApiAction
 
         //var_dump(MediaMap::find(1)->media_author);
         //var_dump(Collection::find(15)->append('is_admin')->toArray());
+        $data = Collection::addSelect(['username' => function ($query) {//子查询
+            $query->select('username')
+                ->from('users')
+                ->whereColumn('author', 'users.id')                
+                ->orderBy('author', 'desc')
+                ->limit(1);
+        }])->get()->toArray();
+        
+        $data = array_map(function($collection) {
+            
+            if( $collection['username']){
+                $collection['link'] = $this->router->pathFor(
+                    'collection.detail',
+                    ['username' => $collection['username'],'slug'=>$collection['slug']] 
+                );
+            }            
+            return $collection;
+        },$data);
+         
         
     }
     public function create(Request $request, Response $response, $args)

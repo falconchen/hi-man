@@ -5,6 +5,7 @@ namespace App\Api;
 
 use App\Helper\JsonRenderer;
 use App\Model\Collection;
+use App\Model\User;
 use App\Model\MediaMap;
 use Psr\Http\Message\ResponseInterface as Response; 
 use Psr\Http\Message\ServerRequestInterface as Request;
@@ -32,13 +33,27 @@ final class Collections extends \App\Helper\ApiAction
                 ->whereColumn('media_id', 'media_map.media_id')                
                 ->orderBy('media_id', 'desc')
                 ->limit(1);
-        }])
+            },
+            
+        ])
             ->where('author', $userId)
             ->offset($operators['offset'])
             ->limit($operators['limit'])
             ->orderBy($operators['order'], $operators['by'])
             //->orderBy('collection_id','desc')
             ->get()->makeHidden('media')->makeHidden('article')->toArray();
+
+        $username = User::find($userId)->username;
+        $collections = array_map(
+            function($collection) use ($username) {
+                $collection['link'] = $this->router->pathFor(
+                    'collection.detail',
+                    ['username' => $username,'slug'=>$collection['slug']] 
+                );
+                return $collection;
+            },$collections
+
+        );
         return JsonRenderer::success($response, 200, null, $collections);
     }
     public function create(Request $request, Response $response, $args)
