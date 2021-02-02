@@ -19,14 +19,14 @@ final class Collections extends \App\Helper\ApiAction
         $userId = $token['uid'];
         $operateDefalut = [
             'offset' => 0,
-            'limit' => 6,
+            'limit' => 12,
             'order' => 'updated_at',
             'by' => 'desc',
         ];
         $params = $request->getQueryParams() ?? [];
         $operators = array_merge($operateDefalut, $params);
         $collections = Collection::
-        addSelect(['cover' => function ($query) {
+        addSelect(['cover' => function ($query) {//子查询
             $query->select('origin_url')
                 ->from('media_map')
                 ->whereColumn('media_id', 'media_map.media_id')                

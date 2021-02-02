@@ -45,7 +45,8 @@ final class Info extends \App\Helper\ApiAction
         
         //return JsonRenderer::success($response,200,null,['date'=>date('Y-m-d')]);
 
-        var_dump(MediaMap::find(1)->media_author);
+        //var_dump(MediaMap::find(1)->media_author);
+        //var_dump(Collection::find(15)->append('is_admin')->toArray());
         
     }
     public function create(Request $request, Response $response, $args)

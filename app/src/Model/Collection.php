@@ -14,6 +14,10 @@ class Collection extends Model
     protected $primaryKey = 'collection_id';
     protected $fillable = ['title', 'slug', 'description','media_id'];
 
+    
+
+
+
     //protected $hidden = ['media'];
     
     /**
@@ -41,4 +45,7 @@ class Collection extends Model
             ? str_replace('http://', '//', $this->media->origin_url)
             : '';
     }
+
+    
+    
 }

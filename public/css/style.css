@@ -1961,6 +1961,7 @@ body:not(.search-body) .hi-search-form-wrap{
   .hi-header .hi-title{
     padding: 0 16px ;
     margin-top: 24px;
+    color: #333;
   }
   .hi-search-form-wrap,.hi-breadcrumbs{
     padding:0 16px !important;
