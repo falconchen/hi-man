@@ -2619,3 +2619,10 @@ img.not-found{
     max-width:90%;
   }
 }
+.hi-toolkit {
+  text-align: right;
+}
+
+a.w3-button:hover,a.w3-button:focus {
+  text-decoration: none;
+}
