@@ -1792,6 +1792,10 @@ body.night{
   background-image: url(https://oscimg.oschina.net/oscnet/up-a1c40b19546bd884ec669a7550bb12a609a.JPEG);
 }
 
+.night .hi-form-title,.night .hi-form {
+  color:#fff;
+}
+
 .hi-author-bg, .hi-bg-blue {
   background-image: none !important;  
 }
