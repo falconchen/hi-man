@@ -44,7 +44,7 @@ final class Images extends \App\Helper\ApiAction
             $media->media_author = $userId;
             $media->title = strip_tags( pathinfo($uploadedFile->getClientFilename(),PATHINFO_FILENAME) );
             $media->origin_url = $this->settings['media']['uploads']['uri'] .'/'. $userSourceDir  .'/'.$filename;
-            $media->tags = 'collection-cover';
+            $media->tags = 'upload,collection-cover';
             $media->save();
             $data = $media->toArray();          
             return JsonRenderer::success($response,200,null,$data);
