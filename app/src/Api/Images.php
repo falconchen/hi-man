@@ -57,7 +57,7 @@ final class Images extends \App\Helper\ApiAction
                 $dir = dirname($realPath);
                 !is_dir($dir) && mkdir($dir,0755,true);                
                 rename($directory . '/' . $filename, $realPath);
-                $media->origin_url = $this->settings['media']['image']['uri'] . '/' .ltrim($localPath ,'/');
+                $media->origin_url = $this->settings['media']['image']['origin_uri'] . '/' .ltrim($localPath ,'/');
                 $media->local_path = $localPath;
                 $media->save();
             }

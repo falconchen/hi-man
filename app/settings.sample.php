@@ -31,6 +31,7 @@ return [
             'image'=>[
                 'dir'=> __DIR__ . '/../public/media/image',
                 'tmp_dir'=> __DIR__ . '/../public/media/image/tmp',
+                'origin_uri'=>'/media/image',
                 'uri'=>'/media/image',
                 'images.weserv.nl'=>false, //是否使用 https://images.weserv.nl 图片处理及cdn
             ],
