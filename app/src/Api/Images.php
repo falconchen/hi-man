@@ -25,8 +25,11 @@ final class Images extends \App\Helper\ApiAction
         $uploadedFiles = $request->getUploadedFiles();        
         $uploadedFile = $uploadedFiles['image'];        
         //$dateDir = date('Y/m/d',$this->localTimestamp());
-        $userSourceDir = $userId .'/source';
-        $directory = $this->settings['media']['uploads']['dir'] .'/'. $userSourceDir ;
+        // $userSourceDir = $userId .'/source';
+        // $directory = $this->settings['media']['uploads']['dir'] .'/'. $userSourceDir ;
+        $directory = $this->settings['media']['image']['tmp_dir'];
+        
+
 
 
 
@@ -43,9 +46,22 @@ final class Images extends \App\Helper\ApiAction
             $media->content_type = 'image/' .$this->getExtension($uploadedFile);
             $media->media_author = $userId;
             $media->title = strip_tags( pathinfo($uploadedFile->getClientFilename(),PATHINFO_FILENAME) );
-            $media->origin_url = $this->settings['media']['uploads']['uri'] .'/'. $userSourceDir  .'/'.$filename;
+            //$media->origin_url = $this->settings['media']['uploads']['uri'] .'/'. $userSourceDir  .'/'.$filename;
+
             $media->tags = 'upload,collection-cover';
             $media->save();
+
+            if($media->media_id) {            
+                $localPath = $this->setLocalPathDB($media,$this->getExtension($uploadedFile));
+                $realPath = $this->getRealPath($localPath);
+                $dir = dirname($realPath);
+                !is_dir($dir) && mkdir($dir,0755,true);                
+                rename($directory . '/' . $filename, $realPath);
+                $media->origin_url = $this->settings['media']['image']['uri'] . '/' .$localPath;
+                $media->local_path = $localPath;
+                $media->save();
+            }
+
             $data = $media->toArray();          
             return JsonRenderer::success($response,200,null,$data);
         }
@@ -65,6 +81,17 @@ final class Images extends \App\Helper\ApiAction
 
     private function getExtension(UploadedFile $uploadedFile) {
         return strtolower(pathinfo($uploadedFile->getClientFilename(), PATHINFO_EXTENSION));
+    }
+
+    private function setLocalPathDB(MediaMap $media,$extensionName) {
+        
+        $realPath = sprintf("/%d/%d/%s", $media->media_id % 1024, $media->media_id % 512,  $media->media_id . $extensionName);                
+        return $realPath;
+    }
+    private function getRealPath($locaPathDB) {
+
+        return $this->settings['media']['image']['dir'] . $locaPathDB;
+        
     }
 
 }
