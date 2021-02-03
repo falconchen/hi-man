@@ -57,7 +57,7 @@ final class Images extends \App\Helper\ApiAction
                 $dir = dirname($realPath);
                 !is_dir($dir) && mkdir($dir,0755,true);                
                 rename($directory . '/' . $filename, $realPath);
-                $media->origin_url = $this->settings['media']['image']['uri'] . '/' .$localPath;
+                $media->origin_url = $this->settings['media']['image']['uri'] . '/' .ltrim($localPath ,'/');
                 $media->local_path = $localPath;
                 $media->save();
             }
@@ -85,7 +85,7 @@ final class Images extends \App\Helper\ApiAction
 
     private function setLocalPathDB(MediaMap $media,$extensionName) {
         
-        $realPath = sprintf("/%d/%d/%s", $media->media_id % 1024, $media->media_id % 512,  $media->media_id . $extensionName);                
+        $realPath = sprintf("/%d/%d/%d.%s", $media->media_id % 1024, $media->media_id % 512,  $media->media_id , $extensionName);                
         return $realPath;
     }
     private function getRealPath($locaPathDB) {
