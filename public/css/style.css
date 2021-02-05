@@ -1637,6 +1637,9 @@ a.nickname,.hi-text-lighter-blue {
   color:#888;
   margin-bottom: 0px;
 }
+.hi-tweet-content-wrap .hi-excerpt *:not(code).w3-small {
+  font-size: 14px !important;
+}
 .hi-excerpt .hi-meta.w3-small {  
   /* text-align: right; */
   margin-top:8px;
