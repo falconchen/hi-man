@@ -2556,9 +2556,11 @@ dt.hi-text-grey{
 } 
 .collection-item {
   margin-bottom:32px;
+  transition: all .3s ease-in-out;  
 }
 a.collection-item:focus, a.collection-item:hover{
   text-decoration: none;
+  transform: scale(1.04);
 }
 
 a.collection-item:focus .w3-opacity, a.collection-item:hover .w3-opacity {
