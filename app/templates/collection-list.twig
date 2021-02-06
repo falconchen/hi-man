@@ -13,8 +13,9 @@
 
                     <p class="hi-text-dark w3-opacity">{{ collection.description }}</p>
 
-                    <small class="hi-text-dark w3-opacity w3-right">{{ collection.posts.count() }}
-                        篇文章</small>
+                    <small class="hi-text-dark w3-opacity w3-right">
+                    {{ t.transChoice('Collection Works Count', collection.posts.count(), {'%count%': collection.posts.count()} )}}
+                    </small>
 
                 </div>
 
