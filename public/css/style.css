@@ -25,6 +25,8 @@ body {
   margin-top: 32px !important;
 }
 
+
+
 @media (max-width: 600px){
   #layout-wrap {
     margin:4px 4px !important;
@@ -1800,6 +1802,9 @@ body.night{
 }
 
 .night .hi-form-title,.night .hi-form {
+  color:#fff;
+}
+.night .hi-breadcrumbs {
   color:#fff;
 }
 
