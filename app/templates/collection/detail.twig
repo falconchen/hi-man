@@ -18,11 +18,11 @@
         </div>
 
         <div class="w3-margin-left detail">
-            <h1>{{ collection.title }}
+            <h2>{{ collection.title }}
                 <span class="w3-text-grey w3-small">                   
                     {{ t.transChoice('Collection Works Count', posts.total, {'%count%': posts.total} )}}
                 </span>
-            </h1>
+            </h2>
 
             <cite>by
                 <a class="hi-text-dark" href="{{ c.router.pathFor('user',{'username':author.username}) }}">{{ get_username_by_id(collection.author) }}</a>
