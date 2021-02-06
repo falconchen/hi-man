@@ -11,24 +11,20 @@
 	<!-- Header -->
 	<header class=" w3-margin-bottom w3-center w3-content hi-header">
 		<h1 class="w3-xlarge hi-title">{{ post.post_title }} 
+		{% include '_parts/post-status-visibility.twig' with {post: post,t:t} only %}
 		</h1>
 		<div class="w3-center">
 
 			
 			<dt class="hi-text-grey">
 
-				<i class="fa fa-calendar-check-o "></i>
+				
 				{# {{  (post.post_status == 'draft') ? t.trans('Draft') : post.post_date_local }} #}
-				{{post.post_preview ? t.trans('Previewing') : ''}}	
-
-				{% if post.post_status == 'publish' %}
+				<i class="fa fa-calendar-check-o "></i>
+				{% if post.post_status == 'publish' or post.post_status == 'future' %}
+				
 				{{ post.post_date_local }}
-				{% elseif post.post_status == 'future'%}
-				{{post.post_date_local}} <code class="w3-text-red">{{t.trans('Future status')}}</code>
-				{% elseif post.post_status == 'draft' %}		
-					<code class="w3-text-blue">{{ t.trans('Draft status')}}</code>
 				{% endif %}
-			
 			
 				<a class="hi-text-lighter-blue hi-dot" target="_blank" href="{{ 
 					c.router.pathFor('user',{'username':get_username_by_id(post.post_author)}) }}">
@@ -40,9 +36,7 @@
 					<a class="hi-dot hi-text-lighter-blue" style="" href="{{ c.router.pathFor('post-admin.edit',{'name':post.post_name}) }}">{{t.trans('Edit')}}</a>
 				{% endif %}
 
-				{% if post.post_visibility == 'private' or post.post_visibility == 'password' %}
-				<code>{{ t.trans(post.post_visibility) }} 🔒</code>
-				{% endif %}	
+				
 
 			</dt>
 			
@@ -89,7 +83,7 @@
 		{%  set collection = post.collections().first() %}
 		{% if collection %}	
 			
-			<h5 class=""><i class="fa fa-file-word-o fa-fw"></i> 本文收录于:</h5>	
+			<h5 class=""><i class="fa fa-file-word-o fa-fw"></i> {{t.trans('Posted on Collection')}}</h5>	
 			<div class="w3-margin-top">	
 				
 				

@@ -1,0 +1,15 @@
+{% if post.post_preview %}
+<code class="w3-green w3-small w3-padding-small">
+{{ t.trans('Previewing')}}	
+</code>
+{% endif %}
+
+{% if post.post_status == 'future'%}
+    <code class="w3-red w3-tiny w3-padding-small">{{t.trans('Future status')}}</code>
+{% elseif post.post_status == 'draft' %}		
+    <code class="w3-grey w3-text-white w3-tiny w3-padding-small">{{ t.trans('Draft status')}}</code>
+{% endif %}
+
+{% if post.post_visibility == 'private' or post.post_visibility == 'password' %}
+    <code class="w3-black w3-tiny w3-padding-small">{{ t.trans(post.post_visibility) }}</code>
+{% endif %}	

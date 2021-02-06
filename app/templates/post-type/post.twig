@@ -7,9 +7,9 @@
             
             <a class="title w3-hover-text-blue" href="{{ c.router.pathFor('post',{'name':post.post_name}) }}">{{ post.post_title }} </a>
 
-            {% if post.post_visibility == 'private' or post.post_visibility == 'password' %}
-            <code class="w3-small">{{ t.trans(post.post_visibility) }} 🔒</code>
-            {% endif %}	
+            
+
+            {% include '_parts/post-status-visibility.twig' with {post: post,t:t} only %}
         </h1>
 
         <p class="w3-small hi-excerpt-text">
@@ -19,21 +19,20 @@
         <div class="w3-small w3-margin-right hi-meta">
             
 
-                                            
-            <span class="hi-date hi-text-lighter-blue">	
+            
+                <span class="hi-date hi-text-lighter-blue">	
                     
                 {# <i class="w3-small fa fa-paperclip"></i>							 #}
                 {% if post.post_status == 'publish' %}
-
                     {{post.post_date_local|time_diff}}
                 {% elseif post.post_status == 'future'%}
-                    {{post.post_date_local}} <code class="w3-text-red ">{{t.trans('Future status')}}</code>
-                {% elseif post.post_status == 'draft' %}		
-                    <code class="w3-text-blue ">{{ t.trans('Draft status')}}</code>
+                    {{post.post_date_local}} 
+                {% else %}		
+                    <span>{{ t.trans('To be determined')}}</span>                    
                 {% endif %}
 
                 
-            </span>
+                </span>
                 
             <a class="hi-dot hi-text-lighter-blue" target="_blank" href="{{ c.router.pathFor('user',{'username':get_username_by_id(post.post_author)}) }}">{{post.post_author_name}}</a>                            
                     
