@@ -329,8 +329,8 @@ const app = Vue.createApp({
           description:this.description,
           media_id:this.media_id
         },
-        file: null,
-        f: null
+        file: null
+        //f: null
       }
     },
     emits:['submit-collection','close-modal','delete-collection','upload-file'],
@@ -364,7 +364,12 @@ const app = Vue.createApp({
 
                         <div class="cover-inner" @click="addImage">
                         
-                        
+                        <div class="chage-cover" v-if="file || collection.cover">
+                          <slot name="chage-cover-label-slot">
+                            <span class="cover-label">Change Cover</span>
+                          </slot>
+                        </div>
+
                         <div class="add-icon" v-show="collection.cover ==''">
                           <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                               <line x1="12" y1="5" x2="12" y2="19"></line>
@@ -442,7 +447,7 @@ const app = Vue.createApp({
           file: this.file
         }
         this.html5Reader(this.file, item)
-        this.f = item        
+        //this.f = item        
         console.log(this.file)
 
         //this.uploadFile(event.target.files[0])
