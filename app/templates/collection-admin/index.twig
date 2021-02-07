@@ -15,8 +15,12 @@
 
 
     <div id="app">
-
+        
         <div class="w3-container w3-padding-large w3-hide" :class="{'w3-show':isMounted}">
+
+        <div class="w3-margin-right" style="text-align:right"><a class="w3-button" target="_blank" href="{{ c.router.pathFor('user.collections',{'username':user.username}) }}">
+        <i class="fa fa-file-word-o fa-fw"></i>
+        {{ t.trans('View My Collections') }}</a></div>
 
         {# 使用v-show = "modalIsShown" 时， 当使 currentCollection 变化后，子组件里collection-modal绑定的值不会变， 而 v-if ="modalIsShown" 写法，currentCollection变化后， 子组件collection-modal的props会变，
                 我明白 v-show 是，但是改变currentCollection, 子组件的数据不改变就很奇怪。

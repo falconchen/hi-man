@@ -1,5 +1,6 @@
 {% set c = container %}
 {% set t = c.translator %}
+{% set user = c.session.user ? c.session.user : null %}
 {% set currentPath = container.request.getUri.getPath|replace({'/hi-admin/': ''}) %}
 <!DOCTYPE html>
 <html lang="{{c.get('settings').language.html|default('en')}}">
