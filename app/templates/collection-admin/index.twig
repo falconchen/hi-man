@@ -34,14 +34,12 @@
         v-show="true" v-if="modalIsShown">
 
             <template v-slot:cover-label-slot>
-                <label class="cover-label">{{t.trans('Cover')}}</label>
-                {# <small class="w3-text-grey">{{t.trans('Not support uploading yet')}}</small> #}
+                <label class="cover-label">{{t.trans('Cover')}}</label>                
             </template>
 
 
             <template v-slot:chage-cover-label-slot>
-                <label class="change-cover-label">{{t.trans('Change Cover')}}</label>
-                {# <small class="w3-text-grey">{{t.trans('Not support uploading yet')}}</small> #}
+                <label class="change-cover-label">{{t.trans('Change Cover')}}</label>                
             </template>
 
             <template v-slot:title-label-slot>
@@ -58,17 +56,6 @@
              <template v-slot:button-del-text-slot>                
                 <span>{{t.trans('Delete')}} &nbsp; ❯</span>  
             </template>
-
-            {# <template v-slot:button-del-slot>
-                <div v-if="!currentCollection.collection_id" v-show="false"></div>                
-                <button  v-else type="submit" class="w3-btn w3-padding  w3-margin-right w3-red" style="width:120px">                    
-                        <span>
-                        {{ t.trans('Delete')}} &nbsp; ❯
-                        </span>                                                               
-                </button>  
-            </template> #}
-
-            
 
         </collection-modal>
 

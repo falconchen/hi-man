@@ -8,6 +8,8 @@
     <code class="w3-red w3-tiny w3-padding-small">{{t.trans('Future status')}}</code>
 {% elseif post.post_status == 'draft' %}		
     <code class="w3-grey w3-text-white w3-tiny w3-padding-small">{{ t.trans('Draft status')}}</code>
+{% elseif post.post_status == 'trash' %}		
+    <code class="w3-orange w3-text-white w3-tiny w3-padding-small">{{ t.trans('Trash status')}}</code>
 {% endif %}
 
 {% if post.post_visibility == 'private' or post.post_visibility == 'password' %}

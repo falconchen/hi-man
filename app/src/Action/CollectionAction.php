@@ -74,12 +74,25 @@ final class CollectionAction extends \App\Helper\BaseAction
     public function detail(Request $request, Response $response, $args)
     {
         $user = $this->getAuthorFromArgs($request, $response, $args);
+        
         $collection = Collection::where(['author' => $user->id, 'slug' => $args['slug']])->first();
         
         $posts = array();
         if (!is_null($collection)) {
             
-            $posts = $collection->posts()->orderBy('post_date','DESC')->paginate(10);
+            $posts = $collection->posts()->where(
+
+                function($q) use ($user) {
+                    $q->where(['post_status' => 'publish', 'post_visibility' => 'public']);    
+                    if ( $this->userId == $user->id ) {                    
+                        $q->orWhere(
+                            ['post_author'=>$this->userId, ]
+                        )->where('post_status','<>','trash');
+                    }
+    
+                }
+
+            )->orderBy('post_date','DESC')->paginate(10);
             $posts->withPath(remove_query_arg('page'));            
         }
         $this->view->render($response,'collection/detail.twig',[
