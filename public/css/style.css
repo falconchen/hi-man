@@ -1639,9 +1639,11 @@ a.nickname,.hi-text-lighter-blue {
 }
 
 .hi-excerpt *:not(code).w3-small {
-  font-size: 16px !important;
+  font-weight: 600 ;
+  font-size:14px !important;
   color:#888;
   margin-bottom: 0px;
+  opacity: .9;
 }
 .hi-tweet-content-wrap .hi-excerpt *:not(code).w3-small {
   font-size: 14px !important;
