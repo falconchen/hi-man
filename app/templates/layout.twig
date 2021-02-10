@@ -102,12 +102,12 @@
                             {% if container.session.user is not defined %}
 
                                 <li>
-                                    <a class="" href="{{ base_url() }}/login">
+                                    <a class="" href="{{ path_for('login'}}">
                                         <i class="fa fa-sign-in"></i>
                                         {{ t.trans('Login') }}</a>
                                 </li>
                                 <li>
-                                    <a class="" href="{{ base_url() }}/register">
+                                    <a class="" href="{{ path_for('register'}}">
                                         <i class="fa fa-user-plus"></i>
                                         {{ t.trans('Register') }}</a>
                                 </li>
