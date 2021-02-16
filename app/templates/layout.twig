@@ -8,9 +8,9 @@
 <html lang="{{ c.get('settings').language.html|default('en') }}">
     <head>
         <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="description" content="简单的多人博客系统，可以将文章定时发布到OSChina博客" />
         <title>
             {% block title %}
                 {{ t.tran('A simple and stupid cms') }}
@@ -57,7 +57,7 @@
                 <div class="container">
                     <div class="navbar-header hi-navbar-header">
                         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                            <span class="sr-only">Toggle navigation</span>
+                            <span class="sr-only">{{ t.trans('Toggle navigation') }}</span>
                             <span class="icon-bar w3-white"></span>
                             <span class="icon-bar w3-white"></span>
                             <span class="icon-bar w3-white"></span>
