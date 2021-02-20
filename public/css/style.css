@@ -1552,7 +1552,9 @@ h1, h2, h3, h4, h5, h6 {
   border-radius: .2rem!important;
   margin: 0 .2rem;
   background: rgba(212, 53, 159, 0.03);
-  color: rgb(179, 37, 133);
+  /* color: rgb(179, 37, 133); */
+  color: #e83e8c !important;
+  text-shadow: 0 1px white;
 }
 
 .hi-content .hn-wrap :not(pre)>code {
