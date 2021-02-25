@@ -43,8 +43,8 @@ final class PostAdminAction extends \App\Helper\LoggedAction
     private function init(Request $request, Response $response, $args)
     {
         
-        $this->updateOscCookie( 21 );      
-        $this->userId = 21;//debug
+        //$this->updateOscCookie( 21 );      
+        //$this->userId = 21;//debug
         $userId = $this->userId;                
               
 
@@ -70,8 +70,12 @@ final class PostAdminAction extends \App\Helper\LoggedAction
                 try {
                     $this->updateOscCookie( $this->userId );      
                     $this->logger->info( 'updated osc cookie ', ['userId'=>$this->userId] );              
-                }catch(Exception $e) {
+                }catch(\Exception $e) {
                     $this->logger->error( 'failed to update osc cookie ', ['userId'=>$this->userId] );
+                    $this->data['rebind'] = true;
+                    unset($this->data['oscer']);
+                    //unset($this->data['avatar']);
+
                 }                
 
             }
@@ -179,7 +183,7 @@ final class PostAdminAction extends \App\Helper\LoggedAction
             } catch (ClientException $e) { //40x
                 $this->logger->log(Psr7\str($e->getRequest()));
                 $this->logger->log(Psr7\str($e->getResponse()));
-            } catch (Exception $e) { //others
+            } catch (\Exception $e) { //others
                 
             }
         }

@@ -254,7 +254,7 @@ trait OscTrait {
                 'form_params' => [
                     'email' => $userMail,
                     'pwd' => $userPassword,
-                    'verifyCode'=>'',
+                    //'verifyCode'=>'',
                     'save_login'=>1,
                 ]
             ]);

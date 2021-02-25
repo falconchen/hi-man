@@ -49,11 +49,21 @@
             {#<a href="#" class="w3-bar-item w3-button"><i class="fa fa-envelope"></i></a>#}
             <a href="#" class="w3-padding-small w3-bar-item w3-button w3-tiny hi-user-info" style=""><i class="fa fa-user"></i> <b>{{t.trans('User Info')}}</b></a>
             {#<a href="#" class="w3-bar-item w3-button w3-tiny w3-text-green"><i class="fa fa-cog "></i> 连接OSC</a>#}
+            {% if rebind %}
+                
+                <small class="w3-padding-small w3-bar-item  w3-text-indigo w3-tiny">
+                <i class="fa fa-info "></i> OSC绑定信息已失效, 如修改了osc密码请重新绑定
+                </small>
+            {% endif %}
             <button onclick="document.getElementById('bind-osc-form-wrapper').style.display='block'"
                     class="w3-padding-small w3-bar-item w3-button w3-tiny {{ oscer ?'w3-text-green':'w3-text-red' }} hi-osc-status">
-
-                <i class="fa fa-cog "></i> <b>  
+                <i class="fa fa-cog "></i> 
+                {% if rebind %}
+                <b>点此重新绑定</b>
+                {% else %}
+                <b>                  
                 {{ oscer ?t.trans('OSC Ready') : t.trans('Not Connected to OSC') }}</b>
+                {% endif %}
             </button>
 
         </div>

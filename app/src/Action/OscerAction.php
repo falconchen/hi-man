@@ -48,9 +48,9 @@ final class OscerAction extends \App\Helper\LoggedAction
         
 
 
-        if ($request->getAttribute('csrf_status') === false){
-            return JsonRenderer::render($response,200,['success'=>false, 'msg'=>'csrf error','data'=>'']);
-        }
+        // if ($request->getAttribute('csrf_status') === false){
+        //     return JsonRenderer::render($response,200,['success'=>false, 'msg'=>'csrf error','data'=>'']);
+        // }
 
 
         $userMail = Input::post('userMail');
@@ -73,14 +73,16 @@ final class OscerAction extends \App\Helper\LoggedAction
             $loginUrl = 'https://www.oschina.net/action/user/hash_login?from=';
             //$args = $this->settings['guzzle'];
             $client = new Client($this->settings['guzzle']);
+            $formParams = [
+                'email' => $userMail,
+                'pwd' => $userPassword,
+                //'verifyCode'=>'',
+                'save_login'=>1,
+            ];
             $oscResponse = $client->request('POST', $loginUrl,[
-                'form_params' => [
-                    'email' => $userMail,
-                    'pwd' => $userPassword,
-                    'verifyCode'=>'',
-                    'save_login'=>1,
-                ]
+                'form_params' => $formParams
             ]);
+            $this->c->logger->debug('osc login form params', $formParams);
             $body = (string) $oscResponse->getBody();
             if($body == ''){ //登录成功返回空值
 
@@ -157,7 +159,10 @@ final class OscerAction extends \App\Helper\LoggedAction
 
             }else{
                 $this->logger->debug( $body ); // "{"msg":"登录失败，请确认是否输入正确的用户名和密码","failCount":1}"
-                JsonRenderer::render($response,200,['success'=>false, 'msg'=>'登录失败，请确认是否输入正确的用户名和密码','data'=>[]]);
+                //{"error":1,"msg":"验证码错误"}
+                
+                
+                JsonRenderer::render($response,200,['success'=>false, 'msg'=>$body,'data'=>[]]);
             }
 
         } catch (ClientException $e) { //40x
