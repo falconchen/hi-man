@@ -438,7 +438,7 @@ final class PostAdminAction extends \App\Helper\LoggedAction
         if (!is_null($cookies)) {
             $conf['cookies'] = $cookies;
         }
-
+        @file_put_contents('/web/hi.cellmean.com/log/cookie-write.html',var_export($cookies));
         $client = new Client($conf);
         
         $oscResponse = $client->request('GET', $blogWriteUrl);
