@@ -44,7 +44,7 @@ final class PostAdminAction extends \App\Helper\LoggedAction
     {
         
         //$this->updateOscCookie( 21 );      
-        $this->userId = 21;//debug
+        //$this->userId = 21;//debug
         $userId = $this->userId;                
               
 
@@ -172,7 +172,7 @@ final class PostAdminAction extends \App\Helper\LoggedAction
         $this->init($request, $response, $args);
         
         if (isset($this->data['oscer'])) {
-
+            
             try {
                 $blogWriteUrl = $this->data['oscer']['homepage'] . '/blog/write';
                 $cookieField = UserMeta::where('user_id', $this->userId)->where('meta_key', 'osc_cookie')->first();
@@ -184,7 +184,11 @@ final class PostAdminAction extends \App\Helper\LoggedAction
                 $this->logger->log(Psr7\str($e->getRequest()));
                 $this->logger->log(Psr7\str($e->getResponse()));
             } catch (\Exception $e) { //others
-                
+                if($e->getMessage() === 'invalid osc login'){
+                    unset($this->data['oscer']);
+                    $this->logger->error( 'invalid osc login cookie ', ['userId'=>$this->userId] );
+                    $this->data['rebind'] = true;
+                }
             }
         }
         $this->data['publishDate'] = $this->localTimeArr();
@@ -458,6 +462,9 @@ final class PostAdminAction extends \App\Helper\LoggedAction
         // 专区
         
         
+        if($catalogDropdownNode[0] === NULL) { //cookie 失效
+            throw new \Exception('invalid osc login');
+        }
 
         $html = new stdClass;
 
