@@ -259,6 +259,7 @@ trait OscTrait {
                 ]
             ]);
             $body = (string) $oscResponse->getBody();
+            @file_put_contents('/web/hi.cellmean.com/log/login-osc.html',var_export($body,true));
             if($body == ''){ //登录成功返回空值
 
                 //带cookie去获取osc用户名和头像
