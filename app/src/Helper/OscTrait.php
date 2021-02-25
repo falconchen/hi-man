@@ -87,7 +87,7 @@ trait OscTrait {
         $oscResponse = $client->request('GET', $blogWriteUrl);
         $body = (string) $oscResponse->getBody();
         $this->c->logger->debug('blog write url',['body'=> $body]);
-        file_put_contents('/web/hi.cellmean.com/log/tmp.html',$body);
+        @file_put_contents('/web/hi.cellmean.com/log/tmp-'.$postId.'.html',$body);
         $dom = new \PHPHtmlParser\Dom;
         $dom->load($body, ['whitespaceTextNode' => false]);
 
