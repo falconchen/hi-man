@@ -44,7 +44,7 @@ final class PostAdminAction extends \App\Helper\LoggedAction
     {
         
         //$this->updateOscCookie( 21 );      
-        //$this->userId = 21;//debug
+        $this->userId = 21;//debug
         $userId = $this->userId;                
               
 
