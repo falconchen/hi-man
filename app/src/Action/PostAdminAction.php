@@ -230,7 +230,12 @@ final class PostAdminAction extends \App\Helper\LoggedAction
             } catch (ClientException $e) { //40x
                 $this->logger->log(Psr7\str($e->getRequest()));
                 $this->logger->log(Psr7\str($e->getResponse()));
-            } catch (Exception $e) { //others
+            } catch (\Exception $e) { //others
+                if($e->getMessage() === 'invalid osc login'){
+                    unset($this->data['oscer']);
+                    $this->logger->error( 'invalid osc login cookie ', ['userId'=>$this->userId] );
+                    $this->data['rebind'] = true;
+                }
 
             }
         }
