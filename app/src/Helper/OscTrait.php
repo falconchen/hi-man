@@ -86,6 +86,7 @@ trait OscTrait {
 
         $oscResponse = $client->request('GET', $blogWriteUrl);
         $body = (string) $oscResponse->getBody();
+        $this->c->logger->debug('blog write url',['body'=> $body]);
 
         $dom = new \PHPHtmlParser\Dom;
         $dom->load($body, ['whitespaceTextNode' => false]);
