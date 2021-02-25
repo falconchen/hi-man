@@ -97,6 +97,28 @@ final class PostAdminAction extends \App\Helper\LoggedAction
     { //list all posts
         $this->init($request, $response, $args);
 
+        if (isset($this->data['oscer'])) {
+
+            try {
+                $blogWriteUrl = $this->data['oscer']['homepage'] . '/blog/write';
+                $cookieField = UserMeta::where('user_id', $this->userId)->where('meta_key', 'osc_cookie')->first();
+                $cookies = unserialize($cookieField->meta_value);
+                $html = $this->getOscPostOptions($blogWriteUrl, $cookies);
+                $this->data['oscOptions'] = $html;
+                $this->data['storeOptions'] = $this->getStoreSyncOptions($post->post_id);
+                //var_dump($this->data['storeOptions'] );exit;
+            } catch (ClientException $e) { //40x
+                $this->logger->log(Psr7\str($e->getRequest()));
+                $this->logger->log(Psr7\str($e->getResponse()));
+            } catch (\Exception $e) { //others
+                if($e->getMessage() === 'invalid osc login'){
+                    unset($this->data['oscer']);
+                    $this->logger->error( 'invalid osc login cookie ', ['userId'=>$this->userId] );
+                    $this->data['rebind'] = true;
+                }
+
+            }
+        }
 
 
         $postAuthor = $this->userId;
