@@ -58,7 +58,7 @@ final class SearchAction extends \App\Helper\BaseAction
 
             $query->where(['post_status' => 'publish','post_visibility' => 'public','post_status'=>'publish']);
 
-            if ($this->userId > 0 && $searchUserId == 0) {
+            if ($this->userId > 0) {
 
                 $query->orWhere(function($query){
                     $query->where(['post_author' => $this->userId ])->where('post_status','<>','trash');
@@ -70,9 +70,9 @@ final class SearchAction extends \App\Helper\BaseAction
         });
 
         $postsQuery = $postsQuery->whereIn('post_type',$searchPosType); //全面开放搜索动弹和文章
-        if($searchUserId > 0) {
-            $postsQuery = $postsQuery->where('post_author',$searchUserId);
-        }
+        // if($searchUserId > 0) {
+        //     $postsQuery = $postsQuery->where('post_author',$searchUserId);
+        // }
 //        echo $this->getSQL($postsQuery);exit;
         $posts = $postsQuery->orderBy('post_date', 'DESC')->paginate(10);
         $posts->withPath(urldecode(remove_query_arg('page')));
