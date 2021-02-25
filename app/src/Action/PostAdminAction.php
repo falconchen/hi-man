@@ -46,7 +46,7 @@ final class PostAdminAction extends \App\Helper\LoggedAction
         //$this->updateOscCookie( 21 );      
         
         $userId = $this->userId;                
-        //$userId = 21;                
+        $userId = 21;                
 
         $oscCookieKeepAliveDays = isset( $this->settings['osc']['cookie_keep_alive_days'] ) ?  
                                 $this->settings['osc']['cookie_keep_alive_days']: 7; 
@@ -444,7 +444,7 @@ final class PostAdminAction extends \App\Helper\LoggedAction
         $oscResponse = $client->request('GET', $blogWriteUrl);
         
         $body = (string) $oscResponse->getBody();
-        
+        @file_put_contents('/web/hi.cellmean.com/log/blog-write.html',$body);
         $dom = new \PHPHtmlParser\Dom;
         $dom->load($body, ['whitespaceTextNode' => false]);
         $catalogDropdownNode = $dom->find('#catalogDropdown');
