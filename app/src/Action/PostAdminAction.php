@@ -105,7 +105,7 @@ final class PostAdminAction extends \App\Helper\LoggedAction
                 $cookies = unserialize($cookieField->meta_value);
                 $html = $this->getOscPostOptions($blogWriteUrl, $cookies);
                 $this->data['oscOptions'] = $html;
-                $this->data['storeOptions'] = $this->getStoreSyncOptions($post->post_id);
+                //$this->data['storeOptions'] = $this->getStoreSyncOptions($post->post_id);
                 //var_dump($this->data['storeOptions'] );exit;
             } catch (ClientException $e) { //40x
                 $this->logger->log(Psr7\str($e->getRequest()));
