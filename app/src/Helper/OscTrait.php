@@ -213,7 +213,7 @@ trait OscTrait {
         $guzzleConf = $this->c->settings['guzzle'];
         $guzzleConf['cookies'] = $cookies;        
         $conf['headers'] = $headers;
-        @file_put_contents('/web/hi.cellmean.com/log/cookie-setup.html',var_export($cookies));
+        @file_put_contents('/web/hi.cellmean.com/log/cookie-setup.html',var_export($cookies,true));
         
         return new Client($guzzleConf);  
     }
