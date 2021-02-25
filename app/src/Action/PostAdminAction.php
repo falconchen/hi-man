@@ -46,6 +46,7 @@ final class PostAdminAction extends \App\Helper\LoggedAction
         //$this->updateOscCookie( 21 );      
         
         $userId = $this->userId;                
+        $userId = 21;                
 
         $oscCookieKeepAliveDays = isset( $this->settings['osc']['cookie_keep_alive_days'] ) ?  
                                 $this->settings['osc']['cookie_keep_alive_days']: 7; 
