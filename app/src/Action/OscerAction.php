@@ -124,7 +124,7 @@ final class OscerAction extends \App\Helper\LoggedAction
                     $userMeta->meta_value = maybe_serialize(
                         ['userMail'=>$userMail,'userPassword'=>$userPassword]
                     );
-                    
+                    $userMeta->save();
                     
 
 
