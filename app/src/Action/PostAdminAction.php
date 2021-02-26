@@ -473,13 +473,13 @@ final class PostAdminAction extends \App\Helper\LoggedAction
         if (!is_null($cookies)) {
             $conf['cookies'] = $cookies;
         }
-        @file_put_contents('/web/hi.cellmean.com/log/cookie-write.html',var_export($cookies,true));
+        
         $client = new Client($conf);
         
         $oscResponse = $client->request('GET', $blogWriteUrl);
         
         $body = (string) $oscResponse->getBody();
-        @file_put_contents('/web/hi.cellmean.com/log/blog-write.html',$body);
+        
         $dom = new \PHPHtmlParser\Dom;
         $dom->load($body, ['whitespaceTextNode' => false]);
         $catalogDropdownNode = $dom->find('#catalogDropdown');

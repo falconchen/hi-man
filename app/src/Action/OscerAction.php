@@ -115,22 +115,26 @@ final class OscerAction extends \App\Helper\LoggedAction
 
                     $userMail = Input::post('userMail');
                     $userPassword = Input::post('userPassword');
-                    $userMeta = new UserMeta();
-                    $userMeta->user_id = $userId;
-                    $userMeta->meta_key = 'osc_login';
+                    //$userMeta = new UserMeta();
+                    $userMeta = UserMeta::firstOrNew(['user_id'=>$userId,'meta_key'=>'osc_login']);
+                    //$userMeta->user_id = $userId;
+                    //$userMeta->meta_key = 'osc_login';
+                    
+
                     $userMeta->meta_value = maybe_serialize(
                         ['userMail'=>$userMail,'userPassword'=>$userPassword]
                     );
                     
-                    $userMeta->save();
+                    
 
 
                     //获取cookie,保存到DB
                     $cookieJar = $client->getConfig('cookies');
                     //$cookieJar->toArray();
-                    $userMeta = new UserMeta();
-                    $userMeta->user_id = $userId;
-                    $userMeta->meta_key = 'osc_cookie';
+                    // $userMeta = new UserMeta();
+                    // $userMeta->user_id = $userId;
+                    // $userMeta->meta_key = 'osc_cookie';
+                    $userMeta = UserMeta::firstOrNew(['user_id'=>$userId,'meta_key'=>'osc_cookie']);
                     $userMeta->meta_value = maybe_serialize(
                         $cookieJar
                     );
@@ -138,9 +142,10 @@ final class OscerAction extends \App\Helper\LoggedAction
                     $userMeta->save();
 
                     //保存osc用户信息
-                    $userMeta = new UserMeta();
-                    $userMeta->user_id = $userId;
-                    $userMeta->meta_key = 'osc_userinfo';
+                    // $userMeta = new UserMeta();
+                    // $userMeta->user_id = $userId;
+                    // $userMeta->meta_key = 'osc_userinfo';
+                    $userMeta = UserMeta::firstOrNew(['user_id'=>$userId , 'meta_key'=>'osc_userinfo']);
                     $userMeta->meta_value = maybe_serialize(
                         $oscer
                     );

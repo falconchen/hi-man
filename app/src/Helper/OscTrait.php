@@ -87,7 +87,6 @@ trait OscTrait {
         $oscResponse = $client->request('GET', $blogWriteUrl);
         $body = (string) $oscResponse->getBody();
         $this->c->logger->debug('blog write url',['body'=> $body]);
-        @file_put_contents('/web/hi.cellmean.com/log/tmp-'.$postId.'.html',$body);
         $dom = new \PHPHtmlParser\Dom;
         $dom->load($body, ['whitespaceTextNode' => false]);
 
@@ -213,7 +212,6 @@ trait OscTrait {
         $guzzleConf = $this->c->settings['guzzle'];
         $guzzleConf['cookies'] = $cookies;        
         $conf['headers'] = $headers;
-        @file_put_contents('/web/hi.cellmean.com/log/cookie-setup.html',var_export($cookies,true));
         
         return new Client($guzzleConf);  
     }
@@ -259,7 +257,6 @@ trait OscTrait {
                 ]
             ]);
             $body = (string) $oscResponse->getBody();
-            @file_put_contents('/web/hi.cellmean.com/log/login-osc.html',var_export($body,true));
             if($body == ''){ //登录成功返回空值
 
                 //带cookie去获取osc用户名和头像

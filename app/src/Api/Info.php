@@ -10,6 +10,7 @@ use App\Model\Group;
 use App\Model\Post;
 use App\Model\Collection;
 use App\Model\User;
+use App\Model\UserMeta;
 
 
 use Psr\Http\Message\ResponseInterface as Response; // http://docs.guzzlephp.org/en/stable/index.html
@@ -72,7 +73,15 @@ final class Info extends \App\Helper\ApiAction
         
         //一对多
         //var_dump(User::find(12)->posts()->first());
-        var_dump(Post::find(1)->user->username);
+        //var_dump(Post::find(1)->user->username);
+
+        //firstOrNew 典型用法 
+        // $userMeta = UserMeta::firstOrNew(['user_id'=>19,'meta_key'=>'osc_abc']);
+        // $userMeta->meta_value = 'goodbye';
+        // $userMeta->save();
+
+        
+
         
     }
     public function create(Request $request, Response $response, $args)
