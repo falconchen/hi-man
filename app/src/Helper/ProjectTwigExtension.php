@@ -357,8 +357,12 @@ class ProjectTwigExtension extends AbstractExtension implements GlobalsInterface
     }
 
     public function pageTranslateUrl($url,$to='zh-Hans',$from="en") {
-        return sprintf('https://www.translatetheweb.com/?from=%s&to=%s&dl=%s&ref=trb&a=%s',
-                        $from,$to,$from,urlencode($url)
+        // return sprintf('https://www.translatetheweb.com/?from=%s&to=%s&dl=%s&ref=trb&a=%s',
+        //                 $from,$to,$from,urlencode($url)
+        // );
+        
+        return sprintf('https://translate.google.com/translate?sl=%s&tl=%s&u=%s&prev=search',
+                        $from, ($to === 'zh-Hans') ? 'zh-CN' : $to,urlencode($url)
         );
         
     }
