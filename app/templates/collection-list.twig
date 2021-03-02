@@ -12,7 +12,7 @@
                     </h5>
 
                     <p class="hi-text-dark w3-opacity">{{ collection.description }}</p>
-                    {% set count = collection.posts().where('post_status','publish').count() %}
+                    {% set count = collection.posts().where({'post_status':'publish','post_visibility':'public'}).count() %}
                     <small class="hi-text-dark w3-opacity w3-right">
                     {{ t.transChoice('Collection Works Count', count , {'%count%': count} )}}
                     </small>
