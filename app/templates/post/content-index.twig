@@ -123,10 +123,11 @@
                             <h5 class="w3-text-black">{{ collection.title }}
 
                             </h5>
+							{% set collectionPostCount = collection.posts().where({'post_status':'publish','post_visibility':'public'}).count() %}
 
                             <p class="hi-text-dark w3-opacity">{{ collection.description }}</p>
                             <small class="hi-text-dark w3-opacity w3-left">@{{ collection.user.username }}</small>
-                            <small class="hi-text-dark w3-opacity w3-right">{{ collection.posts.count() }}
+                            <small class="hi-text-dark w3-opacity w3-right">{{ collectionPostCount }}
                                 篇文章</small>
 
                         </div>
