@@ -23,6 +23,8 @@ final class Info extends \App\Helper\ApiAction
     public function read(Request $request, Response $response, $args)
     {
 
+        echo Collection::find(2)->posts()->where('post_status','<>','trash')->count();
+
         //phpinfo();
         // $collection = Collection::firstOrNew(
         //     ['title' => 'My Collection2', 'slug' => 'my-collection2','description'=>'my collection2']
