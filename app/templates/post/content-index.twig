@@ -1,125 +1,143 @@
 {% extends 'layout.twig' %}
 
 {% block title %}
-	{{ post.post_title }}
+    {{ post.post_title }}
 {% endblock %}
 
-{% block bodyClass %} hi-author-bg hi-author-bg-{{post.post_author}}{% endblock %}
+{% if user_id == post.post_author %}
+    {% block toolbar %}
+        {# <li>
+            <a class="" target="_blank" href="{{ path_for('post-admin.new') }}">
+                <i class="fa fa-pencil-square-o"></i>
+                {{ t.trans('Go writing') }}</a>
+        </li> #}
+        <li>
+            <a class="" href="{{ path_for('post-admin.edit',{'name':post.post_name}) }}">
+                <i class="fa fa-pencil-square-o"></i>
+                {{ t.trans('Edit post') }}</a>
+        </li>
+    {% endblock %}
+{% endif %}
+
+{% block bodyClass %}
+    hi-author-bg hi-author-bg-{{ post.post_author }}
+{% endblock %}
 
 {% block content %}
-	
-	<!-- Header -->
-	<header class=" w3-margin-bottom w3-center w3-content hi-header">
-		<h1 class="w3-xlarge hi-title">{{ post.post_title }} 
-		{% include '_parts/post-status-visibility.twig' with {post: post,t:t} only %}
-		</h1>
-		<div class="w3-center">
 
-			
-			<dt class="hi-text-grey">
-
-				
-				{# {{  (post.post_status == 'draft') ? t.trans('Draft') : post.post_date_local }} #}
-				<i class="fa fa-calendar-check-o "></i>
-				{% if post.post_status == 'publish' or post.post_status == 'future' %}
-				
-				{{ post.post_date_local }}
-				{% endif %}
-			
-				<a class="hi-text-lighter-blue hi-dot" target="_blank" href="{{ 
-					c.router.pathFor('user',{'username':get_username_by_id(post.post_author)}) }}">
-					{{post.post_author_name}}</a>
-
-				
-
-				{% if user_id == post.post_author and not post.post_preview %}	
-					<a class="hi-dot hi-text-lighter-blue" style="" href="{{ c.router.pathFor('post-admin.edit',{'name':post.post_name}) }}">{{t.trans('Edit')}}</a>
-				{% endif %}
-
-				
-
-			</dt>
-			
-			
-		</div>
-	</header>
+    <!-- Header -->
+    <header class=" w3-margin-bottom w3-center w3-content hi-header">
+        <h1 class="w3-xlarge hi-title">{{ post.post_title }}
+            {% include '_parts/post-status-visibility.twig' with {post: post,t:t} only %}
+        </h1>
+        <div class="w3-center">
 
 
-	<main class="hi-main hi-content-wrap w3-mobile">
-		
-
-		<div class="w3-content hi-content ">
-			{{post.post_content_clean|raw}}
+            <dt
+                class="hi-text-grey">
 
 
-			<div class="hi-content-tail">
+                {# {{  (post.post_status == 'draft') ? t.trans('Draft') : post.post_date_local }} #}
+                <i class="fa fa-calendar-check-o "></i>
+                {% if post.post_status == 'publish' or post.post_status == 'future' %}
 
-			{% set syncOptions = post.getSyncOptions() %}	
-			
-			{% if  syncOptions.type == '0' and syncOptions.origin_url != 'https://' %}
-			<blockquote class="hi-origin-info">
-				<em>{{t.trans('Original Link')}}：
-				<a href="{{ syncOptions.origin_url }}" rel="noreferrer" target="_blank">
-				{{ syncOptions.origin_url }}
-				</a>
-				</em>
-			</blockquote>
+                    {{ post.post_date_local }}
+                {% endif %}
 
-			{% endif %}
-
-			{% if not post.post_preview and post.osc_link %}
-				{% if (not syncOptions.privacy) or (syncOptions.privacy == '1' and  user_id == post.post_author) %}
-				<div class="w3-clear">
-				<a class="hi-view-in-osc-link  w3-margin-top  w3-padding-small w3-button-small w3-border w3-border-blue w3-hover-blue w3-round" href="{{ post.osc_link }}" target="_blank" rel="noreferrer">				
-				<i class="fa fa-paper-plane-o"></i>
-					{{t.trans('View in OSC')}} 
-				</a>
-				</div>
-				{% endif %}			
-
-			{% endif %}
-			</div>
-		</div>
-		{%  set collection = post.collections().first() %}
-		{% if collection %}	
-			
-			<h5 class=""><i class="fa fa-file-word-o fa-fw"></i> {{t.trans('Posted on Collection')}}</h5>	
-			<div class="w3-margin-top">	
-				
-				
-				{# <div class="w3-card">
-					<img width="100px" src="{{collection.media.origin_url}}" />
-					<div class="metas">
-					<a href="{{ c.router.pathFor('collection.detail',{'username':collection.user.username,'slug':collection.slug }) }}">{{collection.title}}</a>
-					@{{collection.user.username}}
-					</div>
-				</div> #}
-
-				<a href="{{ c.router.pathFor('collection.detail',{'username':collection.user.username,'slug':collection.slug }) }}" class="w3-col l6  collection-item">
-					<div class="w3-card-2 w3-round" style="display: flex;">
-						<div class="hi-dark collection-cover" style="padding-top:0;flex:2;background-image:url({{collection.media.origin_url}})"></div>
-
-						<div class="w3-container w3-padding " style="flex:3;">
+                <a class="hi-text-lighter-blue hi-dot" target="_blank" href="{{ c.router.pathFor('user',{'username':get_username_by_id(post.post_author)}) }}">
+                    {{ post.post_author_name }}</a>
 
 
-							<h5 class="w3-text-black">{{collection.title}}
+                {% if user_id == post.post_author and not post.post_preview %}
+                    <a class="hi-dot hi-text-lighter-blue" style="" href="{{ path_for('post-admin.edit',{'name':post.post_name}) }}">{{ t.trans('Edit') }}</a>
+                {% endif %}
 
-							</h5>
 
-							<p class="hi-text-dark w3-opacity">{{collection.description}}</p>
-							<small class="hi-text-dark w3-opacity w3-left">@{{collection.user.username}}</small>
-							<small class="hi-text-dark w3-opacity w3-right">{{collection.posts.count()}}
-								篇文章</small>
+            </dt>
 
-						</div>
 
-					</div>
-        		</a>
-			</div>
-		{% endif %}
-		
-		
-	</main>
+        </div>
+    </header>
+
+
+    <main class="hi-main hi-content-wrap w3-mobile">
+
+
+        <div class="w3-content hi-content ">
+            {{ post.post_content_clean|raw }}
+
+
+            <div class="hi-content-tail">
+
+                {% set syncOptions = post.getSyncOptions() %}
+
+                {% if  syncOptions.type == '0' and syncOptions.origin_url != 'https://' %}
+                    <blockquote class="hi-origin-info">
+                        <em>{{ t.trans('Original Link') }}：
+                            <a href="{{ syncOptions.origin_url }}" rel="noreferrer" target="_blank">
+                                {{ syncOptions.origin_url }}
+                            </a>
+                        </em>
+                    </blockquote>
+
+                {% endif %}
+
+                {% if not post.post_preview and post.osc_link %}
+                    {% if (not syncOptions.privacy) or (syncOptions.privacy == '1' and  user_id == post.post_author) %}
+                        <div class="w3-clear">
+                            <a class="hi-view-in-osc-link  w3-margin-top  w3-padding-small w3-button-small w3-border w3-border-blue w3-hover-blue w3-round" href="{{ post.osc_link }}" target="_blank" rel="noreferrer">
+                                <i class="fa fa-paper-plane-o"></i>
+                                {{ t.trans('View in OSC') }}
+                            </a>
+                        </div>
+                    {% endif %}
+
+                {% endif %}
+            </div>
+        </div>
+        {% set collection = post.collections().first() %}
+        {% if collection %}
+
+            <h5 class="">
+                <i class="fa fa-file-word-o fa-fw"></i>
+                {{ t.trans('Posted on Collection') }}</h5>
+            <div
+                class="w3-margin-top">
+
+
+                {# <div class="w3-card">
+                					<img width="100px" src="{{collection.media.origin_url}}" />
+                					<div class="metas">
+                					<a href="{{ c.router.pathFor('collection.detail',{'username':collection.user.username,'slug':collection.slug }) }}">{{collection.title}}</a>
+                					@{{collection.user.username}}
+                					</div>
+                				</div> #}
+
+                <a href="{{ c.router.pathFor('collection.detail',{'username':collection.user.username,'slug':collection.slug }) }}" class="w3-col l6  collection-item">
+                    <div class="w3-card-2 w3-round" style="display: flex;">
+                        <div class="hi-dark collection-cover" style="padding-top:0;flex:2;background-image:url({{ collection.media.origin_url }})"></div>
+
+                        <div class="w3-container w3-padding " style="flex:3;">
+
+
+                            <h5 class="w3-text-black">{{ collection.title }}
+
+                            </h5>
+
+                            <p class="hi-text-dark w3-opacity">{{ collection.description }}</p>
+                            <small class="hi-text-dark w3-opacity w3-left">@{{ collection.user.username }}</small>
+                            <small class="hi-text-dark w3-opacity w3-right">{{ collection.posts.count() }}
+                                篇文章</small>
+
+                        </div>
+
+                    </div>
+                </a>
+            </div>
+        {% endif %}
+
+
+    </main>
 
 
 {% endblock %}

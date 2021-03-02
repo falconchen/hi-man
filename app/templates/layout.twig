@@ -113,12 +113,14 @@
                                         {{ t.trans('Register') }}</a>
                                 </li>
                             {% else %}
-                                <li>
 
+                                {% block toolbar %}
+                                <li>
                                     <a class="" href="{{ path_for('post-admin.new') }}">
                                         <i class="fa fa-pencil-square-o"></i>
                                         {{ t.trans('Go writing') }}</a>
                                 </li>
+                                {% endblock %}
 
                                 <li class="w3-dropdown-hover w3-left">
 
