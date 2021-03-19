@@ -29,13 +29,17 @@ $(document).ready(function () {
     return false;
   });
 
-  $(".hi-nav-search-button").click(function () {
-    var navBtn = $(this);
+  var serachCloseBtn =$('.hi-search-form-wrap .hi-close-btn')
+  var navBtn = $(".hi-nav-search-button")
+  var searchFunc = function () {
+    
     logEvent({
       eventCategory: "search",
       eventAction: "click",
     });
+    
     var area = $(".hi-search-form");
+    
     if (area.length > 0) {
       if (area.hasClass("non-close")) {
         area.find('input[type="text"]').focus();
@@ -44,14 +48,21 @@ $(document).ready(function () {
       if (area.hasClass("closed")) {
         area.removeClass("closed");
         navBtn.addClass("on");
-        area.show().find('input[type="text"]').focus();
+        area.show().find('input[type="text"]').focus()
+        serachCloseBtn.removeClass('w3-hide').fadeIn()
       } else {
         navBtn.removeClass("on");
         area.addClass("closed");
+        serachCloseBtn.addClass('w3-hide')
+        serachCloseBtn.addClass('w3-hide').fadeOut()
       }
       return false;
     }
-  });
+  }
+  navBtn.click(searchFunc);
+  serachCloseBtn.click(searchFunc)
+
+
 
   // function viewFullImages() {
   //     document.querySelectorAll

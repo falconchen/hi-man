@@ -173,6 +173,8 @@
 
 <!--Search Form-->
 <section class="container w3-mobile w3-card-2 hi-search-form-wrap">
+
+    <span class="hi-close-btn w3-button w3-display-bottomright w3-padding w3-text-red w3-hide">&times;</span>
     <form action="{{ path_for('search') }}" class="hi-search-form {{ isSearchPage ? 'non-close' : 'closed' }}">
         <input class="form-control" type="text" id="search-query" name="kw" placeholder="{{ t.trans('e.g. Posts, Tweets...') }}" value="{{ c.request.getParam('kw') }}">
         <button class="w3-hover-blue">{{ t.trans('Search') }}</button>
