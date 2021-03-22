@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block meta %}
-{% set description = post.post_content|striptags|truncate(140, true, '...') %}
+{% set description = post.post_content|raw|striptags|replace({"\n":""})|trim|truncate(140, true, '...') %}
 <meta name="description" content="{{description}}" />
 {% endblock %}
 
