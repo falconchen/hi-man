@@ -9,20 +9,20 @@
 <meta name="description" content="{{description}}" />
 {% endblock %}
 
-{% if user_id == post.post_author %}
-    {% block toolbar %}
-        {# <li>
-            <a class="" target="_blank" href="{{ path_for('post-admin.new') }}">
-                <i class="fa fa-pencil-square-o"></i>
-                {{ t.trans('Go writing') }}</a>
-        </li> #}
-        <li>
-            <a class="" href="{{ path_for('post-admin.edit',{'name':post.post_name}) }}">
-                <i class="fa fa-pencil-square-o"></i>
-                {{ t.trans('Edit post') }}</a>
-        </li>
-    {% endblock %}
-{% endif %}
+
+{% block toolbar %}
+    {% if user_id == post.post_author %}        
+    <li>
+        <a class="" href="{{ path_for('post-admin.edit',{'name':post.post_name}) }}">
+            <i class="fa fa-pencil-square-o"></i>
+            {{ t.trans('Edit post') }}</a>
+    </li>
+    {% else %}
+        {# 使用父block  #}
+        {{ parent() }} 
+    {% endif %}
+{% endblock %}
+
 
 {% block bodyClass %}
     hi-author-bg hi-author-bg-{{ post.post_author }}
