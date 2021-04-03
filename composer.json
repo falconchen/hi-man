@@ -27,7 +27,7 @@
         "slim/flash": "^0.1.0",
         "symfony/translation":"^4.4",
         "monolog/monolog": "^1.13",        
-        "illuminate/database": "^6.20",
+        "illuminate/database": "^6.20.14",
 		"illuminate/pagination": "^6.0",
         "slim/csrf": "^0.5.0",
         "davedevelopment/phpmig": "^1.2",
