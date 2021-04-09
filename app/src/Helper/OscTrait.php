@@ -76,7 +76,7 @@ trait OscTrait {
             $postArr['content'] = '<blockquote style="margin-bottom:8px;background-color: cornsilk;border-left: 8px solid burlywood;">温馨提示：以下内容已加密，请自行解密后查看。</blockquote>';
 
             $postArr['content'] .= base64_encode($post->post_content); // 用base64编码公开的内容
-            $postArr['content'] .= sprintf('<blockquote style="margin-top:8px;background-color: cornsilk;border-left: 8px solid burlywood;">看到这里说明你很懒或者很菜，还好我为你准备了<a href="%s">🔧传送门</a>，不用谢！</blockquote>',$postLink);
+            $postArr['content'] .= sprintf('<blockquote style="margin-top:8px;background-color: cornsilk;border-left: 8px solid burlywood;">看到这里说明你很懒或者很菜，还好我贴心地为你准备了<a href="%s">🔧传送门</a>，不用谢！</blockquote>',$postLink);
             
             
         }
