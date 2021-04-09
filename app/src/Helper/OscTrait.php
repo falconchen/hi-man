@@ -71,9 +71,13 @@ trait OscTrait {
 
         //对公开的内容采用base64编码：
         if (isset($oscSyncOptions['privacy']) && $oscSyncOptions['privacy'] == 0) {
-            $postArr['content'] = base64_encode($post->post_content); // 用base64编码公开的内容
+
             $postLink = rtrim(hiGetSettings('app')['url'],'/'). $this->c->router->pathFor('post',['name'=>$post->post_name]);
-            $postArr['content'] .= sprintf('<blockquote><a href="%s">🔧 解密链接</a></blockquote>',$postLink);
+            $postArr['content'] = sprintf('<blockquote>以下内容已加密，请自行解密或点击<a href="%s">🔧 解密链接</a> 查看</blockquote>',$postLink);
+
+            $postArr['content'] .= base64_encode($post->post_content); // 用base64编码公开的内容
+            
+            
         }
         
 
