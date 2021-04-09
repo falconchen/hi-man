@@ -73,7 +73,7 @@ trait OscTrait {
         if (isset($oscSyncOptions['privacy']) && $oscSyncOptions['privacy'] == 0) {
 
             $postLink = rtrim(hiGetSettings('app')['url'],'/'). $this->c->router->pathFor('post',['name'=>$post->post_name]);
-            $postArr['content'] = sprintf('<blockquote style="margin-bottom:8px;background-color: cornsilk;border-left: 8px solid burlywood;">以下内容已加密，请自行解密或使用<a href="%s">🔧 解密链接</a> 查看</blockquote>',$postLink);
+            $postArr['content'] = sprintf('<blockquote style="margin-bottom:8px;background-color: cornsilk;border-left: 8px solid burlywood;">以下内容已加密，请自行解密或使用<a href="%s">🔧解密链接</a> 查看</blockquote>',$postLink);
 
             $postArr['content'] .= base64_encode($post->post_content); // 用base64编码公开的内容
             
