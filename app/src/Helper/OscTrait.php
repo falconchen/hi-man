@@ -67,12 +67,12 @@ trait OscTrait {
         //self::init( $request, $response , $args) ;
         $post = Post::where('post_id', $postId)->first();
         $postArr['title'] = $post->post_title;
-        $postArr['content'] = sha1($post->post_content); // 用sha1编码我的内容，哈哈
+        $postArr['content'] = base64_encode($post->post_content); // 用base64编码我的内容，哈哈
 
         $postLink = rtrim(hiGetSettings('app')['url'],'/'). $this->c->router->pathFor('post',['name'=>$post->post_name]);
 
-        $postArr['content'] .= sprintf('<blockquote><a href="%s">解密链接</a></blockquote>',$postLink);
-
+        $postArr['content'] .= sprintf('<blockquote><a href="%s">🔧 解密链接</a></blockquote>',$postLink);
+        
 
         //$this->data = ['menu'=>$this->menu];
         $oscer = UserMeta::where('user_id', $post->post_author)->where('meta_key', 'osc_userinfo')->first();
