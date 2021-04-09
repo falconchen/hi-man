@@ -67,11 +67,16 @@ trait OscTrait {
         //self::init( $request, $response , $args) ;
         $post = Post::where('post_id', $postId)->first();
         $postArr['title'] = $post->post_title;
-        $postArr['content'] = base64_encode($post->post_content); // 用base64编码我的内容，哈哈
+        $postArr['content'] = $post->post_content;
 
-        $postLink = rtrim(hiGetSettings('app')['url'],'/'). $this->c->router->pathFor('post',['name'=>$post->post_name]);
+        //对公开的内容采用base64编码：
+        if (isset($oscSyncOptions['privacy']) && $oscSyncOptions['privacy'] == 0) {
+            $postArr['content'] = base64_encode($post->post_content); // 用base64编码公开的内容
+            $postLink = rtrim(hiGetSettings('app')['url'],'/'). $this->c->router->pathFor('post',['name'=>$post->post_name]);
+            $postArr['content'] .= sprintf('<blockquote><a href="%s">🔧 解密链接</a></blockquote>',$postLink);
+        }
+        
 
-        $postArr['content'] .= sprintf('<blockquote><a href="%s">🔧 解密链接</a></blockquote>',$postLink);
         
 
         //$this->data = ['menu'=>$this->menu];
