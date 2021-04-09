@@ -158,10 +158,11 @@ class PubHackerNewsTask extends BaseTaskAbstract
             'classification' => 430381, //其他类型
             'type' => 1,
             'as_top' => 1,
-            'privacy' => 0,
+            'privacy' => 1, //不公开了
             'deny_comment' => 0,
             'downloadImg' => 1,
-            'send_tweet' =>is_null($post->getPostMeta('last_send_tweet')) ? 1 : 0,
+            //'send_tweet' =>is_null($post->getPostMeta('last_send_tweet')) ? 1 : 0,
+            'send_tweet' =>0, //不发送动弹了
             'email_me' =>$isCreate ? 1 : 0,
             'tweet_tmpl' => "看看老外在搞啥【:文章标题:】:OSC链接:"
 
