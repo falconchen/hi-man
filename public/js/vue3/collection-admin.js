@@ -528,7 +528,7 @@ const app = Vue.createApp({
     :style="{backgroundImage:'url('+ cover +')'}" 
     @click="$emit('edit-collection')">
       
-      <div class="inner hi-transparent ">
+      <div class="inner">
         
           <h1>{{title}}</h1>
           <span>{{description}}</span>
@@ -537,7 +537,7 @@ const app = Vue.createApp({
                 Edit
             </slot>
           </div>
-          <a @click.stop="" class="w3-button w3-display-bottom w3-opacity view-collection-posts" target="_blank" :href="link">
+          <a @click.stop="" class="hi-transparent w3-button w3-display-bottom  view-collection-posts" target="_blank" :href="link">
           <slot name="view-posts-text-slot">View Collection Posts</slot>
           </a>  
       </div>
