@@ -158,7 +158,7 @@ class PubHackerNewsTask extends BaseTaskAbstract
             'classification' => 430381, //其他类型
             'type' => 1,
             'as_top' => 1,
-            'privacy' => 1, //不公开了
+            'privacy' => 0, //可以公开，用base64编码了
             'deny_comment' => 0,
             'downloadImg' => 1,
             //'send_tweet' =>is_null($post->getPostMeta('last_send_tweet')) ? 1 : 0,

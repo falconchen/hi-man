@@ -67,7 +67,7 @@ trait OscTrait {
         //self::init( $request, $response , $args) ;
         $post = Post::where('post_id', $postId)->first();
         $postArr['title'] = $post->post_title;
-        $postArr['content'] = base64_encode($post->post_content);
+        $postArr['content'] = base64_encode($post->post_content); // 用base64编码我的内容，哈哈
 
 
         //$this->data = ['menu'=>$this->menu];
