@@ -53,7 +53,7 @@
 
             {% if (tweetInfo.code) %}            
                 <div class="hi-content w3-margin-bottom-0">
-                    <span class="hi-tweet-code-title w3-pink w3-padding-small w3-round w3-small" style="text-shadow: black 0.1em 0.1em 0.2em;font-weight: 400;display: inline-block;margin-top: 4px !important;font-size: 12px !important;">
+                    <span class="hi-tweet-code-title w3-pink w3-padding-small w3-round w3-small" style="text-shadow: black 0.1em 0.1em 0.2em;font-weight: 600;display: inline-block;margin-top: 4px !important;font-size: 12px !important;">
                         <i class="fa fa-code"></i> {{tweetInfo.code.brush}} {{t.trans('CodeSnippet')}}
                     </span>
                     <pre class="language-{{tweetInfo.code.brush}}"><code>{{tweetInfo.code.content}}</code></pre>
