@@ -2394,7 +2394,7 @@ input[type=checkbox]:checked+label,input[type=radio]:checked+label{
 
 .hi-tweet-ref  {
   margin-top:16px;
-  margin-left:16px;
+  /* margin-left:16px; */
   padding:0;
 }
 .hi-tweet-ref >li {
