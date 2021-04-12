@@ -78,10 +78,15 @@ trait OscTrait {
             $postArr['content'] .= base64_encode($post->post_content); // 用base64编码公开的内容
             $postArr['content'] .= sprintf('<blockquote style="margin-top:8px;background-color: cornsilk;border-left: 8px solid burlywood;">
             
-            <p>看到这里说明你很懒或者很菜，还好我贴心地为你准备了<a href="%s">🔧传送门</a>，不用谢！</p>
-            <p>本文在 cc-by-nc-sa 协议发布</p>
-            <p>原文地址：%s</p>            
-            </blockquote>',$postLink,$postLink);
+            <section>原文地址：%s</section>
+            <section>本文在 cc-by-nc-sa 协议发布</section>
+            <ul>
+                <li>您可以复制、发行、展览、表演、放映、广播或通过信息网络传播本作品，但必须署名作者并添加链接到原文。</li>
+                <li>不得为商业目的而使用本作品。</li>
+                <li>仅在遵守与本作品相同的许可条款下，您才能散布由本作品产生的派生作品</li>
+            </ul>
+                        
+            </blockquote>',$postLink);
             
         }
         
