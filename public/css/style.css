@@ -634,10 +634,14 @@ blockquote{
 
 .hi-nav-search-button a:active,.hi-nav-search-button a:hover,.hi-nav-search-button a:focus{
   background-color: transparent;
-  color: #fff;
+  
+  color:#fff;
   
 }
-
+/* 
+.hi-nav-search-button.on a:active,.hi-nav-search-button.on a:hover,.hi-nav-search-button.on a:focus{
+  color:#043448;
+} */
 
 @media screen and (max-width:600px) {
   .hi-hover-blue:hover,.hi-hover-blue:focus {
