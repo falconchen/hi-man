@@ -1726,7 +1726,14 @@ a.nickname,.hi-text-lighter-blue {
 .hi-content table {
   display: block;
   overflow-x: auto;
+  border-collapse: collapse;
+  border-spacing: 1px;
 }
+.hi-content td,.hi-content  th {
+  padding: 4px 8px;
+    border: 1px solid #ddd;
+}
+
 .hi-content li {
   line-height: 2em;
 }
