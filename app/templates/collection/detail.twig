@@ -14,7 +14,7 @@
         {% include 'space-header.twig' with {spaceUser: spaceUser,collections:collections,currentPostType:currentPostType,allowPostTypes:allowPostTypes, c:c,t:t} only %} #}
     <header class="collection collection-{{ collection.collection_id }}">
         <div class="collection-cover-wrap">
-            <div class="hi-dark w3-card-4 collection-cover" style="background-image:url({{ trim_http(collection.media.origin_url) }})"></div>
+            <div class="hi-dark w3-card-4 collection-cover" style="background-image:url({{ trim_http(collection.media.origin_url) | maybeCDN }})"></div>
         </div>
 
         <div class="w3-margin-left detail">

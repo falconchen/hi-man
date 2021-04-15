@@ -71,6 +71,8 @@ class ProjectTwigExtension extends AbstractExtension implements GlobalsInterface
 
             new TwigFilter('pageTranslateUrl',[$this,'pageTranslateUrl'],['is_safe' => ['html'],]),
 
+            new TwigFilter('maybeCDN',[$this,'maybeCDN'],['needs_environment' => true]),
+
         ];
     }
 
@@ -151,6 +153,8 @@ class ProjectTwigExtension extends AbstractExtension implements GlobalsInterface
             }
         }
     }
+
+
 
     //参考：https://twig-extensions.readthedocs.io/en/latest/text.html
     function twig_truncate_filter(Environment $env, $value, $length = 30, $preserve = false, $separator = '...')
@@ -288,6 +292,28 @@ class ProjectTwigExtension extends AbstractExtension implements GlobalsInterface
         }
         return $invert ? "in $count $unit" : "$count $unit ago";
     }
+
+    public function maybeCDN(Environment $env,$url)
+    {
+
+        //$url = '//hi.local.cellmean.com/c/@Falcon/testing';
+        
+        $arr = parse_url($url);
+        if( count($arr) == 1 && isset($arr['path'])) {
+            //  $url= '/media/a/b/'
+            return $this->staticUrl() . $url;
+        }elseif(count($arr) == 2 && isset($arr['host']) && isset($arr['path'])) {
+            //$url = '//hi.local.cellmean.com/c/@Falcon/testing';
+            return str_replace('//'.$arr['host'] , rtrim($this->staticUrl(),'/'),$url);   
+        }else{
+            $arr['scheme'] = $arr['scheme'] ?? '';
+            $arr['host'] = $arr['host'] ?? '';        
+            return str_replace($arr['scheme'].'://'.$arr['host'],rtrim($this->staticUrl(),'/'),$url);
+        }
+        
+        
+    }
+
     public function staticUrl()
     {
         $appSettings = $this->container->get('app');
