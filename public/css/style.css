@@ -2,8 +2,10 @@ html,
 body,.w3-text,p,h1,h2,h3,h4,h5,h6 {
   /* min-height: 100%;   */
   /* font-family: Georgia, 'Times New Roman', Times, 'Songti SC', serif !important;   */
-  font-family: "Helvetica Neue", "Luxi Sans", "DejaVu Sans", Tahoma, "Hiragino Sans GB", STHeiti !important;
-  
+
+  /* font-family: "Helvetica Neue", "Luxi Sans", "DejaVu Sans", Tahoma, "Hiragino Sans GB", STHeiti !important; */
+  font-family: 'JetBrains Mono', -apple-system, 'Hiragino Sans GB', 'MicroSoft YaHei', system-ui, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif !important;
+
   word-break: break-all;
     /* font-family: Georgia, 'Times New Roman', Times, 'Songti SC', serif  !important; */
     
