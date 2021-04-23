@@ -2422,7 +2422,7 @@ input[type=checkbox]:checked+label,input[type=radio]:checked+label{
 #layout-wrap .hi-tweet-ref .tweet-about{
   background-color:#f4f4f4;
   border:none;
-  padding: 24px 20px !important;
+  padding: 24px 16px 24px 40px!important
 }
 
 .portrait img {
