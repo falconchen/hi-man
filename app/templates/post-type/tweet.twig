@@ -31,7 +31,7 @@
             {% if tweetInfo.about %}
             <ul class="hi-comments hi-tweet-comments hi-tweet-ref">				
                     <li class="w3-code w3-padding tweet-about">
-                        <div class="portrait"><i class="fa fa-bold fa-quote-left"></i></div>
+                        
                         <div class="comment-head">
                             <div class="comment-author"> @{{tweetInfo.about.title}}</div>                					
                             <div class="comment-content">{{tweetInfo.about.content|raw }}
@@ -41,7 +41,8 @@
                             {% endif %}
                             
                             </div>
-                        </div>            
+                        </div>  
+                        <div class="portrait"><i class="fa fa-bold fa-quote-right"></i></div>          
                     </li>
 
             </ul>                

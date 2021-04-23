@@ -2415,13 +2415,14 @@ input[type=checkbox]:checked+label,input[type=radio]:checked+label{
   /* margin-left:16px; */
   padding:0;
 }
-.hi-tweet-ref >li {
-  grid-template-columns: 16px auto;
+.hi-tweet-ref>li {
+  grid-template-columns: auto 20px;
 }
 
 #layout-wrap .hi-tweet-ref .tweet-about{
   background-color:#f4f4f4;
   border:none;
+  padding: 24px 20px !important;
 }
 
 .portrait img {
