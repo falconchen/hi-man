@@ -528,11 +528,11 @@ blockquote{
   padding: 20px 40px;
   font-family: PingFangSC-Regular, 'Microsoft Yahei', sans-serif;
 }
-/* blockquote.hi-origin-info{
+blockquote.hi-origin-info{
   background-color: #f6f6f6;
   border-left: 4px solid #0073cc;
-  padding: 8px 16px;
-} */
+  padding: 8px 16px !important;
+} 
 
 .hi-blue {
   color:#fff;
