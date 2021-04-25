@@ -533,6 +533,10 @@ blockquote.hi-origin-info{
   border-left: 4px solid #0073cc;
   padding: 8px 16px !important;
 } 
+.hi-content blockquote.hi-origin-info em {
+  word-break: break-all;
+}
+
 
 .hi-blue {
   color:#fff;
