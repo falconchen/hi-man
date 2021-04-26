@@ -28,7 +28,7 @@ trait OscTrait {
     {
 
         //default sync options
-        $postArr = array(
+        /* $postArr = array(
             'id' => '', //osc的文章id;
             'user_code' => "i17sGbMlA2FhAI5hwcVZCOlzoXkjZ5TT0hGJUN9z",
             'title' => "Title",
@@ -45,7 +45,8 @@ trait OscTrait {
             'isRecommend' => "0",
             'email_me'=>"1",
         );
-
+         */
+        $postArr  = self::getDefaultSyncOptions();
 
         if (empty($oscSyncOptions)) {
             $syncOptions = PostMeta::where(['post_id' => $postId, 'meta_key' => 'osc_sync_options'])->first();
@@ -57,9 +58,9 @@ trait OscTrait {
 
         $postArr = array_merge($postArr, $oscSyncOptions);
 
-        if (!$postArr['classification']) {
+        /* if (!$postArr['classification']) {
             throw new Exception('classification empty');
-        }
+        } */
         if (!$postArr['catalog']) {
             throw new Exception('catalog empty');
         }
@@ -246,11 +247,39 @@ trait OscTrait {
      */
     public static function getDefaultSyncOptions()
     {
-        return [
+      /*   return [
+            "stop_sync"=>0,
             "catalog" => "304044",
             //"classification" => "430381",
             "groups"=>14, // 14 程序人生
-            "type" => "1"
+            "type" => "1",            
+            'as_top' => 0,
+            'privacy' => 0, 
+            'deny_comment' => 0,
+            'downloadImg' => 0,            
+            'send_tweet' =>0, //不发送动弹
+            'email_me' =>0,
+        ];
+ */
+        return [   
+            
+            // 'id' => '', //osc的文章id;
+            'user_code' => "",
+            'title' => "",
+            'content' => "",
+            'content_type' => "4",
+            'catalog' => "0",
+            // 'classification' => "430381", //其他类型
+            "groups"=>14, // 14 程序人生
+            'type' => 1,
+            'origin_url' => "",
+            'privacy' => 0,
+            'deny_comment' => 0,
+            'as_top' => 0,
+            'downloadImg' => 0,
+            'isRecommend' => 0,
+            'email_me'=>0,
+            "stop_sync"=>0,
         ];
     }
 

@@ -413,6 +413,11 @@ final class PostAdminAction extends \App\Helper\LoggedAction
             $this->flash->addMessage('flash', "[success] " . $message);
             $sync =  Input::post('sync');
 
+            //$sync['osc'] = array_merge($this->getStoreSyncOptions($postId),$sync['osc']);
+            
+            $sync['osc']['stop_sync'] = $sync['osc']['stop_sync'] ?? 0;
+            
+            
 
             if ($sync && isset($sync['osc']) && !empty($sync['osc'])) {
 
@@ -428,7 +433,7 @@ final class PostAdminAction extends \App\Helper\LoggedAction
                 $postMeta->meta_value = maybe_serialize($sync['osc']);
                 $postMeta->save();
 
-                if ($post->post_status == 'publish') { //此时提交
+                if ($post->post_status == 'publish' && !$sync['osc']['stop_sync']) { //此时提交
 
                     $syncResult = $this->doSyncPostOsc($postId, $sync['osc']);
                     $this->logger->info('syncResult',[var_export($syncResult,true)]);

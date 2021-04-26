@@ -36,6 +36,16 @@ $(document).ready(function() {
 
   );
 
+  $('#osc-sync-switch').change(
+    function(){
+      if( $('#osc-sync-container').is(":hidden") ){
+        $('#osc-sync-container').fadeIn();
+      }else{
+        $('#osc-sync-container').fadeOut();
+      }
+    }
+  );
+
   //menu
   if ($(".hi-sub-item").hasClass("hi-current")) {
     $(".hi-sub-item")

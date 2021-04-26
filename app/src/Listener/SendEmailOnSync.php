@@ -34,7 +34,7 @@ class SendEmailOnSync extends AbstractListener
                 return;
             }
 
-            if (isset($oscSyncOptions['email_me']) &&  $oscSyncOptions['email_me'] == '0') {
+            if (!isset($oscSyncOptions['email_me']) ||  $oscSyncOptions['email_me'] == '0') {
                 $this->logger->info('syncOptions', $oscSyncOptions);
                 $this->logger->info('skip sending email to user by user settings');
                 return;

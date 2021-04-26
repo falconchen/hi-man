@@ -56,10 +56,18 @@
         {% if oscer %}
         <div class="w3-card-2 w3-section hi-metabox hi-osc-sync-metabox">
             <div class="w3-container w3-white w3-border-bottom w3-border-gray">
-                <h6>OSC同步</h6>
+                <h6>OSC同步
+                <small class="w3-right">
+                <input id="osc-sync-switch" type="checkbox" name="sync[osc][stop_sync]" value="1"                     
+                    {%if storeOptions.stop_sync|default(0) %}checked{% endif %} 
+                    class="w3-check" tabindex="0" />                  
+                    暂停同步
+                    </small>
+                    </h6>
             </div>
             
-            <div class="w3-container ">
+            <div class="w3-container" id="osc-sync-container" {%if storeOptions.stop_sync %} style="display: none;"{%endif%}>
+
                 <div class="w3-section">
                     <label class="w3-label w3-text-grey">文章分类</label>
                     <select name="sync[osc][catalog]" class="w3-select w3-border w3-padding-small"> 
@@ -132,7 +140,7 @@
 
                         <div class="w3-accordion w3-clear ">
                         {% set showSendTweetOptions = storeOptions.send_tweet %}
-                        <input class="w3-accordion-trigger w3-check" data-content-element="#osc-tweet-tmpl,.format-head" type="checkbox" name="sync[osc][send_tweet]" id="sync-osc-send_tweet" value="1" class="w3-check" tabindex="0"  {% if showSendTweetOptions == 1 %} checked="checked" {% endif %}><label for="sync-osc-send_tweet" class="w3-validate"> 同步成功后，发一条动弹 <b class="w3-text-red">新!</b>
+                        <input class="w3-accordion-trigger w3-check" data-content-element="#osc-tweet-tmpl,.format-head" type="checkbox" name="sync[osc][send_tweet]" id="sync-osc-send_tweet" value="1" class="w3-check" tabindex="0"  {% if showSendTweetOptions == 1 %} checked="checked" {% endif %}><label for="sync-osc-send_tweet" class="w3-validate"> 同步成功后，发一条动弹 
                          <strong class="format-head w3-accordion-content {% if showSendTweetOptions %}w3-show{% endif %}">- 格式：</strong>                                                        
                         </label>
                         <div id="osc-tweet-tmpl" class="w3-accordion-content w3-margin-top w3-small {% if showSendTweetOptions %}w3-show{% endif %}">
@@ -143,12 +151,19 @@
                             </div>
                         </div>
                     </div>
+
+                    
+                    <input type="checkbox" name="sync[osc][email_me]" value="1"                     
+                    {%if storeOptions.email_me|default(1) %}checked{% endif %} 
+                    class="w3-check" tabindex="0" />                  
+                    给我发送同步结果邮件
                     
                 </div>
 
             </div>
 
-            <div class="w3-container w3-gray">                                    
+            <div class="w3-hide w3-gray">
+                                       
                     <input type="hidden" name="sync[osc][save_as_default]" value="1" class="w3-check" tabindex="0" >
                     {# <label for="sync[osc][save_as_default]">保存为默认同步选项</label> #}
                      
