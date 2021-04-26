@@ -2,17 +2,23 @@
 
 {% block main %}
 
-<form class="w3-row-padding hi-post-form" method="post" action="{{ c.router.pathFor('post-admin.save') }}">
+<form class="w3-row-padding hi-post-form" method="post" action="{{ c.router.pathFor('post-admin.save') }}" autocomplete="off">
     <input type="hidden" name="force_ignore_errors" class="force_ignore_errors" value="no" />
     
     {{ csrf_inputs() }}
     <div class="w3-col s9 w3-mobile" id="hi-editor-wrapper">
+            
 
             {% if post %}
                 <input type="hidden" name="post_id" value="{{ post.post_id }}" />
             {% endif %}
             <div class="w3-section">
-            <input class="w3-input w3-border hi-post-title-input" type="text" name="post_title" value="{{ post.post_title|default(' ') }}" placeholder="请输入标题" />
+            
+            <input class="w3-input w3-border hi-post-title-input" type="text" name="post_title" value="{{ post.post_title|default('') }}" placeholder="请输入标题"/>
+
+            <input class="fuck-chrome-autofill" style="position: fixed;top:-10000px;left:-10000px; width:5px;" type="text" value="" placeholder="" />
+
+
             </div>
 
             <div class="w3-section">
@@ -57,14 +63,13 @@
         <div class="w3-card-2 w3-section hi-metabox hi-osc-sync-metabox">
             <div class="w3-container w3-white w3-border-bottom w3-border-gray">
                 <h6>OSC同步
-                <small class="w3-right">
-
-                <input id="osc-sync-switch" type="checkbox" name="sync[osc][stop_sync]" value="1"                     
-                    {%if storeOptions.stop_sync|default(0) %}checked=checked{% endif %} 
-                    class="w3-check" tabindex="0" />                  
-                    暂停同步
+                    <small class="w3-right">
+                        
+                        <input  type="checkbox" name="sync[osc][stop_sync]" id="osc-sync-switch" value="1" {%if storeOptions.stop_sync|default(0) %}checked=checked{% endif %} 
+                        class="w3-check" tabindex="0" />                  
+                        <label for="osc-sync-switch">暂停同步</label>
                     </small>
-                    </h6>
+                </h6>
             </div>
             
             <div class="w3-container" id="osc-sync-container" {%if storeOptions.stop_sync %} style="display: none;"{%endif%}>
