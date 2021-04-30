@@ -522,10 +522,13 @@ blockquote{
   line-height: 29px;
   
   border-radius: 2px;
-  border-left: 4px solid #9C9D97;
-  color: #666;
+  /* border-left: 4px solid #9C9D97;
+  color: #666; */
+  border-left: 5px solid #2479CC;
+  color: #334455;
+  
   background-color: #9da7a626; 
-  padding: 20px 40px;
+  padding: 10px 20px;
   font-family: PingFangSC-Regular, 'Microsoft Yahei', sans-serif;
 }
 blockquote.hi-origin-info{
