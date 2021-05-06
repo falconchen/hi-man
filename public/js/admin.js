@@ -462,7 +462,7 @@ tinymce.init({
     function clearStyle() {
       let raw = editor.selection.getContent();
       //console.log(raw)
-      let clear = raw.replace(/ style=\"(.*)\"/gi, '');
+      let clear = raw.replace(/ style=\"(.*?)\"/gi, '');
       //console.log(clear)
       //editor.insertContent( "<code>"+editor.selection.getContent()+"</code>" );
       if(raw != clear) {
