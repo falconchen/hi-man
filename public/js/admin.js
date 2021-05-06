@@ -384,7 +384,7 @@ tinymce.init({
   //    " codesample | responsivefilemanager numlist bullist| undo redo  | styleselect basicDateButton menuDateButton | fullscreen|codeSC  bold italic forecolor  |removeformat link image emoticons  | code  ", //
 
   toolbar:
-    " codesample | responsivefilemanager numlist bullist| undo redo  | styleselect  | fullscreen|codeSC bold |removeformat link image emoticons  | code  ", //
+    " codesample | responsivefilemanager numlist bullist| undo redo  | styleselect  | fullscreen|codeSC bold clearStyle |removeformat link image emoticons  | code  ", //
     
   lists_indent_on_tab: false,
   image_advtab: true, 
@@ -457,6 +457,31 @@ tinymce.init({
     });
 
     editor.addShortcut('Ctrl+C', '', toggleCode );
+
+
+    function clearStyle() {
+      let raw = editor.selection.getContent();
+      //console.log(raw)
+      let clear = raw.replace(/ style=\"(.*)\"/gi, '');
+      //console.log(clear)
+      //editor.insertContent( "<code>"+editor.selection.getContent()+"</code>" );
+      if(raw != clear) {
+        editor.execCommand('mceReplaceContent', false, clear); //去除Style
+      }
+      
+    }
+
+    editor.ui.registry.addButton("clearStyle", {
+      text:"<i class='fa fa-superpowers w3-large w3-text-grey'></i>", //工具栏的按钮图标
+      tooltip: "insert code Element Here",
+      shortcut: 'Ctrl+T',
+      onAction: clearStyle
+    });
+
+    editor.addShortcut('Ctrl+T', '', clearStyle );
+
+
+    
 
 
     /* Helper functions */
