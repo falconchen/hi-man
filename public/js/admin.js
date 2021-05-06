@@ -463,8 +463,8 @@ tinymce.init({
       let raw = editor.selection.getContent();
       //console.log(raw)
       let clear = raw.replace(/ style=\"(.*?)\"/gi, '');
-      let clear = clear.replace(/ class=\"(.*?)\"/gi, '');
-      let clear = clear.replace(/<pre[^>]*>/gi, '<pre class="w3-code">');
+      clear = clear.replace(/ class=\"(.*?)\"/gi, '');
+      clear = clear.replace(/<pre[^>]*>/gi, '<pre class="w3-code">');
       //console.log(clear)
       //editor.insertContent( "<code>"+editor.selection.getContent()+"</code>" );
       if(raw != clear) {        
