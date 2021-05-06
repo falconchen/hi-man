@@ -506,7 +506,7 @@ input.gsc-input,
 }
 
 
-blockquote{
+blockquote,pre.hi-code{
   /* background: #fff3d4;
   border-color: #f6b73c; */
 
@@ -2697,4 +2697,7 @@ a.w3-button:hover,a.w3-button:focus {
 
 .hi-preivew-lable {
   margin-right: 4px;
+}
+a[title="复制代码"]{
+  display: none;
 }
