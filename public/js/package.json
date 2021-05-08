@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "tinymce": "^5.8.0",
+    "tinymce-i18n": "^20.12.25"
+  }
+}

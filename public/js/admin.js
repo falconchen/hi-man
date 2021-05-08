@@ -429,7 +429,7 @@ tinymce.init({
   codesample_global_prismjs: true,
   content_css:"/css/editor.css",
 
-  language_url: "/js/node_modules/tinymce/langs/zh_CN.js",
+  language_url: "/js/node_modules/tinymce-i18n/langs/zh_CN.js",
   //skin: 'oxide-dark'
 
   autosave_interval: "20s",
