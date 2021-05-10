@@ -1491,7 +1491,7 @@ h1, h2, h3, h4, h5, h6 {
   
   margin: 8px 0;
 }
-.hi-content h1,.hi-content h2,.hi-content h3{
+.hi-content h1,.hi-content h2{
   
     padding: 8px 0 !important;
     color: #333 !important;    
@@ -1502,6 +1502,8 @@ h1, h2, h3, h4, h5, h6 {
     line-height: 31.59px;
 }
 
+
+
 .hi-content h1{
   font-size:22px !important;
   
@@ -1509,6 +1511,9 @@ h1, h2, h3, h4, h5, h6 {
 .hi-content h2{
   font-size:20px !important;
   
+}
+.hi-content h3{
+  font-size:17px !important;  
 }
 
 .hi-content h4{
