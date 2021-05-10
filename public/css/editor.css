@@ -24,8 +24,8 @@ p {
 }
 code{
     padding: 0.125rem 0.3125rem 0.0625rem ;
-    color: #c7254e ;
-    background-color: #f8f8f8 ;
+    color: #e83e8c;
+    background: rgba(212,53,159,.03);
     border-radius: 4px ;
 }
 
