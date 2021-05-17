@@ -483,6 +483,37 @@ tinymce.init({
     editor.addShortcut('Ctrl+T', '', clearStyle );
 
 
+    editor.addShortcut('Ctrl+I', '', ()=>{ // 添加代码块
+      let raw = editor.selection.getContent();
+
+      if ( raw.length ) {
+
+        let clear = raw.replace(/<\/?p[^>]*>/gi, '')
+
+        let encoded = clear.replace(/[<>]/g, (a) => {
+          return {
+            '<': '&lt;',            
+            '>': '&gt;'
+
+          }[a]
+        })
+        let wrapped = '<pre class="language-"><code>' + encoded + '</code></pre>';
+        editor.execCommand('mceReplaceContent', false, wrapped);
+      }
+      
+    } );
+
+    editor.addShortcut('Ctrl+L', '', ()=>{ // 添加blockquote
+      let raw = editor.selection.getContent();
+
+      if ( raw.length ) {
+        let wrapped = '<blockquote>' + raw + '</blockquote>';
+        editor.execCommand('mceReplaceContent', false, wrapped);
+      }
+      
+    } );
+
+    
     
 
 
