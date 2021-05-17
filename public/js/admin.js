@@ -497,7 +497,7 @@ tinymce.init({
 
           }[a]
         })
-        let wrapped = '<pre class="language-"><code>' + encoded + '</code></pre>';
+        let wrapped = '<pre class="language-none"><code>' + encoded + '</code></pre>';
         editor.execCommand('mceReplaceContent', false, wrapped);
       }
       
