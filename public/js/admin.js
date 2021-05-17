@@ -414,15 +414,17 @@ tinymce.init({
 		{text: 'JavaScript', value: 'javascript'},
 		{text: 'CSS', value: 'css'},
     { text: 'PHP', value: 'php' },
+    { text: 'Lua', value: 'lua' },
+    {text: 'Python', value: 'python'},
     { text: 'Swift', value: 'swift' },
     { text: 'Golang', value: 'go' },
 		{text: 'Ruby', value: 'ruby'},
-		{text: 'Python', value: 'python'},
+		
 		{text: 'Java', value: 'java'},
 		{text: 'C', value: 'c'},
 		{text: 'C#', value: 'csharp'},
-    { text: 'C++', value: 'cpp' },
-    { text: 'Lua', value: 'lua' }
+    { text: 'C++', value: 'cpp' }
+    
     
    
 	],
