@@ -28,7 +28,10 @@ code{
     background: rgba(212,53,159,.03);
     border-radius: 4px ;
 }
-
+     
+strong {
+  color:#2479cc;
+}
 blockquote {
   -webkit-tap-highlight-color: transparent;
   outline: 0;
