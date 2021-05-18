@@ -236,7 +236,9 @@
     <span class="w3-small  w3-padding-small ">
         <i class="fa fa-heart w3-text-red"></i>
         Powered by
-        <a href="{{ base_url() }}" class="w3-hover-opacity w3-border-bottom hi-text-bisque" target="_blank" style="text-decoration:none;">HiCMS</a>
+
+        {% include '_parts/github.link.twig' %}
+
         &copy; 2019-{{ "now"|date('Y',c.settings.timezone) }}</span>
 </p></strong><div class="w3-tiny w3-opacity w3-margin-bottom">{{ t.trans('Latest commit at') }}
 {{ git_latest().dateString }}</div></footer>{% block modal %}<div class="hi-modal">

@@ -136,7 +136,7 @@
 					<p class="w3-text-grey">
 						<span class="w3-small  w3-padding-small ">
 							<i class="fa fa-heart w3-text-red"></i>
-							Powered by <a href="{{ base_url() }}"  class="w3-hover-opacity w3-border-bottom hi-text-light-dark" target="_blank" style="text-decoration:none;">HiCMS</a> &copy; 2019-{{"now"|date('Y',c.settings.timezone)}}</span>
+							Powered by {% include '_parts/github.link.twig' %} &copy; 2019-{{"now"|date('Y',c.settings.timezone)}}</span>
 					</p>
 				</strong>
                 
