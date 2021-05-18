@@ -1595,6 +1595,7 @@ h1, h2, h3, h4, h5, h6 {
   /* color: rgb(179, 37, 133); */
   color: #e83e8c;
   text-shadow: 0 1px white;
+  overflow-wrap:break-word;
 }
 
 .hi-content .hn-wrap :not(pre)>code {
