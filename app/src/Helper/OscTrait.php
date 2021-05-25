@@ -73,8 +73,8 @@ trait OscTrait {
         
         
 
-        //对公开的内容特殊处理：
-        if (isset($oscSyncOptions['privacy']) && $oscSyncOptions['privacy'] == 0) {
+        //对原创且公开的内容特殊处理：
+        if ( $oscSyncOptions['privacy'] == 0 && $oscSyncOptions['type'] == 1 ) {
 
             $postLink = rtrim(hiGetSettings('app')['url'],'/'). $this->c->router->pathFor('post',['name'=>$post->post_name]);
 
@@ -87,11 +87,12 @@ trait OscTrait {
             $postArr['content'] .= sprintf('<blockquote style="margin-top:8px;background-color: cornsilk;border-left: 8px solid burlywood;">
             
             <section>原文地址：%s</section>
-            <section>本文在 cc-by-nc-sa 协议发布</section>
+            <section>本文在 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-Hans">CC BY-NC-SA 4.0 许可</a>下发布</section>
             <ul>
-                <li>您可以复制、发行、展览、表演、放映、广播或通过信息网络传播本作品，但必须署名作者并添加链接到<a href="%s">原文</a>。</li>
-                <li>不得为商业目的而使用本作品。</li>
-                <li>仅在遵守与本作品相同的许可条款下，您才能散布由本作品产生的派生作品</li>
+                <li><strong>署名</strong> - 您可以复制、发行、展览、表演、放映、广播或通过信息网络传播本作品，但必须<strong>署名作者</strong>并添加链接到<a href="%s">原文地址</a>。</li>
+                <li><strong>非商业性使用</strong> — 您不得将本作品用于商业目的。</li>
+                <li><strong>相同方式共享</strong> — 如果您再混合、转换或者基于本作品进行创作，您必须基于与原先许可协议相同的许可协议 分发您贡献的作品。</li>
+                <li><strong>没有附加限制</strong> — 您不得适用法律术语或者 技术措施 从而限制其他人做许可协议允许的事情</li>
             </ul>
                         
             </blockquote>',$postLink,$postLink);
