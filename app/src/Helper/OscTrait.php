@@ -92,7 +92,7 @@ trait OscTrait {
                 <li><strong>署名</strong> - 您可以复制、发行、展览、表演、放映、广播或通过信息网络传播本作品，但必须<strong>署名作者</strong>并添加链接到<a href="%s">原文地址</a>。</li>
                 <li><strong>非商业性使用</strong> — 您不得将本作品用于商业目的。</li>
                 <li><strong>相同方式共享</strong> — 如果您再混合、转换或者基于本作品进行创作，您必须基于与原先许可协议相同的许可协议 分发您贡献的作品。</li>
-                <li><strong>没有附加限制</strong> — 您不得适用法律术语或者 技术措施 从而限制其他人做许可协议允许的事情</li>
+                
             </ul>
                         
             </blockquote>',$postLink,$postLink);
