@@ -47,6 +47,7 @@ trait OscTrait {
         );
          */
         $postArr  = self::getDefaultSyncOptions();
+        
 
         if (empty($oscSyncOptions)) {
             $syncOptions = PostMeta::where(['post_id' => $postId, 'meta_key' => 'osc_sync_options'])->first();
@@ -56,7 +57,7 @@ trait OscTrait {
             $oscSyncOptions = unserialize($syncOptions->meta_value);
         }
 
-        $postArr = array_merge($postArr, $oscSyncOptions);
+        $postArr = $oscSyncOptions = array_merge($postArr, $oscSyncOptions);
 
         /* if (!$postArr['classification']) {
             throw new Exception('classification empty');
@@ -69,6 +70,8 @@ trait OscTrait {
         $post = Post::where('post_id', $postId)->first();
         $postArr['title'] = $post->post_title;
         $postArr['content'] = $post->post_content;
+        
+        
 
         //对公开的内容特殊处理：
         if (isset($oscSyncOptions['privacy']) && $oscSyncOptions['privacy'] == 0) {
@@ -79,7 +82,7 @@ trait OscTrait {
 
             // $postArr['content'] .= base64_encode($post->post_content); // 用base64编码公开的内容
 
-            $postArr['content'] = $post->post_content;
+            //$postArr['content'] = $post->post_content;
 
             $postArr['content'] .= sprintf('<blockquote style="margin-top:8px;background-color: cornsilk;border-left: 8px solid burlywood;">
             
