@@ -144,8 +144,9 @@ class PubHackerNewsTask extends BaseTaskAbstract
         //     $post->post_content 
         // );
         
-        $postLink = rtrim(hiGetSettings('app')['url'],'/'). $this->c->router->pathFor('post',['name'=>$post->post_name]);
-        $post->post_content .= sprintf('<blockquote class="w3-hide hi-sync-tail">本文由 <a href="%s" target="_blank">HiCMS</a> 自动编译，最后更新时间：<code>%s</code> </blockquote>',$postLink,$this->updateTime);
+        // $postLink = rtrim(hiGetSettings('app')['url'],'/'). $this->c->router->pathFor('post',['name'=>$post->post_name]);
+
+        $post->post_content .= sprintf('<blockquote class="w3-hide hi-sync-tail">本文由 <a href="%s" target="_blank">HiCMS</a> 自动编译，最后更新时间：<code>%s</code> </blockquote>',hiGetSettings('app')['url'],$this->updateTime);
         
         $post->save();
         
