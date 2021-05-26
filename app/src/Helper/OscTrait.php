@@ -86,8 +86,8 @@ trait OscTrait {
 
             $postArr['content'] .= sprintf('<blockquote style="margin-top:8px;background-color: cornsilk;border-left: 8px solid burlywood;">
             
-            <div>原文地址：%s</div>
-            <div>本文在 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-Hans"><code>CC BY-NC-SA 4.0 许可</code></a>下发布</div>
+            <div>原文地址：<a href="%s">%s</a></div>
+            <div>本文在 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-Hans"><strong>CC BY-NC-SA 4.0 许可</strong></a>下发布</div>
             <ul>
                 <li><strong>署名</strong> - 您可以复制、发行、展览、表演、放映、广播或通过信息网络传播本作品，但必须<strong>署名作者</strong>并添加链接到<a href="%s">原文地址</a>。</li>
                 <li><strong>非商业性使用</strong> — 您不得将本作品用于商业目的。</li>
@@ -95,7 +95,7 @@ trait OscTrait {
                 
             </ul>
                         
-            </blockquote>',$postLink,$postLink);
+            </blockquote>',$postLink,$postLink,$postLink);
             
         }
         
