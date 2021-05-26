@@ -3,208 +3,219 @@
 {% set user = c.session.user ? c.session.user : null %}
 {% set currentPath = container.request.getUri.getPath|replace({'/hi-admin/': ''}) %}
 <!DOCTYPE html>
-<html lang="{{c.get('settings').language.html|default('en')}}">
-<head>
-<title>{% block title %}{{t.trans('Dashbard')}}{% endblock %} 
-            {%if  c.request.getParam('page') %}
-			&middot;
-			{% set currentPageNum = c.request.getParam('page') %}
-			{{ t.transChoice('Current Paginate', currentPageNum,{'%count%':currentPageNum} ) }}
-			{% endif %}
-&ndash; HiCMS Admin</title>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-{{ csrf_metas() }}
-{# <link rel="icon" href="{{ static_url() }}/images/hi-logo-v20200703-200.png" sizes="32x32" /> #}
-{% include '_parts/favicon.twig' %}
-{#<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">#}
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
-<link rel="stylesheet" href="{{ static_url() }}/css/w3.min.css?ver={{ git_latest().dateVer }}">
-<link rel="stylesheet" href="{{ static_url() }}/css/prism.css">
-<link rel="stylesheet" href="{{ static_url() }}/css/admin.css?ver={{ git_latest().dateVer }}">
-
-{% block endOfHead %}{% endblock %}
-</head>
-
-<body class="w3-light-grey">
-
-<!-- Top container -->
-<div class="w3-bar w3-top w3-black w3-large hi-dark" style="z-index:4">
-    <button class="w3-bar-item w3-button w3-hide-large w3-hover-none w3-hover-text-light-grey" onclick="w3_open();">☰
-    </button>
-    <a class="w3-button w3-bar-item w3-left" href="{{ base_url() }}/dashboard"><i class="fa fa-home"></i> <strong>{{t.trans('Hi Admin')}}</strong></a>
-    <a class="w3-button w3-bar-item w3-right" href="{{ base_url() }}">{{t.trans('Back to Homepage')}}</a>
-    <a class="w3-button w3-bar-item w3-right" href="{{ base_url() }}/logout">{{t.trans('Logout')}}</a>
-</div>
-
-<!-- Sidebar/menu -->
-<nav class="w3-sidebar w3-collapse w3-white " style="z-index:3;width:300px;" id="mySidebar"><br>
-    <div class="w3-container w3-row">
-        <div class="w3-col s4">
-            <img src="{{ avatar|default('/images/avatar1.png') }}"
-                 class="w3-circle w3-margin-right" style="width:46px">
-        </div>
-        <div class="w3-col s8 w3-bar">
-            <span>{{t.trans('Welcome Back,')}} <strong>{{ c.session.user.username }}</strong></span><br>
-            {#<a href="#" class="w3-bar-item w3-button"><i class="fa fa-envelope"></i></a>#}
-            <a href="#" class="w3-padding-small w3-bar-item w3-button w3-tiny hi-user-info" style=""><i class="fa fa-user"></i> <b>{{t.trans('User Info')}}</b></a>
-            {#<a href="#" class="w3-bar-item w3-button w3-tiny w3-text-green"><i class="fa fa-cog "></i> 连接OSC</a>#}
-            {% if rebind %}
-                
-                <i class="w3-padding-small w3-bar-item  w3-text-red w3-tiny">
-                <i class="fa fa-info "></i> osc登录信息已失效, 如修改了osc密码请重新绑定
-                </i>
+<html lang="{{ c.get('settings').language.html|default('en') }}">
+    <head>
+        <title>
+            {% block title %}
+                {{ t.trans('Dashbard') }}
+            {% endblock %}
+            {% if  c.request.getParam('page') %}
+                &middot;
+                {% set currentPageNum = c.request.getParam('page') %}
+                {{ t.transChoice('Current Paginate', currentPageNum,{'%count%':currentPageNum} ) }}
             {% endif %}
-            <button onclick="document.getElementById('bind-osc-form-wrapper').style.display='block'"
-                    class="w3-padding-small w3-bar-item w3-button w3-tiny {{ oscer ?'w3-text-green':'w3-text-black' }} hi-osc-status">
-                <i class="fa fa-cog "></i> 
-                {% if rebind %}
-                <b class="w3-text-black">重新绑定</b>
-                {% else %}
-                <b>                  
-                {{ oscer ?t.trans('OSC Ready') : t.trans('Not Connected to OSC') }}</b>
-                {% endif %}
-            </button>
+            &ndash; HiCMS Admin</title>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        {{ csrf_metas() }}
+        {# <link rel="icon" href="{{ static_url() }}/images/hi-logo-v20200703-200.png" sizes="32x32" /> #}
+        {% include '_parts/favicon.twig' %}
+        {#<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">#}
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="{{ static_url() }}/css/w3.min.css?ver={{ git_latest().dateVer }}">
+        <link rel="stylesheet" href="{{ static_url() }}/css/prism.min.css">
+        <link rel="stylesheet" href="{{ static_url() }}/css/admin.min.css?ver={{ git_latest().dateVer }}"> {% block endOfHead %}{% endblock %}
+        </head>
 
-        </div>
+        <body
+            class="w3-light-grey">
 
-        {% include 'oscer/bind-osc-form.twig' with {'wrapper_id': 'bind-osc-form-wrapper'} %}
-        {% if c.session.user.group_id < 3 %}
-        <div class="w3-col s12 w3-tiny w3-text-grey w3-opacity w3-right"><b>{{t.trans('Latest commit at')}}</b> {{ git_latest().dateString  }}</div>
-        {% endif %}
+            <!-- Top container -->
+            <div class="w3-bar w3-top w3-black w3-large hi-dark" style="z-index:4">
+                <button class="w3-bar-item w3-button w3-hide-large w3-hover-none w3-hover-text-light-grey" onclick="w3_open();">☰
+                </button>
+                <a class="w3-button w3-bar-item w3-left" href="{{ base_url() }}/dashboard">
+                    <i class="fa fa-home"></i>
+                    <strong>{{ t.trans('Hi Admin') }}</strong>
+                </a>
+                <a class="w3-button w3-bar-item w3-right" href="{{ base_url() }}">{{ t.trans('Back to Homepage') }}</a>
+                <a class="w3-button w3-bar-item w3-right" href="{{ base_url() }}/logout">{{ t.trans('Logout') }}</a>
+            </div>
 
-    </div>
-    
-    <hr>
-    <div class="w3-container">
-        <h5>{{t.trans('Dashboard')}}</h5>
-        
-    </div>
-
-    <div id="hi-admin-menu" class="w3-bar-block">
-        <a href="javascript:;" class="w3-bar-item w3-button w3-padding-16 w3-hide-large w3-dark-grey w3-hover-black"
-           onclick="w3_close()" title="close menu"><i class="fa fa-remove fa-fw"></i>&nbsp; {{t.trans('Close Menu')}}</a>
-
-
-        {% block menu %}
-            
-            {% for item in menu.getUserItems %}
-
-                {% if item.items is not defined %}
-                    <a href="/hi-admin/{{ c.router.pathFor(item.route) }}"
-                       class="w3-bar-item w3-button w3-padding {% if item.current %}w3-blue{% endif %}">
-                        {% if item.icon is not defined %}
-                            <i class="fa fa-cog fa-fw"></i>
-                        {% else %}
-                            <i class="{{ item.icon }}"></i>
-                        {% endif %}
-                        &nbsp; {{ item.label }}
-                    </a>
-                {% else %}
-
-                    <div class="{% if not item.current %}w3-dropdown-hover{% endif %}">
-                        <a class="w3-bar-item w3-button hi-sub-header {% if item.current %}hi-light-dark w3-disable-hover{% endif %}" href="javascript:void(0)">
-                            {% if item.icon is not defined %}
-                                <i class="fa fa-cog fa-fw"></i>
-                            {% else %}
-                                <i class="{{ item.icon }}"></i>
-                            {% endif %}
-                            &nbsp; {{ item.label }}
+            <!-- Sidebar/menu -->
+            <nav class="w3-sidebar w3-collapse w3-white " style="z-index:3;width:300px;" id="mySidebar"><br>
+                <div class="w3-container w3-row">
+                    <div class="w3-col s4">
+                        <img src="{{ avatar|default('/images/avatar1.png') }}" class="w3-circle w3-margin-right" style="width:46px">
+                    </div>
+                    <div class="w3-col s8 w3-bar">
+                        <span>{{ t.trans('Welcome Back,') }}
+                            <strong>{{ c.session.user.username }}</strong>
+                        </span><br>
+                        {#<a href="#" class="w3-bar-item w3-button"><i class="fa fa-envelope"></i></a>#}
+                        <a href="#" class="w3-padding-small w3-bar-item w3-button w3-tiny hi-user-info" style="">
+                            <i class="fa fa-user"></i>
+                            <b>{{ t.trans('User Info') }}</b>
                         </a>
-                        <div class="w3-small {% if not item.current %}w3-dropdown-content{% endif %} w3-card-2  hi-dropdown-content">
-                            {% for sub in item.items %}
-                                
-                                <a class="w3-bar-item w3-button hi-sub-item {% if sub.current %}w3-text-blue  hi-current{% endif %}"                                 
-                                href="{{ c.router.pathFor(sub.route) }}">                                    
-                                    {{ sub.label }}
-                                </a>
-                                
-                            {% endfor %}
-                        </div>
+                        {#<a href="#" class="w3-bar-item w3-button w3-tiny w3-text-green"><i class="fa fa-cog "></i> 连接OSC</a>#}
+                        {% if rebind %}
+
+                            <i class="w3-padding-small w3-bar-item  w3-text-red w3-tiny">
+                                <i class="fa fa-info "></i>
+                                osc登录信息已失效, 如修改了osc密码请重新绑定
+                            </i>
+                        {% endif %}
+                        <button onclick="document.getElementById('bind-osc-form-wrapper').style.display='block'" class="w3-padding-small w3-bar-item w3-button w3-tiny {{ oscer ?'w3-text-green':'w3-text-black' }} hi-osc-status">
+                            <i class="fa fa-cog "></i>
+                            {% if rebind %}
+                                <b class="w3-text-black">重新绑定</b>
+                            {% else %}
+                                <b>
+                                    {{ oscer ?t.trans('OSC Ready') : t.trans('Not Connected to OSC') }}</b>
+                            {% endif %}
+                        </button>
+
                     </div>
 
+                    {% include 'oscer/bind-osc-form.twig' with {'wrapper_id': 'bind-osc-form-wrapper'} %}
+                    {% if c.session.user.group_id < 3 %}
+                        <div class="w3-col s12 w3-tiny w3-text-grey w3-opacity w3-right">
+                            <b>{{ t.trans('Latest commit at') }}</b>
+                            {{ git_latest().dateString }}</div>
+                    {% endif %}
+
+                </div>
+
+                <hr>
+                <div class="w3-container">
+                    <h5>{{ t.trans('Dashboard') }}</h5>
+
+                </div>
+
+                <div id="hi-admin-menu" class="w3-bar-block">
+                    <a href="javascript:;" class="w3-bar-item w3-button w3-padding-16 w3-hide-large w3-dark-grey w3-hover-black" onclick="w3_close()" title="close menu">
+                        <i class="fa fa-remove fa-fw"></i>&nbsp;
+                        {{ t.trans('Close Menu') }}</a>
+
+
+                    {% block menu %}
+
+                        {% for item in menu.getUserItems %}
+
+                            {% if item.items is not defined %}
+                                <a href="/hi-admin/{{ c.router.pathFor(item.route) }}" class="w3-bar-item w3-button w3-padding {% if item.current %}w3-blue{% endif %}">
+                                    {% if item.icon is not defined %}
+                                        <i class="fa fa-cog fa-fw"></i>
+                                    {% else %}
+                                        <i class="{{ item.icon }}"></i>
+                                    {% endif %}
+                                    &nbsp;
+                                    {{ item.label }}
+                                </a>
+                            {% else %}
+
+                                <div class="{% if not item.current %}w3-dropdown-hover{% endif %}">
+                                    <a class="w3-bar-item w3-button hi-sub-header {% if item.current %}hi-light-dark w3-disable-hover{% endif %}" href="javascript:void(0)">
+                                        {% if item.icon is not defined %}
+                                            <i class="fa fa-cog fa-fw"></i>
+                                        {% else %}
+                                            <i class="{{ item.icon }}"></i>
+                                        {% endif %}
+                                        &nbsp;
+                                        {{ item.label }}
+                                    </a>
+                                    <div class="w3-small {% if not item.current %}w3-dropdown-content{% endif %} w3-card-2  hi-dropdown-content">
+                                        {% for sub in item.items %}
+
+                                            <a class="w3-bar-item w3-button hi-sub-item {% if sub.current %}w3-text-blue  hi-current{% endif %}" href="{{ c.router.pathFor(sub.route) }}">
+                                                {{ sub.label }}
+                                            </a>
+
+                                        {% endfor %}
+                                    </div>
+                                </div>
+
+                            {% endif %}
+
+                        {% endfor %}
+
+                    {% endblock %}
+
+                    <div id="hi-footer-wrapper" role="contentinfo">
+
+                        <footer class="w3-container w3-padding-16">
+                            <strong>
+                                <p class="w3-text-grey">
+                                    <span class="w3-small  w3-padding-small ">
+                                        <i class="fa fa-heart w3-text-red"></i>
+                                        Powered by
+                                        {% include '_parts/github.link.twig' %}
+                                        &copy; 2019-{{ "now"|date('Y',c.settings.timezone) }}</span>
+                                </p>
+                            </strong>
+
+                        </footer>
+                    </div>
+                    <!-- #hi-footer-wrapper-->
+
+                </div>
+                <!-- #hi-admin-menu -->
+            </nav>
+
+
+            <!-- Overlay effect when opening sidebar on small screens -->
+            <div class="w3-overlay w3-hide-large w3-animate-opacity" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
+
+            <!-- !PAGE CONTENT! -->
+            <div class="w3-main hi-main-content" style="margin-left:300px;margin-top:43px;height: auto;
+                                            min-height: 100%;
+                                            position: relative;">
+
+                {% if flash %}
+                    <div class="hi-flash-container">
+                        {% for msg in flash %}
+                            <div class="w3-margin w3-panel {{ msg|flash_fmt('class') }} w3-display-container">
+                                <span onclick="this.parentElement.style.display='none'" class="w3-button w3-display-topright w3-text-red" style="top: 8px;right: 8px;">x</span>
+                                <div class="w3-panel ">
+                                    {{ msg|flash_fmt('msg') }}
+                                </div>
+                            </div>
+                        {% else %}
+                            {#非数组#}
+                            <div class="w3-margin w3-panel {{ flash|flash_fmt('class') }} w3-display-container">
+                                <span onclick="this.parentElement.style.display='none'" class="w3-button w3-display-topright w3-text-red" style="top: 8px;right: 8px;">x</span>
+                                <div class="w3-panel">
+                                    {{ flash|flash_fmt('msg') }}
+                                </div>
+
+                            </div>
+                        {% endfor %}
+
+                    </div>
                 {% endif %}
 
-            {% endfor %}
-
-        {% endblock %}
-         
-        <div id="hi-footer-wrapper" role="contentinfo">
-        
-            <footer class="w3-container w3-padding-16">
-                <strong>					
-					<p class="w3-text-grey">
-						<span class="w3-small  w3-padding-small ">
-							<i class="fa fa-heart w3-text-red"></i>
-							Powered by {% include '_parts/github.link.twig' %} &copy; 2019-{{"now"|date('Y',c.settings.timezone)}}</span>
-					</p>
-				</strong>
-                
-            </footer>        
-        </div><!-- #hi-footer-wrapper-->
-        
-    </div><!-- #hi-admin-menu -->
-</nav>
-
-
-<!-- Overlay effect when opening sidebar on small screens -->
-<div class="w3-overlay w3-hide-large w3-animate-opacity" onclick="w3_close()" style="cursor:pointer"
-     title="close side menu" id="myOverlay"></div>
-
-<!-- !PAGE CONTENT! -->
-<div class="w3-main hi-main-content" style="margin-left:300px;margin-top:43px;height: auto;
-    min-height: 100%;    
-    position: relative;">
-
-    {% if flash %}
-        <div class="hi-flash-container">
-        {% for msg in flash %}
-            <div class="w3-margin w3-panel {{ msg|flash_fmt('class') }} w3-display-container">
-              <span onclick="this.parentElement.style.display='none'"
-                    class="w3-button w3-display-topright w3-text-red"
-                    style="top: 8px;right: 8px;">x</span>
-                <div class="w3-panel ">
-                    {{ msg|flash_fmt('msg') }}
-                </div>
-            </div>
-        {% else %}
-            {#非数组#}
-            <div class="w3-margin w3-panel {{ flash|flash_fmt('class') }} w3-display-container">
-                <span onclick="this.parentElement.style.display='none'"
-                      class="w3-button w3-display-topright w3-text-red"
-                      style="top: 8px;right: 8px;">x</span>
-                <div class="w3-panel">
-                    {{ flash|flash_fmt('msg')  }}
-                </div>
+                {% block main %}
+                    &nbsp;
+                {% endblock %}
 
             </div>
-        {% endfor %}
-
-    </div>
-    {% endif %}
-
-    {% block main %}
-    &nbsp;
-    {% endblock %}    
-       
-</div>
-    <!-- End page content -->
+            <!-- End page content -->
+        </body>
+    </html>
 </div>
 
 
 <script>
-    var savePreviewUrl = "{{c.router.pathFor('post-admin.savePreview')}}";
+    var savePreviewUrl = "{{ c.router.pathFor('post-admin.savePreview') }}";
     var currentUser = {
-        id : {{c.session.user.id}},
-        name: "{{c.session.user.username}}",
-        akey:"{{c.hash.akeyGen(c.session.user.id)}}"                
+        id: {{ c.session.user.id }},
+        name: "{{ c.session.user.username }}",
+        akey:"{{ c.hash.akeyGen(c.session.user.id) }}"
     };
-    var siteInfo= {
-        url : "{{c.get('app').url}}"        
-    };
-{%if c.csrf %}
-    var csrf = {{ csrf_json() }}
-{% endif %}
+    var siteInfo = {
+        url: "{{ c.get('app').url }}"
+    };{% if c.csrf %}var csrf = {{ csrf_json() }}
+    {% endif %}
 </script>
 
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@1.12/dist/jquery.min.js"></script>
@@ -214,8 +225,4 @@
 <script src='{{ static_url() }}/js/node_modules/tinymce/tinymce.min.js?v=5.8.0'></script>
 <script src='{{ static_url() }}/js/admin.js?ver={{ git_latest().dateVer }}'></script>
 
-{% block endOfBody %}    
-{% endblock %}
-
-</body>
-</html>
+{% block endOfBody %}{% endblock %}</body></html>

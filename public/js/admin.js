@@ -364,6 +364,9 @@ $(".hi-preview-link").click(function() {
 
 tinymce.init({
   selector: "#hi-editor",
+  body_id : "hi-content",  
+  body_class : "hi-content",
+
   language: "zh_CN",
   //menubar: "edit insert format table tools help",
   toolbar_sticky: true,
@@ -429,7 +432,7 @@ tinymce.init({
    
 	],
   codesample_global_prismjs: true,
-  content_css:"/css/editor.css",
+  content_css:"/css/hi-content.min.css",
 
   language_url: "/js/node_modules/tinymce-i18n/langs/zh_CN.js",
   //skin: 'oxide-dark'
