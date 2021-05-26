@@ -1,6 +1,39 @@
+.hi-content blockquote,
+.hi-content pre.hi-code {
+  /* background: #fff3d4;
+  border-color: #f6b73c; */
+
+  -webkit-tap-highlight-color: transparent;
+  outline: 0px;
+  overflow-wrap: break-word;
+  margin-right: 0px;
+  margin-bottom: 20px;
+  margin-left: 0px;
+
+  border: 0px;
+
+  line-height: 29px;
+
+  border-radius: 2px;
+  /* border-left: 4px solid #9C9D97;
+  color: #666; */
+  border-left: 5px solid #2479cc;
+  color: #334455;
+
+  background-color: #9da7a626;
+  padding: 10px 20px;
+  font-family: PingFangSC-Regular, "Microsoft Yahei", sans-serif;
+}
+.hi-content blockquote.hi-origin-info {
+  background-color: #f6f6f6;
+  border-left: 4px solid #0073cc;
+  padding: 8px 16px !important;
+}
+
 .hi-content blockquote.hi-origin-info em {
   word-break: break-all;
 }
+
 
 .hi-content strong {
   color: #2479cc;
