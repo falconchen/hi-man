@@ -98,12 +98,18 @@
   
 }
 .hi-content h3::before {
+  
+  content: "▎";
+}
+.hi-content h4::before {
   /* content: "‣ "; */
   content: "\f292";
   color: #e83e8c;
   
   margin-right: 6px;
   font-family: "FontAwesome";
+
+  
 } 
 
 .hi-content h4 {
