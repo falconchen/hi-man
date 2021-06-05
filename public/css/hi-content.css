@@ -90,7 +90,11 @@
 }
 .hi-content h2 {    
     font-size: 20px!important;
-    background: linear-gradient(180deg,transparent 60%,#ffca80 0);
+    
+}
+
+.hi-content h2:not(.hn-title) {
+  background: linear-gradient(180deg,transparent 65%,#ffca80 0);
     display: inline-block;
     /* font-weight: 400 !important; */
     border-bottom-width: 0px;
