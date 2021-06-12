@@ -1324,13 +1324,12 @@ body.night {
 }
 .hi-author-bg{
 
-  background-image: url(//www.v2ex.com/static/img/shadow_light.png), url(//static.v2ex.com/tiles/random.jpg)!important;
+  background-image: url(/images/shadow_light.png), url(/images/random.jpg)!important;
     background-repeat: repeat-x, repeat;
     background-size: auto;
 }
 
-.hi-bg-blue,
-.hi-author-bg {
+.hi-bg-blue {
   background-color: #0599d2;
 }
 
