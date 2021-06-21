@@ -6,9 +6,9 @@
     "keywords": ["slim-framework", "skeleton","auth","csfr","eloquent","console","cli-tool","migration","scaffold"],
     "authors": [
         {
-            "name": "Dwi Agus",
-            "email": "dwiagus@cempakaweb.com",
-            "homepage": "http://cempakaweb.com"
+            "name": "Falcon Chen",
+            "email": "me@cellmean.com",
+            "homepage": "https://hi.celllmean.com"
         }
     ],
     "autoload": {
