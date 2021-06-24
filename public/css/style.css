@@ -1278,6 +1278,10 @@ li.hn-item {
   display: inline-block;
 }
 
+.hn-item >a strong {
+  color: #ff6600;
+}
+
 @media (max-width: 480px) {
   .hn-item > p {
     display: block;
