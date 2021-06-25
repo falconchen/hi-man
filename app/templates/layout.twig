@@ -7,10 +7,6 @@
 <!DOCTYPE html>
 <html lang="{{ c.get('settings').language.html|default('en') }}">
     <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        {%block meta%}{% endblock %}
         <title>
             {% block title %}
                 {{ t.tran('A simple and stupid cms') }}
@@ -20,13 +16,19 @@
                 {% set currentPageNum = c.request.getParam('page') %}
                 {{ t.transChoice('Current Paginate', currentPageNum,{'%count%':currentPageNum} ) }}
             {% endif %}
-            - HiCMS</title>
-
-        <link
-        rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css">
+        - HiCMS</title>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="format-detection" content="telephone=no">
+        
+        {%block meta%}{% endblock %}
+        
+        <link rel="dns-prefetch" href="https://cdn.jsdelivr.net" />
+        <link rel="dns-prefetch" href="{{ static_url() }}" />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css">
         {#		<link rel="stylesheet" href="{{ static_url() }}/css/bootstrap-theme.min.css">#}
-        <link
-        rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
         {# <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> #}
 
         <link rel="stylesheet" href="{{ static_url() }}/css/w3.min.css?ver={{ git_latest().dateVer }}">
