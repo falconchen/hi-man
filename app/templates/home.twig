@@ -13,6 +13,31 @@
 {% block content %}
 
     <main class="hi-main">
+
+        {% if postType == 'tweet' %}
+        
+            <div class="w3-section w3-margin-large 3rd-login-div" style="margin-bottom: 36px !important;display:flex">
+
+                <a class="3rdLogin w3-btn w3-round w3-white  w3-padding-large w3-margin-right" style="text-decoration:none;" href="https://www.oschina.net/action/oauth2/authorize?client_id=1q19fXlrCx1S8pHBqSuj&redirect_uri=https%3A%2F%2Fgitee.com%2Fauth%2Foschina%2Fcallback&response_type=code&state=739b47c2b5140e0485bfb86d47f3809c6e73840c4ba0ccb1">
+
+                    <img src="/images/logo/osc.svg" class="socail-logo osc-logo" width="24" />
+
+                    使用 OSChina 帐号登录
+                </a>
+
+                <a class="3rdLogin w3-btn w3-round w3-white  w3-padding-large" style="text-decoration:none;" href="">
+
+                    <img src="/images/logo/social_github.png" class="socail-logo github-logo" width="20" />
+
+                    使用 Github 帐号登录
+                </a>
+
+            </div>
+
+            
+
+        {% endif %}
+
         {% if posts.count() %}
             {% include 'post-list.twig' with { posts: posts,c:c,t:t } only %}
         {% else %}

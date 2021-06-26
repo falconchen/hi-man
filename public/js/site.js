@@ -1,4 +1,12 @@
 $(document).ready(function () {
+
+  $(".3rdLogin").click(function(e) {
+    e.preventDefault(),
+    window.open($(this).attr("href"), "_blank", "toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=600,height=500")
+  })
+
+
+  
   // Automatic fade out after 6 seconds
   window.setTimeout(function () {
     $(".autofadeout").slideUp("slow");
