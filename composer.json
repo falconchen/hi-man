@@ -34,7 +34,7 @@
         "alexgarrett/violin": "^2.2",
         "carlosocarvalho/simple-input": "^1.0",
         "symfony/process": "^3.0",
-        "phpmailer/phpmailer": "^6.1.6",
+        "phpmailer/phpmailer": "^6.5.0",
         "guzzlehttp/guzzle": "~6.0",
         "paquettg/php-html-parser": "^2.1",
         "texthtml/php-lock": "^2.2",
