@@ -11,3 +11,5 @@ vendor/falconchen2/
 *.bak
 /public/test/
 /public/pu/
+/next/
+/projectd/
