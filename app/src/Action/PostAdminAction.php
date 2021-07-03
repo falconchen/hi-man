@@ -487,7 +487,7 @@ final class PostAdminAction extends \App\Helper\LoggedAction
         
         $dom = new \PHPHtmlParser\Dom;
         $dom->load($body, ['whitespaceTextNode' => false]);
-        $catalogDropdownNode = $dom->find('#catalogDropdown');
+        $catalogDropdownNode = $dom->find('.write-card-field-bt');
         
         //$classificationNode = $dom->find('[name=classification]');// 被废弃
 
@@ -513,7 +513,7 @@ final class PostAdminAction extends \App\Helper\LoggedAction
         // foreach ($classificationNodes as $node) {
         //     $html->classifications[] = ['text' => $node->text, 'value' => $node->getAttribute('value')];
         // }
-        $groupItemNodes = $dom->find('.field-groups .menu .item');
+        $groupItemNodes = $dom->find('.groups .menu .item');
         foreach($groupItemNodes as $node) {
             $html->groups[] = ['text' => $node->text, 'value' => $node->getAttribute('data-value')];
         }
