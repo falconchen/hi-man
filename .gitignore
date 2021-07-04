@@ -13,3 +13,4 @@ vendor/falconchen2/
 /public/pu/
 /next/
 /projectd/
+*.log

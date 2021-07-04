@@ -85,7 +85,7 @@ if($data_arr['ecode'] == 1000 && isset($data_arr['data']['list']) && !empty($dat
 
   foreach($valid_items as $valid) {
     $title = $valid['outpName'] ;
-    $content = '最后更新时间:'. substr($valid['outpUpdatedTime'],0,19);
+    $content = '最新发布时间:'. substr($valid['outpUpdatedTime'],0,19);
     bark($title,$content);
     sleep(3);
   }
@@ -94,26 +94,27 @@ if($data_arr['ecode'] == 1000 && isset($data_arr['data']['list']) && !empty($dat
 
 //是否已发送过
 function is_sent($outpName,$outpUpdatedTime,$file=null){
-  return false;
-  $file = is_null($file) ? __DIR__ .'/outpUpdatedTime.json' :$file;
+   
+  $file = is_null($file) ? __DIR__ .'/outpUpdatedTime.log' :$file;
+  $lineTpl = "%s:%s";
+  $line = sprintf($lineTpl,$outpName,$outpUpdatedTime);
+
   if( !is_file($file) ){   
-    $outArr = [$outpName=>$outpUpdatedTime]; 
-    $content = json_encode($outArr,JSON_UNESCAPED_UNICODE);
-    file_put_contents($file,$content);
+    $line = sprintf($lineTpl,$outpName,$outpUpdatedTime);
+    file_put_contents($file,$line.PHP_EOL);
     return false;
   }
-
-  $outArr = json_decode($file,true);
-  if( isset($outArr[$outpName]) && $outArr[$outpName] == $outpUpdatedTime) {
+  
+  $content = file_get_contents($file);
+  if( strpos($content,$line) === false ) {
+    file_put_contents($file,$line.PHP_EOL,FILE_APPEND);
     return false;
   }
-
-  $outArr[$outpName] = $outpUpdatedTime;
-  $content = json_encode($outArr ,JSON_UNESCAPED_UNICODE);
-  file_put_contents($file,$content);
+  
   return true;
 
 }
+
 
 function bark($title,$content,$prefix_url='https://api.day.app/RZG4QjJ3hZ772kzDDPpRxZ'){
   $url = sprintf($prefix_url.'/%s/%s',$title,$content);
