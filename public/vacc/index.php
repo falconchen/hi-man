@@ -67,7 +67,7 @@ if(isset($_GET['debug'])){
   exit ($response);
 }
 
-$keywords = ['福海街道','怀德社康','福永预防保健所','福永街道会堂',];
+$keywords = ['怀德社康','福永预防保健所','福永街道会堂',];
 
 if($data_arr['ecode'] == 1000 && isset($data_arr['data']['list']) && !empty($data_arr['data']['list'])) {
   $items = $data_arr['data']['list'];
