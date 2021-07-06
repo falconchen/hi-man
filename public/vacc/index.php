@@ -85,7 +85,7 @@ if($data_arr['ecode'] == 1000 && isset($data_arr['data']['list']) && !empty($dat
 
   foreach($valid_items as $valid) {
     $title = $valid['outpName'] ;
-    $content = '疫苗：'. trim($valid['corpName']) .' 接种点更新时间：'. substr($valid['outpUpdatedTime'],0,19);
+    $content = '疫苗名称：'. trim($valid['corpName']) .' 放号时间：'. substr($valid['outpUpdatedTime'],0,19);
     bark($title,$content);
     sleep(3);
   }
