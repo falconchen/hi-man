@@ -34,10 +34,10 @@
   word-break: break-all;
 }
 
-
+/* 
 .hi-content strong {
   color: #2479cc;
-}
+} */
 
 .hi-content .hn-title + ol {
   margin-left: 8px;
