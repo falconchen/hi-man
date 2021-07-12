@@ -73,7 +73,7 @@ $app->add(function ($request, $response, $next) {
 			$allow = false;
 			$allowStartWith = [
 				'/p/', '/verify/','/u/','/tweets','/c','/@',
-				'/api/'
+				'/api/','/oauth/',
 			];
 
 			foreach ($allowStartWith as $word) {

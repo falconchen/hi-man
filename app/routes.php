@@ -87,6 +87,15 @@ $app->group(
 );
 
 
+$app->group(
+    '/oauth',
+    function () {
+
+        $this->get('/{platform}', 'App\Action\OauthAction:index')->setName('oauth');
+        $this->get('/redirect/{platform}', 'App\Action\OauthAction:redirect')->setName('oauth.redirect');
+        
+    }
+);
 
 
 $app->group(

@@ -50,6 +50,7 @@ return array(
     'PHPMailer\\PHPMailer\\' => array($vendorDir . '/phpmailer/phpmailer/src'),
     'PHPHtmlParser\\' => array($vendorDir . '/paquettg/php-html-parser/src/PHPHtmlParser'),
     'Monolog\\' => array($vendorDir . '/monolog/monolog/src/Monolog'),
+    'League\\OAuth2\\Client\\' => array($vendorDir . '/league/oauth2-client/src', $vendorDir . '/league/oauth2-github/src'),
     'League\\HTMLToMarkdown\\' => array($vendorDir . '/league/html-to-markdown/src'),
     'League\\Event\\' => array($vendorDir . '/league/event/src'),
     'Illuminate\\Support\\' => array($vendorDir . '/illuminate/support'),

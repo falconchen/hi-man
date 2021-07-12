@@ -703,3 +703,6 @@ function replaceTweetTopic($text,$to='##') {
 
     return str_replace('https://www.oschina.net/tweet-topic/',$to,$text);
 }
+
+
+

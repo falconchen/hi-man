@@ -48,7 +48,8 @@
         "zeuxisoo/slim-whoops": "^0.6",
         "ramsey/uuid": "^4.1",
         "tuupola/slim-jwt-auth": "^3.5",
-        "tuupola/base62": "^2.1"
+        "tuupola/base62": "^2.1",
+        "league/oauth2-github": "^3.0"
     },
 
     "scripts": {
