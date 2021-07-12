@@ -7,7 +7,7 @@
 {% block content %}
 
     <h1 class="hi-form-title w3-pannel w3-xlarge w3-margin-bottom">{{ t.trans('Register') }}</h1>
-
+    {% include "_parts/platform-login-buttons.twig" %} 
     <form action="register" class="w3-container w3-padding-large w3-card-4 hi-form w3-mobile" method="post" autocomplete="off">
         {% if  errors.all() %}
             <ul class="w3-panel w3-note w3-padding hi-error-panel">

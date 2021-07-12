@@ -1849,7 +1849,7 @@ input[type="radio"]:checked + label {
   .register-post-body #layout,
   .login-body #layout,
   .login-post-body #layout {
-    width: 30%;
+    width: 35%;
   }
 }
 

@@ -1,9 +1,28 @@
 $(document).ready(function () {
 
   $(".3rdLogin").click(function(e) {
-    e.preventDefault(),
-    window.open($(this).attr("href"), "_blank", "toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=600,height=500")
+    e.preventDefault();
+    let myPopup =window.open($(this).attr("href"), "platform-login-frame", "toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=600,height=500")
+    
+    //周期性的发送消息
+    setInterval(function(){
+      let message =  new Date().getTime();      
+      //send the message and target URI
+      myPopup.postMessage(message,'*');
+    },1000);
+
+
   })
+
+  window.addEventListener('message',function(event) {
+    //if(event.origin !== 'http://scriptandstyle.com') return;
+    //console.log('received response:  ',event.data);
+    if(event.data == 'reload') {
+      location.reload();
+    }
+  },false);
+
+  
 
 
   

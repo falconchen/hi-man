@@ -1,0 +1,29 @@
+{% extends 'layout.twig' %}
+
+{% block title %}
+    {{ title }}
+{% endblock %}
+
+{% block content %}
+    <div class="w3-content w3-center">
+        <h1>{{ title }}</h1>
+        <h3>{{ t.trans('You can close this page now') }}</虎>   
+    </div>
+{% endblock %}
+
+{% block javascript %}
+<script>
+    
+     window.addEventListener('message',function(event) {
+
+        event.source.postMessage('reload',event.origin);
+        setTimeout(()=>{
+            window.opener = null;
+            window.open('', '_self');
+            window.close();
+        },1500);
+        
+
+    },false);
+</script>
+{% endblock %}

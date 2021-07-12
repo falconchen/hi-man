@@ -249,7 +249,9 @@
     <img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" alt="" class="w3-white full-img"/>
 </a>
 
-<p class="caption"></p></div>{% endblock %}<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@1.12/dist/jquery.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script><script type="text/javascript" src="{{ static_url() }}/js/prism.js?ver={{ git_latest().dateVer }}"></script><script type="text/javascript" src="{{ static_url() }}/js/site.js?ver={{ git_latest().dateVer }}"></script>{% block javascript %}{% endblock %}{# <a href="#" id="scroll-to-top" class="back-to-top"><i class="fa fa-angle-up" aria-hidden="true"></i></a> #}
+<p class="caption"></p></div>{% endblock %}
+{% block javascript %}
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@1.12/dist/jquery.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script><script type="text/javascript" src="{{ static_url() }}/js/prism.js?ver={{ git_latest().dateVer }}"></script><script type="text/javascript" src="{{ static_url() }}/js/site.js?ver={{ git_latest().dateVer }}"></script>{# <a href="#" id="scroll-to-top" class="back-to-top"><i class="fa fa-angle-up" aria-hidden="true"></i></a> #}
 
 {% if c.get('settings').env == 'production' %}
 <script>
@@ -262,5 +264,5 @@ var _hmt = _hmt || [];
 })();
 </script>
 {% endif %}
-
+{% endblock %}
 </body></html>

@@ -8,7 +8,7 @@
 {% block content %}
 <h1 class="hi-form-title w3-pannel w3-xlarge w3-margin-bottom">{{ t.trans('Login') }}</h1>
 
-
+{% include "_parts/platform-login-buttons.twig" %}
 <form class="w3-container w3-padding-large w3-card-4 hi-form w3-mobile" action="login" method="post" autocomplete="off">
 
     {% if  errors.all() %}
@@ -41,4 +41,5 @@
             </div>
         </div>
     </form>
+    
 {% endblock %}

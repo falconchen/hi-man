@@ -176,8 +176,16 @@ final class HomeAction extends \App\Helper\BaseAction
 
     public function login(Request $request, Response $response, $args)
     {
+        if( $this->userId > 0) { 
+            return $this->redirectLoginUser($response);        
+        }
         $this->view->render($response, 'login.twig', ['flash' => $this->flash->getMessage('flash')]);
         return $response;
+    }
+
+    private function redirectLoginUser($response){      
+
+        return $response->withRedirect($this->route->pathFor('homepage'));        
     }
 
     public function loginPost(Request $request, Response $response, $args)
@@ -230,7 +238,9 @@ final class HomeAction extends \App\Helper\BaseAction
 
     public function register(Request $request, Response $response, $args)
     {
-
+        if( $this->userId > 0) { 
+            return $this->redirectLoginUser($response);        
+        }
         $this->view->render($response, 'register.twig', ['flash' => $this->flash->getMessage('flash')]);
         return $response;
     }

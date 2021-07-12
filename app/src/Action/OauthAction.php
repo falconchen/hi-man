@@ -30,6 +30,7 @@ final class OauthAction extends \App\Helper\BaseAction
     }
     public function index(Request $request, Response $response, $args)
     {
+        
         $platform = $args['platform'];
         $provider = $this->getProvider($platform);
 
@@ -142,8 +143,10 @@ final class OauthAction extends \App\Helper\BaseAction
                 $this->session->set($this->auth['group'], $user->group_id);
                 $this->session->set('user', $user);
 
-                $fromPage = $this->route->pathFor('homepage');
-                return $response->withRedirect($fromPage);
+                //$fromPage = $this->route->pathFor('homepage');
+
+                return $this->view->render($response, '_static/close-frame.twig',['title'=>'登录成功']);
+                //return $response->withRedirect($fromPage);
 
             } catch (Exception $e) {
 
